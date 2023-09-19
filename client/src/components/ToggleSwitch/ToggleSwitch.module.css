@@ -1,0 +1,45 @@
+.label {
+    font-weight: 600;
+    color: #1c2e48;
+}
+
+.subtitle {
+    color: #cacaca;
+}
+
+.toggleContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 1rem 0 2rem 0;
+    gap:20px;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) {
+    .toggleContainer {
+    width: 350px;
+    }
+}
+
+/* Para pantallas más grandes o iguales a 992px (lg) */
+@media screen and (min-width: 992px) {
+    .toggleContainer {
+    width: 500px;
+    }
+}
+
+/* Para pantallas más grandes o iguales a 1200px (xl) */
+@media screen and (min-width: 1200px) {
+    .toggleContainer {
+    width: 650px;
+    }
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+    .toggleContainer {
+    width: 750px;
+    }
+}
+

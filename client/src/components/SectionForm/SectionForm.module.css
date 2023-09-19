@@ -1,0 +1,10 @@
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10rem;
+    border-bottom: 3px solid #1c2e48;
+    margin: 0;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem ;
+}

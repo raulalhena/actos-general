@@ -1,0 +1,60 @@
+{
+    "extends": [
+      "eslint-config-next",
+      "plugin:testing-library/react"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+      "indent": [
+        "error",
+        4
+      ],
+      "linebreak-style": 0,
+      "quotes": [
+        "error",
+        "single", 
+        {"allowTemplateLiterals": true}
+      ],
+      "quote-props": [
+        "error",
+        "consistent-as-needed"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
+      "eqeqeq": [
+        "error",
+        "smart"
+      ],
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "array-bracket-spacing": [
+        "error",
+        "always"
+      ],
+      "no-multiple-empty-lines": [
+        "error",
+        {
+          "max": 1
+        }
+      ],
+      "no-mixed-spaces-and-tabs": [
+        "error",
+        "smart-tabs"
+      ],
+      "array-bracket-newline": [
+        "error", "consistent"
+      ],
+      "camelcase": [
+        "error", 
+        { 
+          "properties": "never" 
+        }
+      ],
+      "prefer-arrow-callback": "error"
+    }
+  }
