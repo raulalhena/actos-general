@@ -16,11 +16,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     "indent": [
       "error",
-      "tab"
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
+      4
     ],
     "quotes": [
       "error",

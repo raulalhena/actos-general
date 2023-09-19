@@ -5,7 +5,6 @@ import TextInput from '@/components/TextInput/TextInput';
 import styles from './LogInForm.module.css';
 import ButtonSubmit from '@/components/Button/ButtonSubmit';
 import { LogInProps } from '@/app/interfaces/logInProps';
-import { NextResponse } from 'next/server';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 
