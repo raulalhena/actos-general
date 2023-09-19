@@ -1,7 +1,4 @@
-'use client';
-
 import { useState } from 'react';
-import Image from 'next/image';
 import './ImageUploader.css';
 
 export const ImageUploader = () => {
@@ -60,7 +57,7 @@ export const ImageUploader = () => {
             onDrop={e => handleDrop(e)}
             onDragOver={e => handleDragOver(e)}
         >
-            <p>Drag files here to upload<Image src={previewURL} style={{ objectFit: 'cover', display: imgVisibility }} alt='uploaded' width='300' height='300' /></p>
+            <p>Drag files here to upload<img src={previewURL} style={{ objectFit: 'cover', display: imgVisibility }} alt='uploaded' width='300' height='300' /></p>
             <button onClick={removeImage}>Remove</button>
         </div>
     );

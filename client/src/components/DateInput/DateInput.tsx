@@ -1,4 +1,5 @@
-import { DateInputProps } from '@/app/interfaces/dateInputProps';
+
+import { DateInputProps } from '../../interfaces/dateInputProps';
 import  Style from './DateInput.module.css';
 const DateInput = (props : DateInputProps) => {
    

@@ -1,4 +1,4 @@
-import { TextInputProps } from '@/app/interfaces/textInputProps';
+import { TextInputProps } from '../../interfaces/textInputProps';
 import styles from './TextInput.module.css';
 
 function TextInput(props: TextInputProps) {

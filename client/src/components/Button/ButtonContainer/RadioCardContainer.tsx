@@ -1,8 +1,8 @@
-import ButtonCardRadio from '../Button/ButtonCardRadio';
-import { RadioGroupContainerProps } from '@/app/interfaces/RadioGroupContainerProps';
-import styles from './RadioGroupContainer.module.css';
+import { RadioGroupContainerProps } from '../../../interfaces/RadioGroupContainerProps';
+import ButtonCardRadio from './ButtonCardRadio/ButtonCardRadio';
+import styles from './RadioCardContainer.module.css';
 
-function RadioGroupContainer({
+function RadioCardContainer({
     radioButtons,
     selectedValue,
     label,
@@ -26,4 +26,4 @@ function RadioGroupContainer({
     );
 }
 
-export default RadioGroupContainer;
+export default RadioCardContainer;
