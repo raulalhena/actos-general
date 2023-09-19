@@ -14,9 +14,9 @@ export class Event {
   startTime: String;
   endTime: String;
   timeZone: [String];
-  showStartTime: Number;
-  showEndTime: Number;
-  confirmed: Number;
+  showStartTime: boolean;
+  showEndTime: boolean;
+  confirmed: boolean;
   type: [String];
   mode: [String];
   image: String;
@@ -30,8 +30,8 @@ export class Event {
   contact: String;
   language: [String];
   web: String;
-  visibility: Number;
-  status: Number;
+  visibility: boolean;
+  status: boolean;
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);
