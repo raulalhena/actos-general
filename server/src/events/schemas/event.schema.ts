@@ -1,37 +1,100 @@
-import { Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
+import { User } from 'src/users/entities/user.entity';
 
 export type EventDocument = HydratedDocument<Event>;
 
-Schema();
+@Schema({timestamps: true})
 export class Event {
-  name: String;
-  description: String;
-  tags: [String];
-  category: [String];
-  venue: String;
+  @Prop({ required: [true, 'El nombre del evento es requerido.'] })
+  name: string;
+
+  @Prop({ required: [true, 'La descripción del evento es requerida.'] })
+  description: string;
+
+  @Prop()
+  tags: string[];
+
+  @Prop()
+  category: string;
+
+  @Prop()
+  address: string;
+
+  @Prop({ type: Date, required: [true, 'La fecha del evento es requerida.'] })
   date: Date;
-  startTime: String;
-  endTime: String;
-  timeZone: [String];
-  showStartTime: Number;
-  showEndTime: Number;
-  confirmed: Number;
-  type: [String];
-  mode: [String];
-  image: String;
-  video: String;
-  qr: String;
-  attendees: [String];
-  submitted: [String];
-  capacity: Number;
-  price: Number;
-  payment: [String];
-  contact: String;
-  language: [String];
-  web: String;
-  visibility: Number;
-  status: Number;
+
+  @Prop()
+  startTime: Date;
+
+  @Prop()
+  endTime: Date;
+
+  @Prop()
+  timeZone: string;
+
+  @Prop()
+  showDate: boolean;
+
+  @Prop()
+  showTime: boolean;
+
+  @Prop()
+  type: string;
+
+  @Prop()
+  mode: string;
+
+  @Prop()
+  image: string;
+
+  @Prop()
+  video: string;
+
+  @Prop({default: ""})
+  qrEvent: string;
+
+  @Prop({default: []})
+  qrAttendees: string[];
+
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: User.name }], default: [] })
+  attendees: mongoose.Types.ObjectId[];
+
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: User.name }], default: [] })
+  submitted: mongoose.Types.ObjectId[];
+
+  @Prop()
+  capacity: number;
+
+  @Prop()
+  price: number;
+
+  @Prop()
+  payment: string;
+
+  @Prop()
+  organizedBy: string[];
+
+  @Prop()
+  contactEmail: string;
+
+  @Prop()
+  language: string[];
+
+  @Prop()
+  web: string;
+
+  @Prop({default: false})
+  visibility: boolean;
+
+  @Prop({default: false})
+  status: boolean;
+
+  @Prop()
+  customForm: string;
+
+  @Prop({type: Object})
+  form: Object;
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);

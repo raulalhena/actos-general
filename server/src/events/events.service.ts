@@ -8,8 +8,8 @@ import { Model } from 'mongoose';
 export class EventsService {
   constructor(@InjectModel(Event.name) private eventModel: Model<Event>) {}
 
-  create(createEventDto: CreateEventDto) {
-    return 'This action adds a new event';
+  async create(createEventDto: CreateEventDto) {
+    return await this.eventModel.create(createEventDto);
   }
 
   async findAll() {

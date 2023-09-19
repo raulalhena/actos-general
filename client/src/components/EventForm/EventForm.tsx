@@ -25,33 +25,34 @@ import ProgressTracker from '../ProgressTracker/ProgressTracker';
 const EventForm = () => {
     const [ formData, setFormData ] = useState<EventFormProps>({
         name: '',
-        category: '', // Completar con un valor por defecto
+        category: '',
         tags: [],
         mode: '',
         type: '',
-        address: '', // Completar con un valor por defecto
-        webLink: '', // Completar con un valor por defecto
+        address: '', 
+        webLink: '', 
         date: '',
         startTime: '',
         endTime: '',
         timeZone: '',
-        showStartTime: true,
-        showEndTime: true,
-        confirmed: false, // Completar con un valor por defecto
+        showTime: true,
+        showDate: true,
+        confirmed: false, 
         description: '',
-        web: '', // Completar con un valor por defecto
-        organizedBy: '', // Completar con un valor por defecto
+        web: '', 
+        organizedBy: [], 
         contact: '',
         isPrivate: false,
-        language: 'Español',
-        image: '', // Completar con un valor por defecto
-        video: '', // Completar con un valor por defecto
-        capacity: 0, // Completar con un valor por defecto
-        qr: [],
+        language: '', //Select con checkbox
+        image: '', 
+        video: '', 
+        capacity: 0, 
+        qrEvent: '',
+        qrAttendees: [],
         attendees: [],
         submitted: [],
-        price: 0, // Completar con un valor por defecto
-        payment: '', // Completar con un valor por defecto
+        price: 0, 
+        payment: '', 
         visibility: false,
         status: false
     });
@@ -74,6 +75,7 @@ const EventForm = () => {
 
     // Select
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        
         const { id, value } = event.target;
         setFormData({
             ...formData,
