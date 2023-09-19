@@ -146,6 +146,30 @@ const EventForm = () => {
         onChange: () => handleCapacityChange(container.value),
     }));
 
+    //Toggle Switch
+
+    const handleToggleTimeChange = (checked: boolean) => {
+        setFormData({
+            ...formData,
+            showTime: checked,
+        });
+    };
+
+    const handleToggleDateChange = (checked: boolean) => {
+        setFormData({
+            ...formData,
+            showDate: checked,
+        });
+   
+    };
+
+    const handleToggleIsPrivateChange = (checked: boolean) => {
+        setFormData({
+            ...formData,
+            isPrivate: checked,
+        });
+    };
+
     return (
         <div className={styles.form}>
             <form data-testid="event-form" onSubmit={handleSubmit}>
@@ -258,7 +282,9 @@ const EventForm = () => {
                         <ToggleSwitch
                             id="confirmDate"
                             label="Fecha por confirmar."
-                            subtitle="Si activas el botón, la fecha no se mostrará en el evento."
+                            subtitle="Si activas el botón, la fecha no se mostrará en el evento." 
+                            isChecked={formData.showDate} 
+                            onChange={handleToggleDateChange} 
                         />
                         <br />
                         <Select
@@ -280,7 +306,7 @@ const EventForm = () => {
                             </div>
                             <div className={styles.selectTime}>
                                 <Select
-                                    id="startTime"
+                                    id="finishTime"
                                     label="Hora de Cierre"
                                     options={time}
                                     value={formData.endTime}
@@ -291,8 +317,9 @@ const EventForm = () => {
                         <ToggleSwitch
                             id="confirmTime"
                             label="Horarios por confirmar"
-                            subtitle="Si activas el botón, la información de los horarios no se mostrará en el evento"
-                        />
+                            subtitle="Si activas el botón, la información de los horarios no se mostrará en el evento" 
+                            isChecked={formData.showTime} 
+                            onChange={handleToggleTimeChange}/>
                     </FormField>
                 </SectionForm>
 
@@ -331,15 +358,10 @@ const EventForm = () => {
                             value={formData.contact}
                             onChange={handleInputChange}
                         />
-                        <ToggleSwitch
-                            id="contactInfo"
-                            label="Mostrar públicamente la información de contacto."
-                            subtitle="Si se desactiva, la información de contacto quedará oculta."
-                        />
                     </FormField>
                     <FormField>
                         <Select
-                            id="languageEvent"
+                            id="language"
                             label="Idioma del evento"
                             options={languages}
                             value={formData.language}
@@ -356,6 +378,15 @@ const EventForm = () => {
                     title="3 INSCRIPCIONES Y ENTRADAS"
                     isVisible={isSection3Visible}
                     toggleVisibility={() => setIsSection3Visible(!isSection3Visible)}>
+                    <FormField>
+                        <ToggleSwitch
+                            id="private"
+                            label="El evento es privado"
+                            subtitle="Si activas el botón, el evento sera privado."  
+                            isChecked={formData.isPrivate} 
+                            onChange={handleToggleIsPrivateChange} 
+                        />
+                    </FormField>
                     <FormField>
                         <RadioGroupContainer
                             radioButtons={capacityRadioButtons}
