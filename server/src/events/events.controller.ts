@@ -16,8 +16,9 @@ export class EventsController {
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
-    console.log('file');
-    //   return file.buffer.toJSON();
+      return { 
+          imageUrl: file.path
+      };
   }
 
   @Get()
