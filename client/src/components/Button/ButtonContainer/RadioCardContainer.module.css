@@ -1,6 +1,6 @@
 .radioGroupContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   padding: 20px;
   border-radius: 8px;
   width: 50%;
@@ -8,6 +8,36 @@
 }
 
 .label {
+  padding-left: 1rem;
   font-weight: 600;
   color: #1c2e48;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) { 
+  .radioGroupContainer {
+  width: 350px;
+}
+
+}
+
+/* Para pantallas más grandes o iguales a 992px (lg) */
+@media screen and (min-width: 992px) {
+.radioGroupContainer {
+    width: 500px;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 1200px (xl) */
+@media screen and (min-width: 1200px) {
+  .radioGroupContainer {
+    width: 650px;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+  .radioGroupContainer {
+    width: 750px;
+  }
 }
