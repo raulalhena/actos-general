@@ -3,6 +3,17 @@
     justify-content: flex-end;
 }
 
+.timeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.selectTime select {
+  width: 360px;
+}
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
   .form {
@@ -17,12 +28,30 @@
   .form {
     width: 600px;
   }
+  .selectTime select {
+    width: 248px;
+  }
+  .timeContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+  }
 }
 
 /* Para pantallas más grandes o iguales a 1200px (xl) */
 @media screen and (min-width: 1200px) {
   .form {
     width: 700px;
+  }
+  .selectTime select {
+    width: 370px;
+  }
+  .timeContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
   }
 }
 

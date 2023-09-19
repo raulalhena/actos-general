@@ -19,6 +19,7 @@ import styles from './EventForm.module.css';
 import categories from '../../data/category.json';
 import timeZone from '../../data/timeZone.json';
 import languages from '../../data/languages.json';
+import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
 
 // Form
@@ -207,6 +208,30 @@ const EventForm = () => {
     ** Image Uploader
     **************************************************/
     
+    //Toggle Switch
+
+    const handleToggleTimeChange = (checked: boolean) => {
+        setFormData({
+            ...formData,
+            showTime: checked,
+        });
+    };
+
+    const handleToggleDateChange = (checked: boolean) => {
+        setFormData({
+            ...formData,
+            showDate: checked,
+        });
+   
+    };
+
+    const handleToggleIsPrivateChange = (checked: boolean) => {
+        setFormData({
+            ...formData,
+            isPrivate: checked,
+        });
+    };
+
     return (
         <div className={styles.form}>
             <form data-testid="event-form" onSubmit={handleSubmit}>
@@ -244,7 +269,7 @@ const EventForm = () => {
                             onChange={handleTagsChange}
                             placeHolder="Digite etiquetas y presione Enter"
                         />
-                        <DateInput id='date' name='date' value={formData.date} onChange={handleDateChange} />
+                        
                     </FormField>
 
                     <FormField>
@@ -311,6 +336,19 @@ const EventForm = () => {
                         />
                     </FormField>
                     <FormField>
+                        <DateInput 
+                            id='date' 
+                            name='date' 
+                            value={formData.date} 
+                            onChange={handleDateChange} />
+                        <ToggleSwitch
+                            id="confirmDate"
+                            label="Fecha por confirmar."
+                            subtitle="Si activas el botón, la fecha no se mostrará en el evento." 
+                            isChecked={formData.showDate} 
+                            onChange={handleToggleDateChange} 
+                        />
+                        <br />
                         <Select
                             id="timeZone"
                             label="Zona Horaria"
@@ -318,12 +356,32 @@ const EventForm = () => {
                             value={formData.timeZone}
                             onChange={handleSelectChange}
                         />
-
+                        <div className={styles.timeContainer}>
+                            <div className={styles.selectTime}>
+                                <Select
+                                    id="startTime"
+                                    label="Hora de Inicio"
+                                    options={time}
+                                    value={formData.startTime}
+                                    onChange={handleSelectChange}
+                                />
+                            </div>
+                            <div className={styles.selectTime}>
+                                <Select
+                                    id="finishTime"
+                                    label="Hora de Cierre"
+                                    options={time}
+                                    value={formData.endTime}
+                                    onChange={handleSelectChange}
+                                />
+                            </div>
+                        </div>
                         <ToggleSwitch
-                            id="mySwitch"
-                            label="Cualquiera puede ver los horarios del evento"
-                            subtitle="Si se desactiva, las horas quedarán ocultas"
-                        />
+                            id="confirmTime"
+                            label="Horarios por confirmar"
+                            subtitle="Si activas el botón, la información de los horarios no se mostrará en el evento" 
+                            isChecked={formData.showTime} 
+                            onChange={handleToggleTimeChange}/>
                     </FormField>
                 </SectionForm>
 
@@ -362,15 +420,10 @@ const EventForm = () => {
                             value={formData.contact}
                             onChange={handleInputChange}
                         />
-                        <ToggleSwitch
-                            id="contactInfo"
-                            label="Mostrar públicamente la información de contacto."
-                            subtitle="Si se desactiva, la información de contacto quedará oculta."
-                        />
                     </FormField>
                     <FormField>
                         <Select
-                            id="languageEvent"
+                            id="language"
                             label="Idioma del evento"
                             options={languages}
                             value={formData.language}
@@ -395,6 +448,15 @@ const EventForm = () => {
                     title="3 INSCRIPCIONES Y ENTRADAS"
                     isVisible={isSection3Visible}
                     toggleVisibility={() => setIsSection3Visible(!isSection3Visible)}>
+                    <FormField>
+                        <ToggleSwitch
+                            id="private"
+                            label="El evento es privado"
+                            subtitle="Si activas el botón, el evento sera privado."  
+                            isChecked={formData.isPrivate} 
+                            onChange={handleToggleIsPrivateChange} 
+                        />
+                    </FormField>
                     <FormField>
                         <RadioGroupContainer
                             radioButtons={capacityRadioButtons}

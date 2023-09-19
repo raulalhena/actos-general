@@ -10,14 +10,14 @@ export interface EventFormProps  {
     startTime: string,
     endTime: string,
     timeZone: string,
-    showTime?: boolean,
-    showDate?: boolean,
+    showTime: boolean,
+    showDate: boolean,
     confirmed?: boolean,
     description: string;
     web?: string,
     organizedBy?: string[];
     contact?: string,
-    isPrivate?: boolean;
+    isPrivate: boolean;
     language: string;
     image?: string,
     video?: string,

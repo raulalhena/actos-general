@@ -1,4 +1,5 @@
-import './ImageUploader.css';
+import styles from './ImageUploader.module.css';
+import { PiUploadSimpleLight } from 'react-icons/pi';
 
 interface ImageUploaderProps {
     previewURL: string;
@@ -10,10 +11,22 @@ interface ImageUploaderProps {
 
 export const ImageUploader = ({ previewURL, imgVisibility, removeImage, onDrop, onDragOver }: ImageUploaderProps) => {
 
-    return (   
-        <div style={{ width: '300px' }} className={'drag-drop-zone image-uploader'} onDrop={onDrop} onDragOver={onDragOver}>
-            <p>Drag files here to upload<img src={previewURL} style={{ objectFit: 'cover', display: imgVisibility }} alt='uploaded' width='300' height='300' /></p>
+    return (
+        <div className={styles.uploadImgContainer}>
+            <label className={styles.label} >
+                Imagen
+            </label>
+            <br />
+            <div className={styles.dragDropZone}
+                onDrop={onDrop}
+                onDragOver={onDragOver}
+            >
+                <PiUploadSimpleLight className={styles.icon}/>
+                <p>Arrastra una imagen.<img src={previewURL} style={{ objectFit: 'cover', display: imgVisibility }} alt='uploaded' width='300' height='300' /></p>
+                
+            </div>
             <button onClick={removeImage}>Remove</button>
         </div>
+        
     );
 };
