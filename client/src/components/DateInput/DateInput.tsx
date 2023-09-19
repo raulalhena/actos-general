@@ -5,15 +5,14 @@ const DateInput = (props : DateInputProps) => {
     const { id, name, value, onChange } = props;
 
     return (
-        <>
-            <div>
+        <div className={Style.datecontainer}>
+            <div >
                 <label 
                     className={Style.label}
                     htmlFor="datePicker">
                         Fecha:
                 </label>
             </div>
-            <br />
             <input
                 className={Style.input}
                 type="date"
@@ -22,7 +21,7 @@ const DateInput = (props : DateInputProps) => {
                 value={value}
                 onChange={onChange}
             />
-        </>
+        </div>
     );
 };
 

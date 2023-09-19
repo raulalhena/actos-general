@@ -19,6 +19,7 @@ import styles from './EventForm.module.css';
 import categories from '../../data/category.json';
 import timeZone from '../../data/timeZone.json';
 import languages from '../../data/languages.json';
+import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
 
 // Form
@@ -259,7 +260,7 @@ const EventForm = () => {
                             label="Fecha por confirmar."
                             subtitle="Si activas el botón, la fecha no se mostrará en el evento."
                         />
-
+                        <br />
                         <Select
                             id="timeZone"
                             label="Zona Horaria"
@@ -267,6 +268,22 @@ const EventForm = () => {
                             value={formData.timeZone}
                             onChange={handleSelectChange}
                         />
+                        <div className={styles.timeContainer}>
+                            <Select
+                                id="startTime"
+                                label="Hora de Inicio"
+                                options={time}
+                                value={formData.startTime}
+                                onChange={handleSelectChange}
+                            />
+                            <Select
+                                id="startTime"
+                                label="Hora de Cierre"
+                                options={time}
+                                value={formData.endTime}
+                                onChange={handleSelectChange}
+                            />
+                        </div>
                         <ToggleSwitch
                             id="confirmTime"
                             label="Horarios por confirmar"
