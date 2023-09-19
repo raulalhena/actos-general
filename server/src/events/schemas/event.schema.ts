@@ -1,37 +1,97 @@
-import { Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
+import { User } from 'src/users/entities/user.entity';
 
 export type EventDocument = HydratedDocument<Event>;
 
-Schema();
+Schema({timestamps: true});
 export class Event {
-  name: String;
-  description: String;
-  tags: [String];
-  category: [String];
-  venue: String;
+  @Prop({ required: [true, 'El nombre del evento es requerido.'] })
+  name: string;
+
+  @Prop({ required: [true, 'La descripción del evento es requerida.'] })
+  description: string;
+
+  @Prop()
+  tags: string;
+
+  @Prop()
+  category: string;
+
+  @Prop()
+  address: string;
+
+  @Prop({ type: Date, required: [true, 'La fecha del evento es requerida.'] })
   date: Date;
-  startTime: String;
-  endTime: String;
-  timeZone: [String];
+
+  @Prop()
+  startTime: Date;
+
+  @Prop()
+  endTime: Date;
+
+  @Prop()
+  timeZone: string;
+
+  @Prop()
   showStartTime: boolean;
+
+  @Prop()
   showEndTime: boolean;
+
+  @Prop()
   confirmed: boolean;
-  type: [String];
-  mode: [String];
-  image: String;
-  video: String;
-  qr: String;
-  attendees: [String];
-  submitted: [String];
-  capacity: Number;
-  price: Number;
-  payment: [String];
-  contact: String;
-  language: [String];
-  web: String;
+
+  @Prop()
+  type: string;
+
+  @Prop()
+  mode: string;
+
+  @Prop()
+  image: string;
+
+  @Prop()
+  video: string;
+
+  @Prop()
+  qr: string;
+
+  @Prop({type: mongoose.Schema.Types.ObjectId, ref: User.name})
+  attendees: ObjectId[];
+
+  @Prop({type: mongoose.Schema.Types.ObjectId, ref: User.name})
+  submitted: ObjectId[];
+
+  @Prop()
+  capacity: number;
+
+  @Prop()
+  price: number;
+
+  @Prop()
+  payment: string;
+
+  @Prop()
+  contact: string;
+
+  @Prop()
+  language: string[];
+
+  @Prop()
+  web: string;
+
+  @Prop()
   visibility: boolean;
+
+  @Prop()
   status: boolean;
+
+  @Prop()
+  customForm: string;
+
+  @Prop()
+  form: Object;
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);
