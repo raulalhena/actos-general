@@ -1,5 +1,4 @@
 export interface ButtonCardRadioProps{
-    iconColor: any;
     id: string;
     name : string;
     text: string;

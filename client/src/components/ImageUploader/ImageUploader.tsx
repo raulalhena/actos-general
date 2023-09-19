@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import './ImageUploader.css';
+import styles from './ImageUploader.module.css';
+import { PiUploadSimpleLight } from 'react-icons/pi';
 
 export const ImageUploader = () => {
 
@@ -53,12 +54,21 @@ export const ImageUploader = () => {
     };
 
     return (   
-        <div style={{ width: '300px' }} className={'drag-drop-zone image-uploader'}
-            onDrop={e => handleDrop(e)}
-            onDragOver={e => handleDragOver(e)}
-        >
-            <p>Drag files here to upload<img src={previewURL} style={{ objectFit: 'cover', display: imgVisibility }} alt='uploaded' width='300' height='300' /></p>
+        <div className={styles.uploadImgContainer}>
+            <label className={styles.label} >
+                Imagen
+            </label>
+            <br />
+            <div className={styles.dragDropZone}
+                onDrop={e => handleDrop(e)}
+                onDragOver={e => handleDragOver(e)}
+            >
+                <PiUploadSimpleLight className={styles.icon}/>
+                <p>Arrastra una imagen.<img src={previewURL} style={{ objectFit: 'cover', display: imgVisibility }} alt='uploaded' width='300' height='300' /></p>
+                
+            </div>
             <button onClick={removeImage}>Remove</button>
         </div>
+        
     );
 };

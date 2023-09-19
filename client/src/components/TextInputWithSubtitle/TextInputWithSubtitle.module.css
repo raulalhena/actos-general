@@ -8,7 +8,7 @@
 }
 
 .input {
-  width: 500px;
+  width: 350px;
   height: 40px;
   padding-left: 0.5rem;
   border-radius: 5px;
@@ -35,7 +35,7 @@
 /* Para pantallas más grandes o iguales a 992px (lg) */
 @media screen and (min-width: 992px) {
   .input {
-    width: 350px;
+    width: 500px;
   }
 }
 
