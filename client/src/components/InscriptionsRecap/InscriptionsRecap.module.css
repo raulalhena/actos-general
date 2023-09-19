@@ -1,0 +1,17 @@
+.container {
+  width: fit-content;
+  height: fit-content;
+  border-radius: 12px;
+  border: 1.5px solid rgba(28, 46, 72, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0rem 2.5rem;
+  gap: 6rem;
+  box-shadow: 4px 4px 0 0 #cacaca;
+}
+
+.inscriptions {
+    display: flex;
+    flex-direction: column;
+}

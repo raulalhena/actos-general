@@ -1,5 +1,5 @@
-import ButtonLogIn from '../ButtonLogIn/ButtonLogIn';
-import ButtonSignUp from '../ButtonSignUp/ButtonSignUp';
+import ButtonWhite from '../ButtonWhite/ButtonWhite';
+import ButtonRed from '../ButtonRed/ButtonRed';
 import styles from './NavBar.module.css';
 
 const NavBar = () => {
@@ -7,8 +7,8 @@ const NavBar = () => {
         <div className={styles.container}>
             <div></div>
             <div className={styles.buttonSection}>
-                <ButtonLogIn label="Log In" />
-                <ButtonSignUp label="Sign Up" />
+                <ButtonWhite label="Log In" />
+                <ButtonRed label="Sign Up" />
             </div>
         </div>
     );
