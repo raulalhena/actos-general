@@ -1,6 +1,7 @@
 import { TagsInput } from 'react-tag-input-component';
 import styles from './TagsInput.module.css';
-import { TagsInputProps } from '@/app/interfaces/tagsInputProps';
+import { TagsInputProps } from '../../interfaces/tagsInputProps';
+
 
 const TagsInputComponent = (props: TagsInputProps) => {
 

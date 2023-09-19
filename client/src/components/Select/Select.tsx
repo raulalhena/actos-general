@@ -1,4 +1,4 @@
-import { SelectProps } from '@/app/interfaces/selectProps';
+import { SelectProps } from '../../interfaces/selectProps';
 import styles from './Select.module.css';
 
 function Select(props: SelectProps) {

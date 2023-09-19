@@ -1,5 +1,4 @@
-import React from 'react';
-import { ButtonCardRadioProps } from '@/app/interfaces/buttonCardRadioProps';
+import { ButtonCardRadioProps } from '../../../../interfaces/buttonCardRadioProps';
 import styles from './ButtonCardRadio.module.css';
 import { IoCheckmarkCircleSharp } from 'react-icons/io5';
 

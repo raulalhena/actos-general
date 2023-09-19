@@ -1,13 +1,9 @@
-'use client';
-
-import React, { useState } from 'react';
-import TextInput from '@/components/TextInput/TextInput';
+import { useState } from 'react';
 import styles from './LogInForm.module.css';
-import ButtonSubmit from '@/components/Button/ButtonSubmit';
-import { LogInProps } from '@/app/interfaces/logInProps';
-import { NextResponse } from 'next/server';
-import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { LogInProps } from '../../interfaces/logInProps';
+import ButtonSubmit from '../Button/ButtonSubmit';
+import TextInput from '../TextInput/TextInput';
+
 
 const LogInForm = () => {
     const router = useRouter();

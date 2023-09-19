@@ -1,4 +1,4 @@
-import { TextInputProps } from '@/app/interfaces/textInputProps';
+import { TextInputProps } from '../../interfaces/textInputProps';
 import styles from './TextArea.module.css';
 
 export const TextArea = (props: TextInputProps) => {
