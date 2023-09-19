@@ -1,10 +1,8 @@
-'use client';
-
 import React, { useState } from 'react';
-import TextInput from '@/components/TextInput/TextInput';
 import styles from './SignupForm.module.css';
-import ButtonSubmit from '@/components/Button/ButtonSubmit';
-import { SignupProps } from '@/app/interfaces/signupProps';
+import { SignupProps } from '../../interfaces/signupProps';
+import ButtonSubmit from '../Button/ButtonSubmit';
+import TextInput from '../TextInput/TextInput';
 
 const SignupForm = () => {
     const [ signupData, setSignupData ] = useState<SignupProps>({

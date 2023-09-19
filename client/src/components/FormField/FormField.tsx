@@ -1,4 +1,4 @@
-import { FormFieldProps } from '@/app/interfaces/formFieldProps';
+import { FormFieldProps } from '../../interfaces/formFieldProps';
 import styles from './FormField.module.css';
 
 const FormField = ({ children }:FormFieldProps) => {
