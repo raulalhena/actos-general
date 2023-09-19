@@ -8,6 +8,9 @@
   justify-content: center;
   align-items: center;
   box-shadow: 4px 4px 0 0 #cacaca;
+  gap: 2rem;
+  padding: 1rem;
+  margin: 1rem;
 }
 
 .inscriptions {
@@ -30,16 +33,6 @@
 /* Para pantallas más grandes o iguales a 1400px (xxl) */
 @media screen and (min-width: 1400px) {
   .container {
-    width: fit-content;
-    height: fit-content;
-    border-radius: 12px;
-    border: 1.5px solid rgba(28, 46, 72, 1);
-    display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0rem 2.5rem;
-    gap: 6rem;
-    box-shadow: 4px 4px 0 0 #cacaca;
   }
 }

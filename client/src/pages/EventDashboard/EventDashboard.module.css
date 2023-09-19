@@ -30,6 +30,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 3rem;
+  gap: 2rem;
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */

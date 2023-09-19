@@ -1,17 +1,3 @@
-/* .container {
-  width: 100vw;
-  height: 8rem;
-  border-bottom: 1px solid #000;
-  background: #fff;
-  display: flex;
-  padding: 0.5rem;
-}
-
-.buttonSection {
-  display: flex;
-  gap: 1rem;
-} */
-
 * {
   padding: 0;
   margin: 0;
@@ -52,7 +38,6 @@ a {
 }
 
 @media screen and (max-width: 780px) {
-  /* hamburger */
   .hamburger {
     display: block;
     cursor: pointer;
