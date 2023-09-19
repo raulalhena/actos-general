@@ -5,7 +5,6 @@ import ButtonSubmit from '../Button/ButtonSubmit';
 import TextInput from '../TextInput/TextInput';
 
 const LogInForm = () => {
-    const router = useRouter();
 
     const [ logInData, setLogInData ] = useState<LogInProps>({
         email: '',
