@@ -5,11 +5,13 @@ import LoginPage from './pages/Login/LoginPage';
 import SignupPage from './pages/Signup/SignupPage';
 import HomePage from './pages/Home/HomePage';
 import { Routes, Route } from 'react-router-dom';
+import NavBar from './components/NavBar/NavBar';
 
 function App() {
 
     return (
         <>  
+            <NavBar />
             <Routes >
                 <Route path="/"  element={<HomePage/>} />
                 <Route path="/event" element={<EventPage/>} />

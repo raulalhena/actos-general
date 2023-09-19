@@ -9,17 +9,17 @@ const EventDashboardPage = () => {
             <div className={styles.page}>
                 <section className={styles.top}>
                     <section className={styles.header}>
-                        <div className={styles.headerLeft}>
+                        <div>
                             <section className={styles.title}>
                                 <h1 className={styles.dash}>—</h1>
-                                <h1>Crea tu propio evento</h1>
+                                <h1>Resumen de tu evento</h1>
                             </section>
                             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             </p>
                         </div>
-                        <div className={styles.headerRight}>
+                        <div>
                             <DropdownButton />
                         </div>
                     </section>

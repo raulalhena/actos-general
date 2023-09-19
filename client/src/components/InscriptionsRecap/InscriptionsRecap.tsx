@@ -6,11 +6,9 @@ const InscriptionsRecap = () => {
         <>
             <div className={styles.container}>
                 <section className={styles.inscriptions}>
-                    <h1>
-            0/0
-                        <br />
-                        <h2>Inscripciones</h2>
-                    </h1>
+                    <h1>0/0</h1>
+                    <br />
+                    <h2>Inscripciones</h2>
                 </section>
                 <section>
                     <ButtonWhite label="Mostrar Usuarios Inscritos" />
