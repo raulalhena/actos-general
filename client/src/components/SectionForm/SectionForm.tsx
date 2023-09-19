@@ -1,4 +1,5 @@
-import { SectionFormProps } from '@/app/interfaces/sectionformProps';
+
+import { SectionFormProps } from '../../interfaces/sectionformProps';
 import { ChevronDownIcon } from '../ChevronDownIcon/ChevronDownIcon';
 import styles from './SectionForm.module.css';
 

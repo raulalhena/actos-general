@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Switch from 'react-switch';
 import styles from './ToggleSwitch.module.css';
-import { ToggleSwitchProps } from '@/app/interfaces/toggleSwitchProps';
+import { ToggleSwitchProps } from '../../interfaces/toggleSwitchProps';
 
 const ToggleSwitch = ({ id, label, subtitle }: ToggleSwitchProps) => {
     const [ isChecked, setIsChecked ] = useState(false);
