@@ -269,20 +269,24 @@ const EventForm = () => {
                             onChange={handleSelectChange}
                         />
                         <div className={styles.timeContainer}>
-                            <Select
-                                id="startTime"
-                                label="Hora de Inicio"
-                                options={time}
-                                value={formData.startTime}
-                                onChange={handleSelectChange}
-                            />
-                            <Select
-                                id="startTime"
-                                label="Hora de Cierre"
-                                options={time}
-                                value={formData.endTime}
-                                onChange={handleSelectChange}
-                            />
+                            <div className={styles.selectTime}>
+                                <Select
+                                    id="startTime"
+                                    label="Hora de Inicio"
+                                    options={time}
+                                    value={formData.startTime}
+                                    onChange={handleSelectChange}
+                                />
+                            </div>
+                            <div className={styles.selectTime}>
+                                <Select
+                                    id="startTime"
+                                    label="Hora de Cierre"
+                                    options={time}
+                                    value={formData.endTime}
+                                    onChange={handleSelectChange}
+                                />
+                            </div>
                         </div>
                         <ToggleSwitch
                             id="confirmTime"
