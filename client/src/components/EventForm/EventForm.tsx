@@ -99,11 +99,26 @@ const EventForm = () => {
         });
     };
 
+    // Send Image
+    const sendImage = () => {
+        const imageData = new FormData();
+        imageData.append('image', eventImage);
+        fetch('http://localhost:8000/api/events/upload', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+            body: imageData
+        });
+    };
+
     // Submit Button
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        console.log(formData);
-        fetch('http://localhost:5000/api/events', { 
+
+        sendImage();
+
+        fetch('http://localhost:8000/api/events', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -117,6 +132,7 @@ const EventForm = () => {
     const [ selectedMode, setSelectedMode ] = useState<string>('');
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
+    // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
         console.log(value);
         setSelectedMode(value);
@@ -126,6 +142,7 @@ const EventForm = () => {
         });
     };
 
+    // Capacity Radio Groug handler
     const handleCapacityChange = (value: string) => {
         console.log(value);
         setSelectedCapacity(!selectedCapacity);
@@ -144,6 +161,47 @@ const EventForm = () => {
         checked: selectedMode === container.value,
         onChange: () => handleCapacityChange(container.value),
     }));
+
+    /**************************************************
+    ** Image Uploader
+    ******************/
+
+    //  States
+    const [ previewURL, setPreviewURL ] = useState<string>('');
+    const [ imgVisibility, setImgVisibility ] = useState<string>('none');
+    const [ eventImage, setEventImage ] = useState<any>(null);
+
+    // File Handler
+    const handleFile = (file: any) => {
+        setEventImage(file);
+        setPreviewURL(URL.createObjectURL(file));
+        setImgVisibility('block');
+    };
+
+    // Drop handler
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const file = e.dataTransfer.files[0];
+        e.dataTransfer.clearData();
+        console.log(file);
+        handleFile(file);
+    };
+
+    // Drag Over handler
+    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+    };
+
+    // Image remover
+    const removeImage = () => {
+        e.preventDefault();
+        setPreviewURL('');
+        setImgVisibility('none');
+        setEventImage(null);
+    };
+
+    /**************************/
 
     return (
         <div className={styles.form}>
@@ -316,7 +374,15 @@ const EventForm = () => {
                         />
                     </FormField>
                     <FormField>
-                        <ImageUploader />
+                        <ImageUploader 
+                            id="image"
+                            removeImage={removeImage}
+                            previewURL={previewURL}
+                            imgVisibility={imgVisibility}
+                            onDrop={handleDrop}
+                            onDragOver={handleDragOver}
+                            accept='image/*'
+                        />
                     </FormField>
 
                 </SectionForm>

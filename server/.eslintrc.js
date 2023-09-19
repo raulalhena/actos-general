@@ -24,11 +24,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     "indent": [
       "error",
-      "tab"
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
+      4
     ],
     "quotes": [
       "error",
@@ -60,10 +56,6 @@ module.exports = {
       {
         "max": 1
       }
-    ],
-    "no-mixed-spaces-and-tabs": [
-      "error",
-      "smart-tabs"
     ],
     "array-bracket-newline": [
       "error", "consistent"
