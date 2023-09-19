@@ -10,19 +10,20 @@ export interface EventFormProps  {
     startTime: string,
     endTime: string,
     timeZone: string,
-    showStartTime?: boolean,
-    showEndTime?: boolean,
+    showTime?: boolean,
+    showDate?: boolean,
     confirmed?: boolean,
     description: string;
     web?: string,
-    organizedBy?: string;
+    organizedBy?: string[];
     contact?: string,
     isPrivate?: boolean;
     language: string;
     image?: string,
     video?: string,
     capacity?: number,
-    qr?: string[],
+    qrEvent?: string,
+    qrAttendees?: string[],
     attendees?: string[],
     submitted?: string[],
     price?: number,
