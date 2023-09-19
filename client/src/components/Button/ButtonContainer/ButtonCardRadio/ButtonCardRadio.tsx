@@ -14,7 +14,7 @@ const ButtonCardRadio = (props: ButtonCardRadioProps) => {
                     value={props.value}
                     checked={props.checked}
                 />
-                <span>{props.text}</span>
+                <span className={styles.text}>{props.text}</span>
             </label>
         </div>
     );
