@@ -4,7 +4,6 @@ import { SignupProps } from '../../interfaces/signupProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
 import TextInput from '../TextInput/TextInput';
 
-
 const SignupForm = () => {
     const [ signupData, setSignupData ] = useState<SignupProps>({
         name: '',

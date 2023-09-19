@@ -1,7 +1,4 @@
-
-
-import { useState} from 'react';
-
+import { useState } from 'react';
 import './ImageUploader.css';
 
 export const ImageUploader = () => {

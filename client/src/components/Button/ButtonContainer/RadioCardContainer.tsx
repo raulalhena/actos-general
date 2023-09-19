@@ -1,6 +1,6 @@
 import { RadioGroupContainerProps } from '../../../interfaces/RadioGroupContainerProps';
 import ButtonCardRadio from './ButtonCardRadio/ButtonCardRadio';
-import styles from './RadioGroupContainer.module.css';
+import styles from './RadioCardContainer.module.css';
 
 function RadioCardContainer({
     radioButtons,

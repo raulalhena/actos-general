@@ -3,7 +3,6 @@ import styles from './event.module.css';
 
 const EventPage = () => {
 
-    
     return (
         <>
             <section className={styles.title}>

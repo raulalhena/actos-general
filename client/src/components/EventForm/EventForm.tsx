@@ -1,24 +1,26 @@
-import { useState, ChangeEvent } from "react";
-import { ButtonCardRadioProps } from "../../interfaces/buttonCardRadioProps";
-import { EventFormProps } from "../../interfaces/eventFormProps";
-import ButtonSubmit from "../Button/ButtonSubmit";
-import RadioGroupContainer from "../Button/ButtonContainer/RadioCardContainer";
-import DateInput from "../DateInput/DateInput";
-import FormField from "../FormField/FormField";
-import { ImageUploader } from "../ImageUploader/ImageUploader";
-import SectionForm from "../SectionForm/SectionForm";
-import Select from "../Select/Select";
-import TagsInputComponent from "../TagsInput/TagsInput";
-import { TextArea } from "../TextArea/TextArea";
-import TextInput from "../TextInput/TextInput";
-import TextInputWithSubtitle from "../TextInputWithSubtitle/TextInputWithSubtitle";
-import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
-import modeRadioButtonsContainer from '../../data/modeRadioButtons.json'
-import capacityRadioButtonsContainer from '../../data/capacityRadioButtons.json'
+import { useState, ChangeEvent } from 'react';
+import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
+import { EventFormProps } from '../../interfaces/eventFormProps';
+import ButtonSubmit from '../Button/ButtonSubmit';
+import RadioGroupContainer from '../Button/ButtonContainer/RadioCardContainer';
+import DateInput from '../DateInput/DateInput';
+import FormField from '../FormField/FormField';
+import { ImageUploader } from '../ImageUploader/ImageUploader';
+import SectionForm from '../SectionForm/SectionForm';
+import Select from '../Select/Select';
+import TagsInputComponent from '../TagsInput/TagsInput';
+import { TextArea } from '../TextArea/TextArea';
+import TextInput from '../TextInput/TextInput';
+import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
+import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
+import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
+import capacityRadioButtonsContainer from '../../data/capacityRadioButtons.json';
 import styles from './EventForm.module.css';
-import categories from '../../data/category.json'
-import timeZone from '../../data/timeZone.json'
-import languages from '../../data/languages.json'
+import categories from '../../data/category.json';
+import timeZone from '../../data/timeZone.json';
+import languages from '../../data/languages.json';
+import ProgressTracker from '../ProgressTracker/ProgressTracker';
+
 // Form
 const EventForm = () => {
     const [ formData, setFormData ] = useState<EventFormProps>({
@@ -123,7 +125,7 @@ const EventForm = () => {
     };
 
     const handleCapacityChange = (value: string) => {
-        console.log(value)
+        console.log(value);
         setSelectedCapacity(!selectedCapacity);
     };
 
