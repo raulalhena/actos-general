@@ -34,13 +34,10 @@ export class Event {
   timeZone: string;
 
   @Prop()
-  showStartTime: boolean;
+  showDate: boolean;
 
   @Prop()
-  showEndTime: boolean;
-
-  @Prop()
-  confirmed: boolean;
+  showTime: boolean;
 
   @Prop()
   type: string;
@@ -54,8 +51,11 @@ export class Event {
   @Prop()
   video: string;
 
+  @Prop({default: ""})
+  qrEvent: string;
+
   @Prop({default: []})
-  qr: string[];
+  qrAttendees: string[];
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: User.name }], default: [] })
   attendees: mongoose.Types.ObjectId[];
@@ -73,7 +73,10 @@ export class Event {
   payment: string;
 
   @Prop()
-  contact: string;
+  organizedBy: string[];
+
+  @Prop()
+  contactEmail: string;
 
   @Prop()
   language: string[];

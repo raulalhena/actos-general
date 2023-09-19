@@ -18,9 +18,8 @@ export class CreateEventDto {
     startTime: Date;
     endTime: Date;
     timeZone: string;
-    showStartTime: boolean;
-    showEndTime: boolean;
-    confirmed: boolean;
+    showDate: boolean;
+    showTime: boolean;
     type: string;
     mode: string;
     image: string;
@@ -28,8 +27,9 @@ export class CreateEventDto {
     capacity: number;
     price: number;
     payment: string;
-    contact: string;
-    language: [ string ];
+    organizedBy: string[];
+    contactEmail: string;
+    language: string[];
     web: string;
     visibility: boolean;
     status: boolean;
