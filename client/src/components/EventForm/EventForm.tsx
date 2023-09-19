@@ -100,31 +100,36 @@ const EventForm = () => {
     };
 
     // Send Image
-    const sendImage = () => {
+    const sendImage = async () => {
         const imageData = new FormData();
-        imageData.append('image', eventImage);
-        fetch('http://localhost:8000/api/events/upload', {
+        imageData.append('file', eventImage);
+        const resp = await fetch('http://localhost:8000/api/events/upload', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            },
             body: imageData
+        });
+        const imageResp = await resp.json();
+        setFormData({
+            ...formData,
+            image: imageResp.imageUrl
         });
     };
 
     // Submit Button
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
         sendImage();
 
-        fetch('http://localhost:8000/api/events', { 
+        const resp = await fetch('http://localhost:8000/api/events', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
         });
+        // TO SAVE IN CONTEXT
+        const result = await resp.json();
+        console.log(result);
         // redirección a "detalle del evento"
     };
 
@@ -134,7 +139,6 @@ const EventForm = () => {
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
-        console.log(value);
         setSelectedMode(value);
         setFormData({
             ...formData,
@@ -144,7 +148,6 @@ const EventForm = () => {
 
     // Capacity Radio Groug handler
     const handleCapacityChange = (value: string) => {
-        console.log(value);
         setSelectedCapacity(!selectedCapacity);
     };
 
@@ -184,7 +187,6 @@ const EventForm = () => {
         e.stopPropagation();
         const file = e.dataTransfer.files[0];
         e.dataTransfer.clearData();
-        console.log(file);
         handleFile(file);
     };
 
@@ -201,8 +203,10 @@ const EventForm = () => {
         setEventImage(null);
     };
 
-    /**************************/
-
+    /******************
+    ** Image Uploader
+    **************************************************/
+    
     return (
         <div className={styles.form}>
             <form data-testid="event-form" onSubmit={handleSubmit}>
