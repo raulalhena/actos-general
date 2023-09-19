@@ -1,15 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class EventsService {
+  constructor(@InjectModel(Event.name) private eventModel: Model<Event>) {}
+
   create(createEventDto: CreateEventDto) {
     return 'This action adds a new event';
   }
 
-  findAll() {
-    return `This action returns all events`;
+  async findAll() {
+    return await this.eventModel.find();
   }
 
   findOne(id: number) {
