@@ -4,7 +4,7 @@ import { User } from 'src/users/entities/user.entity';
 
 export type EventDocument = HydratedDocument<Event>;
 
-Schema({timestamps: true});
+@Schema({timestamps: true})
 export class Event {
   @Prop({ required: [true, 'El nombre del evento es requerido.'] })
   name: string;
@@ -13,7 +13,7 @@ export class Event {
   description: string;
 
   @Prop()
-  tags: string;
+  tags: string[];
 
   @Prop()
   category: string;
@@ -54,14 +54,14 @@ export class Event {
   @Prop()
   video: string;
 
-  @Prop()
-  qr: string;
+  @Prop({default: []})
+  qr: string[];
 
-  @Prop({type: mongoose.Schema.Types.ObjectId, ref: User.name})
-  attendees: ObjectId[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: User.name }], default: [] })
+  attendees: mongoose.Types.ObjectId[];
 
-  @Prop({type: mongoose.Schema.Types.ObjectId, ref: User.name})
-  submitted: ObjectId[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: User.name }], default: [] })
+  submitted: mongoose.Types.ObjectId[];
 
   @Prop()
   capacity: number;
@@ -81,16 +81,16 @@ export class Event {
   @Prop()
   web: string;
 
-  @Prop()
+  @Prop({default: false})
   visibility: boolean;
 
-  @Prop()
+  @Prop({default: false})
   status: boolean;
 
   @Prop()
   customForm: string;
 
-  @Prop()
+  @Prop({type: Object})
   form: Object;
 }
 
