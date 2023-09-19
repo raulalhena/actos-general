@@ -1,0 +1,15 @@
+[
+    {
+      "id": "option1",
+      "name": "radioGroup",
+      "text": "Sí",
+      "value": "option1"
+    },
+    {
+      "id": "option2",
+      "name": "radioGroup",
+      "text": "No",
+      "value": "option2"
+    }
+  ]
+  

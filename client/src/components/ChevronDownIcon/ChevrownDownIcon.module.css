@@ -1,0 +1,13 @@
+.downButton {
+  font-size: 20pt;
+  color: #1c2e48;
+}
+
+.downButton:hover, .downButton:active {
+  cursor: pointer;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+

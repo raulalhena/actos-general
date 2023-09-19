@@ -1,0 +1,13 @@
+.radioGroupContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 8px;
+  width: 50%;
+  gap: 2rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #1c2e48;
+}

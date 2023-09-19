@@ -1,0 +1,21 @@
+[
+    {
+      "id": "option1",
+      "name": "radioGroup",
+      "text": "Presencial",
+      "value": "option1"
+    },
+    {
+      "id": "option2",
+      "name": "radioGroup",
+      "text": "Online",
+      "value": "option2"
+    },
+    {
+      "id": "option3",
+      "name": "radioGroup",
+      "text": "Híbrido",
+      "value": "option3"
+    }
+  ]
+  

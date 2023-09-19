@@ -1,0 +1,51 @@
+.label {
+  font-weight: 600;
+  color: #1c2e48;
+}
+
+.input {
+  width: 500px;
+  height: 200px;
+  padding-left: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #cacaca;
+  margin: 1rem 0 2rem 0;
+  font-size: 16px; 
+  transition: border 0.3s ease-in-out;
+}
+
+.input:focus {
+  border: 1.5px solid #1C2E48;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+  outline: none;
+  caret-color: #e15a40 ;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) { 
+  .input {
+  width: 350px;
+}
+
+}
+
+/* Para pantallas más grandes o iguales a 992px (lg) */
+@media screen and (min-width: 992px) {
+  .input {
+    width: 350px;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 1200px (xl) */
+@media screen and (min-width: 1200px) {
+  .input {
+    width: 650px;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+  .input {
+    width: 750px;
+  }
+}

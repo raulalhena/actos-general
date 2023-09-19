@@ -1,0 +1,37 @@
+.tagContainer {
+  width: 350px;
+  margin: 1rem 0 2rem 0;
+}
+
+.label {
+  font-weight: 600;
+  color: #1c2e48;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) {
+  .tagContainer {
+  width: 350px;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 992px (lg) */
+@media screen and (min-width: 992px) {
+  .tagContainer {
+  width: 500px;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 1200px (xl) */
+@media screen and (min-width: 1200px) {
+  .tagContainer {
+  width: 650px;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+  .tagContainer {
+  width: 750px;
+  }
+}
