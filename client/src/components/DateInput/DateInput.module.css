@@ -1,8 +1,51 @@
-.reactDate {
+.input {
     width: 100%;
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
     outline: none;
+    margin: 1rem 0 2rem 0;
+}
+
+
+.label {
+    font-weight: 600;
+    color: #1c2e48;
+}
+
+.input:focus {
+    border-radius: 0.3125rem;
+    border: 1.5px solid #1C2E48!important;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) {
+    .input {
+    width: 350px;
+    }
+}
+
+/* Para pantallas más grandes o iguales a 992px (lg) */
+@media screen and (min-width: 992px) {
+    .input {
+    width: 500px;
+    }
+}
+
+  /* Para pantallas más grandes o iguales a 1200px (xl) */
+@media screen and (min-width: 1200px) {
+    .input {
+    width: 650px;
+    }
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+    .input {
+    width: 750px;
+    }
 }

@@ -182,7 +182,7 @@ const EventForm = () => {
                             onChange={handleTagsChange}
                             placeHolder="Digite etiquetas y presione Enter"
                         />
-                        <DateInput id='date' name='date' value={formData.date} onChange={handleDateChange} />
+                        
                     </FormField>
 
                     <FormField>
@@ -249,6 +249,17 @@ const EventForm = () => {
                         />
                     </FormField>
                     <FormField>
+                        <DateInput 
+                            id='date' 
+                            name='date' 
+                            value={formData.date} 
+                            onChange={handleDateChange} />
+                        <ToggleSwitch
+                            id="confirmDate"
+                            label="Fecha por confirmar."
+                            subtitle="Si activas el botón, la fecha no se mostrará en el evento."
+                        />
+
                         <Select
                             id="timeZone"
                             label="Zona Horaria"
@@ -256,11 +267,10 @@ const EventForm = () => {
                             value={formData.timeZone}
                             onChange={handleSelectChange}
                         />
-
                         <ToggleSwitch
-                            id="mySwitch"
-                            label="Cualquiera puede ver los horarios del evento"
-                            subtitle="Si se desactiva, las horas quedarán ocultas"
+                            id="confirmTime"
+                            label="Horarios por confirmar"
+                            subtitle="Si activas el botón, la información de los horarios no se mostrará en el evento"
                         />
                     </FormField>
                 </SectionForm>
