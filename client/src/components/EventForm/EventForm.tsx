@@ -103,10 +103,16 @@ const EventForm = () => {
 
     // DateInput
     const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setFormData({
-            ...formData,
-            date: e.target.value,
-        });
+        const newDate = e.target.value;
+        const currentDate = new Date().toISOString().split('T')[0];
+        if (newDate >= currentDate) {
+            setFormData({
+                ...formData,
+                date: newDate,
+            });
+        } else {
+            alert('La fecha seleccionada es anterior a la fecha actual');
+        }
     };
 
     // Send Image
