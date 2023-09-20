@@ -14,7 +14,7 @@ function Select(props: SelectProps) {
             </label>
             <br />
             <select className={styles.input} id={id} value={value} onChange={onChange}>
-                <option value=""> Seleciona </option>
+                <option value=''> Seleciona </option>
                 {options.map((option, index) => (
                     <option key={index} value={option}>
                         {option} 

@@ -4,6 +4,7 @@ import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRe
 import styles from './EventDashboard.module.css';
 
 const EventDashboardPage = () => {
+
     return (
         <>
             <div className={styles.page}>
@@ -25,7 +26,7 @@ const EventDashboardPage = () => {
                     </section>
                     <InscriptionsRecap />
                 </section>
-                <EventForm />
+                <EventForm/>
             </div>
         </>
     );

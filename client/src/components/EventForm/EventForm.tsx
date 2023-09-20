@@ -21,12 +21,11 @@ import timeZone from '../../data/timeZone.json';
 import languages from '../../data/languages.json';
 import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
+import { useNavigate } from 'react-router';
 
 // Form
 const EventForm = () => {
-    useEffect(() => {
-        console.log('eventImage ===> ', eventImage);
-    });
+    const navigator = useNavigate();
 
     const [ formData, setFormData ] = useState<EventFormProps>({
         name: '',
@@ -48,7 +47,7 @@ const EventForm = () => {
         organizedBy: [], 
         contact: '',
         isPrivate: false,
-        language: '', //Select con checkbox
+        language: [], //Select con checkbox
         image: '', 
         video: '', 
         capacity: 0
@@ -112,7 +111,9 @@ const EventForm = () => {
     };
 
     // Send Image
-    const sendImage = async () => {
+    const sendImage = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        console.log('image');
         const imageData = new FormData();
         imageData.append('file', eventImage);
         const resp = await fetch('http://localhost:8000/api/events/upload', {
@@ -129,10 +130,7 @@ const EventForm = () => {
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log(formData);
-        console.log('event image', eventImage);
-        if(eventImage !== '') await sendImage();
-        
+
         const resp = await fetch('http://localhost:8000/api/events', { 
             method: 'POST',
             headers: {
@@ -140,10 +138,8 @@ const EventForm = () => {
             },
             body: JSON.stringify(formData)
         });
-        // TO SAVE IN CONTEXT
         const result = await resp.json();
-        console.log(result);
-        // redirección a "detalle del evento"
+        navigator('/eventdashboard', { state: { id: result._id }});
     };
 
     // Button Radio
@@ -211,7 +207,7 @@ const EventForm = () => {
     };
 
     // Image remover
-    const removeImage = (e: React.MouseEventHandler<HTMLButtonElement>) => {
+    const removeImage = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setPreviewURL('');
         setImgVisibility('none');
@@ -459,11 +455,11 @@ const EventForm = () => {
                         <ImageUploader 
                             id="image"
                             removeImage={removeImage}
+                            sendImage={sendImage}
                             previewURL={previewURL}
                             imgVisibility={imgVisibility}
                             onDrop={handleDrop}
                             onDragOver={handleDragOver}
-                            accept='image/*'
                         />
                     </FormField>
 
