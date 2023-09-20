@@ -6,10 +6,6 @@ import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 
-interface EventDashboardProps {
-    id: string;
-}
-
 const EventDashboardPage = () => {
 
     const location = useLocation();
@@ -50,7 +46,7 @@ const EventDashboardPage = () => {
                             <DropdownButton />
                         </div>
                     </section>
-                    <InscriptionsRecap />
+                    {/* <InscriptionsRecap capacity={ eventData.capacity } /> */}
                 </section>
                 <EventDashboardForm eventData={ eventData } />
             </div>
