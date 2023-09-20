@@ -10,24 +10,24 @@ ul {
 
 a {
   text-decoration: none;
-  color: black;
+  color: #1c2e48;
   font-size: 18px;
 }
 
 .navbar {
-  background-color: aliceblue;
-  padding: 10px 20px;
+  background-color: rgb(255, 255, 255);
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 40px;
   min-height: 70px;
   margin-bottom: 5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
-  font-size: 30px;
-  font-family: Arial, Helvetica, sans-serif;
+  width: 150px;
 }
 
 .navMenu {
@@ -37,14 +37,20 @@ a {
   gap: 60px;
 }
 
-@media screen and (max-width: 780px) {
+.navLink {
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #1c2e48;
+}
+
+@media screen and (max-width: 768px) {
   .hamburger {
     display: block;
     cursor: pointer;
   }
 
   .bar {
-    background-color: #120f0b;
+    background-color:  #1c2e48;
     width: 20px;
     height: 3px;
     display: block;
@@ -67,13 +73,12 @@ a {
     position: absolute;
     flex-direction: column;
     gap: 0;
-    top: 70px;
+    top: 7rem;
     left: -100%;
-    text-align: start;
     width: 100%;
     transition: 0.7s ease-in-out;
-    background-color: aliceblue;
-    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .navMenu.active {
@@ -81,6 +86,9 @@ a {
   }
 
   .navMenu li {
-    margin: 16px 0;
+    margin: 1.5rem 0;
+    width: 500px;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e2e2;
   }
 }

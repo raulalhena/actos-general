@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './Navbar.module.css';
+import Logo from '../../assets/logo.png';
 
 function Navbar() {
     // adding the states
@@ -18,14 +19,10 @@ function Navbar() {
     return (
         <>
             <nav className={styles.navbar}>
-                <a href="/home">Nous Cims </a>
-
+                <a href="/home" onClick={removeActive}>
+                    <img src={Logo} className={styles.logo} alt="Logo" />
+                </a>
                 <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>
-                    <li onClick={removeActive}>
-                        <a href="/home" className={styles.navLink}>
-              Inicio
-                        </a>
-                    </li>
                     <li onClick={removeActive}>
                         <a href="/myevents" className={styles.navLink}>
               Mis eventos
