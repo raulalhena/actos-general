@@ -252,20 +252,33 @@ const EventForm = () => {
 
     const [ isSection1Complete, setIsSection1Complete ] = useState(false);
     const [ isSection2Complete, setIsSection2Complete ] = useState(false);
+    const [ isSection3Complete, setIsSection3Complete ] = useState(false);
 
-    const isSectionComplete = (sectionData: any) => {
-        return (
-            sectionData.name !== ''
-        );
+    const isSection1CompleteCheck = (sectionData: any) => {
+        return sectionData.name !== '';
     };
 
+    const isSection2CompleteCheck = (sectionData: any) => {
+        // Check if all required fields in Section 2 are filled
+        return sectionData.description !== '';
+    };
+
+    // const isSection3CompleteCheck = (sectionData: any) => {
+    //     // Check if all required fields in Section 2 are filled
+    //     return sectionData.description !== '';
+    // };
+
     useEffect(() => {
-        setIsSection1Complete(isSectionComplete(formData));
+        setIsSection1Complete(isSection1CompleteCheck(formData));
     }, [ formData ]);
 
     useEffect(() => {
-        setIsSection2Complete(isSectionComplete(formData));
+        setIsSection2Complete(isSection2CompleteCheck(formData));
     }, [ formData ]);
+
+    // useEffect(() => {
+    //     setIsSection3Complete(isSection3CompleteCheck(formData));
+    // }, [ formData ]);
 
     return (
         <div className={styles.form}>
@@ -533,6 +546,7 @@ const EventForm = () => {
                     isSection3Visible={isSection3Visible}
                     isSection1Complete={isSection1Complete}
                     isSection2Complete={isSection2Complete}
+                    isSection3Complete={isSection3Complete}
                 />
             </form>
         </div>
