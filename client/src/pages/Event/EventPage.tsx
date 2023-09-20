@@ -4,7 +4,7 @@ import styles from './event.module.css';
 const EventPage = () => {
 
     return (
-        <>
+        <>  
             <section className={styles.title}>
                 <h1 className={styles.dash}>—</h1>
                 <h1>Crea tu propio evento</h1>

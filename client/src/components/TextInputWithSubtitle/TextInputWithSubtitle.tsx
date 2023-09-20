@@ -23,7 +23,9 @@ function TextInputWithSubtitle(props: TextInputWithSubtitleProps) {
                 maxLength={maxLength}
                 value={value}
                 onChange={onChange}
-                className={styles.input}            />
+                className={styles.input}
+                required={props.required}
+            />
         </div>
         
     );
