@@ -1,7 +1,7 @@
 import { ButtonSubmitProps } from '../../interfaces/buttonSubmitProps';
-import styles from './ButtonSignUp.module.css';
+import styles from './ButtonRed.module.css';
 
-const ButtonSignUp = ({ label }: ButtonSubmitProps) => {
+const ButtonRed = ({ label }: ButtonSubmitProps) => {
     return (
         <div className={styles.container}>
             <button className={styles.button} type="submit">
@@ -11,4 +11,4 @@ const ButtonSignUp = ({ label }: ButtonSubmitProps) => {
     );
 };
 
-export default ButtonSignUp;
+export default ButtonRed;
