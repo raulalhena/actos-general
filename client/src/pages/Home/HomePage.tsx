@@ -1,10 +1,10 @@
-import styles from './page.module.css';
+import HomePageHeader from '../../components/HomePageHeader/HomePageHeader';
 
 const HomePage = () => {
     return (
-        <div>
-            HOME
-        </div>
+        <>
+            <HomePageHeader />
+        </>
     );
 };
 
