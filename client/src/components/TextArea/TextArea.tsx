@@ -6,7 +6,7 @@ export const TextArea = (props: TextInputProps) => {
 
     return (
         
-        <div>
+        <div className={styles.textContainer}>
             <label className={styles.label}
                 htmlFor={id}>{label}
             </label>

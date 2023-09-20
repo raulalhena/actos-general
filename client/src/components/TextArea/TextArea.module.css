@@ -1,10 +1,11 @@
+
 .label {
   font-weight: 600;
   color: #1c2e48;
 }
 
 .input {
-  width: 500px;
+  width: 350px;
   height: 200px;
   padding-left: 0.5rem;
   border-radius: 5px;
@@ -21,6 +22,13 @@
   caret-color: #e15a40 ;
 }
 
+.input::placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.5rem;
+}
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) { 
   .input {
@@ -32,7 +40,7 @@
 /* Para pantallas más grandes o iguales a 992px (lg) */
 @media screen and (min-width: 992px) {
   .input {
-    width: 350px;
+    width: 500px;
   }
 }
 

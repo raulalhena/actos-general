@@ -1,0 +1,72 @@
+.uploadImgContainer {
+    margin: 1rem 0 2rem 0;
+
+}
+
+.label {
+    font-weight: 600;
+    color: #1c2e48;
+}
+
+.dragDropZone {
+    width: 350px;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    border: 2px dotted #cacaca;
+    margin: 1rem 0 2rem 0;
+}
+
+.icon {
+    width: 24px;
+    height:24px;
+    color: #CACACA;
+}
+
+p {
+    color: #CACACA;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) { 
+    .dragDropZone {
+    width: 350px;
+}
+
+}
+
+/* Para pantallas más grandes o iguales a 992px (lg) */
+@media screen and (min-width: 992px) {
+    .dragDropZone {
+    width: 500px;
+  }
+}
+
+ /* Para pantallas más grandes o iguales a 1200px (xl) */
+  @media screen and (min-width: 1200px) {
+    .dragDropZone {
+    width: 580px;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+  .dragDropZone {
+    width: 680px;
+  }
+}
+
+/* .drag-drop-zone p {
+    color: #000;
+}
+
+.drag-drop-zone.inside-drag-area {
+    opacity: 0.7;
+}
+
+.dropped-files li {
+    color: #07F;
+    padding: 3px;
+    text-align: left;
+    font-weight: bold;
+} */

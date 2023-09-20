@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
@@ -19,10 +19,15 @@ import styles from './EventForm.module.css';
 import categories from '../../data/category.json';
 import timeZone from '../../data/timeZone.json';
 import languages from '../../data/languages.json';
+import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
 
 // Form
 const EventForm = () => {
+    useEffect(() => {
+        console.log('eventImage ===> ', eventImage);
+    });
+
     const [ formData, setFormData ] = useState<EventFormProps>({
         name: '',
         category: '',
@@ -99,17 +104,38 @@ const EventForm = () => {
         });
     };
 
+    // Send Image
+    const sendImage = async () => {
+        const imageData = new FormData();
+        imageData.append('file', eventImage);
+        const resp = await fetch('http://localhost:8000/api/events/upload', {
+            method: 'POST',
+            body: imageData
+        });
+        const imageResp = await resp.json();
+        setFormData((prevData) => ({ 
+            ...prevData,
+            image: imageResp.imageUrl 
+        }));
+    };
+
     // Submit Button
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log(formData);
-        fetch('http://localhost:5000/api/events', { 
+
+        console.log('event image', eventImage);
+        if(eventImage !== '') await sendImage();
+        
+        const resp = await fetch('http://localhost:8000/api/events', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
         });
+        // TO SAVE IN CONTEXT
+        const result = await resp.json();
+        console.log(result);
         // redirección a "detalle del evento"
     };
 
@@ -117,8 +143,8 @@ const EventForm = () => {
     const [ selectedMode, setSelectedMode ] = useState<string>('');
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
+    // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
-        console.log(value);
         setSelectedMode(value);
         setFormData({
             ...formData,
@@ -126,8 +152,8 @@ const EventForm = () => {
         });
     };
 
+    // Capacity Radio Groug handler
     const handleCapacityChange = (value: string) => {
-        console.log(value);
         setSelectedCapacity(!selectedCapacity);
     };
 
@@ -144,6 +170,77 @@ const EventForm = () => {
         checked: selectedMode === container.value,
         onChange: () => handleCapacityChange(container.value),
     }));
+
+    /**************************************************
+    ** Image Uploader
+    ******************/
+
+    //  States
+    const [ previewURL, setPreviewURL ] = useState<string>('');
+    const [ imgVisibility, setImgVisibility ] = useState<string>('none');
+    const [ eventImage, setEventImage ] = useState<any>('');
+
+    // File Handler
+    const handleFile = (file: any) => {
+        setEventImage(() => file);
+        setPreviewURL(URL.createObjectURL(file));
+        setImgVisibility('block');
+    };
+
+    // Drop handler
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const file = e.dataTransfer.files[0];
+        e.dataTransfer.clearData();
+        // setEventImage(file);
+        handleFile(file);
+    };
+
+    // Drag Over handler
+    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+    };
+
+    // Image remover
+    const removeImage = (e: React.MouseEventHandler<HTMLButtonElement>) => {
+        e.preventDefault();
+        setPreviewURL('');
+        setImgVisibility('none');
+        setEventImage(() => '');
+    };
+
+    useEffect(() => {
+        console.log('setimg, setdata');
+    }, [ eventImage ]);
+
+    /******************
+    ** Image Uploader
+    **************************************************/
+    
+    //Toggle Switch
+
+    const handleToggleTimeChange = (checked: boolean) => {
+        setFormData({
+            ...formData,
+            showTime: checked,
+        });
+    };
+
+    const handleToggleDateChange = (checked: boolean) => {
+        setFormData({
+            ...formData,
+            showDate: checked,
+        });
+   
+    };
+
+    const handleToggleIsPrivateChange = (checked: boolean) => {
+        setFormData({
+            ...formData,
+            isPrivate: checked,
+        });
+    };
 
     return (
         <div className={styles.form}>
@@ -182,7 +279,7 @@ const EventForm = () => {
                             onChange={handleTagsChange}
                             placeHolder="Digite etiquetas y presione Enter"
                         />
-                        <DateInput id='date' name='date' value={formData.date} onChange={handleDateChange} />
+                        
                     </FormField>
 
                     <FormField>
@@ -249,6 +346,19 @@ const EventForm = () => {
                         />
                     </FormField>
                     <FormField>
+                        <DateInput 
+                            id='date' 
+                            name='date' 
+                            value={formData.date} 
+                            onChange={handleDateChange} />
+                        <ToggleSwitch
+                            id="confirmDate"
+                            label="Fecha por confirmar."
+                            subtitle="Si activas el botón, la fecha no se mostrará en el evento." 
+                            isChecked={formData.showDate} 
+                            onChange={handleToggleDateChange} 
+                        />
+                        <br />
                         <Select
                             id="timeZone"
                             label="Zona Horaria"
@@ -256,12 +366,32 @@ const EventForm = () => {
                             value={formData.timeZone}
                             onChange={handleSelectChange}
                         />
-
+                        <div className={styles.timeContainer}>
+                            <div className={styles.selectTime}>
+                                <Select
+                                    id="startTime"
+                                    label="Hora de Inicio"
+                                    options={time}
+                                    value={formData.startTime}
+                                    onChange={handleSelectChange}
+                                />
+                            </div>
+                            <div className={styles.selectTime}>
+                                <Select
+                                    id="finishTime"
+                                    label="Hora de Cierre"
+                                    options={time}
+                                    value={formData.endTime}
+                                    onChange={handleSelectChange}
+                                />
+                            </div>
+                        </div>
                         <ToggleSwitch
-                            id="mySwitch"
-                            label="Cualquiera puede ver los horarios del evento"
-                            subtitle="Si se desactiva, las horas quedarán ocultas"
-                        />
+                            id="confirmTime"
+                            label="Horarios por confirmar"
+                            subtitle="Si activas el botón, la información de los horarios no se mostrará en el evento" 
+                            isChecked={formData.showTime} 
+                            onChange={handleToggleTimeChange}/>
                     </FormField>
                 </SectionForm>
 
@@ -300,15 +430,10 @@ const EventForm = () => {
                             value={formData.contact}
                             onChange={handleInputChange}
                         />
-                        <ToggleSwitch
-                            id="contactInfo"
-                            label="Mostrar públicamente la información de contacto."
-                            subtitle="Si se desactiva, la información de contacto quedará oculta."
-                        />
                     </FormField>
                     <FormField>
                         <Select
-                            id="languageEvent"
+                            id="language"
                             label="Idioma del evento"
                             options={languages}
                             value={formData.language}
@@ -316,7 +441,15 @@ const EventForm = () => {
                         />
                     </FormField>
                     <FormField>
-                        <ImageUploader />
+                        <ImageUploader 
+                            id="image"
+                            removeImage={removeImage}
+                            previewURL={previewURL}
+                            imgVisibility={imgVisibility}
+                            onDrop={handleDrop}
+                            onDragOver={handleDragOver}
+                            accept='image/*'
+                        />
                     </FormField>
 
                 </SectionForm>
@@ -325,6 +458,15 @@ const EventForm = () => {
                     title="3 INSCRIPCIONES Y ENTRADAS"
                     isVisible={isSection3Visible}
                     toggleVisibility={() => setIsSection3Visible(!isSection3Visible)}>
+                    <FormField>
+                        <ToggleSwitch
+                            id="private"
+                            label="El evento es privado"
+                            subtitle="Si activas el botón, el evento sera privado."  
+                            isChecked={formData.isPrivate} 
+                            onChange={handleToggleIsPrivateChange} 
+                        />
+                    </FormField>
                     <FormField>
                         <RadioGroupContainer
                             radioButtons={capacityRadioButtons}

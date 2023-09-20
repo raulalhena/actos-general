@@ -1,15 +1,9 @@
-import { useState } from 'react';
 import Switch from 'react-switch';
 import styles from './ToggleSwitch.module.css';
 import { ToggleSwitchProps } from '../../interfaces/toggleSwitchProps';
 
-const ToggleSwitch = ({ id, label, subtitle }: ToggleSwitchProps) => {
-    const [ isChecked, setIsChecked ] = useState(false);
-
-    const handleChange = (checked: boolean) => {
-        setIsChecked(checked);
-    };
-
+const ToggleSwitch = ({ id, label, subtitle, isChecked, onChange }: ToggleSwitchProps) => {
+ 
     return (
         <div className={styles.toggleContainer}>
             <div>
@@ -23,7 +17,8 @@ const ToggleSwitch = ({ id, label, subtitle }: ToggleSwitchProps) => {
             </div>
             <div>
                 <Switch
-                    onChange={handleChange}
+                    id={id}
+                    onChange={onChange}
                     checked={isChecked}
                     onColor="#F2C3BA"
                     onHandleColor="#E15A40"
