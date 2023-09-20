@@ -241,6 +241,23 @@ const EventForm = () => {
         });
     };
 
+    const [ isSection1Complete, setIsSection1Complete ] = useState(false);
+    const [ isSection2Complete, setIsSection2Complete ] = useState(false);
+
+    const isSectionComplete = (sectionData: any) => {
+        return (
+            sectionData.name !== ''
+        );
+    };
+
+    useEffect(() => {
+        setIsSection1Complete(isSectionComplete(formData));
+    }, [ formData ]);
+
+    useEffect(() => {
+        setIsSection2Complete(isSectionComplete(formData));
+    }, [ formData ]);
+
     return (
         <div className={styles.form}>
             <form data-testid="event-form" onSubmit={handleSubmit}>
@@ -505,6 +522,8 @@ const EventForm = () => {
                     isSection1Visible={isSection1Visible}
                     isSection2Visible={isSection2Visible}
                     isSection3Visible={isSection3Visible}
+                    isSection1Complete={isSection1Complete}
+                    isSection2Complete={isSection2Complete}
                 />
             </form>
         </div>
