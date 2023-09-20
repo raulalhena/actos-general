@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
@@ -24,6 +24,10 @@ import ProgressTracker from '../ProgressTracker/ProgressTracker';
 
 // Form
 const EventForm = () => {
+    useEffect(() => {
+        console.log('eventImage ===> ', eventImage);
+    });
+
     const [ formData, setFormData ] = useState<EventFormProps>({
         name: '',
         category: '',
@@ -113,14 +117,18 @@ const EventForm = () => {
             ...formData,
             image: imageResp.imageUrl
         });
+
     };
 
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        sendImage();
+        console.log('event image', eventImage);
+        // if(eventImage !== '') await sendImage();
+        await sendImage();
 
+        console.log('formData ==>>>>', formData);
         const resp = await fetch('http://localhost:8000/api/events', { 
             method: 'POST',
             headers: {
@@ -173,11 +181,11 @@ const EventForm = () => {
     //  States
     const [ previewURL, setPreviewURL ] = useState<string>('');
     const [ imgVisibility, setImgVisibility ] = useState<string>('none');
-    const [ eventImage, setEventImage ] = useState<any>(null);
+    const [ eventImage, setEventImage ] = useState<any>('');
 
     // File Handler
     const handleFile = (file: any) => {
-        setEventImage(file);
+        setEventImage(() => file);
         setPreviewURL(URL.createObjectURL(file));
         setImgVisibility('block');
     };
@@ -188,6 +196,7 @@ const EventForm = () => {
         e.stopPropagation();
         const file = e.dataTransfer.files[0];
         e.dataTransfer.clearData();
+        // setEventImage(file);
         handleFile(file);
     };
 
@@ -197,12 +206,16 @@ const EventForm = () => {
     };
 
     // Image remover
-    const removeImage = () => {
+    const removeImage = (e: React.MouseEventHandler<HTMLButtonElement>) => {
         e.preventDefault();
         setPreviewURL('');
         setImgVisibility('none');
-        setEventImage(null);
+        setEventImage(() => '');
     };
+
+    useEffect(() => {
+        console.log('setimg, setdata');
+    }, [ eventImage, formData ]);
 
     /******************
     ** Image Uploader
