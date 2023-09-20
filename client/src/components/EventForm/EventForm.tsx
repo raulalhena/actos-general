@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
@@ -113,7 +113,6 @@ const EventForm = () => {
     // Send Image
     const sendImage = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log('image');
         const imageData = new FormData();
         imageData.append('file', eventImage);
         const resp = await fetch('http://localhost:8000/api/events/upload', {
@@ -139,7 +138,7 @@ const EventForm = () => {
             body: JSON.stringify(formData)
         });
         const result = await resp.json();
-        navigator('/eventdashboard', { state: { id: result._id }});
+        navigator('/eventdashboard', { state: { id: result._id } });
     };
 
     // Button Radio
@@ -213,10 +212,6 @@ const EventForm = () => {
         setImgVisibility('none');
         setEventImage(() => '');
     };
-
-    useEffect(() => {
-        console.log('setimg, setdata');
-    }, [ eventImage ]);
 
     /******************
     ** Image Uploader
