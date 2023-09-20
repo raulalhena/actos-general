@@ -19,7 +19,9 @@ export const TextArea = (props: TextInputProps) => {
                 maxLength={maxLength}
                 value={value}
                 onChange={onChange}
-                className={styles.input}            />
+                className={styles.input}
+                required
+            />
         </div>
         
     );
