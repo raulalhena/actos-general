@@ -40,8 +40,8 @@ const EventForm = () => {
         startTime: '',
         endTime: '',
         timeZone: '',
-        showTime: true,
-        showDate: true,
+        showTime: false,
+        showDate: false,
         confirmed: false, 
         description: '',
         web: '', 
@@ -122,7 +122,7 @@ const EventForm = () => {
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-
+        console.log(formData);
         console.log('event image', eventImage);
         if(eventImage !== '') await sendImage();
         
@@ -154,6 +154,7 @@ const EventForm = () => {
 
     // Capacity Radio Groug handler
     const handleCapacityChange = (value: string) => {
+        console.log('value', value);
         setSelectedCapacity(!selectedCapacity);
     };
 

@@ -43,9 +43,11 @@
   position: absolute;
 }
 
-.cardButton .icon {
-  font-size: 28px;
-  color: #CACACA
+.icon {
+  font-size: 20px;
+  color: #e15a40; 
+  position: absolute;
+  left: 85%;
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */
@@ -75,7 +77,7 @@
   .cardButtonContainer {
     width: 150px;
     display: flex;
-    justify-contet: start;
+    justify-content: start;
   }
 
   .cardButton span {
@@ -84,4 +86,11 @@
     font-weight: 500;
     margin-top: auto;
   }
+  .icon{
+    position: absolute;
+    color: #e15a40; 
+    left: 10%;
+    top: 15%
+  }
 }
+
