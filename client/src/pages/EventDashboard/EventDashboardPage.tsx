@@ -24,7 +24,8 @@ const EventDashboardPage = () => {
     }, []);
 
     useEffect(() => {
-       
+        // setEventData(eventData);
+        console.log('eventData', eventData);
     }, [ eventData ]);
 
     return (
@@ -46,7 +47,7 @@ const EventDashboardPage = () => {
                             <DropdownButton />
                         </div>
                     </section>
-                    {/* <InscriptionsRecap capacity={ eventData.capacity } /> */}
+                    <InscriptionsRecap capacity={ eventData.capacity } />
                 </section>
                 <EventDashboardForm eventData={ eventData } />
             </div>

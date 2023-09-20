@@ -1,4 +1,5 @@
 export interface EventFormProps  {
+    _id: string,
     name: string,
     category?: string;
     tags?: string[];
