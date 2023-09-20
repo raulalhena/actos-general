@@ -51,15 +51,15 @@ const EventForm = () => {
         language: '', //Select con checkbox
         image: '', 
         video: '', 
-        capacity: 0, 
-        qrEvent: '',
-        qrAttendees: [],
-        attendees: [],
-        submitted: [],
-        price: 0, 
-        payment: '', 
-        visibility: false,
-        status: false
+        capacity: 0
+        // qrEvent: '',
+        // qrAttendees: [],
+        // attendees: [],
+        // submitted: [],
+        // price: 0, 
+        // payment: '', 
+        // visibility: false,
+        // status: false
     });
 
     // Visibility
@@ -93,6 +93,13 @@ const EventForm = () => {
         setFormData({
             ...formData,
             tags: newTags,
+        });
+    };
+
+    const handleTagsOrganizadorChange = (newOrganizedBy: string[]) => {
+        setFormData({
+            ...formData,
+            organizedBy: newOrganizedBy,
         });
     };
 
@@ -254,6 +261,7 @@ const EventForm = () => {
 
                     <FormField>
                         <TextInput
+                            isRequired={true}
                             id="name" 
                             label="Nombre del evento*"
                             placeholder="Evento"
@@ -279,6 +287,7 @@ const EventForm = () => {
                             label="Etiquetas"
                             onChange={handleTagsChange}
                             placeHolder="Digite etiquetas y presione Enter"
+                            subtitle=''
                         />
                         
                     </FormField>
@@ -299,10 +308,12 @@ const EventForm = () => {
                                 maxLength={75}
                                 value={formData.address}
                                 onChange={handleInputChange}
+                                isRequired={false}
                             />
                         )}
                         {selectedMode === 'option2' && (
                             <TextInput
+                                isRequired={false}
                                 id="onlineLink"
                                 label="Añade un link de acceso"
                                 placeholder="Escribe el link de acceso a tu evento."
@@ -322,6 +333,7 @@ const EventForm = () => {
                                     maxLength={75}
                                     value={formData.address}
                                     onChange={handleInputChange}
+                                    isRequired={false}
                                 />
                                 <TextInput
                                     id="onlineLink"
@@ -331,6 +343,7 @@ const EventForm = () => {
                                     maxLength={75}
                                     value={formData.webLink}
                                     onChange={handleInputChange}
+                                    isRequired={false}
                                 />
                             </>
                         )}
@@ -344,6 +357,7 @@ const EventForm = () => {
                             maxLength={75}
                             value={formData.webLink}
                             onChange={handleInputChange}
+                            isRequired={false}
                         />
                     </FormField>
                     <FormField>
@@ -379,8 +393,8 @@ const EventForm = () => {
                             </div>
                             <div className={styles.selectTime}>
                                 <Select
-                                    id="finishTime"
-                                    label="Hora de Cierre"
+                                    id="endTime"
+                                    label="Hora de fin"
                                     options={time}
                                     value={formData.endTime}
                                     onChange={handleSelectChange}
@@ -412,24 +426,24 @@ const EventForm = () => {
                         />
                     </FormField>
                     <FormField>
-                        <TextInputWithSubtitle
+                        <TagsInputComponent
                             id="organizedBy"
-                            label="Dinamizadores"
+                            label="Organizadores"
                             subtitle="Entidades que colaboran en el evento."
-                            placeholder="Organizadores del evento."
-                            minLength={3}
-                            maxLength={500}
+                            placeHolder="Añade un nombre y presiona Enter"
                             value={formData.organizedBy}
-                            onChange={handleInputChange}
+                            onChange={handleTagsOrganizadorChange}
                         />
-                        <TextInput
+                        <TextInputWithSubtitle
                             id="contact"
-                            label="Información de contacto de los dinamizadores"
+                            label="Información de contacto"
                             placeholder="email@email.com"
                             minLength={3}
                             maxLength={75}
                             value={formData.contact}
                             onChange={handleInputChange}
+                            subtitle='Contacto para mas informacion'
+                            isRequired={false}
                         />
                     </FormField>
                     <FormField>
@@ -485,6 +499,7 @@ const EventForm = () => {
                                 maxLength={500}
                                 value={formData.capacity} 
                                 onChange={handleInputChange}
+                                isRequired={false}
                             />
                         )}
                     </FormField>

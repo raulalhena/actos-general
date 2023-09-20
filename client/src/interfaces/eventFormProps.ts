@@ -28,6 +28,6 @@ export interface EventFormProps  {
     submitted?: string[],
     price?: number,
     payment?: string,
-    visibility: boolean,
-    status: boolean
+    visibility?: boolean,
+    status?: boolean
 }
