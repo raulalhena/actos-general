@@ -32,7 +32,7 @@ export class CreateEventDto {
     language: string[];
     web: string;
     visibility: boolean;
-    status: boolean;
+    active: boolean;
     customForm: string;
     form: Object
 }

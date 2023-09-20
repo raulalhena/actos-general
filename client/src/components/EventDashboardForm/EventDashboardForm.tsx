@@ -14,51 +14,23 @@ import TextInput from '../TextInput/TextInput';
 import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
-import styles from './EventForm.module.css';
+import capacityRadioButtonsContainer from '../../data/capacityRadioButtons.json';
+import styles from './EventDashboardForm.module.css';
 import categories from '../../data/category.json';
 import timeZone from '../../data/timeZone.json';
 import languages from '../../data/languages.json';
 import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
-import { useNavigate } from 'react-router';
 
 // Form
-const EventForm = () => {
-    const navigator = useNavigate();
+const EventDashboardForm = ({ eventData }: EventFormProps) => {
 
-    const [ formData, setFormData ] = useState<EventFormProps>({
-        name: '',
-        category: '',
-        tags: [],
-        mode: '',
-        type: '',
-        address: '', 
-        webLink: '', 
-        date: '',
-        startTime: '',
-        endTime: '',
-        timeZone: '',
-        showTime: false,
-        showDate: false,
-        confirmed: false, 
-        description: '',
-        web: '', 
-        organizedBy: [], 
-        contact: '',
-        isPrivate: false,
-        language: [], //Select con checkbox
-        image: '', 
-        video: '', 
-        capacity: 0
-        // qrEvent: '',
-        // qrAttendees: [],
-        // attendees: [],
-        // submitted: [],
-        // price: 0, 
-        // payment: '', 
-        // visibility: false,
-        // status: false
-    });
+    const [ formData, setFormData ] = useState<EventFormProps>(eventData);
+
+    useEffect(() => {
+        setFormData(eventData);
+        console.log('form data', formData);
+    }, [ eventData ]);
 
     // Visibility
     const [ isSection1Visible, setIsSection1Visible ] = useState(false);
@@ -103,16 +75,10 @@ const EventForm = () => {
 
     // DateInput
     const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const newDate = e.target.value;
-        const currentDate = new Date().toISOString().split('T')[0];
-        if (newDate >= currentDate) {
-            setFormData({
-                ...formData,
-                date: newDate,
-            });
-        } else {
-            alert('La fecha seleccionada es anterior a la fecha actual');
-        }
+        setFormData({
+            ...formData,
+            date: e.target.value,
+        });
     };
 
     // Send Image
@@ -135,19 +101,21 @@ const EventForm = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        const resp = await fetch('http://localhost:8000/api/events', { 
-            method: 'POST',
+        const resp = await fetch(`http://localhost:8000/api/events/${formData._id}`, { 
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
         });
         const result = await resp.json();
-        navigator('/eventdashboard', { state: { id: result._id } });
+        console.log(result);
+        // MOSTRAR MODAL SE HA GUARDADO CORRECTAMENTE?
     };
 
     // Button Radio
     const [ selectedMode, setSelectedMode ] = useState<string>('');
+    const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
@@ -158,11 +126,24 @@ const EventForm = () => {
         });
     };
 
+    // Capacity Radio Groug handler
+    const handleCapacityChange = (value: string) => {
+        console.log('value', value);
+        setSelectedCapacity(!selectedCapacity);
+    };
+
     // Mode Radio Group
     const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
         ...container,
         checked: selectedMode === container.value,
         onChange: () => handleModeChange(container.value),
+    }));
+
+    // Capacity Radio Group
+    const capacityRadioButtons: ButtonCardRadioProps[] = capacityRadioButtonsContainer.map((container) => ({
+        ...container,
+        checked: selectedMode === container.value,
+        onChange: () => handleCapacityChange(container.value),
     }));
 
     /**************************************************
@@ -232,42 +213,22 @@ const EventForm = () => {
         });
     };
 
-    const handleToggleCapacityChange = (checked: boolean) => { 
-        console.log(checked);  
-        setSelectedCapacity(!selectedCapacity);
-    };
-
     const [ isSection1Complete, setIsSection1Complete ] = useState(false);
     const [ isSection2Complete, setIsSection2Complete ] = useState(false);
-    const [ isSection3Complete, setIsSection3Complete ] = useState(false);
 
-    const isSection1CompleteCheck = (sectionData: any) => {
-        return sectionData.name !== '';
+    const isSectionComplete = (sectionData: any) => {
+        return (
+            sectionData.name !== ''
+        );
     };
-
-    const isSection2CompleteCheck = (sectionData: any) => {
-        // Check if all required fields in Section 2 are filled
-        return sectionData.description !== '';
-    };
-
-    // const isSection3CompleteCheck = (sectionData: any) => {
-    //     // Check if all required fields in Section 2 are filled
-    //     return sectionData.description !== '';
-    // };
 
     useEffect(() => {
-        setIsSection1Complete(isSection1CompleteCheck(formData));
+        setIsSection1Complete(isSectionComplete(formData));
     }, [ formData ]);
 
     useEffect(() => {
-        setIsSection2Complete(isSection2CompleteCheck(formData));
+        setIsSection2Complete(isSectionComplete(formData));
     }, [ formData ]);
-
-    // useEffect(() => {
-    //     setIsSection3Complete(isSection3CompleteCheck(formData));
-    // }, [ formData ]);
-    
-    const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     return (
         <div className={styles.form}>
@@ -502,12 +463,11 @@ const EventForm = () => {
                         />
                     </FormField>
                     <FormField>
-                        <ToggleSwitch 
-                            id={'capacity'}
-                            label={'El evento tiene limite de entrada'}
-                            subtitle={'Si activas el botón, el evento tiene un limite de entrada.'}
-                            onChange={handleToggleCapacityChange}
-                            isChecked={selectedCapacity}
+                        <RadioGroupContainer
+                            radioButtons={capacityRadioButtons}
+                            selectedValue={selectedMode}
+                            label="Límite de entradas"
+                            onChange={handleCapacityChange}
                         />
                         {selectedCapacity && (
                             <TextInputWithSubtitle
@@ -536,11 +496,10 @@ const EventForm = () => {
                     isSection3Visible={isSection3Visible}
                     isSection1Complete={isSection1Complete}
                     isSection2Complete={isSection2Complete}
-                    isSection3Complete={isSection3Complete}
                 />
             </form>
         </div>
     );
 };
 
-export default EventForm;
+export default EventDashboardForm;

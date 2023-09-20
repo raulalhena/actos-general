@@ -88,7 +88,7 @@ export class Event {
       visibility: boolean;
 
   @Prop({ default: false })
-      status: boolean;
+      active: boolean;
 
   @Prop()
       customForm: string;
