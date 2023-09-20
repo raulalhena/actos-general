@@ -113,11 +113,10 @@ const EventForm = () => {
             body: imageData
         });
         const imageResp = await resp.json();
-        setFormData({
-            ...formData,
-            image: imageResp.imageUrl
-        });
-
+        setFormData((prevData) => ({ 
+            ...prevData,
+            image: imageResp.imageUrl 
+        }));
     };
 
     // Submit Button
@@ -125,10 +124,8 @@ const EventForm = () => {
         event.preventDefault();
 
         console.log('event image', eventImage);
-        // if(eventImage !== '') await sendImage();
-        await sendImage();
-
-        console.log('formData ==>>>>', formData);
+        if(eventImage !== '') await sendImage();
+        
         const resp = await fetch('http://localhost:8000/api/events', { 
             method: 'POST',
             headers: {
@@ -215,7 +212,7 @@ const EventForm = () => {
 
     useEffect(() => {
         console.log('setimg, setdata');
-    }, [ eventImage, formData ]);
+    }, [ eventImage ]);
 
     /******************
     ** Image Uploader
