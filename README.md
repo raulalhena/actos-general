@@ -68,7 +68,8 @@ Did you like our application? We'd love to hear your feedback. Please don't hesi
 [
     {
         "id": 1,
-        "name": "Event 1" 
+        "name": "User 1",
+        "email": "user@actos.com"
     }
 ]
 ```
