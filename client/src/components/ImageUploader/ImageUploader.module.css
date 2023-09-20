@@ -30,7 +30,7 @@ p {
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) { 
     .dragDropZone {
-    width: 350px;
+    width: 290px;
 }
 
 }
@@ -38,7 +38,7 @@ p {
 /* Para pantallas más grandes o iguales a 992px (lg) */
 @media screen and (min-width: 992px) {
     .dragDropZone {
-    width: 500px;
+    width: 438px;
   }
 }
 
