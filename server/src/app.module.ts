@@ -12,8 +12,6 @@ import { LanguagesModule } from './languages/languages.module';
     EventsModule,
     UsersModule,
     MongooseModule.forRoot('mongodb://localhost:27017/actos'),
-    TimezoneModule,
-    LanguagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
