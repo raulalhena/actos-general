@@ -18,26 +18,26 @@ function Navbar() {
     return (
         <>
             <nav className={styles.navbar}>
-                <a href="#home">Nous Cims </a>
+                <a href="/home">Nous Cims </a>
 
                 <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>
                     <li onClick={removeActive}>
-                        <a href="#home" className={styles.navLink}>
+                        <a href="/home" className={styles.navLink}>
               Inicio
                         </a>
                     </li>
                     <li onClick={removeActive}>
-                        <a href="#home" className={styles.navLink}>
+                        <a href="/myevents" className={styles.navLink}>
               Mis eventos
                         </a>
                     </li>
                     <li onClick={removeActive}>
-                        <a href="#home" className={styles.navLink}>
+                        <a href="/login" className={styles.navLink}>
               Iniciar sesión
                         </a>
                     </li>
                     <li onClick={removeActive}>
-                        <a href="#home" className={styles.navLink}>
+                        <a href="/signup" className={styles.navLink}>
               Registrarse
                         </a>
                     </li>
