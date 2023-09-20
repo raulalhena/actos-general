@@ -1,0 +1,65 @@
+.buttonSection {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.timeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.selectTime select {
+  width: 360px;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) {
+ 
+  
+}
+
+/* Para pantallas más grandes o iguales a 992px (lg) */
+@media screen and (min-width: 992px) {
+  .form {
+    width: 1000px;
+  }
+  .selectTime select {
+    width: 248px;
+  }
+  .timeContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 1200px (xl) */
+@media screen and (min-width: 1200px) {
+  
+  .selectTime select {
+    width: 320px;
+  }
+  .timeContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+
+  .selectTime select {
+    width: 370px;
+  }
+  .timeContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+  }
+}

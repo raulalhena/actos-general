@@ -1,4 +1,5 @@
 export interface EventFormProps  {
+    _id: string,
     name: string,
     category?: string;
     tags?: string[];
@@ -18,7 +19,7 @@ export interface EventFormProps  {
     organizedBy?: string[];
     contact?: string,
     isPrivate: boolean;
-    language: string;
+    language: string[];
     image?: string,
     video?: string,
     capacity?: number,

@@ -19,7 +19,7 @@ const LogInForm = () => {
             [id]: value,
         });
     };
-    const [ loginError, setLoginError ] = useState('');
+    // const [ loginError, setLoginError ] = useState('');
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
@@ -46,15 +46,7 @@ const LogInForm = () => {
     };
 
     const requestLogin = async () => {
-        const res = await signIn('credentials', {
-            email: logInData.email,
-            password: logInData.password,
-            redirect: false
-        });
-
-        if(res?.error) return setLoginError(res.error as string);
-
-        if(res?.ok) return router.push('/event');
+        // do It
     };
 
     // Function to validate password

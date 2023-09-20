@@ -55,7 +55,7 @@ Did you like our application? We'd love to hear your feedback. Please don't hesi
         "language": ["Castellano", "Catalán", "Inglés"],
         "web": "URL a la web",
         "visibility": 0, //draft=0 / public=1
-        "status": 0 //activo=1 / cancelado=0 
+        "active": 0 //si=1 / no=0 
     }
 ]
 ```
