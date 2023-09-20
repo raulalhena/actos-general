@@ -49,10 +49,6 @@ module.exports = {
         "max": 1
       }
     ],
-    "no-mixed-spaces-and-tabs": [
-      "error",
-      "smart-tabs"
-    ],
     "array-bracket-newline": [
       "error", "consistent"
     ],

@@ -4,97 +4,97 @@ import { User } from 'src/users/entities/user.entity';
 
 export type EventDocument = HydratedDocument<Event>;
 
-@Schema({timestamps: true})
+@Schema({ timestamps: true })
 export class Event {
-  @Prop({ required: [true, 'El nombre del evento es requerido.'] })
-  name: string;
+  @Prop({ required: [ true, 'El nombre del evento es requerido.' ] })
+      name: string;
 
-  @Prop({ required: [true, 'La descripción del evento es requerida.'] })
-  description: string;
-
-  @Prop()
-  tags: string[];
+  @Prop({ required: [ true, 'La descripción del evento es requerida.' ] })
+      description: string;
 
   @Prop()
-  category: string;
+      tags: string[];
 
   @Prop()
-  address: string;
-
-  @Prop({ type: Date, required: [true, 'La fecha del evento es requerida.'] })
-  date: Date;
+      category: string;
 
   @Prop()
-  startTime: Date;
+      address: string;
+
+  @Prop({ type: Date, required: [ true, 'La fecha del evento es requerida.' ] })
+      date: Date;
 
   @Prop()
-  endTime: Date;
+      startTime: Date;
 
   @Prop()
-  timeZone: string;
+      endTime: Date;
 
   @Prop()
-  showDate: boolean;
+      timeZone: string;
 
   @Prop()
-  showTime: boolean;
+      showDate: boolean;
 
   @Prop()
-  type: string;
+      showTime: boolean;
 
   @Prop()
-  mode: string;
+      type: string;
 
   @Prop()
-  image: string;
+      mode: string;
 
   @Prop()
-  video: string;
-
-  @Prop({default: ""})
-  qrEvent: string;
-
-  @Prop({default: []})
-  qrAttendees: string[];
-
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: User.name }], default: [] })
-  attendees: mongoose.Types.ObjectId[];
-
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: User.name }], default: [] })
-  submitted: mongoose.Types.ObjectId[];
+      image: string;
 
   @Prop()
-  capacity: number;
+      video: string;
+
+  @Prop({ default: '' })
+      qrEvent: string;
+
+  @Prop({ default: [] })
+      qrAttendees: string[];
+
+  @Prop({ type: [ { type: mongoose.Schema.Types.ObjectId, ref: User.name } ], default: [] })
+      attendees: mongoose.Types.ObjectId[];
+
+  @Prop({ type: [ { type: mongoose.Schema.Types.ObjectId, ref: User.name } ], default: [] })
+      submitted: mongoose.Types.ObjectId[];
 
   @Prop()
-  price: number;
+      capacity: number;
 
   @Prop()
-  payment: string;
+      price: number;
 
   @Prop()
-  organizedBy: string[];
+      payment: string;
 
   @Prop()
-  contactEmail: string;
+      organizedBy: string[];
 
   @Prop()
-  language: string[];
+      contactEmail: string;
 
   @Prop()
-  web: string;
-
-  @Prop({default: false})
-  visibility: boolean;
-
-  @Prop({default: false})
-  status: boolean;
+      language: string[];
 
   @Prop()
-  customForm: string;
+      web: string;
 
-  @Prop({type: Object})
-  form: Object;
+  @Prop({ default: false })
+      visibility: boolean;
+
+  @Prop({ default: false })
+      status: boolean;
+
+  @Prop()
+      customForm: string;
+
+  @Prop({ type: Object })
+      form: Object;
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);

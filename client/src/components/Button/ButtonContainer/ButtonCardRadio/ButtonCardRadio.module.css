@@ -1,8 +1,7 @@
-  .cardButtonContainer {
-    width: 350px;
-    display: flex;
-    justify-contet: start;
-  }
+.cardButtonContainer {
+  width: 350px;
+  display: flex;
+}
 
 .cardButton {
   border-radius: 20px;
@@ -19,19 +18,9 @@
   transition: background-color 0.3s ease-in-out;
   position: relative;
   box-shadow: 4px 4px 0 0 #cacaca;
-  align-items: first baseline;
-  gap: 1.2rem;
-  padding-left: 1rem;
-  padding-top: 0.5rem;
-}
-
-.icon {
-  font-size: 24px;
-  color: #CACACA
-}
-
-.text {
-  margin-top: 0;
+  gap: 1rem;
+  padding: 1rem;
+  padding-left:2rem;
 }
 
 .cardButton:focus-within .icon {
@@ -49,6 +38,16 @@
   box-shadow: 4px 4px 0 0 #9e9e9e;
 }
 
+.cardButton input[type="radio"] {
+  opacity: 0;
+  position: absolute;
+}
+
+.cardButton .icon {
+  font-size: 28px;
+  color: #CACACA
+}
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) { 
 
@@ -58,7 +57,7 @@
     background: #fff;
     cursor: pointer;
     width: 8em;
-    height: 6em;
+    height: 5em;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,18 +69,19 @@
     flex-direction: column;
     align-items: first baseline;
     gap: 1.2rem;
-    padding-left: 1rem;
+    padding: 1rem;
   }
   
-  .cardButton .icon {
-    font-size: 24px;
-    color: #CACACA
-  }
-
   .cardButtonContainer {
     width: 150px;
     display: flex;
     justify-contet: start;
   }
 
+  .cardButton span {
+    font-size: 18px;
+    color: #1c2e48;
+    font-weight: 500;
+    margin-top: auto;
+  }
 }
