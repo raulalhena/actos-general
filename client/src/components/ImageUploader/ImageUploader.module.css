@@ -1,6 +1,5 @@
 .uploadImgContainer {
     margin: 1rem 0 2rem 0;
-
 }
 
 .label {
@@ -25,6 +24,7 @@
 
 p {
     color: #CACACA;
+    margin-bottom: 1em;
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */
@@ -45,14 +45,14 @@ p {
  /* Para pantallas más grandes o iguales a 1200px (xl) */
   @media screen and (min-width: 1200px) {
     .dragDropZone {
-    width: 580px;
+    width: 650px;
   }
 }
 
 /* Para pantallas más grandes o iguales a 1400px (xxl) */
 @media screen and (min-width: 1400px) {
   .dragDropZone {
-    width: 680px;
+    width: 750px;
   }
 }
 

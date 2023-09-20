@@ -16,17 +16,14 @@
 
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
-  .form {
-    width: 450px;
-    /* border: 1px solid blue; */
-  }
+ 
   
 }
 
 /* Para pantallas más grandes o iguales a 992px (lg) */
 @media screen and (min-width: 992px) {
   .form {
-    width: 600px;
+    width: 1000px;
   }
   .selectTime select {
     width: 248px;
@@ -41,9 +38,7 @@
 
 /* Para pantallas más grandes o iguales a 1200px (xl) */
 @media screen and (min-width: 1200px) {
-  .form {
-    width: 700px;
-  }
+  
   .selectTime select {
     width: 320px;
   }
@@ -57,9 +52,7 @@
 
 /* Para pantallas más grandes o iguales a 1400px (xxl) */
 @media screen and (min-width: 1400px) {
-  .form {
-    width: 900px;
-  }
+
   .selectTime select {
     width: 370px;
   }

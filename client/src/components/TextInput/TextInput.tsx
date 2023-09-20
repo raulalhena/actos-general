@@ -2,7 +2,7 @@ import { TextInputProps } from '../../interfaces/textInputProps';
 import styles from './TextInput.module.css';
 
 function TextInput(props: TextInputProps) {
-    const { label, placeholder, id, maxLength, minLength, value, isPassword, onChange } =
+    const { label, placeholder, id, maxLength, minLength, value, isPassword, onChange , isRequired } =
     props;
 
     return (
@@ -12,6 +12,7 @@ function TextInput(props: TextInputProps) {
             </label>
             <br />
             <input
+                required={isRequired}
                 type={isPassword ? 'password' : 'text'}
                 id={id}
                 placeholder={placeholder}

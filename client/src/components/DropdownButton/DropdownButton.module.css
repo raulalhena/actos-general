@@ -1,0 +1,17 @@
+.container {
+  width: fit-content;
+  height: fit-content;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: 1.5px solid rgba(143, 143, 143, 1);
+}
+
+.select {
+  width: fit-content;
+  height: fit-content;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+}

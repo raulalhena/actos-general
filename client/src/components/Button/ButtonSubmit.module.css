@@ -16,11 +16,11 @@
   text-transform: uppercase;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-.button:hover, .button:active {
+.buttonStyle:hover, .buttonStyle:active {
     cursor: pointer;
   }
 
-.button:active {
+.buttonStyle:active {
   background: #ffffff;
   color: #e15a40;
   border: 1.5px solid #e15a40;
