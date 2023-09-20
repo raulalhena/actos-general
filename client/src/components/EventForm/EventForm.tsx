@@ -114,7 +114,7 @@ const EventForm = () => {
         e.preventDefault();
         const imageData = new FormData();
         imageData.append('file', eventImage);
-        const resp = await fetch('http://localhost:8000/api/events/upload', {
+        const resp = await fetch('http://93.93.112.16:8000/api/events/upload', {
             method: 'POST',
             body: imageData
         });
@@ -129,7 +129,7 @@ const EventForm = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        const resp = await fetch('http://localhost:8000/api/events', { 
+        const resp = await fetch('http://93.93.112.16:8000/api/events', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
