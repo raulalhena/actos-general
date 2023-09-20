@@ -1,4 +1,18 @@
-.step.green {
+
+.container {
+  display: flex;
+  gap: 10px;
+}
+
+.step.highlight {
     color: #e15a40;
     font-weight: bold;
   }
+
+.greenText {
+  color: green;
+}
+
+.redText {
+  color: gray;
+}
