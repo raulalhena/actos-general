@@ -11,8 +11,7 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot(),
     EventsModule,
     UsersModule,
-    MongooseModule.forRoot(process.env.MONGODB_URI),
-    
+    MongooseModule.forRoot(process.env.MONGODB_URI)
   ],
   controllers: [AppController],
   providers: [AppService],
