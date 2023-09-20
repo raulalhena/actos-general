@@ -1,4 +1,5 @@
-export interface EventFormProps  {
+export interface EventDashboardFormProps {
+    _id: string;
     name: string;
     category?: string;
     tags?: string[];
@@ -29,5 +30,5 @@ export interface EventFormProps  {
     price?: number;
     payment?: string;
     visibility?: boolean;
-    status?: boolean
+    status?: boolean;
 }

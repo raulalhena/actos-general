@@ -233,7 +233,7 @@ const EventForm = () => {
 
     const [ isSection1Complete, setIsSection1Complete ] = useState(false);
     const [ isSection2Complete, setIsSection2Complete ] = useState(false);
-    const [ isSection3Complete, setIsSection3Complete ] = useState(false);
+    // const [ isSection3Complete, setIsSection3Complete ] = useState(false);
 
     const isSection1CompleteCheck = (sectionData: any) => {
         return sectionData.name !== '';
@@ -530,7 +530,6 @@ const EventForm = () => {
                     isSection3Visible={isSection3Visible}
                     isSection1Complete={isSection1Complete}
                     isSection2Complete={isSection2Complete}
-                    isSection3Complete={isSection3Complete}
                 />
             </form>
         </div>
