@@ -32,10 +32,12 @@ jobs:
           nvm use v18.16.1
           cd client
           npm install
+          npm run test
           npm run build
-          npm run start
+          cp -r ./dist/* /var/www/actos/html/
           cd ..
           cd server
           npm install
+          npm run test
           npm run build
           npm run start          
