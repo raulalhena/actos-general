@@ -75,7 +75,7 @@ a {
     gap: 0;
     top: 7rem;
     left: -100%;
-    width: 100%;
+    width: 100vw;
     transition: 0.7s ease-in-out;
     background-color: rgb(255, 255, 255);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -86,9 +86,8 @@ a {
   }
 
   .navMenu li {
-    margin: 1.5rem 0;
-    width: 500px;
-    padding-bottom: 0.5rem;
+    padding: 2rem;
     border-bottom: 1px solid #e2e2e2;
+    width: 100vw;
   }
 }
