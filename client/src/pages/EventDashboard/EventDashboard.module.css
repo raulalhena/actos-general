@@ -33,6 +33,14 @@
   gap: 2rem;
 }
 
+.selectStatus {
+  width: fit-content;
+  height: fit-content;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: 1.5px solid rgba(143, 143, 143, 1);
+}
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
 }

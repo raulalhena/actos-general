@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import DropdownButton from '../../components/DropdownButton/DropdownButton';
-import EventDashboardForm from '../../components/EventDashboardForm/EventDashboardForm';
+import { useEffect, useState } from 'react';import EventDashboardForm from '../../components/EventDashboardForm/EventDashboardForm';
 import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRecap';
 import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
 import { EventFormProps } from '../../interfaces/eventFormProps';
+import status from '../../data/status.json';
+import Select from '../../components/Select/Select';
 
 interface EventDashboardProps {
     id: string;
@@ -15,7 +15,19 @@ const EventDashboardPage = () => {
     const location = useLocation();
     const eventId = location.state.id;
 
-    const [ eventData, setEventData ] = useState<EventFormProps>({});
+    const [ eventData, setEventData ] = useState<EventFormProps>({
+        status: false,
+    });
+
+    // Select
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        
+        const { id, value } = event.target;
+        setEventData({
+            ...eventData,
+            [id]: value,
+        });
+    };
 
     useEffect(() => {
         const fetchEvent = async () => {
@@ -46,8 +58,14 @@ const EventDashboardPage = () => {
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             </p>
                         </div>
-                        <div>
-                            <DropdownButton />
+                        <div className={styles.selectStatus}>
+                            <Select
+                                id="status"
+                                label=""
+                                options={status}
+                                value={eventData.status}
+                                onChange={handleSelectChange}
+                            />
                         </div>
                     </section>
                     <InscriptionsRecap />
