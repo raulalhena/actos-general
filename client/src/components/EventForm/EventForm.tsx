@@ -21,13 +21,14 @@ import languages from '../../data/languages.json';
 import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
 import { useNavigate } from 'react-router';
-import DropdownCheck from '../DropDownCheckbox/DropDownCheck';
+import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 
 // Form
 const EventForm = () => {
     const navigator = useNavigate();
 
     const [ formData, setFormData ] = useState<EventFormProps>({
+        _id: '',
         name: '',
         category: '',
         tags: [],
@@ -223,7 +224,6 @@ const EventForm = () => {
             ...formData,
             showDate: checked,
         });
-   
     };
 
     const handleToggleIsPrivateChange = (checked: boolean) => {
@@ -290,8 +290,6 @@ const EventForm = () => {
                             value={formData.name}
                             onChange={handleInputChange}
                         />
-                    </FormField>
-                    <FormField>
                         <Select
                             id="category"
                             label="Categoría"
@@ -299,8 +297,6 @@ const EventForm = () => {
                             value={formData.category}
                             onChange={handleSelectChange}
                         />
-                    </FormField>
-                    <FormField>
                         <TagsInputComponent
                             id="tags"
                             value={formData.tags}
@@ -309,7 +305,6 @@ const EventForm = () => {
                             placeHolder="Digite etiquetas y presione Enter"
                             subtitle=''
                         />
-                        
                     </FormField>
 
                     <FormField>
@@ -334,7 +329,7 @@ const EventForm = () => {
                         {selectedMode === 'option2' && (
                             <TextInput
                                 isRequired={false}
-                                id="onlineLink"
+                                id="webLink"
                                 label="Añade un link de acceso"
                                 placeholder="Escribe el link de acceso a tu evento."
                                 minLength={3}
@@ -356,7 +351,7 @@ const EventForm = () => {
                                     isRequired={false}
                                 />
                                 <TextInput
-                                    id="onlineLink"
+                                    id="webLink"
                                     label="Añade un link de acceso"
                                     placeholder="Escribe el link de acceso a tu evento."
                                     minLength={3}
@@ -367,18 +362,6 @@ const EventForm = () => {
                                 />
                             </>
                         )}
-                    </FormField>
-                    <FormField>
-                        <TextInput
-                            id="webLink"
-                            label="Añade un enlace"
-                            placeholder="Escribe el enlace de tu evento."
-                            minLength={3}
-                            maxLength={75}
-                            value={formData.webLink}
-                            onChange={handleInputChange}
-                            isRequired={false}
-                        />
                     </FormField>
                     <FormField>
                         <DateInput 
@@ -471,7 +454,19 @@ const EventForm = () => {
                             id="languages"
                             label="Idioma del Evento"
                             options={languages}/>
+
+                        <TextInput
+                            id="web"
+                            label="Añade un enlace"
+                            placeholder="Escribe el enlace de tu evento."
+                            minLength={3}
+                            maxLength={75}
+                            value={formData.web}
+                            onChange={handleInputChange}
+                            isRequired={false}
+                        />
                     </FormField>
+                    
                     <FormField>
                         <ImageUploader 
                             id="image"
