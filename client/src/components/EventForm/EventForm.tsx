@@ -21,6 +21,7 @@ import languages from '../../data/languages.json';
 import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
 import { useNavigate } from 'react-router';
+import DropdownCheck from '../DropDownCheckbox/DropDownCheck';
 
 // Form
 const EventForm = () => {
@@ -466,13 +467,10 @@ const EventForm = () => {
                         />
                     </FormField>
                     <FormField>
-                        <Select
-                            id="language"
-                            label="Idioma del evento"
-                            options={languages}
-                            value={formData.language}
-                            onChange={handleSelectChange}
-                        />
+                        <DropdownCheck 
+                            id="languages"
+                            label="Idioma del Evento"
+                            options={languages}/>
                     </FormField>
                     <FormField>
                         <ImageUploader 

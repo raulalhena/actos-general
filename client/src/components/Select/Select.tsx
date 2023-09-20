@@ -1,8 +1,6 @@
 import { SelectProps } from '../../interfaces/selectProps';
 import styles from './Select.module.css';
 
-//CRear logica si opcion es select = null
-
 function Select(props: SelectProps) {
     const { label, options, id, value, onChange } = props;
 
