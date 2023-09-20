@@ -28,7 +28,7 @@ const EventDashboardPage = () => {
     }, []);
 
     useEffect(() => {
-
+       
     }, [ eventData ]);
 
     return (
