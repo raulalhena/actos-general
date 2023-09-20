@@ -1,0 +1,39 @@
+.header {
+  background-color: #1C2E48;
+  width: 100vw;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  padding: 5rem;
+  text-align: center;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.title,
+.subtitle {
+  color: white;
+}
+
+.title {
+    font-weight: 700;
+}
+
+.searchBar {
+  width: 70%;
+  height: fit-content;
+  padding: 1.5rem;
+  text-align: center;
+  background-color: white;
+  border-radius: 20px;
+}
+
