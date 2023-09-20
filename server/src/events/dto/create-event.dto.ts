@@ -15,8 +15,8 @@ export class CreateEventDto {
     tags: string[];
     category: string;
     adress: string;
-    startTime: Date;
-    endTime: Date;
+    startTime: string;
+    endTime: string;
     timeZone: string;
     showDate: boolean;
     showTime: boolean;

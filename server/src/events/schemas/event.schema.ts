@@ -25,10 +25,10 @@ export class Event {
       date: Date;
 
   @Prop()
-      startTime: Date;
+      startTime: string;
 
   @Prop()
-      endTime: Date;
+      endTime: string;
 
   @Prop()
       timeZone: string;
