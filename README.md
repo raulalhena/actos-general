@@ -25,6 +25,8 @@ Did you like our application? We'd love to hear your feedback. Please don't hesi
 
 ### Entidad / Modelo / Modulo
 
+#### Event:
+
 ```JSON
 [
     {
@@ -71,3 +73,4 @@ Breakpoints:
     xl: 1200px,
     xxl: 1400px
 ```
+
