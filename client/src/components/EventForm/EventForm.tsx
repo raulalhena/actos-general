@@ -14,7 +14,6 @@ import TextInput from '../TextInput/TextInput';
 import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
-import capacityRadioButtonsContainer from '../../data/capacityRadioButtons.json';
 import styles from './EventForm.module.css';
 import categories from '../../data/category.json';
 import timeZone from '../../data/timeZone.json';
@@ -148,7 +147,6 @@ const EventForm = () => {
 
     // Button Radio
     const [ selectedMode, setSelectedMode ] = useState<string>('');
-    const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
@@ -159,24 +157,11 @@ const EventForm = () => {
         });
     };
 
-    // Capacity Radio Groug handler
-    const handleCapacityChange = (value: string) => {
-        console.log('value', value);
-        setSelectedCapacity(!selectedCapacity);
-    };
-
     // Mode Radio Group
     const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
         ...container,
         checked: selectedMode === container.value,
         onChange: () => handleModeChange(container.value),
-    }));
-
-    // Capacity Radio Group
-    const capacityRadioButtons: ButtonCardRadioProps[] = capacityRadioButtonsContainer.map((container) => ({
-        ...container,
-        checked: selectedMode === container.value,
-        onChange: () => handleCapacityChange(container.value),
     }));
 
     /**************************************************
@@ -248,6 +233,13 @@ const EventForm = () => {
             ...formData,
             isPrivate: checked,
         });
+    };
+
+    const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
+
+    const handleToggleCapacityChange = (checked: boolean) => { 
+        console.log(checked);  
+        setSelectedCapacity(!selectedCapacity);
     };
 
     return (
@@ -483,11 +475,12 @@ const EventForm = () => {
                         />
                     </FormField>
                     <FormField>
-                        <RadioGroupContainer
-                            radioButtons={capacityRadioButtons}
-                            selectedValue={selectedMode}
-                            label="Límite de entradas"
-                            onChange={handleCapacityChange}
+                        <ToggleSwitch 
+                            id={'capacity'}
+                            label={'El evento tiene limite de entrada'}
+                            subtitle={'Si activas el botón, el evento tiene un limite de entrada.'}
+                            onChange={handleToggleCapacityChange}
+                            isChecked={selectedCapacity}
                         />
                         {selectedCapacity && (
                             <TextInputWithSubtitle
