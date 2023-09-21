@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import styles from './Navbar.module.css';
-import Logo from '../../assets/logo.png';
+import { useState } from "react";
+import styles from "./Navbar.module.css";
+import Logo from "../../assets/logo.png";
 
 function Navbar() {
     // adding the states
-    const [ isActive, setIsActive ] = useState(false);
+    const [isActive, setIsActive] = useState(false);
 
     //add the active class
     const toggleActiveClass = () => {
@@ -22,26 +22,26 @@ function Navbar() {
                 <a href="/" onClick={removeActive}>
                     <img src={Logo} className={styles.logo} alt="Logo" />
                 </a>
-                <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>
+                <ul className={`${styles.navMenu} ${isActive ? styles.active : ""}`}>
+                    <li onClick={removeActive}>
+                        <a href="/myevents" className={styles.navLink}>
+              Agenda
+                        </a>
+                    </li>
                     <li onClick={removeActive}>
                         <a href="/myevents" className={styles.navLink}>
               Mis eventos
                         </a>
                     </li>
                     <li onClick={removeActive}>
-                        <a href="/login" className={styles.navLink}>
-              Iniciar sesión
-                        </a>
-                    </li>
-                    <li onClick={removeActive}>
-                        <a href="/signup" className={styles.navLink}>
-              Registrarse
+                        <a href="/myevents" className={styles.navLink}>
+              FAQs
                         </a>
                     </li>
                 </ul>
 
                 <div
-                    className={`${styles.hamburger} ${isActive ? styles.active : ''}`}
+                    className={`${styles.hamburger} ${isActive ? styles.active : ""}`}
                     onClick={toggleActiveClass}
                 >
                     <span className={styles.bar}></span>
