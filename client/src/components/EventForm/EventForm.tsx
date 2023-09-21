@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
@@ -252,25 +252,6 @@ const EventForm = () => {
         console.log(checked);  
         setSelectedCapacity(!selectedCapacity);
     };
-
-    const [ isSection1Complete, setIsSection1Complete ] = useState(false);
-    const [ isSection2Complete, setIsSection2Complete ] = useState(false);
-
-    const isSection1CompleteCheck = (sectionData: any) => {
-        return sectionData.name !== '';
-    };
-
-    const isSection2CompleteCheck = (sectionData: any) => {
-        return sectionData.description !== '';
-    };
-
-    useEffect(() => {
-        setIsSection1Complete(isSection1CompleteCheck(formData));
-    }, [ formData ]);
-
-    useEffect(() => {
-        setIsSection2Complete(isSection2CompleteCheck(formData));
-    }, [ formData ]);
     
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
@@ -528,12 +509,16 @@ const EventForm = () => {
                 </div>
 
                 <ProgressTracker
-                    isSection1Visible={isSection1Visible}
-                    isSection2Visible={isSection2Visible}
-                    isSection3Visible={isSection3Visible}
-                    isSection1Complete={isSection1Complete}
-                    isSection2Complete={isSection2Complete}
-                    isSection3Complete={selectedCapacity}
+                    isSectionVisible={isSection1Visible}
+                    title='INFORMACIÓN BÁSICA'
+                />
+                <ProgressTracker
+                    isSectionVisible={isSection2Visible}
+                    title='DETALLES'
+                />
+                <ProgressTracker
+                    isSectionVisible={isSection3Visible}
+                    title='INSCRIPCIONES Y ENTRADAS'
                 />
             </form>
         </div>
