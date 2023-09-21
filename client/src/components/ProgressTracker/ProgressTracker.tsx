@@ -22,16 +22,16 @@ const ProgressTracker = ({
         <div>
             <div className={`${styles.container} ${styles.step} ${isSection1Visible ? styles.highlight : ''}`}>
                 <div>INFORMACIÓN BÁSICA</div>
-                <div className={isSection1Complete ? styles.greenText : styles.redText}><IoCheckmarkCircle /></div>
+                <div className={isSection1Complete ? styles.filled : styles.unfilled}><IoCheckmarkCircle /></div>
                 
             </div>
             <div className={`${styles.container} ${styles.step} ${isSection2Visible ? styles.highlight : ''}`}>
                 <div>DETALLES</div>
-                <div className={isSection2Complete ? styles.greenText : styles.redText}><IoCheckmarkCircle /></div>
+                <div className={isSection2Complete ? styles.filled : styles.unfilled}><IoCheckmarkCircle /></div>
             </div>
             <div className={`${styles.container} ${styles.step} ${isSection3Visible ? styles.highlight : ''}`}>
                 <div>INSCRIPCIONES Y ENTRADAS</div>
-                <div className={isSection3Complete ? styles.greenText : styles.redText}><IoCheckmarkCircle /></div>
+                <div className={isSection3Complete ? styles.filled : styles.unfilled}><IoCheckmarkCircle /></div>
             </div>
         </div>
     );
