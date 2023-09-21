@@ -15,6 +15,11 @@
   margin: 1rem 0 2rem 0;
   font-size: 16px; 
   transition: border 0.3s ease-in-out;
+  color: #0000;
+}
+
+.input.p{
+  color: black
 }
 
 .input:focus {

@@ -67,7 +67,7 @@ const EventForm = () => {
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
 
     // Text area
-    const handleTextChange = (text ) => {
+    const handleTextChange = (text: string ) => {
         // console.log(text)
         setFormData({
             ...formData,
@@ -240,7 +240,7 @@ const EventForm = () => {
             ...formData,
             isPrivate: checked,
         });
-    };
+    };  
 
     const handleToggleCapacityChange = (checked: boolean) => { 
         console.log(checked);  
@@ -300,7 +300,7 @@ const EventForm = () => {
                             value={formData.tags}
                             label="Etiquetas"
                             onChange={handleTagsChange}
-                            placeHolder="Digite etiquetas y presione Enter"
+                            placeHolder="Escribe etiquetas y presione Enter"
                             subtitle=''
                         />
                     </FormField>
@@ -316,7 +316,7 @@ const EventForm = () => {
                             <TextInput
                                 id="address"
                                 label="Añade una dirección"
-                                placeholder="Escribe la dirección de tu evento."
+                                placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
                                 minLength={3}
                                 maxLength={75}
                                 value={formData.address}
@@ -341,7 +341,7 @@ const EventForm = () => {
                                 <TextInput
                                     id="address"
                                     label="Añade una dirección"
-                                    placeholder="Escribe la dirección de tu evento."
+                                    placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
                                     minLength={3}
                                     maxLength={75}
                                     value={formData.address}
@@ -375,13 +375,6 @@ const EventForm = () => {
                             onChange={handleToggleDateChange} 
                         />
                         <br />
-                        <Select
-                            id="timeZone"
-                            label="Zona Horaria"
-                            options={timeZone}
-                            value={formData.timeZone}
-                            onChange={handleSelectChange}
-                        />
                         <div className={styles.timeContainer}>
                             <div className={styles.selectTime}>
                                 <Select
@@ -402,6 +395,13 @@ const EventForm = () => {
                                 />
                             </div>
                         </div>
+                        <Select
+                            id="timeZone"
+                            label="Zona Horaria"
+                            options={timeZone}
+                            value={formData.timeZone}
+                            onChange={handleSelectChange}
+                        />
                         <ToggleSwitch
                             id="confirmTime"
                             label="Horarios por confirmar"
@@ -446,6 +446,16 @@ const EventForm = () => {
                             subtitle='Contacto para mas informacion'
                             isRequired={false}
                         />
+                        <TextInput
+                            id="web"
+                            label="Añade un enlace a un página web con más información"
+                            placeholder="https://actos.com"
+                            minLength={3}
+                            maxLength={75}
+                            value={formData.web}
+                            onChange={handleInputChange}
+                            isRequired={false}
+                        />
                     </FormField>
                     <FormField>
                         <DropdownCheck 
@@ -453,16 +463,6 @@ const EventForm = () => {
                             label="Idioma del Evento"
                             options={languages}/>
 
-                        <TextInput
-                            id="web"
-                            label="Añade un enlace"
-                            placeholder="Escribe el enlace de tu evento."
-                            minLength={3}
-                            maxLength={75}
-                            value={formData.web}
-                            onChange={handleInputChange}
-                            isRequired={false}
-                        />
                     </FormField>
                     
                     <FormField>
@@ -486,8 +486,8 @@ const EventForm = () => {
                     <FormField>
                         <ToggleSwitch
                             id="private"
-                            label="El evento es privado"
-                            subtitle="Si activas el botón, el evento sera privado."  
+                            label="Evento privado"
+                            subtitle="Activa el botón para que solo los usuarios con enlace puedan acceder al evento."  
                             isChecked={formData.isPrivate} 
                             onChange={handleToggleIsPrivateChange} 
                         />
@@ -496,7 +496,7 @@ const EventForm = () => {
                         <ToggleSwitch 
                             id='capacity'
                             label={'El evento tiene limite de entrada'}
-                            subtitle={'Si activas el botón, el evento tiene un limite de entrada.'}
+                            subtitle={'Activa el botón para definir número de entradas.'}
                             onChange={handleToggleCapacityChange}
                             isChecked={selectedCapacity}
                         />
@@ -504,7 +504,7 @@ const EventForm = () => {
                             <TextInputWithSubtitle
                                 id="capacity"
                                 label="Límite de entradas"
-                                subtitle="Escribe el número de entradas disponibles en caso de aforo limitado."
+                                subtitle="Al alcanzar este límite, ya no se podrán suscribir más usuarios."
                                 placeholder=""
                                 minLength={0}
                                 maxLength={500}
