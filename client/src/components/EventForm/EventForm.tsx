@@ -88,12 +88,18 @@ const EventForm = () => {
 
     // Select
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        
         const { id, value } = event.target;
-        setFormData({
-            ...formData,
-            [id]: value,
-        });
+
+        //EventTime: Start and End Time
+        if (id === 'endTime' && value < formData.startTime) {
+            alert('La hora de finalización no puede ser anterior a la hora de inicio.');
+
+        } else {
+            setFormData({
+                ...formData,
+                [id]: value,
+            });
+        }
     };
 
     // Tags
