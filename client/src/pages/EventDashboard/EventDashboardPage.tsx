@@ -6,10 +6,6 @@ import { EventFormProps } from '../../interfaces/eventFormProps';
 import status from '../../data/status.json';
 import Select from '../../components/Select/Select';
 
-interface EventDashboardProps {
-    id: string;
-}
-
 const EventDashboardPage = () => {
 
     const location = useLocation();
@@ -40,7 +36,8 @@ const EventDashboardPage = () => {
     }, []);
 
     useEffect(() => {
-       
+        // setEventData(eventData);
+        console.log('eventData', eventData);
     }, [ eventData ]);
 
     return (
@@ -68,7 +65,7 @@ const EventDashboardPage = () => {
                             />
                         </div>
                     </section>
-                    <InscriptionsRecap />
+                    <InscriptionsRecap capacity={ eventData.capacity } />
                 </section>
                 <EventDashboardForm eventData={ eventData } />
             </div>

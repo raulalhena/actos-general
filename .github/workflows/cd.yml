@@ -30,7 +30,14 @@ jobs:
           cd /home/${{ secrets.USERNAME }}/apps/actos/
           git pull origin main
           nvm use v18.16.1
+          cd client
           npm install
           npm run build
-          pm2 delete Actos
-          pm2 --name Actos start npx -- next -p 5000
+          cd ..
+          cd server
+          npm install
+          npm run build
+          pm2 delete ActosServer
+          pm2 --name ActosServer start -- npm run start
+          pm2 delete ActosClient
+          pm2 --name ActosClient start -- npm run start

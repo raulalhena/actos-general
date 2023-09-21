@@ -7,6 +7,7 @@ interface ProgressTrackerProps {
     isSection3Visible: boolean;
     isSection1Complete: boolean;
     isSection2Complete: boolean;
+    isSection3Complete: boolean;
   }
 
 const ProgressTracker = ({
@@ -14,7 +15,8 @@ const ProgressTracker = ({
     isSection2Visible,
     isSection3Visible,
     isSection1Complete,
-    // isSection2Complete
+    isSection2Complete,
+    isSection3Complete
 }: ProgressTrackerProps) => {
     return (
         <div>
@@ -23,8 +25,14 @@ const ProgressTracker = ({
                 <div className={isSection1Complete ? styles.greenText : styles.redText}><IoCheckmarkCircle /></div>
                 
             </div>
-            <div className={`${styles.step} ${isSection2Visible ? styles.highlight : ''}`}>DETALLES</div>
-            <div className={`${styles.step} ${isSection3Visible ? styles.highlight : ''}`}>INSCRIPCIONES Y ENTRADAS</div>
+            <div className={`${styles.container} ${styles.step} ${isSection2Visible ? styles.highlight : ''}`}>
+                <div>DETALLES</div>
+                <div className={isSection2Complete ? styles.greenText : styles.redText}><IoCheckmarkCircle /></div>
+            </div>
+            <div className={`${styles.container} ${styles.step} ${isSection3Visible ? styles.highlight : ''}`}>
+                <div>INSCRIPCIONES Y ENTRADAS</div>
+                <div className={isSection3Complete ? styles.greenText : styles.redText}><IoCheckmarkCircle /></div>
+            </div>
         </div>
     );
 };

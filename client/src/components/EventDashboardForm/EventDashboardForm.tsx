@@ -29,7 +29,8 @@ const EventDashboardForm = ({ eventData }: EventFormProps) => {
 
     useEffect(() => {
         setFormData(eventData);
-    }, [ formData ]);
+        console.log('form data', formData);
+    }, [ eventData ]);
 
     // Visibility
     const [ isSection1Visible, setIsSection1Visible ] = useState(false);
@@ -100,8 +101,8 @@ const EventDashboardForm = ({ eventData }: EventFormProps) => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        const resp = await fetch('http://localhost:8000/api/events', { 
-            method: 'POST',
+        const resp = await fetch(`http://localhost:8000/api/events/${formData._id}`, { 
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },

@@ -1,0 +1,50 @@
+.label {
+    font-weight: 600;
+    color: #1c2e48;
+
+}
+
+.option {
+    width: 350px;
+    height: 40px;
+    border-radius: 5px;
+
+    margin: 0 0 4rem 0;
+}
+
+.option:focus {
+    border: 1.5px solid #1C2E48;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+    outline: none;
+    caret-color: #e15a40 ;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) { 
+    .option {
+    width: 350px;
+    }
+    
+    }
+    
+/* Para pantallas más grandes o iguales a 992px (lg) */
+@media screen and (min-width: 992px) {
+    .option {
+    width: 500px;
+    }
+}
+
+/* Para pantallas más grandes o iguales a 1200px (xl) */
+@media screen and (min-width: 1200px) {
+    .option {
+    width: 650px;
+    }
+}
+
+ /* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+    .option {
+    width: 750px;
+    }
+}
+
