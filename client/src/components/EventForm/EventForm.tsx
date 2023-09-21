@@ -136,6 +136,7 @@ const EventForm = () => {
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+        console.log(formData);
 
         const resp = await fetch('http://localhost:8000/api/events', { 
             method: 'POST',
@@ -240,21 +241,14 @@ const EventForm = () => {
 
     const [ isSection1Complete, setIsSection1Complete ] = useState(false);
     const [ isSection2Complete, setIsSection2Complete ] = useState(false);
-    const [ isSection3Complete, setIsSection3Complete ] = useState(false);
 
     const isSection1CompleteCheck = (sectionData: any) => {
         return sectionData.name !== '';
     };
 
     const isSection2CompleteCheck = (sectionData: any) => {
-        // Check if all required fields in Section 2 are filled
         return sectionData.description !== '';
     };
-
-    // const isSection3CompleteCheck = (sectionData: any) => {
-    //     // Check if all required fields in Section 2 are filled
-    //     return sectionData.description !== '';
-    // };
 
     useEffect(() => {
         setIsSection1Complete(isSection1CompleteCheck(formData));
@@ -263,10 +257,6 @@ const EventForm = () => {
     useEffect(() => {
         setIsSection2Complete(isSection2CompleteCheck(formData));
     }, [ formData ]);
-
-    // useEffect(() => {
-    //     setIsSection3Complete(isSection3CompleteCheck(formData));
-    // }, [ formData ]);
     
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
@@ -502,7 +492,7 @@ const EventForm = () => {
                             onChange={handleToggleCapacityChange}
                             isChecked={selectedCapacity}
                         />
-                        {selectedCapacity && (
+                        {selectedCapacity ? (
                             <TextInputWithSubtitle
                                 id="capacity"
                                 label="Límite de entradas"
@@ -512,9 +502,9 @@ const EventForm = () => {
                                 maxLength={500}
                                 value={formData.capacity} 
                                 onChange={handleInputChange}
-                                isRequired={false}
+                                isRequired={true}
                             />
-                        )}
+                        ): null }
                     </FormField>
                 </SectionForm>
                 <p style={{ color: 'red' }}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
@@ -529,7 +519,7 @@ const EventForm = () => {
                     isSection3Visible={isSection3Visible}
                     isSection1Complete={isSection1Complete}
                     isSection2Complete={isSection2Complete}
-                    isSection3Complete={isSection3Complete}
+                    isSection3Complete={selectedCapacity}
                 />
             </form>
         </div>
