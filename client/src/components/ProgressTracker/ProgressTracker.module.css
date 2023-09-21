@@ -9,10 +9,10 @@
     font-weight: bold;
   }
 
-.greenText {
-  color: green;
+.filled {
+  color: #e15a40;
 }
 
-.redText {
+.unfilled {
   color: gray;
 }
