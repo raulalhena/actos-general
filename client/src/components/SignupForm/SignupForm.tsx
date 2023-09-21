@@ -135,6 +135,18 @@ const SignupForm = () => {
                     />
                     {passwordError && <p className={styles.error}>{passwordError}</p>}
                 </section>
+                <TextInput
+                        id="passwordConfirmed"
+                        label=""
+                        placeholder="Confirma tu contraseña"
+                        minLength={3}
+                        maxLength={175}
+                        value={signupData.password}
+                        onChange={handleInputChange}
+                        isPassword={true}
+                    />
+                    {passwordError && <p className={styles.error}>{passwordError}</p>}
+                </section>
                 <div className={styles.buttonSection}>
                     <ButtonSubmit label="Registrarse" />
                 </div>

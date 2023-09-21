@@ -6,9 +6,12 @@ import styles from './TextArea.module.css';
 export const TextArea = (props: TextInputProps) => {
     const { label, id, value, onChange } = props;
     
-    const handleChange = (_text: string, _delta: any, _source: any, editor: any) => {
-        onChange(editor.getHTML()); 
-    };
+    // const handleChange = (_text: string, _delta: any, _source: any, editor: any) => {
+    //     // onChange(editor.getHTML()); 
+    //     onChange(editor.getHTML()); 
+    // };
+
+    console.log('id in comp', id)
 
     return (
         <div className={styles.textContainer}>
@@ -20,7 +23,7 @@ export const TextArea = (props: TextInputProps) => {
                 <ReactQuill
                     id={id}
                     value={value}
-                    onChange={handleChange}
+                    onChange={e => onChange(e)}
                     theme="snow"
                     placeholder="Cuéntanos más sobre el evento..."
                     style={{ border: 'none', height: '180px' }}

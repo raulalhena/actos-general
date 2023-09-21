@@ -28,7 +28,6 @@ const EventForm = () => {
     const navigator = useNavigate();
 
     const [ formData, setFormData ] = useState<EventFormProps>({
-        _id: '',
         name: '',
         category: '',
         tags: [],
@@ -66,6 +65,15 @@ const EventForm = () => {
     const [ isSection1Visible, setIsSection1Visible ] = useState(false);
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
+
+    // Text area
+    const handleTextChange = (text ) => {
+        // console.log(text)
+        setFormData({
+            ...formData,
+            description: text,
+        });
+    };
 
     // Input
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -415,7 +423,7 @@ const EventForm = () => {
                             minLength={3}
                             maxLength={500}
                             value={formData.description}
-                            onChange={handleInputChange}
+                            onChange={handleTextChange}
                         />
                     </FormField>
                     <FormField>
@@ -486,7 +494,7 @@ const EventForm = () => {
                     </FormField>
                     <FormField>
                         <ToggleSwitch 
-                            id={'capacity'}
+                            id='capacity'
                             label={'El evento tiene limite de entrada'}
                             subtitle={'Si activas el botón, el evento tiene un limite de entrada.'}
                             onChange={handleToggleCapacityChange}
