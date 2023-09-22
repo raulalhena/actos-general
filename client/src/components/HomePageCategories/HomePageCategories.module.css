@@ -1,6 +1,38 @@
 .categoriesSection {
   display: flex;
-  gap: 4rem;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) {
+  .categoriesSection {
+    flex-direction: row;
+    gap: 4rem;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 992px (lg) */
+@media screen and (min-width: 992px) {
+  .categoriesSection  {
+    flex-direction: row;
+    gap: 4rem;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 1200px (xl) */
+@media screen and (min-width: 1200px) {
+  .categoriesSection  {
+    flex-direction: row;
+    gap: 4rem;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+  .categoriesSection  {
+    flex-direction: row;
+    gap: 4rem;
+  }
 }

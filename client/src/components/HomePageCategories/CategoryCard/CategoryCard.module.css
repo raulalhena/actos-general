@@ -1,13 +1,12 @@
 .category {
-  border: 1px solid #cacaca;
   width: fit-content;
   height: fit-content;
-  padding: 2rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .image {
@@ -17,4 +16,33 @@
   top: 759px;
   left: 231px;
   border-radius: 20px;
+}
+
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) {
+  .category {
+    gap: 2rem;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 992px (lg) */
+@media screen and (min-width: 992px) {
+  .category {
+    gap: 2rem;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 1200px (xl) */
+@media screen and (min-width: 1200px) {
+  .category {
+    gap: 2rem;
+  }
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+  .category {
+    gap: 2rem;
+  }
 }
