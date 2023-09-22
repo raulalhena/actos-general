@@ -30,6 +30,7 @@ const EventDashboardPage = () => {
         _id: '',
         name: '',
         category: '',
+        subcategory: '',
         tags: [],
         mode: '',
         type: '',

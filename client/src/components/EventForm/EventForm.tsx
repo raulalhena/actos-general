@@ -32,6 +32,7 @@ const EventForm = () => {
     const [ formData, setFormData ] = useState<EventFormProps>({
         name: '',
         category: '',
+        subcategory: '',
         tags: [],
         mode: '',
         type: '',
@@ -147,7 +148,7 @@ const EventForm = () => {
         e.preventDefault();
         const imageData = new FormData();
         imageData.append('file', eventImage);
-        const resp = await fetch('http://93.93.112.16:8000/api/events/upload', {
+        const resp = await fetch('http://localhost:8000/api/events/upload', {
             method: 'POST',
             body: imageData
         });
@@ -187,7 +188,7 @@ const EventForm = () => {
             return;
         }   
 
-        const resp = await fetch('http://93.93.112.16:8000/api/events', { 
+        const resp = await fetch('http://localhost:8000/api/events', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -309,10 +310,10 @@ const EventForm = () => {
                             onChange={handleSelectChange}
                         />
                         <Select
-                            id="category"
+                            id="subcategory"
                             label="Subcategoría *"
                             options={categories}
-                            value={formData.category}
+                            value={formData.subcategory}
                             onChange={handleSelectChange}
                         />
                         <Select

@@ -2,6 +2,7 @@ export interface EventDashboardFormProps {
     _id: string;
     name: string;
     category?: string;
+    subcategory?: string;
     tags?: string[];
     mode: string;
     type: string;

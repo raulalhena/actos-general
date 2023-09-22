@@ -1,6 +1,7 @@
 export interface EventFormProps  {
     name: string;
     category?: string;
+    subcategory?: string;
     tags?: string[];
     mode: string;
     type: string;
