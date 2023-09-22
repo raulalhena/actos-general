@@ -163,17 +163,20 @@ const EventForm = () => {
         event.preventDefault();
         console.log(formData);
 
-        if (!formData.name || !formData.description ) {
-            const missingFields = [];
+        if (
+            !formData.name ||
+            !formData.description ||
+            !formData.date ||
+            !formData.category||
+            // !formData.subcategory||
+            // !formData.type||
+            !formData.mode ||
+            !formData.startTime||
+            !formData.endTime)
+
+        {
         
-            if (!formData.name) {
-                missingFields.push('Nombre del evento');
-            }
-            if (!formData.description) {
-                missingFields.push('Descripción del evento');
-            }
-        
-            const errorMessage = `Por favor, complete los siguientes campos obligatorios: ${missingFields.join(', ')}`;
+            const errorMessage = `Por favor, complete los siguientes campos obligatorios.`;
         
             toast.error(errorMessage, {
                 position: toast.POSITION.TOP_RIGHT,
@@ -396,6 +399,7 @@ const EventForm = () => {
                             selectedValue={selectedMode}
                             label="Modalidad"
                             onChange={handleModeChange}
+                            isRequired={true}
                         />
                         {selectedMode === 'option1' && (
                             <TextInput
@@ -406,12 +410,12 @@ const EventForm = () => {
                                 maxLength={75}
                                 value={formData.address}
                                 onChange={handleInputChange}
-                                isRequired={false}
+                                isRequired={true}
                             />
                         )}
                         {selectedMode === 'option2' && (
                             <TextInput
-                                isRequired={false}
+                                isRequired={true}
                                 id="webLink"
                                 label="Añade un link de acceso"
                                 placeholder="Escribe el link de acceso a tu evento."
@@ -432,7 +436,7 @@ const EventForm = () => {
                                     maxLength={75}
                                     value={formData.address}
                                     onChange={handleInputChange}
-                                    isRequired={false}
+                                    isRequired={true}
                                 />
                                 <TextInput
                                     id="webLink"
@@ -442,11 +446,62 @@ const EventForm = () => {
                                     maxLength={75}
                                     value={formData.webLink}
                                     onChange={handleInputChange}
-                                    isRequired={false}
+                                    isRequired={true}
                                     type="url"
                                 />
                             </>
                         )}
+                    </FormField>
+                    <FormField>
+                        <DateInput 
+                            id='date' 
+                            name='date' 
+                            value={formData.date} 
+                            onChange={handleDateChange}
+                            isRequired={true} />
+                        <ToggleSwitch
+                            id="confirmDate"
+                            label="Fecha por confirmar."
+                            subtitle="Si activas el botón, la fecha no se mostrará en el evento." 
+                            isChecked={formData.showDate} 
+                            onChange={handleToggleDateChange} 
+                        />
+                        <br />
+                        <div className={styles.timeContainer}>
+                            <div className={styles.selectTime}>
+                                <Select
+                                    id="startTime"
+                                    label="Hora de Inicio"
+                                    options={time}
+                                    value={formData.startTime}
+                                    onChange={handleSelectChange}
+                                    isRequired={true}
+                                />
+                            </div>
+                            <div className={styles.selectTime}>
+                                <Select
+                                    id="endTime"
+                                    label="Hora de fin"
+                                    options={time}
+                                    value={formData.endTime}
+                                    onChange={handleSelectChange}
+                                    isRequired={true}
+                                />
+                            </div>
+                        </div>
+                        <Select
+                            id="timeZone"
+                            label="Zona Horaria"
+                            options={timeZone}
+                            value={formData.timeZone}
+                            onChange={handleSelectChange}
+                        />
+                        <ToggleSwitch
+                            id="confirmTime"
+                            label="Horarios por confirmar"
+                            subtitle="Si activas el botón, la información de los horarios no se mostrará en el evento" 
+                            isChecked={formData.showTime} 
+                            onChange={handleToggleTimeChange}/>
                     </FormField>
                 </SectionForm>
 

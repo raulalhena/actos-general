@@ -5,4 +5,5 @@ export interface RadioGroupContainerProps {
     radioButtons: ButtonCardRadioProps[];
     selectedValue: string ;
     onChange: (value: string) => void;
+    isRequired?: boolean;
   }

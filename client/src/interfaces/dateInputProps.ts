@@ -5,4 +5,5 @@ export interface DateInputProps {
     name : string;
     value : string;
     onChange : (e: ChangeEvent<HTMLInputElement>) => void;
+    isRequired?: boolean;
 }
