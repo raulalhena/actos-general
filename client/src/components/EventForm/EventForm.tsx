@@ -22,7 +22,7 @@ import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
 import { useNavigate } from 'react-router';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
-
+import types from '../../data/type.json';
 // Form
 const EventForm = () => {
     const navigator = useNavigate();
@@ -62,7 +62,7 @@ const EventForm = () => {
     });
 
     // Visibility
-    const [ isSection1Visible, setIsSection1Visible ] = useState(false);
+    const [ isSection1Visible, setIsSection1Visible ] = useState(true);
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
 
@@ -265,33 +265,98 @@ const EventForm = () => {
                     toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
 
                     <FormField>
+                        <Select
+                            id="category"
+                            label="Categoría *"
+                            options={categories}
+                            value={formData.category}
+                            onChange={handleSelectChange}
+                        />
+                        <Select
+                            id="category"
+                            label="Subcategoría *"
+                            options={categories}
+                            value={formData.category}
+                            onChange={handleSelectChange}
+                        />
+                        <Select
+                            id="type"
+                            label="Tipo *"
+                            options={types}
+                            value={formData.type}
+                            onChange={handleSelectChange}
+                        />
+                    </FormField>
+                    <FormField>
                         <TextInput
                             isRequired={true}
                             id="name" 
-                            label="Nombre del evento*"
+                            label="Nombre del evento *"
                             placeholder="Evento"
                             minLength={3}
                             maxLength={75}
                             value={formData.name}
                             onChange={handleInputChange}
                         />
-                        <Select
-                            id="category"
-                            label="Categoría"
-                            options={categories}
-                            value={formData.category}
-                            onChange={handleSelectChange}
-                        />
-                        <TagsInputComponent
-                            id="tags"
-                            value={formData.tags}
-                            label="Etiquetas"
-                            onChange={handleTagsChange}
-                            placeHolder="Escribe etiquetas y presione Enter"
-                            subtitle=''
+                        <TextArea
+                            id="description"
+                            label="Descripción del evento *"
+                            placeholder="Añade una descripción a tu evento."
+                            minLength={3}
+                            maxLength={500}
+                            value={formData.description}
+                            onChange={handleTextChange}
                         />
                     </FormField>
-
+                    
+                    <FormField>
+                        <DateInput 
+                            id='date' 
+                            name='date' 
+                            value={formData.date} 
+                            onChange={handleDateChange} />
+                        <ToggleSwitch
+                            id="confirmDate"
+                            label="Fecha por confirmar."
+                            subtitle="Si activas el botón, la fecha no se mostrará en el evento." 
+                            isChecked={formData.showDate} 
+                            onChange={handleToggleDateChange} 
+                        />
+                        <br />
+                        <div className={styles.timeContainer}>
+                            <div className={styles.selectTime}>
+                                <Select
+                                    id="startTime"
+                                    label="Hora de Inicio"
+                                    options={time}
+                                    value={formData.startTime}
+                                    onChange={handleSelectChange}
+                                />
+                            </div>
+                            <div className={styles.selectTime}>
+                                <Select
+                                    id="endTime"
+                                    label="Hora de fin"
+                                    options={time}
+                                    value={formData.endTime}
+                                    onChange={handleSelectChange}
+                                />
+                            </div>
+                        </div>
+                        <Select
+                            id="timeZone"
+                            label="Zona Horaria"
+                            options={timeZone}
+                            value={formData.timeZone}
+                            onChange={handleSelectChange}
+                        />
+                        <ToggleSwitch
+                            id="confirmTime"
+                            label="Horarios por confirmar"
+                            subtitle="Si activas el botón, la información de los horarios no se mostrará en el evento" 
+                            isChecked={formData.showTime} 
+                            onChange={handleToggleTimeChange}/>
+                    </FormField>
                     <FormField>
                         <RadioGroupContainer
                             radioButtons={modeRadioButtons}
@@ -350,71 +415,13 @@ const EventForm = () => {
                             </>
                         )}
                     </FormField>
-                    <FormField>
-                        <DateInput 
-                            id='date' 
-                            name='date' 
-                            value={formData.date} 
-                            onChange={handleDateChange} />
-                        <ToggleSwitch
-                            id="confirmDate"
-                            label="Fecha por confirmar."
-                            subtitle="Si activas el botón, la fecha no se mostrará en el evento." 
-                            isChecked={formData.showDate} 
-                            onChange={handleToggleDateChange} 
-                        />
-                        <br />
-                        <div className={styles.timeContainer}>
-                            <div className={styles.selectTime}>
-                                <Select
-                                    id="startTime"
-                                    label="Hora de Inicio"
-                                    options={time}
-                                    value={formData.startTime}
-                                    onChange={handleSelectChange}
-                                />
-                            </div>
-                            <div className={styles.selectTime}>
-                                <Select
-                                    id="endTime"
-                                    label="Hora de fin"
-                                    options={time}
-                                    value={formData.endTime}
-                                    onChange={handleSelectChange}
-                                />
-                            </div>
-                        </div>
-                        <Select
-                            id="timeZone"
-                            label="Zona Horaria"
-                            options={timeZone}
-                            value={formData.timeZone}
-                            onChange={handleSelectChange}
-                        />
-                        <ToggleSwitch
-                            id="confirmTime"
-                            label="Horarios por confirmar"
-                            subtitle="Si activas el botón, la información de los horarios no se mostrará en el evento" 
-                            isChecked={formData.showTime} 
-                            onChange={handleToggleTimeChange}/>
-                    </FormField>
                 </SectionForm>
 
                 <SectionForm
                     title="2 DETALLES"
                     isVisible={isSection2Visible}
                     toggleVisibility={() => setIsSection2Visible(!isSection2Visible)}>
-                    <FormField>
-                        <TextArea
-                            id="description"
-                            label="Descripción del evento *"
-                            placeholder="Añade una descripción a tu evento."
-                            minLength={3}
-                            maxLength={500}
-                            value={formData.description}
-                            onChange={handleTextChange}
-                        />
-                    </FormField>
+
                     <FormField>
                         <TagsInputComponent
                             id="organizedBy"
@@ -436,6 +443,16 @@ const EventForm = () => {
                             isRequired={false}
                             type="email"
                         />
+                        
+                    </FormField>
+                    <FormField>
+                        <DropdownCheck 
+                            id="languages"
+                            label="Idioma del Evento"
+                            options={languages}/>
+
+                    </FormField>
+                    <FormField>
                         <TextInput
                             id="web"
                             label="Añade un enlace a un página web con más información"
@@ -449,13 +466,15 @@ const EventForm = () => {
                         />
                     </FormField>
                     <FormField>
-                        <DropdownCheck 
-                            id="languages"
-                            label="Idioma del Evento"
-                            options={languages}/>
-
+                        <TagsInputComponent
+                            id="tags"
+                            value={formData.tags}
+                            label="Etiquetas"
+                            onChange={handleTagsChange}
+                            placeHolder="Escribe etiquetas y presione Enter"
+                            subtitle=''
+                        />
                     </FormField>
-                    
                     <FormField>
                         <ImageUploader 
                             id="image"
@@ -483,6 +502,7 @@ const EventForm = () => {
                             onChange={handleToggleIsPrivateChange} 
                         />
                     </FormField>
+         
                     <FormField>
                         <ToggleSwitch 
                             id='capacity'
