@@ -2,9 +2,6 @@ import { useEffect, useState } from 'react';import EventDashboardForm from '../.
 import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRecap';
 import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
-// import { EventFormProps } from '../../interfaces/eventFormProps';
-import status from '../../data/status.json';
-import Select from '../../components/Select/Select';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 
 const EventDashboardPage = () => {
@@ -12,20 +9,6 @@ const EventDashboardPage = () => {
     const location = useLocation();
     const eventId = location.state.id;
 
-    // ESTO ERA LO QUE TENÏA YO
-    // const [ eventData, setEventData ] = useState<EventFormProps>({
-    //     status: false,
-    // });
-
-    // Select
-    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        
-        const { id, value } = event.target;
-        setEventData({
-            ...eventData,
-            [id]: value,
-        });
-    };
     const [ eventData, setEventData ] = useState<EventDashboardFormProps>({
         _id: '',
         name: '',
@@ -92,15 +75,6 @@ const EventDashboardPage = () => {
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             </p>
                         </div>
-                        {/* <div className={styles.selectStatus}>
-                            <Select
-                                id="status"
-                                label=""
-                                options={status}
-                                value={eventData.status}
-                                onChange={handleSelectChange}
-                            />
-                        </div> */}
                     </section>
                     <InscriptionsRecap capacity={ String(eventData?.capacity) } />
                 </section>
