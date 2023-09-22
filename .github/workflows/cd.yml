@@ -40,4 +40,4 @@ jobs:
           npm install
           npm run test
           npm run build
-          pm2 startOrRestart npm --name ActosServer -- start      
+          pm2 gracefullRestart pm2run.json

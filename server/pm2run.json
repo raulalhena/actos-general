@@ -1,0 +1,10 @@
+{
+    "apps": [
+        {
+            "name": "ActosServer",
+            "script": "npm start",
+            "wait_ready": true,
+            "kill_timeout": 3000
+        }
+    ]
+}
