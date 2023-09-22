@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import styles from './DropdownButton.module.css';
 
 function DropdownButton() {
     const [ selectedOption, setSelectedOption ] = useState('Draft');
 
-    const handleOptionChange = (e) => {
+    const handleOptionChange = (e: ChangeEvent<HTMLSelectElement>) => {
         setSelectedOption(e.target.value);
     };
 

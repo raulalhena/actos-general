@@ -2,14 +2,16 @@ import styles from './ImageUploader.module.css';
 import { PiUploadSimpleLight } from 'react-icons/pi';
 
 interface ImageUploaderProps {
+    id: string;
     previewURL: string;
-    imgVisibility: boolean;
-    removeImage: () => void;
+    imgVisibility: string;
+    removeImage: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    sendImage: (e: React.MouseEvent<HTMLButtonElement>) => void;
     onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
-    onDragOver: () => void;
+    onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
 }
 
-export const ImageUploader = ({ previewURL, imgVisibility, removeImage, onDrop, onDragOver }: ImageUploaderProps) => {
+export const ImageUploader = ({ previewURL, imgVisibility, sendImage, removeImage, onDrop, onDragOver }: ImageUploaderProps) => {
 
     return (
         <div className={styles.uploadImgContainer} onDrop={onDrop} onDragOver={onDragOver}>
@@ -20,6 +22,7 @@ export const ImageUploader = ({ previewURL, imgVisibility, removeImage, onDrop, 
             <div className={styles.dragDropZone} >
                 <PiUploadSimpleLight className={styles.icon}/>
                 <p>Arrastra una imagen.<img src={previewURL} style={{ objectFit: 'cover', display: imgVisibility }} alt='uploaded' width='300' height='300' /></p>
+                <button onClick={sendImage}>Enviar</button>
                 <button onClick={removeImage}>Remove</button>
             </div>
         </div>

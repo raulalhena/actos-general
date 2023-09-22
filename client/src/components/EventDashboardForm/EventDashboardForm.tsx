@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
@@ -14,68 +14,28 @@ import TextInput from '../TextInput/TextInput';
 import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
-import styles from './EventForm.module.css';
+import capacityRadioButtonsContainer from '../../data/capacityRadioButtons.json';
+import styles from './EventDashboardForm.module.css';
 import categories from '../../data/category.json';
 import timeZone from '../../data/timeZone.json';
 import languages from '../../data/languages.json';
 import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
-import { useNavigate } from 'react-router';
-import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 // Form
-const EventForm = () => {
-    const navigator = useNavigate();
+const EventDashboardForm = ({ eventData }: EventFormProps) => {
 
-    const [ formData, setFormData ] = useState<EventFormProps>({
-        name: '',
-        category: '',
-        tags: [],
-        mode: '',
-        type: '',
-        address: '', 
-        webLink: '', 
-        date: '',
-        startTime: '',
-        endTime: '',
-        timeZone: '',
-        showTime: false,
-        showDate: false,
-        confirmed: false, 
-        description: '',
-        web: '', 
-        organizedBy: [], 
-        contact: '',
-        isPrivate: false,
-        language: [], //Select con checkbox
-        image: '', 
-        video: '', 
-        capacity: 0
-        // qrEvent: '',
-        // qrAttendees: [],
-        // attendees: [],
-        // submitted: [],
-        // price: 0, 
-        // payment: '', 
-        // visibility: false,
-        // status: false
-    });
+    const [ formData, setFormData ] = useState<EventFormProps>(eventData);
+
+    useEffect(() => {
+        setFormData(eventData);
+        console.log('form data', formData);
+    }, [ eventData ]);
 
     // Visibility
     const [ isSection1Visible, setIsSection1Visible ] = useState(false);
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
-
-    // Text area
-    const handleTextChange = (text: string ) => {
-        // console.log(text)
-        setFormData({
-            ...formData,
-            description: text,
-        });
-    };
 
     // Input
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,23 +50,12 @@ const EventForm = () => {
 
     // Select
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        
         const { id, value } = event.target;
-
-        //EventTime: Start and End Time
-        if (id === 'endTime' && value < formData.startTime) {
-            
-            toast.error('La hora de finalización no puede ser anterior a la hora de inicio.', {
-                position: 'top-right',
-                autoClose: 5000,
-                pauseOnHover: true,
-            });
-
-        } else {
-            setFormData({
-                ...formData,
-                [id]: value,
-            });
-        }
+        setFormData({
+            ...formData,
+            [id]: value,
+        });
     };
 
     // Tags
@@ -126,20 +75,10 @@ const EventForm = () => {
 
     // DateInput
     const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const newDate = e.target.value;
-        const currentDate = new Date().toISOString().split('T')[0];
-        if (newDate >= currentDate) {
-            setFormData({
-                ...formData,
-                date: newDate,
-            });
-        } else {
-            toast.error('La fecha seleccionada es anterior a la fecha actual.', {
-                position: 'top-right',
-                autoClose: 5000,
-                pauseOnHover: true,
-            });
-        }
+        setFormData({
+            ...formData,
+            date: e.target.value,
+        });
     };
 
     // Send Image
@@ -161,42 +100,22 @@ const EventForm = () => {
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log(formData);
 
-        if (!formData.name || !formData.description ) {
-            const missingFields = [];
-        
-            if (!formData.name) {
-                missingFields.push('Nombre del evento');
-            }
-            if (!formData.description) {
-                missingFields.push('Descripción del evento');
-            }
-        
-            const errorMessage = `Por favor, complete los siguientes campos obligatorios: ${missingFields.join(', ')}`;
-        
-            toast.error(errorMessage, {
-                position: toast.POSITION.TOP_RIGHT,
-                autoClose: 5000,
-                closeOnClick: true,
-                pauseOnHover: true,
-            });
-            return;
-        }        
-
-        const resp = await fetch('http://localhost:8000/api/events', { 
-            method: 'POST',
+        const resp = await fetch(`http://localhost:8000/api/events/${formData._id}`, { 
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
         });
         const result = await resp.json();
-        navigator('/eventdashboard', { state: { id: result._id } });
+        console.log(result);
+        // MOSTRAR MODAL SE HA GUARDADO CORRECTAMENTE?
     };
 
     // Button Radio
     const [ selectedMode, setSelectedMode ] = useState<string>('');
+    const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
@@ -207,11 +126,24 @@ const EventForm = () => {
         });
     };
 
+    // Capacity Radio Groug handler
+    const handleCapacityChange = (value: string) => {
+        console.log('value', value);
+        setSelectedCapacity(!selectedCapacity);
+    };
+
     // Mode Radio Group
     const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
         ...container,
         checked: selectedMode === container.value,
         onChange: () => handleModeChange(container.value),
+    }));
+
+    // Capacity Radio Group
+    const capacityRadioButtons: ButtonCardRadioProps[] = capacityRadioButtonsContainer.map((container) => ({
+        ...container,
+        checked: selectedMode === container.value,
+        onChange: () => handleCapacityChange(container.value),
     }));
 
     /**************************************************
@@ -271,6 +203,7 @@ const EventForm = () => {
             ...formData,
             showDate: checked,
         });
+   
     };
 
     const handleToggleIsPrivateChange = (checked: boolean) => {
@@ -278,19 +211,28 @@ const EventForm = () => {
             ...formData,
             isPrivate: checked,
         });
-    };  
-
-    const handleToggleCapacityChange = (checked: boolean) => { 
-        console.log(checked);  
-        setSelectedCapacity(!selectedCapacity);
     };
-    
-    const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
+
+    const [ isSection1Complete, setIsSection1Complete ] = useState(false);
+    const [ isSection2Complete, setIsSection2Complete ] = useState(false);
+
+    const isSectionComplete = (sectionData: any) => {
+        return (
+            sectionData.name !== ''
+        );
+    };
+
+    useEffect(() => {
+        setIsSection1Complete(isSectionComplete(formData));
+    }, [ formData ]);
+
+    useEffect(() => {
+        setIsSection2Complete(isSectionComplete(formData));
+    }, [ formData ]);
 
     return (
         <div className={styles.form}>
             <form data-testid="event-form" onSubmit={handleSubmit}>
-                <ToastContainer position="top-right" autoClose={3000} />
 
                 <SectionForm
                     title="1 INFORMACIÓN BÁSICA"
@@ -308,6 +250,8 @@ const EventForm = () => {
                             value={formData.name}
                             onChange={handleInputChange}
                         />
+                    </FormField>
+                    <FormField>
                         <Select
                             id="category"
                             label="Categoría"
@@ -315,14 +259,17 @@ const EventForm = () => {
                             value={formData.category}
                             onChange={handleSelectChange}
                         />
+                    </FormField>
+                    <FormField>
                         <TagsInputComponent
                             id="tags"
                             value={formData.tags}
                             label="Etiquetas"
                             onChange={handleTagsChange}
-                            placeHolder="Escribe etiquetas y presione Enter"
+                            placeHolder="Digite etiquetas y presione Enter"
                             subtitle=''
                         />
+                        
                     </FormField>
 
                     <FormField>
@@ -336,7 +283,7 @@ const EventForm = () => {
                             <TextInput
                                 id="address"
                                 label="Añade una dirección"
-                                placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
+                                placeholder="Escribe la dirección de tu evento."
                                 minLength={3}
                                 maxLength={75}
                                 value={formData.address}
@@ -347,14 +294,13 @@ const EventForm = () => {
                         {selectedMode === 'option2' && (
                             <TextInput
                                 isRequired={false}
-                                id="webLink"
+                                id="onlineLink"
                                 label="Añade un link de acceso"
                                 placeholder="Escribe el link de acceso a tu evento."
                                 minLength={3}
                                 maxLength={75}
                                 value={formData.webLink}
                                 onChange={handleInputChange}
-                                type="url"
                             />
                         )}
                         {selectedMode === 'option3' && (
@@ -362,7 +308,7 @@ const EventForm = () => {
                                 <TextInput
                                     id="address"
                                     label="Añade una dirección"
-                                    placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
+                                    placeholder="Escribe la dirección de tu evento."
                                     minLength={3}
                                     maxLength={75}
                                     value={formData.address}
@@ -370,7 +316,7 @@ const EventForm = () => {
                                     isRequired={false}
                                 />
                                 <TextInput
-                                    id="webLink"
+                                    id="onlineLink"
                                     label="Añade un link de acceso"
                                     placeholder="Escribe el link de acceso a tu evento."
                                     minLength={3}
@@ -378,10 +324,21 @@ const EventForm = () => {
                                     value={formData.webLink}
                                     onChange={handleInputChange}
                                     isRequired={false}
-                                    type="url"
                                 />
                             </>
                         )}
+                    </FormField>
+                    <FormField>
+                        <TextInput
+                            id="webLink"
+                            label="Añade un enlace"
+                            placeholder="Escribe el enlace de tu evento."
+                            minLength={3}
+                            maxLength={75}
+                            value={formData.webLink}
+                            onChange={handleInputChange}
+                            isRequired={false}
+                        />
                     </FormField>
                     <FormField>
                         <DateInput 
@@ -397,6 +354,13 @@ const EventForm = () => {
                             onChange={handleToggleDateChange} 
                         />
                         <br />
+                        <Select
+                            id="timeZone"
+                            label="Zona Horaria"
+                            options={timeZone}
+                            value={formData.timeZone}
+                            onChange={handleSelectChange}
+                        />
                         <div className={styles.timeContainer}>
                             <div className={styles.selectTime}>
                                 <Select
@@ -417,13 +381,6 @@ const EventForm = () => {
                                 />
                             </div>
                         </div>
-                        <Select
-                            id="timeZone"
-                            label="Zona Horaria"
-                            options={timeZone}
-                            value={formData.timeZone}
-                            onChange={handleSelectChange}
-                        />
                         <ToggleSwitch
                             id="confirmTime"
                             label="Horarios por confirmar"
@@ -445,7 +402,7 @@ const EventForm = () => {
                             minLength={3}
                             maxLength={500}
                             value={formData.description}
-                            onChange={handleTextChange}
+                            onChange={handleInputChange}
                         />
                     </FormField>
                     <FormField>
@@ -467,28 +424,17 @@ const EventForm = () => {
                             onChange={handleInputChange}
                             subtitle='Contacto para mas informacion'
                             isRequired={false}
-                            type="email"
-                        />
-                        <TextInput
-                            id="web"
-                            label="Añade un enlace a un página web con más información"
-                            placeholder="https://actos.com"
-                            minLength={3}
-                            maxLength={75}
-                            value={formData.web}
-                            onChange={handleInputChange}
-                            isRequired={false}
-                            type="url"
                         />
                     </FormField>
                     <FormField>
-                        <DropdownCheck 
-                            id="languages"
-                            label="Idioma del Evento"
-                            options={languages}/>
-
+                        <Select
+                            id="language"
+                            label="Idioma del evento"
+                            options={languages}
+                            value={formData.language}
+                            onChange={handleSelectChange}
+                        />
                     </FormField>
-                    
                     <FormField>
                         <ImageUploader 
                             id="image"
@@ -510,34 +456,32 @@ const EventForm = () => {
                     <FormField>
                         <ToggleSwitch
                             id="private"
-                            label="Evento privado"
-                            subtitle="Activa el botón para que solo los usuarios con enlace puedan acceder al evento."  
+                            label="El evento es privado"
+                            subtitle="Si activas el botón, el evento sera privado."  
                             isChecked={formData.isPrivate} 
                             onChange={handleToggleIsPrivateChange} 
                         />
                     </FormField>
                     <FormField>
-                        <ToggleSwitch 
-                            id='capacity'
-                            label={'El evento tiene limite de entrada'}
-                            subtitle={'Activa el botón para definir número de entradas.'}
-                            onChange={handleToggleCapacityChange}
-                            isChecked={selectedCapacity}
+                        <RadioGroupContainer
+                            radioButtons={capacityRadioButtons}
+                            selectedValue={selectedMode}
+                            label="Límite de entradas"
+                            onChange={handleCapacityChange}
                         />
-                        {selectedCapacity ? (
+                        {selectedCapacity && (
                             <TextInputWithSubtitle
                                 id="capacity"
                                 label="Límite de entradas"
-                                subtitle="Ingrese solamente caracteres numéricos"
+                                subtitle="Escribe el número de entradas disponibles en caso de aforo limitado."
                                 placeholder=""
                                 minLength={0}
                                 maxLength={500}
                                 value={formData.capacity} 
                                 onChange={handleInputChange}
-                                isRequired={true}
-                                type='number'
+                                isRequired={false}
                             />
-                        ): null }
+                        )}
                     </FormField>
                 </SectionForm>
                 <p style={{ color: 'red' }}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
@@ -547,20 +491,15 @@ const EventForm = () => {
                 </div>
 
                 <ProgressTracker
-                    isSectionVisible={isSection1Visible}
-                    title='INFORMACIÓN BÁSICA'
-                />
-                <ProgressTracker
-                    isSectionVisible={isSection2Visible}
-                    title='DETALLES'
-                />
-                <ProgressTracker
-                    isSectionVisible={isSection3Visible}
-                    title='INSCRIPCIONES Y ENTRADAS'
+                    isSection1Visible={isSection1Visible}
+                    isSection2Visible={isSection2Visible}
+                    isSection3Visible={isSection3Visible}
+                    isSection1Complete={isSection1Complete}
+                    isSection2Complete={isSection2Complete}
                 />
             </form>
         </div>
     );
 };
 
-export default EventForm;
+export default EventDashboardForm;

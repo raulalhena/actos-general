@@ -1,9 +1,33 @@
+import { useEffect, useState } from 'react';
 import DropdownButton from '../../components/DropdownButton/DropdownButton';
-import EventForm from '../../components/EventForm/EventForm';
+import EventDashboardForm from '../../components/EventDashboardForm/EventDashboardForm';
 import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRecap';
 import styles from './EventDashboard.module.css';
+import { useLocation } from 'react-router';
+import { EventFormProps } from '../../interfaces/eventFormProps';
 
 const EventDashboardPage = () => {
+
+    const location = useLocation();
+    const eventId = location.state.id;
+
+    const [ eventData, setEventData ] = useState<EventFormProps>({});
+
+    useEffect(() => {
+        const fetchEvent = async () => {
+            const resp = await fetch(`http://localhost:8000/api/events/${eventId}`);
+            const data = await resp.json();
+            setEventData(data);
+        };
+
+        fetchEvent();
+    }, []);
+
+    useEffect(() => {
+        // setEventData(eventData);
+        console.log('eventData', eventData);
+    }, [ eventData ]);
+
     return (
         <>
             <div className={styles.page}>
@@ -12,7 +36,7 @@ const EventDashboardPage = () => {
                         <div>
                             <section className={styles.title}>
                                 <h1 className={styles.dash}>—</h1>
-                                <h1>Resumen de tu evento</h1>
+                                <h1>Resumen de tu evento: {eventData.name}</h1>
                             </section>
                             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -23,9 +47,9 @@ const EventDashboardPage = () => {
                             <DropdownButton />
                         </div>
                     </section>
-                    <InscriptionsRecap />
+                    <InscriptionsRecap capacity={ eventData.capacity } />
                 </section>
-                <EventForm />
+                <EventDashboardForm eventData={ eventData } />
             </div>
         </>
     );

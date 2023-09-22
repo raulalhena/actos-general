@@ -1,0 +1,49 @@
+.eventcardlink {
+    text-decoration: none; 
+    color: #333; 
+}
+
+.eventcard {
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin: 16px;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    transition: transform 0.2s; 
+}
+
+.eventcard:hover {
+    transform: scale(1.05); 
+}
+
+.eventimage {
+    max-width: 100%;
+    height: auto;
+}
+
+.eventdetails {
+    margin-top: 12px;
+}
+
+.eventmode {
+     font-weight: bold;
+    font-size: 14px;
+    border-radius: 1px solid red;
+}
+
+.eventtype {
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 1px solid red;
+}
+
+.eventtitle {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.eventdate {
+    font-size: 14px;
+    color: #666;
+}
