@@ -17,6 +17,7 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  width: 80%;
 }
 
 .title,
@@ -36,4 +37,3 @@
   background-color: white;
   border-radius: 20px;
 }
-
