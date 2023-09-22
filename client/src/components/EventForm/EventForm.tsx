@@ -21,6 +21,7 @@ import languages from '../../data/languages.json';
 import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
 import { useNavigate } from 'react-router';
+import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 
 // Form
 const EventForm = () => {
@@ -65,6 +66,15 @@ const EventForm = () => {
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
 
+    // Text area
+    const handleTextChange = (text ) => {
+        // console.log(text)
+        setFormData({
+            ...formData,
+            description: text,
+        });
+    };
+
     // Input
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const id = event.target.id;
@@ -103,10 +113,16 @@ const EventForm = () => {
 
     // DateInput
     const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setFormData({
-            ...formData,
-            date: e.target.value,
-        });
+        const newDate = e.target.value;
+        const currentDate = new Date().toISOString().split('T')[0];
+        if (newDate >= currentDate) {
+            setFormData({
+                ...formData,
+                date: newDate,
+            });
+        } else {
+            alert('La fecha seleccionada es anterior a la fecha actual');
+        }
     };
 
     // Send Image
@@ -128,6 +144,7 @@ const EventForm = () => {
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+        console.log(formData);
 
         const resp = await fetch('http://93.93.112.16:8000/api/events', { 
             method: 'POST',
@@ -216,7 +233,6 @@ const EventForm = () => {
             ...formData,
             showDate: checked,
         });
-   
     };
 
     const handleToggleIsPrivateChange = (checked: boolean) => {
@@ -233,21 +249,14 @@ const EventForm = () => {
 
     const [ isSection1Complete, setIsSection1Complete ] = useState(false);
     const [ isSection2Complete, setIsSection2Complete ] = useState(false);
-    // const [ isSection3Complete, setIsSection3Complete ] = useState(false);
 
     const isSection1CompleteCheck = (sectionData: any) => {
         return sectionData.name !== '';
     };
 
     const isSection2CompleteCheck = (sectionData: any) => {
-        // Check if all required fields in Section 2 are filled
         return sectionData.description !== '';
     };
-
-    // const isSection3CompleteCheck = (sectionData: any) => {
-    //     // Check if all required fields in Section 2 are filled
-    //     return sectionData.description !== '';
-    // };
 
     useEffect(() => {
         setIsSection1Complete(isSection1CompleteCheck(formData));
@@ -256,10 +265,6 @@ const EventForm = () => {
     useEffect(() => {
         setIsSection2Complete(isSection2CompleteCheck(formData));
     }, [ formData ]);
-
-    // useEffect(() => {
-    //     setIsSection3Complete(isSection3CompleteCheck(formData));
-    // }, [ formData ]);
     
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
@@ -283,8 +288,6 @@ const EventForm = () => {
                             value={formData.name}
                             onChange={handleInputChange}
                         />
-                    </FormField>
-                    <FormField>
                         <Select
                             id="category"
                             label="Categoría"
@@ -292,8 +295,6 @@ const EventForm = () => {
                             value={formData.category}
                             onChange={handleSelectChange}
                         />
-                    </FormField>
-                    <FormField>
                         <TagsInputComponent
                             id="tags"
                             value={formData.tags}
@@ -302,7 +303,6 @@ const EventForm = () => {
                             placeHolder="Digite etiquetas y presione Enter"
                             subtitle=''
                         />
-                        
                     </FormField>
 
                     <FormField>
@@ -327,7 +327,7 @@ const EventForm = () => {
                         {selectedMode === 'option2' && (
                             <TextInput
                                 isRequired={false}
-                                id="onlineLink"
+                                id="webLink"
                                 label="Añade un link de acceso"
                                 placeholder="Escribe el link de acceso a tu evento."
                                 minLength={3}
@@ -349,7 +349,7 @@ const EventForm = () => {
                                     isRequired={false}
                                 />
                                 <TextInput
-                                    id="onlineLink"
+                                    id="webLink"
                                     label="Añade un link de acceso"
                                     placeholder="Escribe el link de acceso a tu evento."
                                     minLength={3}
@@ -360,18 +360,6 @@ const EventForm = () => {
                                 />
                             </>
                         )}
-                    </FormField>
-                    <FormField>
-                        <TextInput
-                            id="webLink"
-                            label="Añade un enlace"
-                            placeholder="Escribe el enlace de tu evento."
-                            minLength={3}
-                            maxLength={75}
-                            value={formData.webLink}
-                            onChange={handleInputChange}
-                            isRequired={false}
-                        />
                     </FormField>
                     <FormField>
                         <DateInput 
@@ -435,7 +423,7 @@ const EventForm = () => {
                             minLength={3}
                             maxLength={500}
                             value={formData.description}
-                            onChange={handleInputChange}
+                            onChange={handleTextChange}
                         />
                     </FormField>
                     <FormField>
@@ -460,14 +448,23 @@ const EventForm = () => {
                         />
                     </FormField>
                     <FormField>
-                        <Select
-                            id="language"
-                            label="Idioma del evento"
-                            options={languages}
-                            value={formData.language}
-                            onChange={handleSelectChange}
+                        <DropdownCheck 
+                            id="languages"
+                            label="Idioma del Evento"
+                            options={languages}/>
+
+                        <TextInput
+                            id="web"
+                            label="Añade un enlace"
+                            placeholder="Escribe el enlace de tu evento."
+                            minLength={3}
+                            maxLength={75}
+                            value={formData.web}
+                            onChange={handleInputChange}
+                            isRequired={false}
                         />
                     </FormField>
+                    
                     <FormField>
                         <ImageUploader 
                             id="image"
@@ -497,13 +494,13 @@ const EventForm = () => {
                     </FormField>
                     <FormField>
                         <ToggleSwitch 
-                            id={'capacity'}
+                            id='capacity'
                             label={'El evento tiene limite de entrada'}
                             subtitle={'Si activas el botón, el evento tiene un limite de entrada.'}
                             onChange={handleToggleCapacityChange}
                             isChecked={selectedCapacity}
                         />
-                        {selectedCapacity && (
+                        {selectedCapacity ? (
                             <TextInputWithSubtitle
                                 id="capacity"
                                 label="Límite de entradas"
@@ -513,9 +510,9 @@ const EventForm = () => {
                                 maxLength={500}
                                 value={formData.capacity} 
                                 onChange={handleInputChange}
-                                isRequired={false}
+                                isRequired={true}
                             />
-                        )}
+                        ): null }
                     </FormField>
                 </SectionForm>
                 <p style={{ color: 'red' }}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
@@ -530,6 +527,10 @@ const EventForm = () => {
                     isSection3Visible={isSection3Visible}
                     isSection1Complete={isSection1Complete}
                     isSection2Complete={isSection2Complete}
+<<<<<<< HEAD
+=======
+                    isSection3Complete={selectedCapacity}
+>>>>>>> dev
                 />
             </form>
         </div>

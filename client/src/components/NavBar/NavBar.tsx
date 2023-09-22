@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './NavBar.module.css';
+import styles from './Navbar.module.css';
 import Logo from '../../assets/logo.png';
 
 function Navbar() {
@@ -25,17 +25,17 @@ function Navbar() {
                 <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>
                     <li onClick={removeActive}>
                         <a href="/myevents" className={styles.navLink}>
+              Agenda
+                        </a>
+                    </li>
+                    <li onClick={removeActive}>
+                        <a href="/myevents" className={styles.navLink}>
               Mis eventos
                         </a>
                     </li>
                     <li onClick={removeActive}>
-                        <a href="/login" className={styles.navLink}>
-              Iniciar sesión
-                        </a>
-                    </li>
-                    <li onClick={removeActive}>
-                        <a href="/signup" className={styles.navLink}>
-              Registrarse
+                        <a href="/myevents" className={styles.navLink}>
+              FAQs
                         </a>
                     </li>
                 </ul>
