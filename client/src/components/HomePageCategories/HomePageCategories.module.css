@@ -1,0 +1,6 @@
+.categoriesSection {
+  display: flex;
+  gap: 4rem;
+  justify-content: center;
+  align-items: center;
+}
