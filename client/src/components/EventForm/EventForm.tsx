@@ -321,6 +321,7 @@ const EventForm = () => {
                                 maxLength={75}
                                 value={formData.webLink}
                                 onChange={handleInputChange}
+                                type="url"
                             />
                         )}
                         {selectedMode === 'option3' && (
@@ -344,6 +345,7 @@ const EventForm = () => {
                                     value={formData.webLink}
                                     onChange={handleInputChange}
                                     isRequired={false}
+                                    type="url"
                                 />
                             </>
                         )}
@@ -432,6 +434,7 @@ const EventForm = () => {
                             onChange={handleInputChange}
                             subtitle='Contacto para mas informacion'
                             isRequired={false}
+                            type="email"
                         />
                         <TextInput
                             id="web"
@@ -442,6 +445,7 @@ const EventForm = () => {
                             value={formData.web}
                             onChange={handleInputChange}
                             isRequired={false}
+                            type="url"
                         />
                     </FormField>
                     <FormField>
@@ -491,13 +495,14 @@ const EventForm = () => {
                             <TextInputWithSubtitle
                                 id="capacity"
                                 label="Límite de entradas"
-                                subtitle="Al alcanzar este límite, ya no se podrán suscribir más usuarios."
+                                subtitle="Ingrese solamente caracteres numéricos"
                                 placeholder=""
                                 minLength={0}
                                 maxLength={500}
                                 value={formData.capacity} 
                                 onChange={handleInputChange}
                                 isRequired={true}
+                                type='number'
                             />
                         ): null }
                     </FormField>

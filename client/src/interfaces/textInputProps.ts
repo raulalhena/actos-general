@@ -6,8 +6,9 @@ export interface TextInputProps {
     maxLength: number;
     minLength: number;
     value: string | undefined;
-    onChange: (event: TextChangeHandler) => void;
+    onChange: (event: handleTextChange) => void;
     className?: string; 
     isPassword?: boolean;
     isRequired?: boolean;
+    type?: string;
 }
