@@ -1,0 +1,14 @@
+[
+    {
+        "title": "Global",
+        "image": "https://ejemplo.com/imagen-global.jpg"
+    },
+    {
+        "title": "Empleabilidad",
+        "image": "https://ejemplo.com/imagen-empleabilidad.jpg"
+    },
+    {
+        "title": "Bienestar Emocional",
+        "image": "https://ejemplo.com/imagen-bienestar.jpg"
+    }
+]

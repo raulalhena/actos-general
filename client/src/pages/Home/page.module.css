@@ -1,13 +1,16 @@
 .title {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .dash {
-    color: #E15A40;
+  color: #e15a40;
 }
 
 .section {
-    border-bottom: 1px solid #CACACA;
-    padding: 5rem;
+  border-bottom: 1px solid #cacaca;
+  padding: 5rem;
+  gap: 3rem;
+  display: flex;
+  flex-direction: column;
 }
