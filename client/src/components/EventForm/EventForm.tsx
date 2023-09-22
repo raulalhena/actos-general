@@ -546,6 +546,7 @@ const EventForm = () => {
                             />
                         ): null }
                     </FormField>
+                    
                 </SectionForm>
                 <p style={{ color: 'red' }}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
 
