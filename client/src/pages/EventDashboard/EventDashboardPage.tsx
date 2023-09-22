@@ -4,14 +4,47 @@ import EventDashboardForm from '../../components/EventDashboardForm/EventDashboa
 import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRecap';
 import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
-import { EventFormProps } from '../../interfaces/eventFormProps';
+import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 
 const EventDashboardPage = () => {
 
     const location = useLocation();
     const eventId = location.state.id;
 
-    const [ eventData, setEventData ] = useState<EventFormProps>({});
+    const [ eventData, setEventData ] = useState<EventDashboardFormProps>({
+        _id: '',
+        name: '',
+        category: '',
+        tags: [],
+        mode: '',
+        type: '',
+        address: '', 
+        webLink: '', 
+        date: '',
+        startTime: '',
+        endTime: '',
+        timeZone: '',
+        showTime: false,
+        showDate: false,
+        confirmed: false, 
+        description: '',
+        web: '', 
+        organizedBy: [], 
+        contact: '',
+        isPrivate: false,
+        language: [], //Select con checkbox
+        image: '', 
+        video: '', 
+        capacity: 0
+        // qrEvent: '',
+        // qrAttendees: [],
+        // attendees: [],
+        // submitted: [],
+        // price: 0, 
+        // payment: '', 
+        // visibility: false,
+        // status: false
+    });
 
     useEffect(() => {
         const fetchEvent = async () => {
@@ -47,7 +80,7 @@ const EventDashboardPage = () => {
                             <DropdownButton />
                         </div>
                     </section>
-                    <InscriptionsRecap capacity={ eventData.capacity } />
+                    <InscriptionsRecap capacity={ String(eventData?.capacity) } />
                 </section>
                 <EventDashboardForm eventData={ eventData } />
             </div>

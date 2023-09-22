@@ -21,10 +21,10 @@ import languages from '../../data/languages.json';
 import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
 import { useNavigate } from 'react-router';
-import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
+import types from '../../data/type.json';
 // Form
 const EventForm = () => {
     const navigator = useNavigate();
@@ -64,7 +64,7 @@ const EventForm = () => {
     });
 
     // Visibility
-    const [ isSection1Visible, setIsSection1Visible ] = useState(true);
+    const [ isSection1Visible, setIsSection1Visible ] = useState(false);
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
 
@@ -92,8 +92,8 @@ const EventForm = () => {
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
 
-        //EventTime: Start and End Time
-        if (id === 'endTime' && value < formData.startTime) {
+          //EventTime: Start and End Time
+          if (id === 'endTime' && value < formData.startTime) {
             
             toast.error('La hora de finalización no puede ser anterior a la hora de inicio.', {
                 position: 'top-right',
@@ -147,7 +147,7 @@ const EventForm = () => {
         e.preventDefault();
         const imageData = new FormData();
         imageData.append('file', eventImage);
-        const resp = await fetch('http://localhost:8000/api/events/upload', {
+        const resp = await fetch('http://93.93.112.16:8000/api/events/upload', {
             method: 'POST',
             body: imageData
         });
@@ -182,9 +182,9 @@ const EventForm = () => {
                 pauseOnHover: true,
             });
             return;
-        }        
+        }   
 
-        const resp = await fetch('http://localhost:8000/api/events', { 
+        const resp = await fetch('http://93.93.112.16:8000/api/events', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import styles from "./Navbar.module.css";
-import Logo from "../../assets/logo.png";
+import { useState } from 'react';
+import styles from './NavBar.module.css';
+import Logo from '../../assets/logo.png';
 
 function Navbar() {
     // adding the states
