@@ -40,4 +40,4 @@ jobs:
           npm install
           npm run test
           npm run build
-          pm2 gracefullRestart pm2run.json
+          pm2 startOrGracefulReload pm2run.json
