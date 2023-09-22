@@ -1,5 +1,8 @@
 import HomePageHeader from '../../components/HomePageHeader/HomePageHeader';
 import CardEvent from '../../components/CardEvent/CardEvent';
+import styles from './page.module.css';
+import HomePageCategories from '../../components/HomePageCategories/HomePageCategories';
+
 const HomePage = () => {
     const eventData = {
         title: 'Evento de Ejemplo',
@@ -14,7 +17,21 @@ const HomePage = () => {
         <>
             <HomePageHeader />
             <button >Crear nuevo evento</button>
-            <CardEvent eventData={eventData} eventId={0} />
+            <section className={styles.section}>
+                <div className={styles.title}>
+                    <h1 className={styles.dash}>—</h1>
+                    <h1>Categorías</h1>
+                </div>
+                <HomePageCategories />
+            </section>
+            <section className={styles.section}>
+                <div className={styles.title}>
+                    <h1 className={styles.dash}>—</h1>
+                    <h1>Eventos destacados</h1>
+                </div>
+                <CardEvent eventData={eventData} eventId={0} />
+            </section>
+
         </>
     );
 };

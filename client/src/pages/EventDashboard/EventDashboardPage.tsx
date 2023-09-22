@@ -2,18 +2,20 @@ import { useEffect, useState } from 'react';import EventDashboardForm from '../.
 import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRecap';
 import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
-import { EventFormProps } from '../../interfaces/eventFormProps';
+// import { EventFormProps } from '../../interfaces/eventFormProps';
 import status from '../../data/status.json';
 import Select from '../../components/Select/Select';
+import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 
 const EventDashboardPage = () => {
 
     const location = useLocation();
     const eventId = location.state.id;
 
-    const [ eventData, setEventData ] = useState<EventFormProps>({
-        status: false,
-    });
+    // ESTO ERA LO QUE TENÏA YO
+    // const [ eventData, setEventData ] = useState<EventFormProps>({
+    //     status: false,
+    // });
 
     // Select
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -24,6 +26,40 @@ const EventDashboardPage = () => {
             [id]: value,
         });
     };
+    const [ eventData, setEventData ] = useState<EventDashboardFormProps>({
+        _id: '',
+        name: '',
+        category: '',
+        tags: [],
+        mode: '',
+        type: '',
+        address: '', 
+        webLink: '', 
+        date: '',
+        startTime: '',
+        endTime: '',
+        timeZone: '',
+        showTime: false,
+        showDate: false,
+        confirmed: false, 
+        description: '',
+        web: '', 
+        organizedBy: [], 
+        contact: '',
+        isPrivate: false,
+        language: [], //Select con checkbox
+        image: '', 
+        video: '', 
+        capacity: 0
+        // qrEvent: '',
+        // qrAttendees: [],
+        // attendees: [],
+        // submitted: [],
+        // price: 0, 
+        // payment: '', 
+        // visibility: false,
+        // status: false
+    });
 
     useEffect(() => {
         const fetchEvent = async () => {
@@ -55,7 +91,7 @@ const EventDashboardPage = () => {
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             </p>
                         </div>
-                        <div className={styles.selectStatus}>
+                        {/* <div className={styles.selectStatus}>
                             <Select
                                 id="status"
                                 label=""
@@ -63,9 +99,9 @@ const EventDashboardPage = () => {
                                 value={eventData.status}
                                 onChange={handleSelectChange}
                             />
-                        </div>
+                        </div> */}
                     </section>
-                    <InscriptionsRecap capacity={ eventData.capacity } />
+                    <InscriptionsRecap capacity={ String(eventData?.capacity) } />
                 </section>
                 <EventDashboardForm eventData={ eventData } />
             </div>

@@ -1,4 +1,4 @@
-export interface TextInputProps {
+export interface TextAreaProps {
     label: string;
     subtitle?: string;
     placeholder: string;
@@ -6,7 +6,7 @@ export interface TextInputProps {
     maxLength: number;
     minLength: number;
     value: string | undefined;
-    onChange: (event: handleTextChange) => void;
+    onChange: (text: string) => void;
     className?: string; 
     isPassword?: boolean;
     isRequired?: boolean;

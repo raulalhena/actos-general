@@ -32,12 +32,12 @@ jobs:
           nvm use v18.16.1
           cd client
           npm install
+          npx vitest run
           npm run build
+          cp -r ./dist/* /var/www/actos/html/
           cd ..
           cd server
           npm install
+          npm run test
           npm run build
-          pm2 delete ActosServer
-          pm2 --name ActosServer start -- npm run start
-          pm2 delete ActosClient
-          pm2 --name ActosClient start -- npm run start
+          pm2 startOrGracefulReload pm2run.json

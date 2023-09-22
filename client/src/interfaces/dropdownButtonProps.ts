@@ -1,8 +1,7 @@
-export interface SelectProps {
+export interface DropdownButtonProps {
     label: string;
     options: string[];
     id: string;
-    value: string | string[] | undefined;
+    value: string;
     onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-    isRequired?: boolean;
 }

@@ -1,13 +1,14 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { TextInputProps } from '../../interfaces/textInputProps';
+import { TextAreaProps } from '../../interfaces/textAreaProps';
 import styles from './TextArea.module.css';
 
-export const TextArea = (props: TextInputProps) => {
+export const TextArea = (props: TextAreaProps) => {
     const { label, id, value, onChange } = props;
-    
-    const handleChange = (_text: string, _delta: any, _source: any, editor: any) => {
-        onChange(editor.getHTML()); 
+
+    const quillStyles = {
+        border: 'none',
+        height: '180px',
     };
 
     return (
@@ -16,25 +17,26 @@ export const TextArea = (props: TextInputProps) => {
                 {label}
             </label>
             <br />
-            <div className={styles.input}>
+            <div className={styles.input} txt-color>
                 <ReactQuill
                     id={id}
                     value={value}
-                    onChange={handleChange}
+                    onChange={e => onChange(e)}
                     theme="snow"
                     placeholder="Cuéntanos más sobre el evento..."
-                    style={{ border: 'none', height: '180px' }}
+                    style={quillStyles}
                     modules={{
                         toolbar: [
                             [ 'bold', 'italic', 'underline', 'strike' ],
                             [ 'link' ],
                             [ { list: 'ordered' }, { list: 'bullet' } ],
                             [ { size: [ 'small', false, 'large', 'huge' ] } ], 
-                            [ { color: [] }, { background: [] } ],     
+                            [ { color: [ ] }, { background: [] } ],     
                             [ { font: [] } ],
                             [ { align: [] } ],
                         ],
                     }}
+                    
                 />
             </div>
         </div>
