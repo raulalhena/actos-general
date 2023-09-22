@@ -350,7 +350,8 @@ const EventForm = () => {
                             id='date' 
                             name='date' 
                             value={formData.date} 
-                            onChange={handleDateChange} />
+                            onChange={handleDateChange}
+                            isRequired={true} />
                         <ToggleSwitch
                             id="confirmDate"
                             label="Fecha por confirmar."
@@ -367,6 +368,7 @@ const EventForm = () => {
                                     options={time}
                                     value={formData.startTime}
                                     onChange={handleSelectChange}
+                                    isRequired={true}
                                 />
                             </div>
                             <div className={styles.selectTime}>
@@ -376,6 +378,7 @@ const EventForm = () => {
                                     options={time}
                                     value={formData.endTime}
                                     onChange={handleSelectChange}
+                                    isRequired={true}
                                 />
                             </div>
                         </div>
@@ -452,57 +455,7 @@ const EventForm = () => {
                             </>
                         )}
                     </FormField>
-                    <FormField>
-                        <DateInput 
-                            id='date' 
-                            name='date' 
-                            value={formData.date} 
-                            onChange={handleDateChange}
-                            isRequired={true} />
-                        <ToggleSwitch
-                            id="confirmDate"
-                            label="Fecha por confirmar."
-                            subtitle="Si activas el botón, la fecha no se mostrará en el evento." 
-                            isChecked={formData.showDate} 
-                            onChange={handleToggleDateChange} 
-                        />
-                        <br />
-                        <div className={styles.timeContainer}>
-                            <div className={styles.selectTime}>
-                                <Select
-                                    id="startTime"
-                                    label="Hora de Inicio"
-                                    options={time}
-                                    value={formData.startTime}
-                                    onChange={handleSelectChange}
-                                    isRequired={true}
-                                />
-                            </div>
-                            <div className={styles.selectTime}>
-                                <Select
-                                    id="endTime"
-                                    label="Hora de fin"
-                                    options={time}
-                                    value={formData.endTime}
-                                    onChange={handleSelectChange}
-                                    isRequired={true}
-                                />
-                            </div>
-                        </div>
-                        <Select
-                            id="timeZone"
-                            label="Zona Horaria"
-                            options={timeZone}
-                            value={formData.timeZone}
-                            onChange={handleSelectChange}
-                        />
-                        <ToggleSwitch
-                            id="confirmTime"
-                            label="Horarios por confirmar"
-                            subtitle="Si activas el botón, la información de los horarios no se mostrará en el evento" 
-                            isChecked={formData.showTime} 
-                            onChange={handleToggleTimeChange}/>
-                    </FormField>
+                   
                 </SectionForm>
 
                 <SectionForm
