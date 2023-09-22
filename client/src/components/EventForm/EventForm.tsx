@@ -92,8 +92,8 @@ const EventForm = () => {
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
 
-          //EventTime: Start and End Time
-          if (id === 'endTime' && value < formData.startTime) {
+        //EventTime: Start and End Time
+        if (id === 'endTime' && value < formData.startTime) {
             
             toast.error('La hora de finalización no puede ser anterior a la hora de inicio.', {
                 position: 'top-right',
