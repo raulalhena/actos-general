@@ -14,6 +14,7 @@ export class CreateEventDto {
 
     tags: string[];
     category: string;
+    subcategory: string;
     adress: string;
     startTime: string;
     endTime: string;

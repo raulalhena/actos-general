@@ -95,6 +95,9 @@ export class Event {
 
   @Prop({ type: Object })
       form: Object;
+
+   @Prop()
+        subcategory: string;
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);
