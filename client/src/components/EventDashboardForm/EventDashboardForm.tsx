@@ -1,6 +1,5 @@
 import { useState, ChangeEvent, useEffect } from 'react';
 import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
-import { EventFormProps } from '../../interfaces/eventFormProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
 import RadioGroupContainer from '../Button/ButtonContainer/RadioCardContainer';
 import DateInput from '../DateInput/DateInput';
@@ -21,11 +20,14 @@ import timeZone from '../../data/timeZone.json';
 import languages from '../../data/languages.json';
 import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
+import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
+
+type Props = { eventData: EventDashboardFormProps };
 
 // Form
-const EventDashboardForm = ({ eventData }: EventFormProps) => {
+const EventDashboardForm = ( { eventData }: Props ) => {
 
-    const [ formData, setFormData ] = useState<EventFormProps>(eventData);
+    const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
 
     useEffect(() => {
         setFormData(eventData);
@@ -496,6 +498,7 @@ const EventDashboardForm = ({ eventData }: EventFormProps) => {
                     isSection3Visible={isSection3Visible}
                     isSection1Complete={isSection1Complete}
                     isSection2Complete={isSection2Complete}
+                    // isSection3Complete={isSection2Complete}
                 />
             </form>
         </div>
