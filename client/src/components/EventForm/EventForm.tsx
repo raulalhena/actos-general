@@ -22,6 +22,8 @@ import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
 import { useNavigate } from 'react-router';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Form
 const EventForm = () => {
@@ -92,7 +94,12 @@ const EventForm = () => {
 
         //EventTime: Start and End Time
         if (id === 'endTime' && value < formData.startTime) {
-            alert('La hora de finalización no puede ser anterior a la hora de inicio.');
+            
+            toast.error('La hora de finalización no puede ser anterior a la hora de inicio.', {
+                position: 'top-right',
+                autoClose: 5000,
+                pauseOnHover: true,
+            });
 
         } else {
             setFormData({
@@ -127,7 +134,11 @@ const EventForm = () => {
                 date: newDate,
             });
         } else {
-            alert('La fecha seleccionada es anterior a la fecha actual');
+            toast.error('La fecha seleccionada es anterior a la fecha actual.', {
+                position: 'top-right',
+                autoClose: 5000,
+                pauseOnHover: true,
+            });
         }
     };
 
@@ -151,6 +162,27 @@ const EventForm = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         console.log(formData);
+
+        if (!formData.name || !formData.description ) {
+            const missingFields = [];
+        
+            if (!formData.name) {
+                missingFields.push('Nombre del evento');
+            }
+            if (!formData.description) {
+                missingFields.push('Descripción del evento');
+            }
+        
+            const errorMessage = `Por favor, complete los siguientes campos obligatorios: ${missingFields.join(', ')}`;
+        
+            toast.error(errorMessage, {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 5000,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+            return;
+        }        
 
         const resp = await fetch('http://localhost:8000/api/events', { 
             method: 'POST',
@@ -258,6 +290,7 @@ const EventForm = () => {
     return (
         <div className={styles.form}>
             <form data-testid="event-form" onSubmit={handleSubmit}>
+                <ToastContainer position="top-right" autoClose={3000} />
 
                 <SectionForm
                     title="1 INFORMACIÓN BÁSICA"
