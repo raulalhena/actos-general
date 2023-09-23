@@ -56,7 +56,6 @@ const EventDashboardPage = () => {
     }, []);
 
     useEffect(() => {
-        // setEventData(eventData);
         console.log('eventData', eventData);
     }, [ eventData ]);
 
