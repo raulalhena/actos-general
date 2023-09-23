@@ -98,6 +98,12 @@ export class Event {
 
    @Prop()
         subcategory: string;
+
+    @Prop({ default: false })
+      isPrivate: boolean;
+
+    @Prop({ default: false })
+    isLimited: boolean;
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);

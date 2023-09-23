@@ -36,4 +36,6 @@ export class CreateEventDto {
     active: boolean;
     customForm: string;
     form: Object
+    isPrivate: boolean;
+    isLimited: boolean;
 }
