@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { Types } from 'mongoose';
+import { generateEventQR } from '../utils/qr.generator';
 
 const eventResult = {
   _id: new Types.ObjectId('650e9ff4f20805eccb4d5928'),
@@ -30,6 +31,17 @@ const eventResult = {
   video: '', 
   capacity: 0,
   isLimited: false,
+  qrEvent: '',
+  qrAttendees: [],
+  attendees: [],
+  submitted: [],
+  price: 0,
+  payment: '', 
+  visibility: false,
+  status: false,
+  active: false,
+  customForm: '',
+  form: {}
 }
 
 const newEvent: CreateEventDto = {
@@ -75,7 +87,8 @@ describe('EventsService', () => {
   let service: EventsService;
 
   const mockEventsService = {
-    create: jest.fn().mockImplementation((newEvent: CreateEventDto) => {
+    create: jest.fn().mockImplementation(async (newEvent: CreateEventDto) => {
+      eventResult.qrEvent = await generateEventQR(eventResult._id);
       return eventResult;
     })
   };
@@ -97,7 +110,8 @@ describe('EventsService', () => {
 
   it('create() POST should return Event Object', async () => {
     expect(await service.create(newEvent)).toMatchObject({
-      _id: expect.any(Types.ObjectId)
+      _id: expect.any(Types.ObjectId),
+      qrEvent: '650e9ff4f20805eccb4d5928_qr.svg'
     });
   });
 
