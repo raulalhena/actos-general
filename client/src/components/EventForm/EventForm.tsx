@@ -9,7 +9,7 @@ import { ImageUploader } from '../ImageUploader/ImageUploader';
 import SectionForm from '../SectionForm/SectionForm';
 import Select from '../Select/Select';
 import TagsInputComponent from '../TagsInput/TagsInput';
-import { TextArea } from '../TextArea/TextArea';
+import  TextArea  from '../TextArea/TextArea';
 import TextInput from '../TextInput/TextInput';
 import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
@@ -20,14 +20,15 @@ import timeZone from '../../data/timeZone.json';
 import languages from '../../data/languages.json';
 import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
-import { useNavigate } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 import types from '../../data/type.json';
+import ModalDisplay from '../Modal/ModalDisplay';
+import { BsPatchCheckFill } from 'react-icons/bs';
+
 // Form
 const EventForm = () => {
-    const navigator = useNavigate();
 
     const [ formData, setFormData ] = useState<EventFormProps>({
         name: '',
@@ -99,7 +100,7 @@ const EventForm = () => {
             
             toast.error('La hora de finalización no puede ser anterior a la hora de inicio.', {
                 position: 'top-right',
-                autoClose: 5000,
+                autoClose: 2500,
                 pauseOnHover: true,
             });
 
@@ -161,25 +162,18 @@ const EventForm = () => {
     };
 
     // Submit Button
+    
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         console.log(formData);
 
-        if (
-            !formData.name ||
-            !formData.description ||
-            !formData.date ||
-            !formData.category||
-            // !formData.subcategory||
-            // !formData.type||
-            !formData.mode ||
-            !formData.startTime||
-            !formData.endTime)
+        type EventFormPropsKey = keyof EventFormProps;
 
-        {
+        const requiredFields: EventFormPropsKey[] = [ 'name', 'description', 'date', 'category', 'subcategory', 'type', 'mode', 'startTime', 'endTime','timeZone' ];
         
-            const errorMessage = `Por favor, complete los siguientes campos obligatorios.`;
-        
+        const missingFields = requiredFields.filter((field) => !formData[field]);
+        if (missingFields.length > 0) {
+            const errorMessage = `Por favor, complete los siguientes campos obligatorios: ${missingFields.join(', ')}.`;
             toast.error(errorMessage, {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 5000,
@@ -187,19 +181,37 @@ const EventForm = () => {
                 pauseOnHover: true,
             });
             return;
-        }   
-
-        const resp = await fetch('http://localhost:8000/api/events', { 
+        }
+    
+        const resp = await fetch('http://localhost:8000/api/events', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(formData),
         });
         const result = await resp.json();
-        navigator('/eventdashboard', { state: { id: result._id } });
+    
+        openModal(result._id, '/eventdashboard');
     };
 
+    /* ************** Modal ************** */
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [ modalParams, setModalParams ] = 
+    useState<{ eventId: string; route: string }>
+    ({ eventId: '', route: '' });
+
+    const openModal = (eventId: string, route: string) => {
+
+        setIsModalOpen(true);
+        setModalParams({ eventId, route });
+    };
+    
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+        /* ************** Modal ************** */
+    
     // Button Radio
     const [ selectedMode, setSelectedMode ] = useState<string>('');
 
@@ -464,7 +476,7 @@ const EventForm = () => {
                             </>
                         )}
                     </FormField>
-                   
+            
                 </SectionForm>
 
                 <SectionForm
@@ -552,7 +564,7 @@ const EventForm = () => {
                             onChange={handleToggleIsPrivateChange} 
                         />
                     </FormField>
-         
+    
                     <FormField>
                         <ToggleSwitch 
                             id='capacity'
@@ -582,6 +594,22 @@ const EventForm = () => {
 
                 <div className={styles.buttonSection}>
                     <ButtonSubmit label="Guardar"/>
+                </div>
+
+                <div>
+                    {isModalOpen && (
+                        <ModalDisplay
+                            icon={<BsPatchCheckFill className={styles.checkIcon}/>}
+                            title="Evento Creado"
+                            subtitle="Tu evento ha sido creado con éxito y los usuarios ya pueden inscribirse"
+                            button1Text="VISITA EL EVENTO"
+                            // button2Text="Cancel"
+                            onClose={closeModal}
+                            isOpen={isModalOpen}
+                            modalParams={modalParams}
+
+                        />
+                    )}
                 </div>
 
                 <ProgressTracker

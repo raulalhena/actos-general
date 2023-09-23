@@ -29,12 +29,13 @@ const EventDashboardPage = () => {
         description: '',
         web: '', 
         organizedBy: [], 
-        contact: '',
+        contactEmail: '',
         isPrivate: false,
         language: [], //Select con checkbox
         image: '', 
         video: '', 
-        capacity: 0
+        capacity: 0,
+        isLimited: false,
         // qrEvent: '',
         // qrAttendees: [],
         // attendees: [],

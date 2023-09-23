@@ -8,7 +8,7 @@ import { ImageUploader } from '../ImageUploader/ImageUploader';
 import SectionForm from '../SectionForm/SectionForm';
 import Select from '../Select/Select';
 import TagsInputComponent from '../TagsInput/TagsInput';
-import { TextArea } from '../TextArea/TextArea';
+import  TextArea  from '../TextArea/TextArea';
 import TextInput from '../TextInput/TextInput';
 import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';

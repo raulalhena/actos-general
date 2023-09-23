@@ -3,7 +3,7 @@ import 'react-quill/dist/quill.snow.css';
 import { TextAreaProps } from '../../interfaces/textAreaProps';
 import styles from './TextArea.module.css';
 
-export const TextArea = (props: TextAreaProps) => {
+const TextArea = (props: TextAreaProps) => {
     const { label, id, value, onChange } = props;
 
     const quillStyles = {
@@ -17,7 +17,7 @@ export const TextArea = (props: TextAreaProps) => {
                 {label}
             </label>
             <br />
-            <div className={styles.input} txt-color>
+            <div className={styles.input}>
                 <ReactQuill
                     id={id}
                     value={value}
@@ -42,3 +42,5 @@ export const TextArea = (props: TextAreaProps) => {
         </div>
     );
 };
+
+export default TextArea;

@@ -1,0 +1,65 @@
+/* Modal.module.css */
+
+.modalContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 3rem 3rem 0.5rem;
+    border-radius: 2rem;
+    border: 0.1rem solid #cacaca;
+    box-shadow: 4px 4px 0 0 #cacaca;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30rem;
+    height:30rem;
+    background-color: #fff;
+}
+
+.modalHeader{
+    display: flex;
+    justify-content: end;
+    margin-bottom: 10px;
+}
+
+.closeButton {
+    /* Styles for the close button */
+    background: none;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    display: flex;
+    color: #e15a40;
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
+}
+
+.modalBody {
+    display: flex;
+    justify: center;
+    align-items: center;
+    Flex-direction: column;
+    margin: 2rem 0;
+    gap:0.5rem;
+}
+
+.icon {
+    margin-bottom: 2rem;
+}
+
+.modalFooter {
+    display: flex;
+    gap: 2rem;
+    padding-top:4rem;
+}
+
+h2 {
+    font-size: 32px;
+}
+
+p {
+    padding: 0 3rem;
+    font-size: 18px;
+}
