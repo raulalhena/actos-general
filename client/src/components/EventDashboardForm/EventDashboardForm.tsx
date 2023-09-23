@@ -23,6 +23,7 @@ import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProp
 import { ToastContainer } from 'react-toastify';
 import types from '../../data/type.json';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
+import SelectStatus from '../SelectStatus/SelectStatus';
 
 type Props = { eventData: EventDashboardFormProps };
 
@@ -113,6 +114,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+
+        if(formData.status) alert('vas a cambiar el estado');
 
         const resp = await fetch(`http://localhost:8000/api/events/${formData._id}`, { 
             method: 'PUT',
@@ -506,9 +509,21 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                 
                 </SectionForm>
                 <p style={{ color: 'red' }}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
-
-                <div className={styles.buttonSection}>
-                    <ButtonSubmit label="Guardar"/>
+                <div className={ styles.finalSectionContainer }>
+                    <div className={styles.finalSection}>
+                        <div className={styles.selectStatus}>
+                            <SelectStatus
+                                id="visibility"
+                                label=""
+                                options={ [ 'Borrador', 'Público' ] }
+                                value={eventData.status}
+                                onChange={handleSelectChange}
+                            />
+                        </div>
+                        <div className={styles.buttonSection}>
+                            <ButtonSubmit label="Guardar"/>
+                        </div>
+                    </div>
                 </div>
 
                 <ProgressTracker
