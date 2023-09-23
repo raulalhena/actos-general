@@ -256,6 +256,10 @@ const EventForm = () => {
         setPreviewURL('');
         setImgVisibility('none');
         setEventImage(() => '');
+        setFormData({ 
+            ...formData,
+            image: ''
+        });
     };
 
     /******************
