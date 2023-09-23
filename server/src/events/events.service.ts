@@ -2,8 +2,10 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, ObjectId } from 'mongoose';
+import { Model, Types, ObjectId } from 'mongoose';
 import { User } from 'src/users/schemas/user.schema';
+import { generateEventQR, generateUserQR } from '../utils/qr.generator';
+
 
 @Injectable()
 export class EventsService {
@@ -11,11 +13,16 @@ export class EventsService {
 
   async create(createEventDto: CreateEventDto) {
     try {
-      return await this.eventModel.create(createEventDto);
+      const newEvent = await this.eventModel.create(createEventDto);
+      if(newEvent === undefined) throw new HttpException('Error al guardar el evento', HttpStatus.BAD_REQUEST);
+
+      const eventQR = await generateEventQR(new Types.ObjectId(newEvent._id));
+      const updatedEvent = await this.eventModel.findOneAndUpdate({ _id: newEvent._id}, { qrEvent: eventQR }).exec();
+
+      return updatedEvent;
     } catch (error) {
-      throw new HttpException('Error al crear el evento', HttpStatus.BAD_REQUEST);
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
-    
   }
 
   async findAll() {

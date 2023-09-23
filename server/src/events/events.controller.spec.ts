@@ -5,6 +5,7 @@ import { getModelToken } from '@nestjs/mongoose';
 import mongoose, { Types } from 'mongoose';
 import { CreateEventDto } from './dto/create-event.dto';
 import { Event } from './schemas/event.schema';
+import { generateEventQR } from '../utils/qr.generator';
 
 const eventResult = {
   _id: new Types.ObjectId('650e9ff4f20805eccb4d5928'),
@@ -33,6 +34,17 @@ const eventResult = {
   video: '', 
   capacity: 0,
   isLimited: false,
+  qrEvent: '',
+  qrAttendees: [],
+  attendees: [],
+  submitted: [],
+  price: 0,
+  payment: '', 
+  visibility: false,
+  status: false,
+  active: false,
+  customForm: '',
+  form: {}
 }
 
 const newEvent: CreateEventDto = {
@@ -78,7 +90,8 @@ describe('EventsController', () => {
   let controller: EventsController;
 
   const mockEventsService = {
-    create: jest.fn().mockImplementation((newEvent: CreateEventDto) => {
+    create: jest.fn().mockImplementation(async (newEvent: CreateEventDto) => {
+      eventResult.qrEvent = await generateEventQR(eventResult._id);
       return eventResult;
     }),
     attendanceRecord: jest.fn().mockReturnValue('El registro de usuario se ha realizado con éxito')
@@ -108,7 +121,8 @@ describe('EventsController', () => {
 
   it('create() POST should return Event Object', async () => {
     expect(await controller.create(newEvent)).toMatchObject({
-      _id: expect.any(Types.ObjectId)
+      _id: expect.any(Types.ObjectId),
+      qrEvent: 'svg'
     });
   });
 
