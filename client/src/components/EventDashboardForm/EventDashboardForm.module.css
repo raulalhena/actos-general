@@ -21,8 +21,10 @@
 
 .finalSection {
   display: flex;
-  border: 1px solid red;
-  width: 500px;
+  gap: 3px;
+  justify-content: center;
+  align-items: center;
+  width: 580px;
 }
 
 .selectStatus {
@@ -30,12 +32,14 @@
   height: fit-content;
   padding: 0.5rem 1rem;
   border-radius: 10px;
-  border: 1.5px solid rgba(143, 143, 143, 1);
+  /* border: 1.5px solid rgba(143, 143, 143, 1); */
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
- 
+ .finalSection{
+  gap: 3px;
+ }
   
 }
 

@@ -23,8 +23,7 @@ import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProp
 import { ToastContainer } from 'react-toastify';
 import types from '../../data/type.json';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
-import status from '../../data/status.json';
-
+import SelectStatus from '../SelectStatus/SelectStatus';
 
 type Props = { eventData: EventDashboardFormProps };
 
@@ -510,8 +509,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                 <div className={ styles.finalSectionContainer }>
                     <div className={styles.finalSection}>
                         <div className={styles.selectStatus}>
-                            <Select
-                                id="status"
+                            <SelectStatus
+                                id="visibility"
                                 label=""
                                 options={ [ 'Borrador', 'Público' ] }
                                 value={eventData.status}
