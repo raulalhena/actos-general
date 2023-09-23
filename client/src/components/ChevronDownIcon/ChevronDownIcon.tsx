@@ -7,7 +7,7 @@ export const ChevronDownIcon = (props: ChevronDownIconProps) => {
 
     return (
         <IoChevronDown
-            className={`${styles.downButton} ${isRotated ?  styles.rotated: '' }`}
+            className={`${styles.downButton} ${isRotated ? '': styles.rotated  }`}
         />
     );
 };

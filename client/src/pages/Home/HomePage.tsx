@@ -5,18 +5,20 @@ import HomePageCategories from '../../components/HomePageCategories/HomePageCate
 
 const HomePage = () => {
     const eventData = {
-        title: 'Evento de Ejemplo',
+        name: 'Evento de Ejemplo',
         date: '2023-10-15',
         mode: 'Presencial',
         type: 'Conferencia',
-        image: 'https://ejemplo.com/imagen-evento.jpg',
+        image: '../../images/prueba.jpg',
+        category: 'Empleabilidad',
+        subcategory: 'Conferencia',
+        eventId: 1
     };
 
     return (
         
         <>
             <HomePageHeader />
-            <button >Crear nuevo evento</button>
             <section className={styles.section}>
                 <div className={styles.title}>
                     <h1 className={styles.dash}>—</h1>
@@ -29,7 +31,7 @@ const HomePage = () => {
                     <h1 className={styles.dash}>—</h1>
                     <h1>Eventos destacados</h1>
                 </div>
-                <CardEvent eventData={eventData} eventId={0} />
+                <CardEvent eventData={eventData} />
             </section>
 
         </>

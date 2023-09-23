@@ -34,10 +34,10 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     useEffect(() => {
         setFormData(eventData);
         console.log('form data', formData);
-    }, [ eventData ]);
+    }, [ eventData, formData ]);
 
     // Visibility
-    const [ isSection1Visible, setIsSection1Visible ] = useState(false);
+    const [ isSection1Visible, setIsSection1Visible ] = useState(true);
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
 
@@ -217,7 +217,10 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     };
 
     const handleToggleCapacityChange = (checked: boolean) => { 
-        console.log(checked);  
+        setFormData({
+            ...formData,
+            isLimited: checked,
+        });
         setSelectedCapacity(!selectedCapacity);
     };
 
@@ -406,12 +409,12 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             onChange={handleTagsOrganizadorChange}
                         />
                         <TextInputWithSubtitle
-                            id="contact"
+                            id="contactEmail"
                             label="Información de contacto"
                             placeholder="email@email.com"
                             minLength={3}
                             maxLength={75}
-                            value={formData.contact}
+                            value={formData.contactEmail}
                             onChange={handleInputChange}
                             subtitle='Contacto para mas informacion'
                             isRequired={false}

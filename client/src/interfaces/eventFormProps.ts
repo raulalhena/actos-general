@@ -17,7 +17,7 @@ export interface EventFormProps  {
     description: string;
     web?: string;
     organizedBy?: string[];
-    contact?: string;
+    contactEmail?: string;
     isPrivate: boolean;
     language: string[];
     image?: string;
@@ -31,4 +31,5 @@ export interface EventFormProps  {
     payment?: string;
     visibility?: boolean;
     status?: boolean
+    isLimited: boolean;
 }
