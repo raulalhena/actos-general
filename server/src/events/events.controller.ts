@@ -22,6 +22,11 @@ export class EventsController {
       };
   }
 
+  @Put('attendance/:id')
+    attendanceRecord(@Param('id') id: ObjectId) {
+      return this.eventsService.attendanceRecord(id);
+    }
+
   @Get()
   findAll() {
   	return this.eventsService.findAll();
