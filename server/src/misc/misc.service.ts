@@ -113,9 +113,45 @@ export class MiscService {
  * End Bulk Creating
  ****/
 
-  findAll() {
-    return `This action returns all misc`;
-  }
+   /****
+   * Find All
+   */
+
+   findAllCategories() {
+     return this.categoryModel.find();
+   }
+ 
+   findAllSubcategories() {
+     return this.subcategoryModel.find();
+   }
+ 
+   findAllLanguages() {
+     return this.languageModel.find();
+   }
+ 
+   findAllTypes() {
+     return this.typeModel.find();
+   }
+
+   findAllTimes() {
+     return this.timeModel.find();
+   }
+ 
+   findAllTimeZones() {
+     return this.timeZoneModel.find();
+   }
+ 
+   findAllCapacities() {
+     return this.capacityModel.find();
+   }
+ 
+   findAllVisibilities() {
+     return this.visibilityModel.find();
+   }
+ 
+   /*
+   * End Find All
+   ****/
 
   findOne(id: number) {
     return `This action returns a #${id} misc`;

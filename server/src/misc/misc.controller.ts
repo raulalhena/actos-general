@@ -62,54 +62,6 @@ export class MiscController {
   ****/
 
   /****
-   * Find All
-   */
-
-  @Get('categories')
-  findAllCategories() {
-    return this.miscService.findAll();
-  }
-
-  @Get('subcategories')
-  findAllSubcategories() {
-    return this.miscService.findAll();
-  }
-
-  @Get('languages')
-  findAll() {
-    return this.miscService.findAll();
-  }
-
-  @Get('types')
-  findAllTypes() {
-    return this.miscService.findAll();
-  }
-
-  @Get('times')
-  findAllTimes() {
-    return this.miscService.findAll();
-  }
-
-  @Get('timezones')
-  findAllTimeZones() {
-    return this.miscService.findAll();
-  }
-
-  @Get('capacities')
-  findAllCapacities() {
-    return this.miscService.findAll();
-  }
-
-  @Get('visibilities')
-  findAllVisibilities() {
-    return this.miscService.findAll();
-  }
-
-  /*
-  * End Find All
-  ****/
-
-  /****
    * Bulk Creating
    */
 
@@ -156,6 +108,54 @@ export class MiscController {
   /*
   * End Bulk Creating
   ****/
+
+    /****
+   * Find All GET
+   */
+
+    @Get('categories')
+    findAllCategories() {
+      return this.miscService.findAllCategories();
+    }
+  
+    @Get('subcategories')
+    findAllSubcategories() {
+      return this.miscService.findAllSubcategories();
+    }
+  
+    @Get('languages')
+    findAllLanguages() {
+      return this.miscService.findAllLanguages();
+    }
+  
+    @Get('types')
+    findAllTypes() {
+      return this.miscService.findAllTypes();
+    }
+  
+    @Get('times')
+    findAllTimes() {
+      return this.miscService.findAllTimes();
+    }
+  
+    @Get('timezones')
+    findAllTimeZones() {
+      return this.miscService.findAllTimeZones();
+    }
+  
+    @Get('capacities')
+    findAllCapacities() {
+      return this.miscService.findAllCapacities();
+    }
+  
+    @Get('visibilities')
+    findAllVisibilities() {
+      return this.miscService.findAllVisibilities();
+    }
+  
+    /*
+    * End Find All
+    ****/
 
   @Get(':id')
   findOne(@Param('id') id: string) {
