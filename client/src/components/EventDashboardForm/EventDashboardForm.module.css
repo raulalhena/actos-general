@@ -35,6 +35,12 @@
   /* border: 1.5px solid rgba(143, 143, 143, 1); */
 }
 
+.checkIcon {
+  width: 60px;
+  height: 60px;
+  color: #cacaca;
+}
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
  .finalSection{

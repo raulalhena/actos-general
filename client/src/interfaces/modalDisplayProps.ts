@@ -4,9 +4,11 @@ export interface ModalDisplayProps {
     icon?: ReactNode;
     title: string;
     subtitle?: string;
-    button1Text: string;
+    button1Text?: string;
     button2Text?: string;
     onClose: () => void;
     isOpen: boolean;
-    modalParams?: { eventId: string; route: string };
+    onButton1Click?: () => void;
+    onButton2Click?: () => void;
+    showCloseButton: boolean;
 }
