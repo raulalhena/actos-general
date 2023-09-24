@@ -8,6 +8,7 @@ import { CreateTypeDto } from './dto/create-type.dto';
 import { CreateTimeDto } from './dto/create-time.dto';
 import { CreateTimeZoneDto } from './dto/create-timezone.dto';
 import { CreateVisibilityDto } from './dto/create-visibility.dto';
+import { ObjectId } from 'mongoose';
 
 @Controller('misc')
 export class MiscController {
@@ -113,15 +114,16 @@ export class MiscController {
    * Find All GET
    */
 
+    @Get('categories/:id/subcategories')
+    findAllSubcategories(@Param('id') id: ObjectId) {
+      return this.miscService.findAllSubcategories(id);
+    }
+
     @Get('categories')
     findAllCategories() {
       return this.miscService.findAllCategories();
     }
   
-    // @Get('subcategories/:categoryName')
-    // findAllSubcategories(@Param('categoryName') categoryName: string) {
-    //   return this.miscService.findAllSubcategories(categoryName);
-    // }
   
     @Get('languages')
     findAllLanguages() {
@@ -156,11 +158,6 @@ export class MiscController {
     /*
     * End Find All
     ****/
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.miscService.findOne(+id);
-  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMiscDto: string) {
