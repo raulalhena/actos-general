@@ -1,10 +1,11 @@
 import { ButtonSubmitProps } from '../../interfaces/buttonSubmitProps';
 import styles from './ButtonRed.module.css';
 
-const ButtonRed = ({ label }: ButtonSubmitProps) => {
+const ButtonRed = (props: ButtonSubmitProps) => {
+    const { label, onClick } = props;
     return (
         <div className={styles.container}>
-            <button className={styles.button} type="submit">
+            <button className={styles.button} onClick={onClick}>
                 {label}
             </button>
         </div>

@@ -25,6 +25,9 @@ import types from '../../data/type.json';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 import SelectStatus from '../SelectStatus/SelectStatus';
 
+import { BsPatchCheckFill } from 'react-icons/bs';
+import ModalDisplay from '../Modal/ModalDisplay';
+
 type Props = { eventData: EventDashboardFormProps };
 
 // Form
@@ -64,14 +67,90 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     // Select
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        
         const { id, value } = event.target;
+    
+        let selectedValue = 0;
+        let newStatus = formData.status;
+    
+        if (value === 'Borrador') {
+            selectedValue = 0;
+            newStatus = 'Borrador';
+            openModal(
+                null,
+                '¿Quieres guardar este evento como borrador?',
+                'El evento solo será visible para el organizador del evento.',
+                'No, cancelar',
+                'Sí, guardar',
+                closeModal,
+                true,
+                () => {
+                    setFormData({
+                        ...formData,
+                        status: 'Público',
+                        visibility: 1,
+                    });
+                    setIsModalOpen(false);
+                },
+                () => {
+
+                    setFormData({
+                        ...formData,
+                        status: 'Borrador',
+                        visibility: 0,
+                    });
+                    setIsModalOpen(false);
+                }
+            );
+        } else if (value === 'Público') {
+            selectedValue = 1;
+            newStatus = 'Público';
+            openModal(
+                null,
+                '¿Quieres publicar este evento?',
+                'El evento será visible para todos los usuarios.',
+                'No, cancelar',
+                'Sí, publicar',
+                closeModal,
+                true,
+                () => {
+                    setFormData({
+                        ...formData,
+                        status: 'Borrador',
+                        visibility: 0,
+                    });
+                    setIsModalOpen(false);
+                },
+                () => {
+                    setFormData({
+                        ...formData,
+                        status: 'Público',
+                        visibility: 1,
+                    });
+                    openModal(
+                        null,
+                        'Evento Publicado',
+                        'Tu evento ha sido publicado con éxito',
+                        'Cerrar ventana',
+                        '',
+                        closeModal,
+                        true,
+                        () => {
+                            setIsModalOpen(false);
+                        },
+                        () => {},
+                    );
+                },
+                
+            );
+        }
         setFormData({
             ...formData,
-            [id]: value,
+            visibility: selectedValue,
+            status: newStatus,
+            [id]: value
         });
     };
-
+    
     // Tags
     const handleTagsChange = (newTags: string[]) => {
         setFormData({
@@ -115,19 +194,91 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        if(formData.status) alert('vas a cambiar el estado');
+        if (formData.status) alert('Vas a cambiar el estado');
 
-        const resp = await fetch(`http://localhost:8000/api/events/${formData._id}`, { 
+        const resp = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(formData),
         });
         const result = await resp.json();
         console.log(result);
-        // MOSTRAR MODAL SE HA GUARDADO CORRECTAMENTE?
+
+        openModal(
+            <BsPatchCheckFill className={styles.checkIcon} />,
+            'Evento Guardado',
+            'Tu evento ha sido guardado con éxito',
+            'Cerrar ventana',
+            '',
+            closeModal,
+            true,
+            closeModal,
+            () => {}
+        );
     };
+
+    /* **************
+START Modal
+************** */
+    
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+
+    const [ modalParams, setModalParams ] = useState<{
+    icon: React.ReactNode;
+    title: string;
+    subtitle: string;
+    button1Text: string;
+    button2Text: string;
+    onClose: () => void;
+    shouldShowCloseButton: boolean;
+    onButton1Click: () => void;
+    onButton2Click: () => void;
+        }>({
+            icon: null,
+            title: '',
+            subtitle: '',
+            button1Text: '',
+            button2Text: '',
+            onClose: () => {},
+            shouldShowCloseButton: false,
+            onButton1Click: () => {},
+            onButton2Click: () => {},
+        });
+
+    const openModal = (
+        icon: React.ReactNode,
+        title: string,
+        subtitle: string,
+        button1Text: string,
+        button2Text: string,
+        onClose: () => void,
+        shouldShowCloseButton: boolean,
+        onButton1Click: () => void,
+        onButton2Click: () => void,
+    ) => {
+        setIsModalOpen(true);
+        setModalParams({ 
+            icon,
+            title,
+            subtitle,
+            button1Text,
+            button2Text,
+            onClose,
+            shouldShowCloseButton,
+            onButton1Click,
+            onButton2Click,
+        });
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    /* **************
+END Modal
+************** */
 
     // Button Radio
     const [ selectedMode, setSelectedMode ] = useState<string>('');
@@ -394,7 +545,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             </>
                         )}
                     </FormField>
-               
                 </SectionForm>
 
                 <SectionForm
@@ -482,7 +632,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             onChange={handleToggleIsPrivateChange} 
                         />
                     </FormField>
-     
                     <FormField>
                         <ToggleSwitch 
                             id='capacity'
@@ -513,10 +662,10 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                     <div className={styles.finalSection}>
                         <div className={styles.selectStatus}>
                             <SelectStatus
-                                id="visibility"
+                                id="status"
                                 label=""
                                 options={ [ 'Borrador', 'Público' ] }
-                                value={eventData.status}
+                                value={formData.status}
                                 onChange={handleSelectChange}
                             />
                         </div>
@@ -524,6 +673,23 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             <ButtonSubmit label="Guardar"/>
                         </div>
                     </div>
+                </div>
+
+                <div>
+                    {isModalOpen && (
+                        <ModalDisplay
+                            icon={modalParams.icon}
+                            title={modalParams.title}
+                            subtitle={modalParams.subtitle}
+                            button1Text={modalParams.button1Text}
+                            button2Text={modalParams.button2Text}
+                            onClose={modalParams.onClose}
+                            isOpen={isModalOpen}
+                            onButton1Click={modalParams.onButton1Click}
+                            onButton2Click={modalParams.onButton2Click}
+                            showCloseButton={modalParams.shouldShowCloseButton}
+                        />
+                    )}
                 </div>
 
                 <ProgressTracker
