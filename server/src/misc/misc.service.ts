@@ -18,7 +18,7 @@ import { CreateTypeDto } from './dto/create-type.dto';
 import { CreateTimeDto } from './dto/create-time.dto';
 import { CreateTimeZoneDto } from './dto/create-timezone.dto';
 import { CreateVisibilityDto } from './dto/create-visibility.dto';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 
 @Injectable()
 export class MiscService {
@@ -121,9 +121,9 @@ export class MiscService {
      return this.categoryModel.find();
    }
  
-  //  findAllSubcategories(categoryName: string) {
-  //    return this.categoryModel.find({ category: categoryName });
-  //  }
+   findAllSubcategories(id: ObjectId) {
+     return this.categoryModel.findById({ _id: id }).select('-_id subcategories');
+   }
  
    findAllLanguages() {
      return this.languageModel.find();
@@ -154,7 +154,7 @@ export class MiscService {
    ****/
 
   findOne(id: number) {
-    return `This action returns a #${id} misc`;
+    return `This action returns a #${id} misc asdfasdfsa`;
   }
 
   update(id: number, updateMiscDto: UpdateMiscDto) {
