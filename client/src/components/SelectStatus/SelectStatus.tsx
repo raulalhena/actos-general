@@ -13,7 +13,7 @@ function SelectStatus(props: SelectProps) {
             <br />
             <select className={styles.input} id={id} value={value} onChange={onChange}>
                 {options.map((option, index) => (
-                    <option key={index} value={option === 'Público'}>
+                    <option key={index} value={option}>
                         {option} 
                     </option>
                 ))}

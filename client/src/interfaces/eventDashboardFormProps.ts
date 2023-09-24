@@ -30,7 +30,7 @@ export interface EventDashboardFormProps {
     submitted?: string[];
     price?: number;
     payment?: string;
-    visibility?: boolean;
-    status?: boolean;
+    visibility?: number;
+    status?: string;
     isLimited: boolean;
 }

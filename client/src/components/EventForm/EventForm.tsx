@@ -26,9 +26,12 @@ import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 import types from '../../data/type.json';
 import ModalDisplay from '../Modal/ModalDisplay';
 import { BsPatchCheckFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 // Form
 const EventForm = () => {
+
+    const navigate = useNavigate(); 
 
     const [ formData, setFormData ] = useState<EventFormProps>({
         name: '',
@@ -162,7 +165,6 @@ const EventForm = () => {
     };
 
     // Submit Button
-    
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         console.log(formData);
@@ -191,26 +193,62 @@ const EventForm = () => {
             body: JSON.stringify(formData),
         });
         const result = await resp.json();
-    
-        openModal(result._id, '/eventdashboard');
+        console.log('aqui: ', result);
+        
+        openModal(
+            <BsPatchCheckFill className={styles.checkIcon} />,
+            'Evento Creado',
+            'Tu evento ha sido creado con éxito y los usuarios ya pueden inscribirse',
+            'VISITA EL EVENTO',
+            '',
+            closeModal,
+            false,
+            () => navigate(`/eventdashboard`, { state: { id: result._id } })
+        );
+
     };
 
     /* ************** Modal ************** */
     const [ isModalOpen, setIsModalOpen ] = useState(false);
-    const [ modalParams, setModalParams ] = 
-    useState<{ eventId: string; route: string }>
-    ({ eventId: '', route: '' });
 
-    const openModal = (eventId: string, route: string) => {
+    const [ modalParams, setModalParams ] = useState<{
+        icon: React.ReactNode;
+        title: string;
+        subtitle: string;
+        button1Text: string;
+        button2Text: string;
+        onClose: () => void;
+        shouldShowCloseButton: boolean;
+        onButton1Click: () => void;
+            }>({
+                icon: null, 
+                title: '',
+                subtitle: '',
+                button1Text: '',
+                button2Text: '',
+                onClose: () => {},
+                shouldShowCloseButton: false,
+                onButton1Click: () => {}
+            });
 
+    const openModal = (
+        icon: React.ReactNode,
+        title: string,
+        subtitle: string,
+        button1Text: string,
+        button2Text: string,
+        onClose: () => void,
+        shouldShowCloseButton: boolean,
+        onButton1Click: () => void,
+    ) => {
         setIsModalOpen(true);
-        setModalParams({ eventId, route });
+        setModalParams({ icon, title, subtitle, button1Text, button2Text, onClose, shouldShowCloseButton,onButton1Click });
     };
     
     const closeModal = () => {
         setIsModalOpen(false);
     };
-        /* ************** Modal ************** */
+        /* ************** END Modal ************** */
     
     // Button Radio
     const [ selectedMode, setSelectedMode ] = useState<string>('');
@@ -599,15 +637,15 @@ const EventForm = () => {
                 <div>
                     {isModalOpen && (
                         <ModalDisplay
-                            icon={<BsPatchCheckFill className={styles.checkIcon}/>}
-                            title="Evento Creado"
-                            subtitle="Tu evento ha sido creado con éxito y los usuarios ya pueden inscribirse"
-                            button1Text="VISITA EL EVENTO"
-                            // button2Text="Cancel"
-                            onClose={closeModal}
+                            icon={modalParams.icon}
+                            title={modalParams.title}
+                            subtitle={modalParams.subtitle}
+                            button1Text={modalParams.button1Text}
+                            button2Text={modalParams.button2Text}
+                            onClose={modalParams.onClose}
                             isOpen={isModalOpen}
-                            modalParams={modalParams}
-
+                            onButton1Click={modalParams.onButton1Click}
+                            showCloseButton={modalParams.shouldShowCloseButton}
                         />
                     )}
                 </div>

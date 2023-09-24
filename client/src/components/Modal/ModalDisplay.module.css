@@ -12,8 +12,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 30rem;
-    height:30rem;
+    /* width: 30rem;
+    height:30rem; */
     background-color: #fff;
 }
 
@@ -41,8 +41,8 @@
     justify: center;
     align-items: center;
     Flex-direction: column;
-    margin: 2rem 0;
-    gap:0.5rem;
+    margin: 1rem 0;
+    gap:1rem;
 }
 
 .icon {
@@ -56,10 +56,11 @@
 }
 
 h2 {
+    padding: 0 2rem;
     font-size: 32px;
 }
 
 p {
-    padding: 0 3rem;
-    font-size: 18px;
+    padding: 0 2rem;
+    font-size: 20px;
 }

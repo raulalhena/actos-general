@@ -1,20 +1,12 @@
-
 import ReactModal from 'react-modal';
 import styles from './ModalDisplay.module.css';
 import ButtonWhite from '../ButtonWhite/ButtonWhite';
 import ButtonRed from '../ButtonRed/ButtonRed';
 import { ModalDisplayProps } from '../../interfaces/modalDisplayProps';
-import { useNavigate } from 'react-router-dom';
 
 const ModalDisplay = (props: ModalDisplayProps) => {
 
-    const { icon, title, subtitle, button1Text, button2Text, onClose, isOpen, modalParams } = props;
-
-    const navigator = useNavigate();
-    const handleNavigate = () => {
-        if(modalParams)
-            navigator( modalParams.route, { state:{ id:modalParams.eventId } });
-    };
+    const { icon, title, subtitle, button1Text, button2Text, onClose, isOpen, showCloseButton, onButton1Click, onButton2Click } = props;
 
     return (
         <ReactModal
@@ -27,7 +19,6 @@ const ModalDisplay = (props: ModalDisplayProps) => {
                     backgroundColor: 'rgba(200, 200, 200, 0.6)',
                 },
                 content: {
-
                     border: 'none',
                     borderRadius: '2rem', 
                     padding: '2rem', 
@@ -39,19 +30,19 @@ const ModalDisplay = (props: ModalDisplayProps) => {
         >
             <div className={styles.container}>
                 <div className={styles.modalContent}>
-                    <div className={styles.modalHeader}>
-                        
+
+                    {showCloseButton && <div className={styles.modalHeader}>
                         <button className={styles.closeButton} onClick={onClose}>
                             &times;
                         </button>
-                    </div>
+                    </div>}
                     <div className={styles.modalBody}>
                         <div className={styles.icon}>{icon}</div>
                         <h2><b>{title}</b></h2>
                         <p>{subtitle}</p>
                         <div className={styles.modalFooter}>
-                            <ButtonWhite label={button1Text} onClick={handleNavigate}/>
-                            {button2Text && <ButtonRed label={button2Text} />}
+                            {button1Text && <ButtonWhite label={button1Text} onClick={onButton1Click}/>}
+                            {button2Text && <ButtonRed label={button2Text} onClick={onButton2Click}/>}
                         </div>
                     </div>
                     
