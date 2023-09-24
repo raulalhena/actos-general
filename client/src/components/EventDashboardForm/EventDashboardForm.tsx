@@ -68,27 +68,42 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // Select
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
-
+    
         let selectedValue = 0;
-
-        console.log('es visible - A:',  formData.visibility, 'status:' , formData.status);
-
+        let newStatus = formData.status;
+    
         if (value === 'Borrador') {
-            selectedValue = 0; 
-            console.log('es visible -B:',  formData.visibility, 'status:' , formData.status);
+            selectedValue = 0;
+            newStatus = 'Borrador';
             openModal(
                 null,
                 '¿Quieres guardar este evento como borrador?',
-                'El evento solo será visible para ti.',
+                'El evento solo será visible para el organizador del evento.',
                 'No, cancelar',
                 'Sí, guardar',
                 closeModal,
                 true,
-                closeModal,
-                // () => {},
+                () => {
+                    setFormData({
+                        ...formData,
+                        status: 'Público',
+                        visibility: 1,
+                    });
+                    setIsModalOpen(false);
+                },
+                () => {
+
+                    setFormData({
+                        ...formData,
+                        status: 'Borrador',
+                        visibility: 0,
+                    });
+                    setIsModalOpen(false);
+                }
             );
         } else if (value === 'Público') {
             selectedValue = 1;
+            newStatus = 'Público';
             openModal(
                 null,
                 '¿Quieres publicar este evento?',
@@ -97,18 +112,45 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                 'Sí, publicar',
                 closeModal,
                 true,
-                closeModal,
-                // () => {},
+                () => {
+                    setFormData({
+                        ...formData,
+                        status: 'Borrador',
+                        visibility: 0,
+                    });
+                    setIsModalOpen(false);
+                },
+                () => {
+                    setFormData({
+                        ...formData,
+                        status: 'Público',
+                        visibility: 1,
+                    });
+                    openModal(
+                        null,
+                        'Evento Publicado',
+                        'Tu evento ha sido publicado con éxito',
+                        'Cerrar ventana',
+                        '',
+                        closeModal,
+                        true,
+                        () => {
+                            setIsModalOpen(false);
+                        },
+                        () => {},
+                    );
+                },
+                
             );
         }
         setFormData({
             ...formData,
             visibility: selectedValue,
+            status: newStatus,
             [id]: value
         });
-        
     };
-
+    
     // Tags
     const handleTagsChange = (newTags: string[]) => {
         setFormData({
@@ -173,6 +215,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             closeModal,
             true,
             closeModal,
+            () => {}
         );
     };
 
@@ -191,6 +234,7 @@ START Modal
     onClose: () => void;
     shouldShowCloseButton: boolean;
     onButton1Click: () => void;
+    onButton2Click: () => void;
         }>({
             icon: null,
             title: '',
@@ -200,6 +244,7 @@ START Modal
             onClose: () => {},
             shouldShowCloseButton: false,
             onButton1Click: () => {},
+            onButton2Click: () => {},
         });
 
     const openModal = (
@@ -211,6 +256,7 @@ START Modal
         onClose: () => void,
         shouldShowCloseButton: boolean,
         onButton1Click: () => void,
+        onButton2Click: () => void,
     ) => {
         setIsModalOpen(true);
         setModalParams({ 
@@ -222,6 +268,7 @@ START Modal
             onClose,
             shouldShowCloseButton,
             onButton1Click,
+            onButton2Click,
         });
     };
 
@@ -618,7 +665,7 @@ END Modal
                                 id="status"
                                 label=""
                                 options={ [ 'Borrador', 'Público' ] }
-                                value={eventData.visibility === 0 ? 'Borrador' : 'Público'}
+                                value={formData.status}
                                 onChange={handleSelectChange}
                             />
                         </div>
@@ -639,7 +686,7 @@ END Modal
                             onClose={modalParams.onClose}
                             isOpen={isModalOpen}
                             onButton1Click={modalParams.onButton1Click}
-                            // onButton2Click={modalParams.onButton2Click}
+                            onButton2Click={modalParams.onButton2Click}
                             showCloseButton={modalParams.shouldShowCloseButton}
                         />
                     )}
@@ -663,7 +710,3 @@ END Modal
 };
 
 export default EventDashboardForm;
-// function openModal() {
-//     throw new Error('Function not implemented.');
-// }
-
