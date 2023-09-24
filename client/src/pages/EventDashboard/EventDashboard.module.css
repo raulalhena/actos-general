@@ -33,6 +33,12 @@
   gap: 2rem;
 }
 
+.infoPanel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
 }

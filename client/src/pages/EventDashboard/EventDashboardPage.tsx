@@ -3,6 +3,7 @@ import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRe
 import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
+import ImageQR from '../../components/ImageQR/ImageQR';
 
 const EventDashboardPage = () => {
 
@@ -76,7 +77,10 @@ const EventDashboardPage = () => {
                             </p>
                         </div>
                     </section>
-                    <InscriptionsRecap capacity={ String(eventData?.capacity) } />
+                    <div className={ styles.infoPanel }>
+                        <ImageQR qr={eventData.qrEvent} />
+                        <InscriptionsRecap capacity={ String(eventData?.capacity) } />
+                    </div>
                 </section>
                 <EventDashboardForm eventData={ eventData } />
             </div>
