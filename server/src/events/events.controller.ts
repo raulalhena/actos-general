@@ -22,9 +22,9 @@ export class EventsController {
       };
   }
 
-  @Put('attendance/:id')
-    attendanceRecord(@Param('id') id: ObjectId) {
-      return this.eventsService.attendanceRecord(id);
+  @Put('attendance/:eventId/:userId')
+    attendanceRecord(@Param('eventId') eventId: ObjectId, @Param('userId') userId: ObjectId) {
+      return this.eventsService.attendanceRecord(eventId, userId);
     }
 
   @Get()

@@ -41,12 +41,12 @@ export class EventsService {
     return await this.eventModel.findByIdAndDelete(id);
   }
 
-  async attendanceRecord(id: ObjectId) {
+  async attendanceRecord(eventId: ObjectId, userId: ObjectId) {
     try{
       let user: User;
-      const userAttendee = await this.eventModel.find().select('attendees').populate('attendees');
+      const userAttendee = await this.eventModel.find({ _id: eventId }).select('attendees').populate('attendees');
       console.log('user', userAttendee);
-      if(!userAttendee) throw new HttpException('El usuario no está inscrito en el evento', HttpStatus.BAD_REQUEST);
+      // if(!userAttendee) throw new HttpException('El usuario no está inscrito en el evento', HttpStatus.BAD_REQUEST);
       
       return 'El registro de usuario se ha realizado con éxito';
     } catch(error) {
