@@ -94,22 +94,20 @@ const EventForm = () => {
 
     // Categories Handle Change
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const { id, value, key } = event.target;
+        const { id, value, label } = event.target;
 
         setFormData({
             ...formData,
-            [id]: value,
+            [id]: label,
         });
 
-        await getSubcategories(key);
+        await getSubcategories(value);
     };
 
     // Get Subcategories
     const getSubcategories = async (categoryId: string) => {
-        const resp = await fetch(`http://localhost:8000/api/misc/categories/${categoryId}`);
+        const resp = await fetch(`http://localhost:8000/api/misc/categories/${categoryId}/subcategories`);
         const categoriesDb = await resp.json();
-
-        console.log('subc', categoriesDb.subcategories)
         
         setSubcategories(categoriesDb.subcategories);
     };

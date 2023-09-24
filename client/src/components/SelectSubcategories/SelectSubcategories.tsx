@@ -4,8 +4,6 @@ import styles from './SelectSubcategories.module.css';
 function SelectSubcategories(props: SelectSubcategoriesProps) {
     const { label, options, id, value, onChange } = props;
 
-    console.log(options)
-
     return (
         <div>
             <label className={styles.label} htmlFor={id}> 
@@ -14,9 +12,9 @@ function SelectSubcategories(props: SelectSubcategoriesProps) {
             <br />
             <select className={styles.input} id={id} value={value} onChange={onChange}>
                 <option value=''> Seleciona </option>
-                {options.map((option) => (
-                    <option key={option._id} value={option.name}>
-                        {option.name} 
+                {options.map((option, index) => (
+                    <option key={index} value={option}>
+                        {option} 
                     </option>
                 ))}
             </select>

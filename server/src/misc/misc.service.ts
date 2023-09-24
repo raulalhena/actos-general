@@ -122,7 +122,12 @@ export class MiscService {
    }
  
    findAllSubcategories(id: ObjectId) {
-     return this.categoryModel.findById({ _id: id }).select('-_id subcategories');
+    try {
+      return this.categoryModel.findById({ _id: id }).select('-_id subcategories');
+    } catch (error) {
+      console.log(error);
+    }
+     
    }
  
    findAllLanguages() {

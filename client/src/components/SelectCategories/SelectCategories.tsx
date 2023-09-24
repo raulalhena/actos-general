@@ -13,7 +13,7 @@ function SelectCategories(props: SelectCategoriesProps) {
             <select className={styles.input} id={id} value={value} onChange={onChange}>
                 <option value=''> Seleciona </option>
                 {options.map((option) => (
-                    <option key={option._id} value={option.name}>
+                    <option key={option._id} label={option.name} value={option._id}>
                         {option.name} 
                     </option>
                 ))}
