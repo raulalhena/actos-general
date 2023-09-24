@@ -121,9 +121,9 @@ export class MiscService {
      return this.categoryModel.find();
    }
  
-   findAllSubcategories() {
-     return this.subcategoryModel.find();
-   }
+  //  findAllSubcategories(categoryName: string) {
+  //    return this.categoryModel.find({ category: categoryName });
+  //  }
  
    findAllLanguages() {
      return this.languageModel.find();

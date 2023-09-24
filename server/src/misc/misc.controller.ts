@@ -118,10 +118,10 @@ export class MiscController {
       return this.miscService.findAllCategories();
     }
   
-    @Get('subcategories')
-    findAllSubcategories() {
-      return this.miscService.findAllSubcategories();
-    }
+    // @Get('subcategories/:categoryName')
+    // findAllSubcategories(@Param('categoryName') categoryName: string) {
+    //   return this.miscService.findAllSubcategories(categoryName);
+    // }
   
     @Get('languages')
     findAllLanguages() {
