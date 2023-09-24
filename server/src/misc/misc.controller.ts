@@ -109,6 +109,54 @@ export class MiscController {
   * End Find All
   ****/
 
+  /****
+   * Bulk Creating
+   */
+
+  @Post('categories/load')
+  bulkCreateCategory(@Body() createCategoryDto: CreateCategoryDto[]) {
+    return this.miscService.bulkCreateCategory(createCategoryDto);
+  }
+
+  @Post('subcategories/load')
+  bulkCreateSubcategory(@Body() createSubcategoryDto: CreateSubcategoryDto[]) {
+    return this.miscService.bulkCreateSubcategory(createSubcategoryDto);
+  }
+
+  @Post('languages/load')
+  bulkCreateLanguage(@Body() createLanguageDto: CreateLanguageDto[]) {
+    return this.miscService.bulkCreateLanguage(createLanguageDto);
+  }
+
+  @Post('types/load')
+  bulkCreateType(@Body() createTypeDto: CreateTypeDto[]) {
+    return this.miscService.bulkCreateType(createTypeDto);
+  }
+
+  @Post('times/load')
+  bulkCreateTime(@Body() createTimeDto: CreateTimeDto[]) {
+    return this.miscService.bulkCreateTime(createTimeDto);
+  }
+
+  @Post('timezones/load')
+  bulkCreateTimeZone(@Body() createTimeZoneDto: CreateTimeZoneDto[]) {
+    return this.miscService.bulkCreateTimeZone(createTimeZoneDto);
+  }
+
+  @Post('capacities/load')
+  bulkCreateCapacity(@Body() createCapacityDto: CreateCapacityDto[]) {
+    return this.miscService.bulkCreateCapacity(createCapacityDto);
+  }
+
+  @Post('visibilities/load')
+  bulkCreateVisibility(@Body() createVisibilityDto: CreateVisibilityDto[]) {
+    return this.miscService.bulkCreateVisibility(createVisibilityDto);
+  }
+
+  /*
+  * End Bulk Creating
+  ****/
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.miscService.findOne(+id);

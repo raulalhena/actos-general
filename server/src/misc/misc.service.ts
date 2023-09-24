@@ -73,6 +73,46 @@ export class MiscService {
  * End Create
  ****/
 
+ /****
+   * Bulk Creating
+   */
+
+ bulkCreateCategory( createCategoryDto: CreateCategoryDto[]) {
+   return this.categoryModel.create(createCategoryDto);
+ }
+
+ bulkCreateSubcategory( createSubcategoryDto: CreateSubcategoryDto[]) {
+   return this.subcategoryModel.create(createSubcategoryDto);
+ }
+
+ bulkCreateLanguage( createLanguageDto: CreateLanguageDto[]) {
+   return this.languageModel.create(createLanguageDto);
+ }
+
+ bulkCreateType( createTypeDto: CreateTypeDto[]) {
+   return this.typeModel.create(createTypeDto);
+ }
+
+ bulkCreateTime( createTimeDto: CreateTimeDto[]) {
+   return this.timeModel.create(createTimeDto);
+ }
+
+ bulkCreateTimeZone( createTimeZoneDto: CreateTimeZoneDto[]) {
+   return this.timeZoneModel.create(createTimeZoneDto);
+ }
+
+ bulkCreateCapacity( createCapacityDto: CreateCapacityDto[]) {
+   return this.capacityModel.create(createCapacityDto);
+ }
+
+ bulkCreateVisibility(createVisibilityDto: CreateVisibilityDto[]) {
+   return this.visibilityModel.create(createVisibilityDto);
+ }
+
+ /*
+ * End Bulk Creating
+ ****/
+
   findAll() {
     return `This action returns all misc`;
   }
