@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
@@ -15,7 +15,7 @@ import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitl
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventForm.module.css';
-import categories from '../../data/category.json';
+// import categories from '../../data/category.json';
 import timeZone from '../../data/timeZone.json';
 import languages from '../../data/languages.json';
 import time from '../../data/time.json';
@@ -69,10 +69,31 @@ const EventForm = () => {
         // status: false
     });
 
+    // Form fields auto filled state
+    const [ categories, setCategories ] = useState<Array<string>>([]);
+    const [ subcategories, setSubcategories ] = useState<Array<string>>([]);
+
+    // Get all data to fill fields
+    useEffect(() => {
+        const getCategories = async () => {
+            const resp = await fetch('http://localhost:8000/api/misc/categories');
+            const categoriesDb = await resp.json();
+            
+            setCategories(categoriesDb.map(category => category.name));
+        };
+
+        getCategories();
+    }, []);
+
     // Visibility
     const [ isSection1Visible, setIsSection1Visible ] = useState(true);
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
+
+    // Categories Handle Change
+    const handleCategoriesChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+        
+    };
 
     // Text area
     const handleTextChange = (text: string ) => {
@@ -113,6 +134,16 @@ const EventForm = () => {
                 [id]: value,
             });
         }
+    };
+
+
+
+    // Get Subcategories
+    const getSubcategories = async () => {
+        const resp = await fetch('http://localhost:8000/api/misc/subcategories/');
+        const subcategoriesDb = await resp.json();
+        
+        setCategories(subcategoriesDb.map(subcategory => subcategory.name));
     };
 
     // Tags
@@ -370,7 +401,7 @@ const EventForm = () => {
                         <Select
                             id="subcategory"
                             label="Subcategoría *"
-                            options={categories}
+                            options={subcategories}
                             value={formData.subcategory}
                             onChange={handleSelectChange}
                         />
