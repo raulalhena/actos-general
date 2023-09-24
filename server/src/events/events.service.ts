@@ -5,11 +5,15 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types, ObjectId } from 'mongoose';
 import { User } from 'src/users/schemas/user.schema';
 import { generateEventQR, generateUserQR } from '../utils/qr.generator';
+import { UsersService } from 'src/users/users.service';
 
 
 @Injectable()
 export class EventsService {
-  constructor(@InjectModel(Event.name) private eventModel: Model<Event>) {}
+  constructor(
+    @InjectModel(Event.name) private eventModel: Model<Event>,
+    private readonly userService: UsersService
+  ) {}
 
   async create(createEventDto: CreateEventDto) {
     try {
@@ -44,8 +48,8 @@ export class EventsService {
   async attendanceRecord(eventId: ObjectId, userId: ObjectId) {
     try{
       let user: User;
-      const userAttendee = await this.eventModel.find({ _id: eventId }).select('attendees').populate('attendees');
-      console.log('user', userAttendee);
+      const userAttendee = await this.eventModel.find({ _id: eventId }).select('attendees').populate('attendees').exec();
+      console.log('user', JSON.stringify(userAttendee, null, 4));
       // if(!userAttendee) throw new HttpException('El usuario no está inscrito en el evento', HttpStatus.BAD_REQUEST);
       
       return 'El registro de usuario se ha realizado con éxito';
