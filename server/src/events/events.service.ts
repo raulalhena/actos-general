@@ -14,7 +14,7 @@ export class EventsService {
   async create(createEventDto: CreateEventDto) {
     try {
       const newEvent = await this.eventModel.create(createEventDto);
-      if(newEvent === undefined) throw new HttpException('Error al guardar el evento', HttpStatus.BAD_REQUEST);
+      if(!newEvent) throw new HttpException('Error al guardar el evento', HttpStatus.BAD_REQUEST);
 
       const eventQR = await generateEventQR(new Types.ObjectId(newEvent._id));
       const updatedEvent = await this.eventModel.findOneAndUpdate({ _id: newEvent._id }, { qrEvent: eventQR }, { new: true });
@@ -46,7 +46,7 @@ export class EventsService {
       let user: User;
       const userAttendee = await this.eventModel.find().select('attendees').populate('attendees');
       console.log('user', userAttendee);
-      // if(!userAttendee) throw new HttpException('El usuario no está inscrito en el evento', HttpStatus.BAD_REQUEST);
+      if(!userAttendee) throw new HttpException('El usuario no está inscrito en el evento', HttpStatus.BAD_REQUEST);
       
       return 'El registro de usuario se ha realizado con éxito';
     } catch(error) {
