@@ -27,6 +27,8 @@ import types from '../../data/type.json';
 import ModalDisplay from '../Modal/ModalDisplay';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
+import SelectCategories from '../SelectCategories/SelectCategories';
+import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 
 // Form
 const EventForm = () => {
@@ -79,7 +81,7 @@ const EventForm = () => {
             const resp = await fetch('http://localhost:8000/api/misc/categories');
             const categoriesDb = await resp.json();
             
-            setCategories(categoriesDb.map(category => category.name));
+            setCategories(categoriesDb);
         };
 
         getCategories();
@@ -92,22 +94,24 @@ const EventForm = () => {
 
     // Categories Handle Change
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const { id, value } = event.target;
+        const { id, value, key } = event.target;
 
         setFormData({
             ...formData,
             [id]: value,
         });
 
-        await getSubcategories(id);
+        await getSubcategories(key);
     };
 
     // Get Subcategories
-    const getSubcategories = async (categoryName: string) => {
-        const resp = await fetch(`http://localhost:8000/api/misc/subcategories/${categoryName}`);
-        const subcategoriesDb = await resp.json();
+    const getSubcategories = async (categoryId: string) => {
+        const resp = await fetch(`http://localhost:8000/api/misc/categories/${categoryId}`);
+        const categoriesDb = await resp.json();
+
+        console.log('subc', categoriesDb.subcategories)
         
-        setSubcategories(subcategoriesDb.map(subcategory => subcategory.name));
+        setSubcategories(categoriesDb.subcategories);
     };
 
     // Text area
@@ -396,14 +400,14 @@ const EventForm = () => {
                     toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
 
                     <FormField>
-                        <Select
+                        <SelectCategories
                             id="category"
                             label="Categoría *"
                             options={categories}
                             value={formData.category}
                             onChange={handleCategoryChange}
                         />
-                        <Select
+                        <SelectSubcategories
                             id="subcategory"
                             label="Subcategoría *"
                             options={subcategories}
