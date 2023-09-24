@@ -9,7 +9,12 @@ export class Category {
       name: string;
 
   @Prop()
+      subcategories: string[];
+
+  @Prop()
       description: string;
+
+  
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);
