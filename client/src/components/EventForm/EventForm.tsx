@@ -91,8 +91,23 @@ const EventForm = () => {
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
 
     // Categories Handle Change
-    const handleCategoriesChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const { id, value } = event.target;
+
+        setFormData({
+            ...formData,
+            [id]: value,
+        });
+
+        await getSubcategories(id);
+    };
+
+    // Get Subcategories
+    const getSubcategories = async (categoryName: string) => {
+        const resp = await fetch(`http://localhost:8000/api/misc/subcategories/${categoryName}`);
+        const subcategoriesDb = await resp.json();
         
+        setSubcategories(subcategoriesDb.map(subcategory => subcategory.name));
     };
 
     // Text area
@@ -134,16 +149,6 @@ const EventForm = () => {
                 [id]: value,
             });
         }
-    };
-
-
-
-    // Get Subcategories
-    const getSubcategories = async () => {
-        const resp = await fetch('http://localhost:8000/api/misc/subcategories/');
-        const subcategoriesDb = await resp.json();
-        
-        setCategories(subcategoriesDb.map(subcategory => subcategory.name));
     };
 
     // Tags
@@ -396,7 +401,7 @@ const EventForm = () => {
                             label="Categoría *"
                             options={categories}
                             value={formData.category}
-                            onChange={handleSelectChange}
+                            onChange={handleCategoryChange}
                         />
                         <Select
                             id="subcategory"
