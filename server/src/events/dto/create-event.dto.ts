@@ -1,4 +1,5 @@
 import { IsDate, IsNotEmpty, IsString } from 'class-validator';
+import { ObjectId } from 'mongoose';
 
 export class CreateEventDto {
     @IsString()
@@ -9,12 +10,13 @@ export class CreateEventDto {
     @IsNotEmpty()
     description: string;
 
-    @IsDate()
-    date: Date;
+    @IsString()
+    date: string;
 
     tags: string[];
     category: string;
-    adress: string;
+    subcategory: string;
+    address: string;
     startTime: string;
     endTime: string;
     timeZone: string;
@@ -32,7 +34,16 @@ export class CreateEventDto {
     language: string[];
     web: string;
     visibility: boolean;
-    status: boolean;
+    active: boolean;
     customForm: string;
     form: Object
+    isPrivate: boolean;
+    isLimited: boolean;
+    webLink: string;
+    confirmed: boolean;
+    qrEvent: string;
+    qrAttendees: string[];
+    attendees: ObjectId[];
+    submitted: ObjectId[];
+    status: boolean;
 }

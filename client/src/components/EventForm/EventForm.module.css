@@ -14,6 +14,12 @@
   width: 360px;
 }
 
+.checkIcon {
+  width: 60px;
+  height: 60px;
+  color: #cacaca;
+}
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
  
@@ -22,9 +28,7 @@
 
 /* Para pantallas más grandes o iguales a 992px (lg) */
 @media screen and (min-width: 992px) {
-  .form {
-    width: 1000px;
-  }
+
   .selectTime select {
     width: 248px;
   }

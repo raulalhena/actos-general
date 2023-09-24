@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
@@ -9,28 +9,34 @@ import { ImageUploader } from '../ImageUploader/ImageUploader';
 import SectionForm from '../SectionForm/SectionForm';
 import Select from '../Select/Select';
 import TagsInputComponent from '../TagsInput/TagsInput';
-import { TextArea } from '../TextArea/TextArea';
+import  TextArea  from '../TextArea/TextArea';
 import TextInput from '../TextInput/TextInput';
 import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
-import capacityRadioButtonsContainer from '../../data/capacityRadioButtons.json';
 import styles from './EventForm.module.css';
 import categories from '../../data/category.json';
 import timeZone from '../../data/timeZone.json';
 import languages from '../../data/languages.json';
 import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
+import types from '../../data/type.json';
+import ModalDisplay from '../Modal/ModalDisplay';
+import { BsPatchCheckFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 // Form
 const EventForm = () => {
-    useEffect(() => {
-        console.log('eventImage ===> ', eventImage);
-    });
+
+    const navigate = useNavigate(); 
 
     const [ formData, setFormData ] = useState<EventFormProps>({
         name: '',
         category: '',
+        subcategory: '',
         tags: [],
         mode: '',
         type: '',
@@ -46,26 +52,36 @@ const EventForm = () => {
         description: '',
         web: '', 
         organizedBy: [], 
-        contact: '',
+        contactEmail: '',
         isPrivate: false,
-        language: '', //Select con checkbox
+        language: [], //Select con checkbox
         image: '', 
         video: '', 
-        capacity: 0, 
-        qrEvent: '',
-        qrAttendees: [],
-        attendees: [],
-        submitted: [],
-        price: 0, 
-        payment: '', 
-        visibility: false,
-        status: false
+        capacity: 0,
+        isLimited: false,
+        // qrEvent: '',
+        // qrAttendees: [],
+        // attendees: [],
+        // submitted: [],
+        // price: 0, 
+        // payment: '', 
+        // visibility: false,
+        // status: false
     });
 
     // Visibility
-    const [ isSection1Visible, setIsSection1Visible ] = useState(false);
+    const [ isSection1Visible, setIsSection1Visible ] = useState(true);
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
+
+    // Text area
+    const handleTextChange = (text: string ) => {
+        // console.log(text)
+        setFormData({
+            ...formData,
+            description: text,
+        });
+    };
 
     // Input
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,12 +96,23 @@ const EventForm = () => {
 
     // Select
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        
         const { id, value } = event.target;
-        setFormData({
-            ...formData,
-            [id]: value,
-        });
+
+        //EventTime: Start and End Time
+        if (id === 'endTime' && value < formData.startTime) {
+            
+            toast.error('La hora de finalización no puede ser anterior a la hora de inicio.', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+
+        } else {
+            setFormData({
+                ...formData,
+                [id]: value,
+            });
+        }
     };
 
     // Tags
@@ -96,16 +123,34 @@ const EventForm = () => {
         });
     };
 
-    // DateInput
-    const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleTagsOrganizadorChange = (newOrganizedBy: string[]) => {
         setFormData({
             ...formData,
-            date: e.target.value,
+            organizedBy: newOrganizedBy,
         });
     };
 
+    // DateInput
+    const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const newDate = e.target.value;
+        const currentDate = new Date().toISOString().split('T')[0];
+        if (newDate >= currentDate) {
+            setFormData({
+                ...formData,
+                date: newDate,
+            });
+        } else {
+            toast.error('La fecha seleccionada es anterior a la fecha actual.', {
+                position: 'top-right',
+                autoClose: 5000,
+                pauseOnHover: true,
+            });
+        }
+    };
+
     // Send Image
-    const sendImage = async () => {
+    const sendImage = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         const imageData = new FormData();
         imageData.append('file', eventImage);
         const resp = await fetch('http://localhost:8000/api/events/upload', {
@@ -123,25 +168,90 @@ const EventForm = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         console.log(formData);
-        console.log('event image', eventImage);
-        if(eventImage !== '') await sendImage();
+
+        type EventFormPropsKey = keyof EventFormProps;
+
+        const requiredFields: EventFormPropsKey[] = [ 'name', 'description', 'date', 'category', 'subcategory', 'type', 'mode', 'startTime', 'endTime','timeZone' ];
         
-        const resp = await fetch('http://localhost:8000/api/events', { 
+        const missingFields = requiredFields.filter((field) => !formData[field]);
+        if (missingFields.length > 0) {
+            const errorMessage = `Por favor, complete los siguientes campos obligatorios: ${missingFields.join(', ')}.`;
+            toast.error(errorMessage, {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 5000,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+            return;
+        }
+    
+        const resp = await fetch('http://localhost:8000/api/events', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(formData),
         });
-        // TO SAVE IN CONTEXT
         const result = await resp.json();
-        console.log(result);
-        // redirección a "detalle del evento"
+        console.log('aqui: ', result);
+        
+        openModal(
+            <BsPatchCheckFill className={styles.checkIcon} />,
+            'Evento Creado',
+            'Tu evento ha sido creado con éxito y los usuarios ya pueden inscribirse',
+            'VISITA EL EVENTO',
+            '',
+            closeModal,
+            false,
+            () => navigate(`/eventdashboard`, { state: { id: result._id } })
+        );
+
     };
 
+    /* ************** Modal ************** */
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+
+    const [ modalParams, setModalParams ] = useState<{
+        icon: React.ReactNode;
+        title: string;
+        subtitle: string;
+        button1Text: string;
+        button2Text: string;
+        onClose: () => void;
+        shouldShowCloseButton: boolean;
+        onButton1Click: () => void;
+            }>({
+                icon: null, 
+                title: '',
+                subtitle: '',
+                button1Text: '',
+                button2Text: '',
+                onClose: () => {},
+                shouldShowCloseButton: false,
+                onButton1Click: () => {}
+            });
+
+    const openModal = (
+        icon: React.ReactNode,
+        title: string,
+        subtitle: string,
+        button1Text: string,
+        button2Text: string,
+        onClose: () => void,
+        shouldShowCloseButton: boolean,
+        onButton1Click: () => void,
+    ) => {
+        setIsModalOpen(true);
+        setModalParams({ icon, title, subtitle, button1Text, button2Text, onClose, shouldShowCloseButton,onButton1Click });
+    };
+    
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+        /* ************** END Modal ************** */
+    
     // Button Radio
     const [ selectedMode, setSelectedMode ] = useState<string>('');
-    const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
@@ -152,24 +262,11 @@ const EventForm = () => {
         });
     };
 
-    // Capacity Radio Groug handler
-    const handleCapacityChange = (value: string) => {
-        console.log('value', value);
-        setSelectedCapacity(!selectedCapacity);
-    };
-
     // Mode Radio Group
     const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
         ...container,
         checked: selectedMode === container.value,
         onChange: () => handleModeChange(container.value),
-    }));
-
-    // Capacity Radio Group
-    const capacityRadioButtons: ButtonCardRadioProps[] = capacityRadioButtonsContainer.map((container) => ({
-        ...container,
-        checked: selectedMode === container.value,
-        onChange: () => handleCapacityChange(container.value),
     }));
 
     /**************************************************
@@ -204,16 +301,16 @@ const EventForm = () => {
     };
 
     // Image remover
-    const removeImage = (e: React.MouseEventHandler<HTMLButtonElement>) => {
+    const removeImage = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setPreviewURL('');
         setImgVisibility('none');
         setEventImage(() => '');
+        setFormData({ 
+            ...formData,
+            image: ''
+        });
     };
-
-    useEffect(() => {
-        console.log('setimg, setdata');
-    }, [ eventImage ]);
 
     /******************
     ** Image Uploader
@@ -233,7 +330,6 @@ const EventForm = () => {
             ...formData,
             showDate: checked,
         });
-   
     };
 
     const handleToggleIsPrivateChange = (checked: boolean) => {
@@ -241,11 +337,22 @@ const EventForm = () => {
             ...formData,
             isPrivate: checked,
         });
+    };  
+
+    const handleToggleCapacityChange = (checked: boolean) => { 
+        setFormData({
+            ...formData,
+            isLimited: checked,
+        });
+        setSelectedCapacity(!selectedCapacity);
     };
+    
+    const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     return (
         <div className={styles.form}>
             <form data-testid="event-form" onSubmit={handleSubmit}>
+                <ToastContainer position="top-right" autoClose={3000} />
 
                 <SectionForm
                     title="1 INFORMACIÓN BÁSICA"
@@ -253,105 +360,57 @@ const EventForm = () => {
                     toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
 
                     <FormField>
+                        <Select
+                            id="category"
+                            label="Categoría *"
+                            options={categories}
+                            value={formData.category}
+                            onChange={handleSelectChange}
+                        />
+                        <Select
+                            id="subcategory"
+                            label="Subcategoría *"
+                            options={categories}
+                            value={formData.subcategory}
+                            onChange={handleSelectChange}
+                        />
+                        <Select
+                            id="type"
+                            label="Tipo *"
+                            options={types}
+                            value={formData.type}
+                            onChange={handleSelectChange}
+                        />
+                    </FormField>
+                    <FormField>
                         <TextInput
+                            isRequired={true}
                             id="name" 
-                            label="Nombre del evento*"
+                            label="Nombre del evento *"
                             placeholder="Evento"
                             minLength={3}
                             maxLength={75}
                             value={formData.name}
                             onChange={handleInputChange}
                         />
-                    </FormField>
-                    <FormField>
-                        <Select
-                            id="category"
-                            label="Categoría"
-                            options={categories}
-                            value={formData.category}
-                            onChange={handleSelectChange}
-                        />
-                    </FormField>
-                    <FormField>
-                        <TagsInputComponent
-                            id="tags"
-                            value={formData.tags}
-                            label="Etiquetas"
-                            onChange={handleTagsChange}
-                            placeHolder="Digite etiquetas y presione Enter"
-                        />
-                        
-                    </FormField>
-
-                    <FormField>
-                        <RadioGroupContainer
-                            radioButtons={modeRadioButtons}
-                            selectedValue={selectedMode}
-                            label="Modalidad"
-                            onChange={handleModeChange}
-                        />
-                        {selectedMode === 'option1' && (
-                            <TextInput
-                                id="address"
-                                label="Añade una dirección"
-                                placeholder="Escribe la dirección de tu evento."
-                                minLength={3}
-                                maxLength={75}
-                                value={formData.address}
-                                onChange={handleInputChange}
-                            />
-                        )}
-                        {selectedMode === 'option2' && (
-                            <TextInput
-                                id="onlineLink"
-                                label="Añade un link de acceso"
-                                placeholder="Escribe el link de acceso a tu evento."
-                                minLength={3}
-                                maxLength={75}
-                                value={formData.webLink}
-                                onChange={handleInputChange}
-                            />
-                        )}
-                        {selectedMode === 'option3' && (
-                            <>
-                                <TextInput
-                                    id="address"
-                                    label="Añade una dirección"
-                                    placeholder="Escribe la dirección de tu evento."
-                                    minLength={3}
-                                    maxLength={75}
-                                    value={formData.address}
-                                    onChange={handleInputChange}
-                                />
-                                <TextInput
-                                    id="onlineLink"
-                                    label="Añade un link de acceso"
-                                    placeholder="Escribe el link de acceso a tu evento."
-                                    minLength={3}
-                                    maxLength={75}
-                                    value={formData.webLink}
-                                    onChange={handleInputChange}
-                                />
-                            </>
-                        )}
-                    </FormField>
-                    <FormField>
-                        <TextInput
-                            id="webLink"
-                            label="Añade un enlace"
-                            placeholder="Escribe el enlace de tu evento."
+                        <TextArea
+                            id="description"
+                            label="Descripción del evento *"
+                            placeholder="Añade una descripción a tu evento."
                             minLength={3}
-                            maxLength={75}
-                            value={formData.webLink}
-                            onChange={handleInputChange}
+                            maxLength={500}
+                            value={formData.description}
+                            onChange={handleTextChange}
                         />
                     </FormField>
+                    
                     <FormField>
                         <DateInput 
                             id='date' 
                             name='date' 
                             value={formData.date} 
-                            onChange={handleDateChange} />
+                            onChange={handleDateChange}
+                            isRequired={true} />
                         <ToggleSwitch
                             id="confirmDate"
                             label="Fecha por confirmar."
@@ -360,13 +419,6 @@ const EventForm = () => {
                             onChange={handleToggleDateChange} 
                         />
                         <br />
-                        <Select
-                            id="timeZone"
-                            label="Zona Horaria"
-                            options={timeZone}
-                            value={formData.timeZone}
-                            onChange={handleSelectChange}
-                        />
                         <div className={styles.timeContainer}>
                             <div className={styles.selectTime}>
                                 <Select
@@ -375,18 +427,27 @@ const EventForm = () => {
                                     options={time}
                                     value={formData.startTime}
                                     onChange={handleSelectChange}
+                                    isRequired={true}
                                 />
                             </div>
                             <div className={styles.selectTime}>
                                 <Select
-                                    id="finishTime"
-                                    label="Hora de Cierre"
+                                    id="endTime"
+                                    label="Hora de fin"
                                     options={time}
                                     value={formData.endTime}
                                     onChange={handleSelectChange}
+                                    isRequired={true}
                                 />
                             </div>
                         </div>
+                        <Select
+                            id="timeZone"
+                            label="Zona Horaria"
+                            options={timeZone}
+                            value={formData.timeZone}
+                            onChange={handleSelectChange}
+                        />
                         <ToggleSwitch
                             id="confirmTime"
                             label="Horarios por confirmar"
@@ -394,62 +455,135 @@ const EventForm = () => {
                             isChecked={formData.showTime} 
                             onChange={handleToggleTimeChange}/>
                     </FormField>
+                    <FormField>
+                        <RadioGroupContainer
+                            radioButtons={modeRadioButtons}
+                            selectedValue={selectedMode}
+                            label="Modalidad"
+                            onChange={handleModeChange}
+                            isRequired={true}
+                        />
+                        {selectedMode === 'option1' && (
+                            <TextInput
+                                id="address"
+                                label="Añade una dirección"
+                                placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
+                                minLength={3}
+                                maxLength={75}
+                                value={formData.address}
+                                onChange={handleInputChange}
+                                isRequired={true}
+                            />
+                        )}
+                        {selectedMode === 'option2' && (
+                            <TextInput
+                                isRequired={true}
+                                id="webLink"
+                                label="Añade un link de acceso"
+                                placeholder="Escribe el link de acceso a tu evento."
+                                minLength={3}
+                                maxLength={75}
+                                value={formData.webLink}
+                                onChange={handleInputChange}
+                                type="url"
+                            />
+                        )}
+                        {selectedMode === 'option3' && (
+                            <>
+                                <TextInput
+                                    id="address"
+                                    label="Añade una dirección"
+                                    placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
+                                    minLength={3}
+                                    maxLength={75}
+                                    value={formData.address}
+                                    onChange={handleInputChange}
+                                    isRequired={true}
+                                />
+                                <TextInput
+                                    id="webLink"
+                                    label="Añade un link de acceso"
+                                    placeholder="Escribe el link de acceso a tu evento."
+                                    minLength={3}
+                                    maxLength={75}
+                                    value={formData.webLink}
+                                    onChange={handleInputChange}
+                                    isRequired={true}
+                                    type="url"
+                                />
+                            </>
+                        )}
+                    </FormField>
+            
                 </SectionForm>
 
                 <SectionForm
                     title="2 DETALLES"
                     isVisible={isSection2Visible}
                     toggleVisibility={() => setIsSection2Visible(!isSection2Visible)}>
+
                     <FormField>
-                        <TextArea
-                            id="description"
-                            label="Descripción del evento *"
-                            placeholder="Añade una descripción a tu evento."
-                            minLength={3}
-                            maxLength={500}
-                            value={formData.description}
-                            onChange={handleInputChange}
-                        />
-                    </FormField>
-                    <FormField>
-                        <TextInputWithSubtitle
+                        <TagsInputComponent
                             id="organizedBy"
-                            label="Dinamizadores"
+                            label="Organizadores"
                             subtitle="Entidades que colaboran en el evento."
-                            placeholder="Organizadores del evento."
-                            minLength={3}
-                            maxLength={500}
+                            placeHolder="Añade un nombre y presiona Enter"
                             value={formData.organizedBy}
-                            onChange={handleInputChange}
+                            onChange={handleTagsOrganizadorChange}
                         />
-                        <TextInput
-                            id="contact"
-                            label="Información de contacto de los dinamizadores"
+                        <TextInputWithSubtitle
+                            id="contactEmail"
+                            label="Información de contacto"
                             placeholder="email@email.com"
                             minLength={3}
                             maxLength={75}
-                            value={formData.contact}
+                            value={formData.contactEmail}
                             onChange={handleInputChange}
+                            subtitle='Contacto para mas informacion'
+                            isRequired={false}
+                            type="email"
+                        />
+                        
+                    </FormField>
+                    <FormField>
+                        <DropdownCheck 
+                            id="languages"
+                            label="Idioma del Evento"
+                            options={languages}/>
+
+                    </FormField>
+                    <FormField>
+                        <TextInput
+                            id="web"
+                            label="Añade un enlace a un página web con más información"
+                            placeholder="https://actos.com"
+                            minLength={3}
+                            maxLength={75}
+                            value={formData.web}
+                            onChange={handleInputChange}
+                            isRequired={false}
+                            type="url"
                         />
                     </FormField>
                     <FormField>
-                        <Select
-                            id="language"
-                            label="Idioma del evento"
-                            options={languages}
-                            value={formData.language}
-                            onChange={handleSelectChange}
+                        <TagsInputComponent
+                            id="tags"
+                            value={formData.tags}
+                            label="Etiquetas"
+                            onChange={handleTagsChange}
+                            placeHolder="Escribe etiquetas y presione Enter"
+                            subtitle=''
                         />
                     </FormField>
                     <FormField>
                         <ImageUploader 
                             id="image"
                             removeImage={removeImage}
+                            sendImage={sendImage}
                             previewURL={previewURL}
                             imgVisibility={imgVisibility}
                             onDrop={handleDrop}
                             onDragOver={handleDragOver}
-                            accept='image/*'
                         />
                     </FormField>
 
@@ -462,32 +596,37 @@ const EventForm = () => {
                     <FormField>
                         <ToggleSwitch
                             id="private"
-                            label="El evento es privado"
-                            subtitle="Si activas el botón, el evento sera privado."  
+                            label="Evento privado"
+                            subtitle="Activa el botón para que solo los usuarios con enlace puedan acceder al evento."  
                             isChecked={formData.isPrivate} 
                             onChange={handleToggleIsPrivateChange} 
                         />
                     </FormField>
+    
                     <FormField>
-                        <RadioGroupContainer
-                            radioButtons={capacityRadioButtons}
-                            selectedValue={selectedMode}
-                            label="Límite de entradas"
-                            onChange={handleCapacityChange}
+                        <ToggleSwitch 
+                            id='capacity'
+                            label={'El evento tiene limite de entrada'}
+                            subtitle={'Activa el botón para definir número de entradas.'}
+                            onChange={handleToggleCapacityChange}
+                            isChecked={selectedCapacity}
                         />
-                        {selectedCapacity && (
+                        {selectedCapacity ? (
                             <TextInputWithSubtitle
                                 id="capacity"
                                 label="Límite de entradas"
-                                subtitle="Escribe el número de entradas disponibles en caso de aforo limitado."
+                                subtitle="Ingrese solamente caracteres numéricos"
                                 placeholder=""
                                 minLength={0}
                                 maxLength={500}
                                 value={formData.capacity} 
                                 onChange={handleInputChange}
+                                isRequired={true}
+                                type='number'
                             />
-                        )}
+                        ): null }
                     </FormField>
+                    
                 </SectionForm>
                 <p style={{ color: 'red' }}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
 
@@ -495,10 +634,33 @@ const EventForm = () => {
                     <ButtonSubmit label="Guardar"/>
                 </div>
 
+                <div>
+                    {isModalOpen && (
+                        <ModalDisplay
+                            icon={modalParams.icon}
+                            title={modalParams.title}
+                            subtitle={modalParams.subtitle}
+                            button1Text={modalParams.button1Text}
+                            button2Text={modalParams.button2Text}
+                            onClose={modalParams.onClose}
+                            isOpen={isModalOpen}
+                            onButton1Click={modalParams.onButton1Click}
+                            showCloseButton={modalParams.shouldShowCloseButton}
+                        />
+                    )}
+                </div>
+
                 <ProgressTracker
-                    isSection1Visible={isSection1Visible}
-                    isSection2Visible={isSection2Visible}
-                    isSection3Visible={isSection3Visible}
+                    isSectionVisible={isSection1Visible}
+                    title='INFORMACIÓN BÁSICA'
+                />
+                <ProgressTracker
+                    isSectionVisible={isSection2Visible}
+                    title='DETALLES'
+                />
+                <ProgressTracker
+                    isSectionVisible={isSection3Visible}
+                    title='INSCRIPCIONES Y ENTRADAS'
                 />
             </form>
         </div>

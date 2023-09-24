@@ -1,17 +1,13 @@
 import { IoChevronDown } from 'react-icons/io5';
 import styles from './ChevrownDownIcon.module.css';
-import { useState } from 'react';
+import { ChevronDownIconProps } from '../../interfaces/chevronDownIconProps';
 
-export const ChevronDownIcon = () => {
-    const [ isRotated, setIsRotated ] = useState(false); 
+export const ChevronDownIcon = (props: ChevronDownIconProps) => {
+    const { isRotated } = props;
 
-    const toggleRotation = () => {
-        setIsRotated(!isRotated);
-    };
     return (
         <IoChevronDown
-            className={`${styles.downButton} ${isRotated ? styles.rotated : ''}`}
-            onClick={toggleRotation}
+            className={`${styles.downButton} ${isRotated ? '': styles.rotated  }`}
         />
     );
 };

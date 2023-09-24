@@ -4,16 +4,24 @@
   color: #1c2e48;
 }
 
+.custom-quill-input {
+  height: 500px;
+}
+
 .input {
   width: 350px;
-  height: 200px;
-  padding-left: 0.5rem;
+  height: 250px;
   border-radius: 5px;
-  border: 1px solid #cacaca;
   margin: 1rem 0 2rem 0;
   font-size: 16px; 
   transition: border 0.3s ease-in-out;
+  color: #000;
 }
+
+p {
+  color: #000;
+}
+
 
 .input:focus {
   border: 1.5px solid #1C2E48;

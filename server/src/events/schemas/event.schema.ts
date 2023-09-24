@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../../users/schemas/user.schema';
 
 export type EventDocument = HydratedDocument<Event>;
 
@@ -21,8 +21,8 @@ export class Event {
   @Prop()
       address: string;
 
-  @Prop({ type: Date, required: [ true, 'La fecha del evento es requerida.' ] })
-      date: Date;
+  @Prop({ required: [ true, 'La fecha del evento es requerida.' ] })
+      date: string;
 
   @Prop()
       startTime: string;
@@ -88,13 +88,28 @@ export class Event {
       visibility: boolean;
 
   @Prop({ default: false })
-      status: boolean;
+      active: boolean;
 
   @Prop()
       customForm: string;
 
   @Prop({ type: Object })
       form: Object;
+
+   @Prop()
+        subcategory: string;
+
+    @Prop({ default: false })
+      isPrivate: boolean;
+
+    @Prop({ default: false })
+        isLimited: boolean;
+    
+    @Prop()
+        webLink: string;
+
+    @Prop()
+        confirmed: boolean;
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);

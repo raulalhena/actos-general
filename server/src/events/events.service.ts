@@ -1,30 +1,60 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types, ObjectId } from 'mongoose';
+import { User } from 'src/users/schemas/user.schema';
+import { generateEventQR, generateUserQR } from '../utils/qr.generator';
+import { UsersService } from 'src/users/users.service';
+
 
 @Injectable()
 export class EventsService {
-  constructor(@InjectModel(Event.name) private eventModel: Model<Event>) {}
+  constructor(
+    @InjectModel(Event.name) private eventModel: Model<Event>,
+    private readonly userService: UsersService
+  ) {}
 
   async create(createEventDto: CreateEventDto) {
-    return await this.eventModel.create(createEventDto);
+    try {
+      const newEvent = await this.eventModel.create(createEventDto);
+      if(!newEvent) throw new HttpException('Error al guardar el evento', HttpStatus.BAD_REQUEST);
+
+      const eventQR = await generateEventQR(new Types.ObjectId(newEvent._id));
+      const updatedEvent = await this.eventModel.findOneAndUpdate({ _id: newEvent._id }, { qrEvent: eventQR }, { new: true });
+
+      return updatedEvent;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   async findAll() {
     return await this.eventModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} event`;
+  async findOne(id: ObjectId) {
+    return await this.eventModel.findById(id);
   }
 
-  update(id: number, updateEventDto: UpdateEventDto) {
-    return `This action updates a #${id} event`;
+  async update(id: ObjectId, updateEventDto: UpdateEventDto) {
+    return await this.eventModel.findByIdAndUpdate(id, updateEventDto, {new: true});
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} event`;
+  async delete(id: ObjectId) {
+    return await this.eventModel.findByIdAndDelete(id);
+  }
+
+  async attendanceRecord(eventId: ObjectId, userId: ObjectId) {
+    try{
+      let user: User;
+      const userAttendee = await this.eventModel.find({ _id: eventId }).select('attendees').populate('attendees').exec();
+      console.log('user', JSON.stringify(userAttendee, null, 4));
+      // if(!userAttendee) throw new HttpException('El usuario no está inscrito en el evento', HttpStatus.BAD_REQUEST);
+      
+      return 'El registro de usuario se ha realizado con éxito';
+    } catch(error) {
+      throw new HttpException('Error al registrar la asistencia', HttpStatus.BAD_REQUEST);
+    }
   }
 }

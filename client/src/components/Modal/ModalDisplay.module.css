@@ -1,0 +1,107 @@
+/* Modal.module.css */
+
+.modalContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 3rem 3rem 0.5rem;
+    border-radius: 2rem;
+    border: 0.1rem solid #cacaca;
+    box-shadow: 4px 4px 0 0 #cacaca;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+}
+
+.modalHeader{
+    display: flex;
+    justify-content: end;
+    margin-bottom: 10px;
+}
+
+.closeButton {
+    /* Styles for the close button */
+    background: none;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    display: flex;
+    color: #e15a40;
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
+}
+
+.modalBody {
+    display: flex;
+    justify: center;
+    align-items: center;
+    Flex-direction: column;
+    margin: 1rem 0;
+    gap:1rem;
+}
+
+.icon {
+    margin-bottom: 2rem;
+}
+
+.modalFooter {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding:1rem 0;
+}
+
+h2 {
+    padding: 0 2rem;
+    font-size: 32px;
+}
+
+p {
+    padding: 0 2rem;
+    font-size: 20px;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) {
+    .modalFooter {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        padding-top:2rem;
+    }
+
+}
+
+/* Para pantallas más grandes o iguales a 992px (lg) */
+@media screen and (min-width: 992px) {
+    .modalFooter {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        padding-top:2rem;
+    }
+}
+
+/* Para pantallas más grandes o iguales a 1200px (xl) */
+@media screen and (min-width: 1200px) {
+    
+    .modalFooter {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        padding-top:2rem;
+    }
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+    .modalFooter {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        padding-top:2rem;
+    }
+}

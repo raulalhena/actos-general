@@ -25,6 +25,8 @@ Did you like our application? We'd love to hear your feedback. Please don't hesi
 
 ### Entidad / Modelo / Modulo
 
+#### Event:
+
 ```JSON
 [
     {
@@ -55,7 +57,19 @@ Did you like our application? We'd love to hear your feedback. Please don't hesi
         "language": ["Castellano", "Catalán", "Inglés"],
         "web": "URL a la web",
         "visibility": 0, //draft=0 / public=1
-        "status": 0 //activo=1 / cancelado=0 
+        "active": 0 //si=1 / no=0 
+    }
+]
+```
+
+#### User:
+
+```JSON
+[
+    {
+        "id": 1,
+        "name": "User 1",
+        "email": "user@actos.com"
     }
 ]
 ```

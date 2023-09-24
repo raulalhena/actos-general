@@ -6,4 +6,5 @@ export interface TagsInputProps {
     onChange: (tags: string[]) => void
     tagStyle?: React.CSSProperties;
     inputStyle?: React.CSSProperties;
+    subtitle: string
 }

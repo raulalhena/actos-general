@@ -2,3 +2,4 @@ node_modules
 dist
 .env
 upload
+qr_events

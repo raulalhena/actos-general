@@ -2,7 +2,7 @@ import { TextInputWithSubtitleProps } from '../../interfaces/textInputWithSubtit
 import styles from './TextInputWithSubtitle.module.css';
 
 function TextInputWithSubtitle(props: TextInputWithSubtitleProps) {
-    const { label, subtitle, placeholder, id, maxLength, minLength, value, onChange } = props;
+    const { label, subtitle, placeholder, id, maxLength, minLength, value, onChange, isRequired, type } = props;
 
     return (
         
@@ -16,14 +16,16 @@ function TextInputWithSubtitle(props: TextInputWithSubtitleProps) {
             </label>
             <br />
             <input 
-                type="text" 
+                type={type}
                 id={id} 
                 placeholder={placeholder}
                 minLength={minLength} 
                 maxLength={maxLength}
                 value={value}
                 onChange={onChange}
-                className={styles.input}            />
+                className={styles.input}
+                required={isRequired}
+            />
         </div>
         
     );

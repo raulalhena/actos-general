@@ -1,33 +1,35 @@
 export interface EventFormProps  {
-    name: string,
+    name: string;
     category?: string;
+    subcategory?: string;
     tags?: string[];
-    mode: string,
-    type: string,
+    mode: string;
+    type: string;
     address?: string;
     webLink?: string;
-    date: string,
-    startTime: string,
-    endTime: string,
-    timeZone: string,
-    showTime: boolean,
-    showDate: boolean,
-    confirmed?: boolean,
+    date: string;
+    startTime: string;
+    endTime: string;
+    timeZone: string;
+    showTime: boolean;
+    showDate: boolean;
+    confirmed?: boolean;
     description: string;
-    web?: string,
+    web?: string;
     organizedBy?: string[];
-    contact?: string,
+    contactEmail?: string;
     isPrivate: boolean;
-    language: string;
-    image?: string,
-    video?: string,
-    capacity?: number,
-    qrEvent?: string,
-    qrAttendees?: string[],
-    attendees?: string[],
-    submitted?: string[],
-    price?: number,
-    payment?: string,
-    visibility: boolean,
-    status: boolean
+    language: string[];
+    image?: string;
+    video?: string;
+    capacity?: number;
+    qrEvent?: string;
+    qrAttendees?: string[];
+    attendees?: string[];
+    submitted?: string[];
+    price?: number;
+    payment?: string;
+    visibility?: boolean;
+    status?: boolean
+    isLimited: boolean;
 }

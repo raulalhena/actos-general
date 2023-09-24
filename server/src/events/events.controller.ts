@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseInterceptors, UploadedFile, Put } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ObjectId } from 'mongoose';
 
 @Controller('events')
 export class EventsController {
@@ -21,23 +22,28 @@ export class EventsController {
       };
   }
 
+  @Put('attendance/:eventId/:userId')
+    attendanceRecord(@Param('eventId') eventId: ObjectId, @Param('userId') userId: ObjectId) {
+      return this.eventsService.attendanceRecord(eventId, userId);
+    }
+
   @Get()
   findAll() {
   	return this.eventsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-  	return this.eventsService.findOne(+id);
+  findOne(@Param('id') id: ObjectId) {
+  	return this.eventsService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
-  	return this.eventsService.update(+id, updateEventDto);
+  @Put(':id')
+  update(@Param('id') id: ObjectId, @Body() updateEventDto: UpdateEventDto) {
+  	return this.eventsService.update(id, updateEventDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-  	return this.eventsService.remove(+id);
+  delete(@Param('id') id: ObjectId) {
+  	return this.eventsService.delete(id);
   }
 }
