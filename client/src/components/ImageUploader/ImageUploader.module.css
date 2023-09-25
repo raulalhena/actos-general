@@ -14,17 +14,31 @@
   border-radius: 0.5rem;
   border: 2px dotted #cacaca;
   margin: 1rem 0 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .icon {
-  width: 24px;
-  height: 24px;
-  color: #cacaca;
+  font-size: 40px;
+  color: #e15a40;
 }
 
-p {
-  color: #cacaca;
-  margin-bottom: 1em;
+.text {
+  color: #979797;
+}
+
+.image {
+  width: 250px;
+  border-radius: 15px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
 }
 
 .remove {
@@ -41,8 +55,6 @@ p {
   font-family: inherit;
   font-weight: 600;
   letter-spacing: 0.1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  margin-right: 1rem;
 }
 
 .remove:hover,
@@ -70,7 +82,6 @@ p {
   font-weight: 600;
   line-height: normal;
   letter-spacing: 0.1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .save:hover,
@@ -111,18 +122,3 @@ p {
     width: 750px;
   }
 }
-
-/* .drag-drop-zone p {
-    color: #000;
-}
-
-.drag-drop-zone.inside-drag-area {
-    opacity: 0.7;
-}
-
-.dropped-files li {
-    color: #07F;
-    padding: 3px;
-    text-align: left;
-    font-weight: bold;
-} */
