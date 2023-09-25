@@ -3,15 +3,13 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types, ObjectId } from 'mongoose';
-import { generateEventQR, generateUserQR } from '../utils/qr.generator';
-import { UsersService } from 'src/users/users.service';
+import { generateEventQR } from '../utils/qr.generator';
 
 
 @Injectable()
 export class EventsService {
   constructor(
     @InjectModel(Event.name) private eventModel: Model<Event>,
-    private userService: UsersService
   ) {}
   
 
