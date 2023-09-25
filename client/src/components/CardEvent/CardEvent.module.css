@@ -1,38 +1,40 @@
-.eventcardlink {
-  text-decoration: none;
-  color: #333;
-  width: fit-content;
-  cursor: pointer;
-}
 
-.overlayImage {
-  position:absolute; 
-  top: 8.2em;
-  right: 0.9em;
-  width: 100px;
-  height: 60px;
-  z-index: 100;
-  opacity: 0; 
-  transition: opacity 0.3s; 
-}
-
-.eventcard:hover .overlayImage {
-  opacity: 0.9; 
-}
-
-.eventcard {
+.card {
   border: 1px solid #ccc;
   padding: 16px;
   margin: 16px;
   background-color: #fff;
   transition: transform 0.2s;
-  width: fit-content;
+  width: 350px;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.eventcard:hover {
+.card:hover {
   transform: scale(1.05);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.imageSection {
+  position: relative;
+}
+
+.eventImage {
+  width: 317px;
+  border-radius: 0px 30px 0px 0px;
+}
+
+.logoContainer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.logoImage {
+  width: 120px;
+  height: auto;
 }
 
 .bottomSection {
@@ -40,30 +42,19 @@
     gap: 1rem;
 }
 
-.eventimage {
-  width: 383px;
-  height: 192px;
-  border-radius: 0px 30px 0px 0px;
-  background-color: #cacaca;
-  border-style: none;
-}
-
-.eventdetails {
-  margin-top: 12px;
-}
-
-.title {
+.cardTitle {
     text-transform: uppercase;
     font-weight: 800;
     font-size: 24px;
 }
 
-.eventmode {
+.cardMode {
+  color: #1C2E48;
   font-weight: bold;
   font-size: 14px;
 }
 
-.eventtype {
+.cardType {
   color: #797979;
   font-size: 14px;
   font-style: normal;
@@ -71,40 +62,31 @@
 
 }
 
-.eventtitle {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.eventdate {
+.cardDate {
   font-size: 14px;
   color: #666;
 }
 
-.eventcategory{
+.cardCategory{
   font-size: 14px;
   border-radius: 16px;
   border: 1px solid #1C2E48;
   background: #F5F5F5;
-  padding: 1% 1%;
-  margin:  0;
+  padding: 0.1rem 0.5rem;
 }
 
-.eventsubcategory{
+.cardSubcategory{
   color: #E15A40;
   font-size: 14px;
   border-radius: 16px;
   border: 1px solid #E15A40;
   background: #F5F5F5;
-  padding: 1% 1%;
+  padding: 0.1rem 0.5rem;
 }
 
-.spancontainer{
+.spanContainer{
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.5em;
 }
-
-
-
