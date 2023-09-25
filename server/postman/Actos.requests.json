@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "c1a21134-6e80-445c-a67a-53efd820f696",
+		"name": "Actos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13319229"
+	},
+	"item": [
+		{
+			"name": "EVENTS",
+			"item": [
+				{
+					"name": "crete event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"prueba\",\n    \"category\": \"asdfas\",\n    \"subcategory\": \"asdfasdf\",\n    \"tags\": [],\n    \"mode\": \"option1\",\n    \"type\": \"fasdfasd\",\n    \"address\": \"asdfasdfasd\", \n    \"webLink\": \"asdfasdfsa\", \n    \"date\": \"2023-05-23\",\n    \"startTime\": \"2:00\",\n    \"endTime\": \"6:00\",\n    \"timeZone\": \"\",\n    \"showTime\": false,\n    \"showDate\": false,\n    \"confirmed\": false, \n    \"description\": \"<p>asdfasdfaadf</p>\",\n    \"web\": \"\", \n    \"organizedBy\": [], \n    \"contactEmail\": \"\",\n    \"isPrivate\": false,\n    \"language\": [],\n    \"image\": \"\", \n    \"video\": \"\", \n    \"capacity\": 0,\n    \"isLimited\": false,\n    \"qrEvent\": \"\",\n    \"qrAttendees\": [],\n    \"attendees\": [],\n    \"submitted\": [],\n    \"price\": 0, \n    \"payment\": \"\", \n    \"visibility\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/events",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload file",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/raul/Pictures/472182.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/events/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"events",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "attendance record",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/events/attendance/1/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"events",
+								"attendance",
+								"1",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find one",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/events/650f5df9519b09564c9791e3",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"events",
+								"650f5df9519b09564c9791e3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find all",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USERS",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"raul4\",\n    \"surname\": \"alhena\",\n    \"email\": \"raul5@actos.com\",\n    \"password\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all users",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "find by id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MISC",
+			"item": [
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "find all categories",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "find subcategories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8000/api/misc/categories//subcategories/",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"misc",
+										"categories",
+										"",
+										"subcategories",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "load categories (bulk)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"name\": \"Global\",\n        \"description\": \"\"\n    },\n    {\n        \"name\": \"Empleabilidad\",\n        \"description\": \"\"\n    },\n    {\n        \"name\": \"Bienestar Emocional\",\n        \"description\": \"\"\n    }\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/api/misc/categories/load",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"misc",
+										"categories",
+										"load"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
