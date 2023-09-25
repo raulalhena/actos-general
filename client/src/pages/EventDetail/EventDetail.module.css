@@ -1,0 +1,197 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  margin: 5% 15%;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 18pt;
+}
+
+hr {
+  color: #cacaca;
+}
+
+section {
+  padding: 1rem 0;
+  margin: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: #4f4f4f;
+  line-height: 2rem;
+}
+
+.title {
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.detailsSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.imageSection {
+  position: relative;
+}
+
+.eventImage {
+  width: 100%;
+  border-radius: 0px 30px 0px 0px;
+}
+
+.logoContainer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.logoImage {
+  width: 120px;
+  height: auto;
+}
+
+.categorySubcategorySection {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.category {
+  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid #1c2e48;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  padding: 0rem 0.5rem;
+  width: fit-content;
+}
+
+.subcategory {
+  color: #e15a40;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid #e15a40;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  width: fit-content;
+}
+
+.detailsSection {
+  font-weight: 600;
+  color: #1c2e48;
+}
+
+.icon {
+  font-size: 14pt;
+  color: #797979;
+}
+
+.iconModeContainer {
+  display: flex;
+  align-items: center;
+}
+
+.iconContainer {
+  background-color: #eaeaea;
+  padding: 0.4rem;
+  border-radius: 8px;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.webLink {
+  font-weight: 600;
+}
+
+.tagChip {
+  font-size: 16px;
+  border-radius: 12px;
+  border: 1px solid #cacaca;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  width: fit-content;
+}
+
+.tags {
+  display: flex;
+  gap: 1rem;
+}
+
+.organizedBySection {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) {
+}
+
+/* Para pantallas más grandes o iguales a 992px (lg) */
+@media screen and (min-width: 992px) {
+}
+
+/* Para pantallas más grandes o iguales a 1200px (xl) */
+@media screen and (min-width: 1200px) {
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+  .title {
+    font-size: 34pt;
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 24pt;
+  }
+
+  span {
+    font-size: 16pt;
+  }
+
+  section {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 1rem;
+  }
+
+  .logoImage {
+    width: 200px;
+  }
+
+  .category {
+    font-size: 16pt;
+    padding: 0.5rem;
+  }
+
+  .subcategory {
+    font-size: 16pt;
+    padding: 0.5rem;
+  }
+
+  .webLink {
+    font-size: 16pt;
+  }
+
+  .tagChip {
+    font-size: 16pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 1rem;
+    border-radius: 20px;
+}
+}
