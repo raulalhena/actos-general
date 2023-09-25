@@ -2,13 +2,13 @@
   all: unset;
   width: fit-content;
   height: fit-content;
-  padding: 1rem 5rem;
   flex-shrink: 0;
   border-radius: 0.625rem;
   background: #e15a40;
   color: #fff;
   text-align: center;
-  font-size: 1.125rem;
+  font-size: 12px;
+  padding: 0.5rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;

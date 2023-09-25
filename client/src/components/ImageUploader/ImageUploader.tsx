@@ -20,7 +20,7 @@ export const ImageUploader = ({ previewURL, imgVisibility, sendImage, removeImag
             <div className={styles.dragDropZone}>
                 <PiUploadSimpleLight className={styles.icon} />
                 <p>
-          Arrastra una imagen.
+                    Arrastra una imagen.
                     <img
                         src={previewURL}
                         style={{ objectFit: 'cover', display: imgVisibility }}
@@ -30,9 +30,11 @@ export const ImageUploader = ({ previewURL, imgVisibility, sendImage, removeImag
                     />
                 </p>
                 {previewURL && ( // Mostrar el botón "Remove" solo si previewURL existe
-                    <button onClick={removeImage}>Remove</button>
+                    <button className={styles.remove} onClick={removeImage}>Eliminar</button>
                 )}
-                {/* <button onClick={sendImage}>Enviar</button> */}
+                {previewURL && ( // Mostrar el botón "Enviar" solo si previewURL existe
+                    <button className={styles.save} onClick={sendImage}>Guardar</button>
+                )}
             </div>
         </div>
     );
