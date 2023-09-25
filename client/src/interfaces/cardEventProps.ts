@@ -7,6 +7,7 @@ export interface CardEventProps {
         image: string;
         category: string;
         subcategory: string;
-        eventId: number;
+        _id: number;
     };
+    onCardClick: (_id: number) => void;
 }
