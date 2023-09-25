@@ -4,7 +4,7 @@ import Logo from '../../assets/logo.png';
 
 function Navbar() {
     // adding the states
-    const [isActive, setIsActive] = useState(false);
+    const [ isActive, setIsActive ] = useState(false);
 
     //add the active class
     const toggleActiveClass = () => {
@@ -22,7 +22,7 @@ function Navbar() {
                 <a href="/" onClick={removeActive}>
                     <img src={Logo} className={styles.logo} alt="Logo" />
                 </a>
-                <ul className={`${styles.navMenu} ${isActive ? styles.active : ""}`}>
+                <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>
                     <li onClick={removeActive}>
                         <a href="/myevents" className={styles.navLink}>
               Agenda
@@ -41,7 +41,7 @@ function Navbar() {
                 </ul>
 
                 <div
-                    className={`${styles.hamburger} ${isActive ? styles.active : ""}`}
+                    className={`${styles.hamburger} ${isActive ? styles.active : ''}`}
                     onClick={toggleActiveClass}
                 >
                     <span className={styles.bar}></span>

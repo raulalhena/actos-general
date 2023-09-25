@@ -3,6 +3,7 @@ import styles from './CardEvent.module.css';
 import { CardEventProps } from '../../interfaces/cardEventProps';
 import logo from '../../assets/logo.png';
 import prueba from '../../assets/prueba.jpg';
+
 const CardEvent = ({ eventData }: CardEventProps) => {
     const eventUrl = `/event/${eventData.eventId}`;
 

@@ -6,6 +6,7 @@ import SignupPage from './pages/Signup/SignupPage';
 import HomePage from './pages/Home/HomePage';
 import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
+import EventDetailPage from './pages/EventDetail/EventDetail';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/eventdashboard" element={<EventDashboardPage/>} />
                 <Route path="/login" element={<LoginPage/>} />
                 <Route path="/signup" element={<SignupPage/>} />
+                <Route path="/event/:eventId" element={<EventDetailPage/>} />
             </Routes>
         </>
     );
