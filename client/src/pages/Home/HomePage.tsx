@@ -4,13 +4,10 @@ import CardEvent from '../../components/CardEvent/CardEvent';
 import styles from './page.module.css';
 import HomePageCategories from '../../components/HomePageCategories/HomePageCategories';
 import { CardEventProps } from '../../interfaces/cardEventProps';
-import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
     const [ eventData, setEventData ] = useState<CardEventProps['eventData'][]>([]);
     
-    const navigate = useNavigate();
-
     useEffect(() => {
         fetch('http://localhost:8000/api/events')
             .then((response) => response.json())
@@ -21,10 +18,6 @@ const HomePage = () => {
                 console.error('Error al obtener datos:', error);
             });
     }, []); 
-
-    const handleCardClick = (eventId: number) => {
-        navigate(`/event/${eventId}`);
-    };
 
     return (
         <>
@@ -42,7 +35,7 @@ const HomePage = () => {
                     <h1>Eventos destacados</h1>
                 </div>
                 {eventData.map((event, index) => (
-                    <CardEvent key={index} eventData={event} onCardClick={handleCardClick} />
+                    <CardEvent key={index} eventData={event} />
                 ))}
             </section>
         </>
