@@ -1,6 +1,6 @@
 export interface SelectSubcategoriesProps {
     label?: string;
-    options: object[];
+    options: string[];
     id: string;
     value: number |string | string[] | undefined;
     onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;

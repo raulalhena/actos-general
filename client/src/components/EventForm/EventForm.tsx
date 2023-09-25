@@ -16,14 +16,10 @@ import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventForm.module.css';
 // import categories from '../../data/category.json';
-import timeZone from '../../data/timeZone.json';
-import languages from '../../data/languages.json';
-import time from '../../data/time.json';
 import ProgressTracker from '../ProgressTracker/ProgressTracker';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
-import types from '../../data/type.json';
 import ModalDisplay from '../Modal/ModalDisplay';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
@@ -74,6 +70,10 @@ const EventForm = () => {
     // Form fields auto filled state
     const [ categories, setCategories ] = useState<Array<string>>([]);
     const [ subcategories, setSubcategories ] = useState<Array<string>>([]);
+    const [ types, setTypes ] = useState<Array<string>>([]);
+    const [ languages, setLanguages ] = useState<Array<string>>([]);
+    const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
+    const [ time, setTime ] = useState<Array<string>>([]);
 
     // Get all data to fill fields
     useEffect(() => {
@@ -85,6 +85,73 @@ const EventForm = () => {
         };
 
         getCategories();
+    }, []);
+
+    // get types
+
+    useEffect(() => {
+        const getTypes = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/types');
+                const data = await response.json();
+                const typeNames = data.map((type: { name: string; }) => type.name);
+                console.log(typeNames);
+                setTypes(typeNames);
+            } catch (error) {
+                console.error('Error al obtener los tipos:', error);
+            }
+        };
+        getTypes();
+    }, []);
+
+    // get languages
+
+    useEffect(() => {
+        const getLanguages = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/languages');
+                const data = await response.json();
+                const language = data.map((language: { name: string; }) => language.name);
+                setLanguages(language);
+            } catch (error) {
+                console.error('Error al obtener los idiomas:', error);
+            }
+        };
+        getLanguages();
+        
+    }, []);
+
+    // get time zone
+
+    useEffect(() => {
+        const getTimeZone = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/timezones');
+                const data = await response.json();
+                const timeZone = data.map((timeZone: { name: string; }) => timeZone.name);
+                console.log(timeZone);
+                setTimeZone(timeZone);
+            } catch (error) {
+                console.error('Error al obtener las zonas horarias:', error);
+            }
+        };
+        getTimeZone();
+    }, []);
+
+    // get time
+
+    useEffect(() => {
+        const getTime = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/times');
+                const data = await response.json();
+                const time = data.map((time: { name: string; }) => time.name);
+                setTime(time);
+            } catch (error) {
+                console.error('Error al obtener las horas:', error);
+            }
+        };
+        getTime();
     }, []);
 
     // Visibility
