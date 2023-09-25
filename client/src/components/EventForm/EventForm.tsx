@@ -159,13 +159,18 @@ const EventForm = () => {
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
 
+    const [ selectedCategory, setSelectedCategory ] = useSatate();
+
     // Categories Handle Change
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const { id, value } = event.target;
+        const { value } = event.target;
+        const selected = event.target.selectedOptions[0].text;
+
+        setSelectedCategory(value);
 
         setFormData({
             ...formData,
-            [id]: value,
+            category: selected,
         });
 
         await getSubcategories(value);
@@ -276,7 +281,7 @@ const EventForm = () => {
 
         type EventFormPropsKey = keyof EventFormProps;
 
-        const requiredFields: EventFormPropsKey[] = [ 'name', 'description', 'date', 'category', 'subcategory', 'type', 'mode', 'startTime', 'endTime'];
+        const requiredFields: EventFormPropsKey[] = [ 'name', 'description', 'date', 'category', 'subcategory', 'type', 'mode', 'startTime', 'endTime' ];
         
         const missingFields = requiredFields.filter((field) => !formData[field]);
         if (missingFields.length > 0) {
@@ -469,7 +474,7 @@ const EventForm = () => {
                             id="category"
                             label="Categoría *"
                             options={categories}
-                            value={formData.category}
+                            value={selectedCategory}
                             onChange={handleCategoryChange}
                         />
                         <SelectSubcategories
