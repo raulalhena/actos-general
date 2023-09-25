@@ -1,10 +1,32 @@
+.sectionContainer {
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.tracker {
+    width: 20%;
+    justify-content: center;
+    align-items: center;
+}
+
 .title {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10rem;
+    gap: 1rem;
     border-bottom: 3px solid #1c2e48;
     margin: 0;
     margin-bottom: 2rem;
     padding: 0 0.5rem ;
+    width: 60%;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (max-width: 600px) {
+    .tracker {
+        display: none;
+    }
+
 }

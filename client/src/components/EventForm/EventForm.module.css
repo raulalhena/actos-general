@@ -1,3 +1,7 @@
+.formContent {
+  padding: 1rem 4rem;
+}
+
 .buttonSection {
     display: flex;
     justify-content: flex-end;
@@ -19,6 +23,7 @@
   height: 60px;
   color: #cacaca;
 }
+
 
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
