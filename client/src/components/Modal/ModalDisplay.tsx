@@ -38,8 +38,8 @@ const ModalDisplay = (props: ModalDisplayProps) => {
                     </div>}
                     <div className={styles.modalBody}>
                         <div className={styles.icon}>{icon}</div>
-                        <h2><b>{title}</b></h2>
-                        <p>{subtitle}</p>
+                        <h2 className={styles.h2}><b>{title}</b></h2>
+                        <p className={styles.p}>{subtitle}</p>
                         <div className={styles.modalFooter}>
                             {button1Text && <ButtonWhite label={button1Text} onClick={onButton1Click}/>}
                             {button2Text && <ButtonRed label={button2Text} onClick={onButton2Click}/>}

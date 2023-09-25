@@ -54,12 +54,12 @@
     padding:1rem 0;
 }
 
-h2 {
+.h2 {
     padding: 0 2rem;
     font-size: 32px;
 }
 
-p {
+.p {
     padding: 0 2rem;
     font-size: 20px;
 }
