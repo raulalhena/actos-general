@@ -4,16 +4,23 @@
   margin: 5% 15%;
 }
 
-h1 {
+.eventTitle {
+  text-transform: uppercase;
+  margin-bottom: 1rem;
   font-weight: 700;
-  font-size: 18pt;
+  font-size: 32pt;
+}
+
+.sectionTitle {  
+  font-weight: 700;
+  font-size: 20pt;
 }
 
 hr {
   border: 1px solid #CACACA;
 }
 
-section {
+.section {
   padding: 1rem 0;
   margin: 0.5rem 0;
   display: flex;
@@ -21,16 +28,13 @@ section {
   gap: 1rem;
   color: #4f4f4f;
   line-height: 2rem;
-}
-
-.title {
-  text-transform: uppercase;
-  margin-bottom: 1rem;
+  align-items: flex-start;
 }
 
 .detailsSection {
   display: flex;
   flex-direction: column;
+  font-size: 16pt;
 }
 
 .imageSection {
@@ -61,7 +65,7 @@ section {
 }
 
 .category {
-  font-size: 14px;
+  font-size: 16pt;
   border-radius: 10px;
   border: 1px solid #1c2e48;
   background: #f5f5f5;
@@ -73,7 +77,7 @@ section {
 
 .subcategory {
   color: #e15a40;
-  font-size: 14px;
+  font-size: 16pt;
   border-radius: 10px;
   border: 1px solid #e15a40;
   background: #f5f5f5;
@@ -86,10 +90,13 @@ section {
 .detailsSection {
   font-weight: 600;
   color: #1c2e48;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .icon {
-  font-size: 14pt;
+  font-size: 16pt;
   color: #797979;
 }
 
@@ -113,7 +120,7 @@ section {
 }
 
 .tagChip {
-  font-size: 16px;
+  font-size: 16pt;
   border-radius: 12px;
   border: 1px solid #cacaca;
   background: #f5f5f5;
@@ -133,34 +140,22 @@ section {
   justify-content: space-between;
 }
 
-/* Para pantallas más grandes o iguales a 768px (md) */
-@media screen and (min-width: 768px) {
-}
-
-/* Para pantallas más grandes o iguales a 992px (lg) */
-@media screen and (min-width: 992px) {
-}
-
-/* Para pantallas más grandes o iguales a 1200px (xl) */
-@media screen and (min-width: 1200px) {
-}
-
 /* Para pantallas más grandes o iguales a 1400px (xxl) */
 @media screen and (min-width: 1400px) {
-  .title {
+  .eventTitle {
     font-size: 34pt;
   }
 
-  h1 {
+  .sectionTitle {
     font-weight: 700;
     font-size: 24pt;
   }
 
-  span {
+  .span {
     font-size: 16pt;
   }
 
-  section {
+  .section {
     padding: 2rem;
     display: flex;
     flex-direction: column;
