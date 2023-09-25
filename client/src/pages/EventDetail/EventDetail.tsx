@@ -40,7 +40,6 @@ const EventDetailPage = () => {
         const fetchEvent = async () => {
             try {
                 if (!eventId) {
-                    // Manejar el caso en el que eventId sea nulo
                     return;
                 }
     
@@ -53,7 +52,6 @@ const EventDetailPage = () => {
                 setEventData(data);
             } catch (error) {
                 console.error(error);
-            // Manejar errores aquí, por ejemplo, mostrando un mensaje de error al usuario
             }
         };
     
