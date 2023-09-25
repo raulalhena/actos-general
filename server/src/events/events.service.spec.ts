@@ -102,7 +102,9 @@ describe('EventsService', () => {
     update: jest.fn().mockResolvedValue({
       ...eventResult,
       visibility: true
-    })
+    }),
+
+    delete: jest.fn()
 
   };
 
