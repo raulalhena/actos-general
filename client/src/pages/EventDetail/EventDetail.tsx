@@ -7,7 +7,6 @@ import { EventDetailProps } from '../../interfaces/eventDetailProps';
 import { IoLocationSharp } from 'react-icons/io5';
 import { IoPeopleSharp } from 'react-icons/io5';
 import { IoLanguageOutline } from 'react-icons/io5';
-// import ButtonRed from '../../components/ButtonRed/ButtonRed';
 import ButtonWhite from '../../components/ButtonWhite/ButtonWhite';
 
 const EventDetailPage = () => {
@@ -86,22 +85,24 @@ const EventDetailPage = () => {
 
     return (
         <div className={styles.page}>
-            {/* <section className={styles.inscription}>
-                <h1>INSCRÍBETE</h1>
-                <ButtonRed label='Inscribirse al evento'/>
-            </section> */}
+
+            {/* IMAGE */}
             <div className={styles.imageSection}>
                 <img src={prueba} className={styles.eventImage} />
                 <div className={styles.logoContainer}>
                     <img src={logo} className={styles.logoImage} alt="Logo" />
                 </div>
             </div>
+
+            {/* CATEGORIES */}
             <section className={styles.categorySubcategorySection}>
                 <span className={styles.category}>{eventData.category}</span>
                 <span className={styles.subcategory}>{eventData.subcategory}</span>
             </section>
             <h1 className={styles.title}>{eventData.name}</h1>
             <hr />
+
+            {/* MODE, TYPE, LANGUAGE */}
             <section className={styles.detailsSection}>
                 <div className={styles.iconModeContainer}>
                     <div className={styles.iconContainer}>
@@ -125,16 +126,22 @@ const EventDetailPage = () => {
                 </div>
             </section>
             <hr />
+
+            {/* DATE */}
             <section>
                 <h1>Fecha y hora</h1>
                 <span className={styles.date}>{eventData.date}</span>
             </section>
             <hr />
+            
+            {/* ADDRESS */}
             <section>
                 <h1>Ubicación</h1>
                 <span className={styles.address}>{eventData.address}</span>
             </section>
             <hr />
+            
+            {/* DESCRIPTION, WEBLINK */}
             <section>
                 <h1>Acerca de este evento</h1>
                 <span className={styles.description}>{eventData.description}</span>
@@ -143,6 +150,8 @@ const EventDetailPage = () => {
                 </a>
             </section>
             <hr />
+            
+            {/* TAGS */}
             <section className={styles.tagsSection}>
                 <h1>Etiquetas</h1>
                 <div className={styles.tags}>
@@ -159,6 +168,8 @@ const EventDetailPage = () => {
 
             </section>
             <hr />
+            
+            {/* ORGANIZED BY */}            
             <section>
                 <h1>Organizadores</h1>
                 <div className={styles.organizedBySection}>
