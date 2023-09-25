@@ -9,5 +9,5 @@ export interface CardEventProps {
         subcategory: string;
         _id: number;
     };
-    onCardClick: (_id: number) => void;
+    
 }

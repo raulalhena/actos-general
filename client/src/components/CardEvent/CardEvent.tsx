@@ -2,15 +2,12 @@ import styles from './CardEvent.module.css';
 import { CardEventProps } from '../../interfaces/cardEventProps';
 import logo from '../../assets/logo.png';
 import prueba from '../../assets/prueba.jpg';
+import { Link } from 'react-router-dom';
 
-const CardEvent = ({ eventData, onCardClick }: CardEventProps) => {
-
-    const handleClick = () => {
-        onCardClick(eventData._id);
-    };
+const CardEvent = ({ eventData }: CardEventProps) => {
 
     return (
-        <div onClick={handleClick} className={styles.eventcardlink}>
+        <Link to={`/event/${eventData._id}`} state={eventData._id} className={styles.eventcardlink}>
             <div className={styles.eventcard}>
                 <div className={styles.imagecontainer}>
                     <img src={prueba} className={styles.eventimage} />
@@ -32,7 +29,7 @@ const CardEvent = ({ eventData, onCardClick }: CardEventProps) => {
                     </section>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 
