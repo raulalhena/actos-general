@@ -19,8 +19,6 @@ import styles from './EventForm.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
-import ModalDisplay from '../Modal/ModalDisplay';
-import { BsPatchCheckFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
@@ -302,63 +300,10 @@ const EventForm = () => {
             body: JSON.stringify(formData),
         });
         const result = await resp.json();
-        console.log('aqui: ', result);
+        navigate(`/eventdashboard`, { state: { id: result._id } });
         
-        openModal(
-            <BsPatchCheckFill className={styles.checkIcon} />,
-            'Evento Creado',
-            'Tu evento ha sido creado con éxito y los usuarios ya pueden inscribirse',
-            'VISITA EL EVENTO',
-            '',
-            closeModal,
-            false,
-            () => navigate(`/eventdashboard`, { state: { id: result._id } })
-        );
-
     };
 
-    /* ************** Modal ************** */
-    const [ isModalOpen, setIsModalOpen ] = useState(false);
-
-    const [ modalParams, setModalParams ] = useState<{
-        icon: React.ReactNode;
-        title: string;
-        subtitle: string;
-        button1Text: string;
-        button2Text: string;
-        onClose: () => void;
-        shouldShowCloseButton: boolean;
-        onButton1Click: () => void;
-            }>({
-                icon: null, 
-                title: '',
-                subtitle: '',
-                button1Text: '',
-                button2Text: '',
-                onClose: () => {},
-                shouldShowCloseButton: false,
-                onButton1Click: () => {}
-            });
-
-    const openModal = (
-        icon: React.ReactNode,
-        title: string,
-        subtitle: string,
-        button1Text: string,
-        button2Text: string,
-        onClose: () => void,
-        shouldShowCloseButton: boolean,
-        onButton1Click: () => void,
-    ) => {
-        setIsModalOpen(true);
-        setModalParams({ icon, title, subtitle, button1Text, button2Text, onClose, shouldShowCloseButton,onButton1Click });
-    };
-    
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-        /* ************** END Modal ************** */
-    
     // Button Radio
     const [ selectedMode, setSelectedMode ] = useState<string>('');
 
@@ -744,38 +689,7 @@ const EventForm = () => {
                     <div className={styles.buttonSection}>
                         <ButtonSubmit label="Guardar"/>
                     </div>
-
-                    <div>
-                        {isModalOpen && (
-                            <ModalDisplay
-                                icon={modalParams.icon}
-                                title={modalParams.title}
-                                subtitle={modalParams.subtitle}
-                                button1Text={modalParams.button1Text}
-                                button2Text={modalParams.button2Text}
-                                onClose={modalParams.onClose}
-                                isOpen={isModalOpen}
-                                onButton1Click={modalParams.onButton1Click}
-                                showCloseButton={modalParams.shouldShowCloseButton}
-                            />
-                        )}
-                    </div>
                 </div>
-                
-                {/* <div>
-                    <ProgressTracker
-                        isSectionVisible={isSection1Visible}
-                        title='INFORMACIÓN BÁSICA'
-                    />
-                    <ProgressTracker
-                        isSectionVisible={isSection2Visible}
-                        title='DETALLES'
-                    />
-                    <ProgressTracker
-                        isSectionVisible={isSection3Visible}
-                        title='INSCRIPCIONES Y ENTRADAS'
-                    />
-                </div> */}
                 
             </form>
         </div>
