@@ -28,13 +28,12 @@ hr {
   gap: 1rem;
   color: #4f4f4f;
   line-height: 2rem;
-  align-items: flex-start;
 }
 
 .detailsSection {
   display: flex;
   flex-direction: column;
-  font-size: 16pt;
+  font-size: 14pt;
 }
 
 .imageSection {
@@ -65,7 +64,7 @@ hr {
 }
 
 .category {
-  font-size: 16pt;
+  font-size: 14pt;
   border-radius: 10px;
   border: 1px solid #1c2e48;
   background: #f5f5f5;
@@ -77,7 +76,7 @@ hr {
 
 .subcategory {
   color: #e15a40;
-  font-size: 16pt;
+  font-size: 14pt;
   border-radius: 10px;
   border: 1px solid #e15a40;
   background: #f5f5f5;
@@ -96,7 +95,7 @@ hr {
 }
 
 .icon {
-  font-size: 16pt;
+  font-size: 14pt;
   color: #797979;
 }
 
@@ -120,7 +119,7 @@ hr {
 }
 
 .tagChip {
-  font-size: 16pt;
+  font-size: 14pt;
   border-radius: 12px;
   border: 1px solid #cacaca;
   background: #f5f5f5;
@@ -152,7 +151,7 @@ hr {
   }
 
   .span {
-    font-size: 16pt;
+    font-size: 14pt;
   }
 
   .section {
@@ -168,21 +167,21 @@ hr {
   }
 
   .category {
-    font-size: 16pt;
+    font-size: 14pt;
     padding: 0.5rem;
   }
 
   .subcategory {
-    font-size: 16pt;
+    font-size: 14pt;
     padding: 0.5rem;
   }
 
   .webLink {
-    font-size: 16pt;
+    font-size: 14pt;
   }
 
   .tagChip {
-    font-size: 16pt;
+    font-size: 14pt;
     display: flex;
     align-items: center;
     justify-content: center;
