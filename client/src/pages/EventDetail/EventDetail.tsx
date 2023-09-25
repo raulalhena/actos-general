@@ -11,77 +11,75 @@ import ButtonWhite from '../../components/ButtonWhite/ButtonWhite';
 
 const EventDetailPage = () => {
 
-    // const location = useLocation();
-    // const eventId = location.state?.id; 
+    const location = useLocation();
+    const eventId = location.state?.id; 
 
-    // const [ eventData, setEventData ] = useState<EventDetailProps>({
-    //     _id: '',
-    //     name: '',
-    //     date: '',
-    //     mode: '',
-    //     address: '',
-    //     type: '',
-    //     image: '',
-    //     category: '',
-    //     subcategory: '',
-    //     description: '',
-    //     web: '',
-    //     organizedBy: [],
-    //     contactEmail: '',
-    //     language: [],
-    //     startTime: '',
-    //     endTime: '',
-    //     timeZone: '',
-    //     tags: [],
-    //     webLink: ''
-    // });      
-
-    // useEffect(() => {
-    //     const fetchEvent = async () => {
-    //         try {
-    //             if (!eventId) {
-    //                 // Manejar el caso en el que eventId sea nulo
-    //                 return;
-    //             }
-    
-    //             const resp = await fetch(`http://localhost:8000/api/events/${eventId}`);
-    //             if (!resp.ok) {
-    //                 throw new Error('Error al cargar los datos del evento');
-    //             }
-    
-    //             const data = await resp.json();
-    //             setEventData(data);
-    //         } catch (error) {
-    //             console.error(error);
-    //         // Manejar errores aquí, por ejemplo, mostrando un mensaje de error al usuario
-    //         }
-    //     };
-    
-    //     fetchEvent();
-    // }, [ eventId ]);
-
-    const eventData = {
-        name: 'Evento de Ejemplo',
-        date: '2023-10-15',
-        mode: 'Presencial',
-        type: 'Conferencia',
-        image: '../../images/prueba.jpg',
-        category: 'Empleabilidad',
-        subcategory: 'Conferencia',
-        eventId: 1,
-        tags: [ 'arte', 'música', 'pintura' ],
-        address:
-      'Galería de Arte "ArteVivo", Calle Principal 123, Ciudad Creativa.',
-        webLink: 'www.link.com',
+    const [ eventData, setEventData ] = useState<EventDetailProps>({
+        _id: '',
+        name: '',
+        date: '',
+        mode: '',
+        address: '',
+        type: '',
+        image: '',
+        category: '',
+        subcategory: '',
+        description: '',
+        web: '',
+        organizedBy: [],
+        contactEmail: '',
+        language: [],
         startTime: '',
         endTime: '',
         timeZone: '',
-        description:
-      'Únete a nosotros para una tarde llena de creatividad y expresión artística. Este evento es una oportunidad para desatar tu lado artístico y disfrutar de una experiencia única. Te sumergirás en un ambiente relajado donde podrás pintar, dibujar o crear tu obra maestra en compañía de otros amantes del arte. Proporcionaremos todos los suministros necesarios, desde lienzos en blanco hasta una variedad de pinturas y herramientas. No se requiere experiencia previa en arte, ¡todos son bienvenidos! Además, habrá refrigerios y música ambiental para hacer que esta tarde sea aún más especial. ¡Esperamos verte allí!',
-        organizedBy: [ 'Pepito' ],
-        contactEmail: 'email@email.com',
-        language: [ 'Español', 'Catalán' ],
-    };
+        tags: [],
+        webLink: ''
+    });      
+
+    useEffect(() => {
+        const fetchEvent = async () => {
+            try {
+                if (!eventId) {
+                    return;
+                }
+    
+                const resp = await fetch(`http://localhost:8000/api/events/${eventId}`);
+                if (!resp.ok) {
+                    throw new Error('Error al cargar los datos del evento');
+                }
+    
+                const data = await resp.json();
+                setEventData(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+    
+        fetchEvent();
+    }, [ eventId ]);
+
+    // const eventData = {
+    //     name: 'Evento de Ejemplo',
+    //     date: '2023-10-15',
+    //     mode: 'Presencial',
+    //     type: 'Conferencia',
+    //     image: '../../images/prueba.jpg',
+    //     category: 'Empleabilidad',
+    //     subcategory: 'Conferencia',
+    //     eventId: 1,
+    //     tags: [ 'arte', 'música', 'pintura' ],
+    //     address:
+    //   'Galería de Arte "ArteVivo", Calle Principal 123, Ciudad Creativa.',
+    //     webLink: 'www.link.com',
+    //     startTime: '',
+    //     endTime: '',
+    //     timeZone: '',
+    //     description:
+    //   'Únete a nosotros para una tarde llena de creatividad y expresión artística. Este evento es una oportunidad para desatar tu lado artístico y disfrutar de una experiencia única. Te sumergirás en un ambiente relajado donde podrás pintar, dibujar o crear tu obra maestra en compañía de otros amantes del arte. Proporcionaremos todos los suministros necesarios, desde lienzos en blanco hasta una variedad de pinturas y herramientas. No se requiere experiencia previa en arte, ¡todos son bienvenidos! Además, habrá refrigerios y música ambiental para hacer que esta tarde sea aún más especial. ¡Esperamos verte allí!',
+    //     organizedBy: [ 'Pepito' ],
+    //     contactEmail: 'email@email.com',
+    //     language: [ 'Español', 'Catalán' ],
+    // };
 
     return (
         <div className={styles.page}>

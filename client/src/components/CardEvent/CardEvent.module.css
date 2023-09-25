@@ -2,6 +2,7 @@
   text-decoration: none;
   color: #333;
   width: fit-content;
+  cursor: pointer;
 }
 
 .overlayImage {

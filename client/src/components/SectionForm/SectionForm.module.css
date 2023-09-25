@@ -3,15 +3,17 @@
     cursor: pointer;
     justify-content: space-between;
     align-items:center;
+    gap: 2rem;
 }
 
 .tracker {
-    width: 20%;
+    width: 200px;;
     justify-content: center;
     align-items: center;
 }
 
 .title {
+    width: 680px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -20,7 +22,6 @@
     margin: 0;
     margin-bottom: 2rem;
     padding: 0 0.5rem ;
-    width: 60%;
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */
@@ -29,4 +30,20 @@
         display: none;
     }
 
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+    .title {
+        width: 780px;  
+    }
+
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1600px) {
+
+    .title {
+        width: 780px;  
+    }
 }

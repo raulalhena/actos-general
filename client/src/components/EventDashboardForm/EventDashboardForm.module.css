@@ -1,3 +1,10 @@
+.warning {
+  color: #cacaca;
+  text-align: right;
+  padding-right:0;
+  font-size: 16px;
+}
+
 .buttonSection {
     display: flex;
     justify-content: flex-end;

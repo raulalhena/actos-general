@@ -18,7 +18,6 @@ import categories from '../../data/category.json';
 import timeZone from '../../data/timeZone.json';
 import languages from '../../data/languages.json';
 import time from '../../data/time.json';
-import ProgressTracker from '../ProgressTracker/ProgressTracker';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { ToastContainer } from 'react-toastify';
 import types from '../../data/type.json';
@@ -382,6 +381,8 @@ END Modal
 
     return (
         <div className={styles.form}>
+            <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
+        
             <form data-testid="event-form" onSubmit={handleSubmit}>
                 <ToastContainer position="top-right" autoClose={3000} />
 
@@ -657,7 +658,7 @@ END Modal
                     </FormField>
                 
                 </SectionForm>
-                <p style={{ color: 'red' }}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
+                
                 <div className={ styles.finalSectionContainer }>
                     <div className={styles.finalSection}>
                         <div className={styles.selectStatus}>
@@ -674,7 +675,7 @@ END Modal
                         </div>
                     </div>
                 </div>
-
+                
                 <div>
                     {isModalOpen && (
                         <ModalDisplay
@@ -692,18 +693,6 @@ END Modal
                     )}
                 </div>
 
-                <ProgressTracker
-                    isSectionVisible={isSection1Visible}
-                    title='INFORMACIÓN BÁSICA'
-                />
-                <ProgressTracker
-                    isSectionVisible={isSection2Visible}
-                    title='DETALLES'
-                />
-                <ProgressTracker
-                    isSectionVisible={isSection3Visible}
-                    title='INSCRIPCIONES Y ENTRADAS'
-                />
             </form>
         </div>
     );

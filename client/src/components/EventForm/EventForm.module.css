@@ -1,5 +1,17 @@
+.warning{
+  color: #cacaca;
+  padding-right:0;
+  font-size: 16px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .formContent {
-  padding: 1rem 4rem;
+  max-width: 1400px;
 }
 
 .buttonSection {
@@ -27,7 +39,17 @@
 
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
- 
+
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .formContent {
+  padding: 1rem 3rem;
+  width: 100%
+}
   
 }
 
@@ -42,6 +64,10 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 12px;
+  }
+  .formContent {
+    padding: 1rem 4rem;
+    width: 100%
   }
 }
 
@@ -70,5 +96,10 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 12px;
+  }
+
+  .formContent {
+    padding: 1rem 4rem;
+    width: 1400px;
   }
 }

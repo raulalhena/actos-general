@@ -16,7 +16,6 @@ import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventForm.module.css';
 // import categories from '../../data/category.json';
-import ProgressTracker from '../ProgressTracker/ProgressTracker';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
@@ -159,13 +158,18 @@ const EventForm = () => {
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
 
+    const [ selectedCategory, setSelectedCategory ] = useState();
+
     // Categories Handle Change
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const { id, value } = event.target;
+        const { value } = event.target;
+        const selected = event.target.selectedOptions[0].text;
+
+        setSelectedCategory(value);
 
         setFormData({
             ...formData,
-            [id]: value,
+            category: selected,
         });
 
         await getSubcategories(value);
@@ -456,8 +460,9 @@ const EventForm = () => {
 
     return (
         <div className={styles.form}>
+
+            <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
             <form data-testid="event-form" className={styles.formContainer} onSubmit={handleSubmit}>
-                <p style={{ color: 'red' }}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
                 
                 <div className={styles.formContent} >
                     <ToastContainer position="top-right" autoClose={3000} />
@@ -471,7 +476,7 @@ const EventForm = () => {
                                 id="category"
                                 label="Categoría *"
                                 options={categories}
-                                value={formData.category}
+                                value={selectedCategory}
                                 onChange={handleCategoryChange}
                             />
                             <SelectSubcategories
@@ -757,7 +762,7 @@ const EventForm = () => {
                     </div>
                 </div>
                 
-                <div>
+                {/* <div>
                     <ProgressTracker
                         isSectionVisible={isSection1Visible}
                         title='INFORMACIÓN BÁSICA'
@@ -770,7 +775,7 @@ const EventForm = () => {
                         isSectionVisible={isSection3Visible}
                         title='INSCRIPCIONES Y ENTRADAS'
                     />
-                </div>
+                </div> */}
                 
             </form>
         </div>
