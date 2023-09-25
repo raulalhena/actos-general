@@ -489,12 +489,12 @@ END Modal
                     <FormField>
                         <RadioGroupContainer
                             radioButtons={modeRadioButtons}
-                            selectedValue={selectedMode}
+                            selectedValue={formData.mode}
                             label="Modalidad"
                             onChange={handleModeChange}
                             isRequired={true}
                         />
-                        {selectedMode === 'option1' && (
+                        {formData.mode === 'option1' && (
                             <TextInput
                                 id="address"
                                 label="Añade una dirección"
@@ -506,7 +506,7 @@ END Modal
                                 isRequired={true}
                             />
                         )}
-                        {selectedMode === 'option2' && (
+                        {formData.mode === 'option2' && (
                             <TextInput
                                 isRequired={true}
                                 id="webLink"
@@ -519,7 +519,7 @@ END Modal
                                 type="url"
                             />
                         )}
-                        {selectedMode === 'option3' && (
+                        {formData.mode === 'option3' && (
                             <>
                                 <TextInput
                                     id="address"

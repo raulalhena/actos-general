@@ -80,7 +80,7 @@ const EventForm = () => {
         const getCategories = async () => {
             const resp = await fetch('http://localhost:8000/api/misc/categories');
             const categoriesDb = await resp.json();
-            
+
             setCategories(categoriesDb);
         };
 
@@ -161,11 +161,11 @@ const EventForm = () => {
 
     // Categories Handle Change
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const { id, value, label } = event.target;
+        const { id, value } = event.target;
 
         setFormData({
             ...formData,
-            [id]: label,
+            [id]: value,
         });
 
         await getSubcategories(value);
@@ -652,7 +652,7 @@ const EventForm = () => {
                     </FormField>
                     <FormField>
                         <DropdownCheck 
-                            id="languages"
+                            id="language"
                             label="Idioma del Evento"
                             options={languages}/>
 
