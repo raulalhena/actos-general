@@ -276,7 +276,7 @@ const EventForm = () => {
 
         type EventFormPropsKey = keyof EventFormProps;
 
-        const requiredFields: EventFormPropsKey[] = [ 'name', 'description', 'date', 'category', 'subcategory', 'type', 'mode', 'startTime', 'endTime','timeZone' ];
+        const requiredFields: EventFormPropsKey[] = [ 'name', 'description', 'date', 'category', 'subcategory', 'type', 'mode', 'startTime', 'endTime'];
         
         const missingFields = requiredFields.filter((field) => !formData[field]);
         if (missingFields.length > 0) {
@@ -528,7 +528,7 @@ const EventForm = () => {
                             <div className={styles.selectTime}>
                                 <Select
                                     id="startTime"
-                                    label="Hora de Inicio"
+                                    label="Hora de Inicio *"
                                     options={time}
                                     value={formData.startTime}
                                     onChange={handleSelectChange}
@@ -538,7 +538,7 @@ const EventForm = () => {
                             <div className={styles.selectTime}>
                                 <Select
                                     id="endTime"
-                                    label="Hora de fin"
+                                    label="Hora de fin *"
                                     options={time}
                                     value={formData.endTime}
                                     onChange={handleSelectChange}
@@ -564,14 +564,14 @@ const EventForm = () => {
                         <RadioGroupContainer
                             radioButtons={modeRadioButtons}
                             selectedValue={selectedMode}
-                            label="Modalidad"
+                            label="Modalidad *"
                             onChange={handleModeChange}
                             isRequired={true}
                         />
                         {selectedMode === 'option1' && (
                             <TextInput
                                 id="address"
-                                label="Añade una dirección"
+                                label="Añade una dirección *"
                                 placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
                                 minLength={3}
                                 maxLength={75}
@@ -584,7 +584,7 @@ const EventForm = () => {
                             <TextInput
                                 isRequired={true}
                                 id="webLink"
-                                label="Añade un link de acceso"
+                                label="Añade un link de acceso *"
                                 placeholder="Escribe el link de acceso a tu evento."
                                 minLength={3}
                                 maxLength={75}
@@ -597,7 +597,7 @@ const EventForm = () => {
                             <>
                                 <TextInput
                                     id="address"
-                                    label="Añade una dirección"
+                                    label="Añade una dirección *"
                                     placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
                                     minLength={3}
                                     maxLength={75}
@@ -607,7 +607,7 @@ const EventForm = () => {
                                 />
                                 <TextInput
                                     id="webLink"
-                                    label="Añade un link de acceso"
+                                    label="Añade un link de acceso *"
                                     placeholder="Escribe el link de acceso a tu evento."
                                     minLength={3}
                                     maxLength={75}

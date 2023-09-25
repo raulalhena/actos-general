@@ -10,7 +10,7 @@ const DateInput = (props : DateInputProps) => {
                 <label 
                     className={Style.label}
                     htmlFor="datePicker">
-                        Fecha
+                        Fecha *
                 </label>
             </div>
             <input
