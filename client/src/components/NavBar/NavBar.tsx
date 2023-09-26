@@ -25,17 +25,27 @@ function Navbar() {
                 <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>
                     <li onClick={removeActive}>
                         <a href="/myevents" className={styles.navLink}>
-              Agenda
+                            Agenda
                         </a>
                     </li>
                     <li onClick={removeActive}>
                         <a href="/myevents" className={styles.navLink}>
-              Mis eventos
+                            Mis eventos
                         </a>
                     </li>
                     <li onClick={removeActive}>
                         <a href="/myevents" className={styles.navLink}>
-              FAQs
+                            FAQs
+                        </a>
+                    </li>
+                    <li onClick={removeActive}>
+                        <a href="/eventslist" className={styles.navLink}>
+                            Eventos Activos
+                        </a>
+                    </li>
+                    <li onClick={removeActive}>
+                        <a href="/event" className={styles.navLink}>
+                            Crear Evento
                         </a>
                     </li>
                 </ul>

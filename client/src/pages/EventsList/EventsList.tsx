@@ -18,9 +18,9 @@ const EventsList = () => {
 
     return (
         <div>
-            {events && events.map(event => {
+            {events && events.map((event, index) => {
                 return (
-                    <div>
+                    <div key={index}>
                         <Link style={{ color: '#333' }}to={`/event/${event._id}`}>{event.name}</Link>
                     </div>
                 );
