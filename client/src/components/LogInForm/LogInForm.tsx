@@ -1,13 +1,13 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import styles from './LogInForm.module.css';
 import { LogInProps } from '../../interfaces/logInProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
 import TextInput from '../TextInput/TextInput';
-import { AuthProvider } from '../../contexts/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 
 const LogInForm = () => {
 
-    const { setUser } = useContext(AuthProvider);
+    const { login } = useAuth();
 
     const [ logInData, setLogInData ] = useState<LogInProps>({
         email: '',
@@ -49,7 +49,7 @@ const LogInForm = () => {
     };
 
     const requestLogin = async () => {
-        const resp = await fetch('http://localhost:8000/users', {
+        const resp = await fetch('http://localhost:8000/api/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -58,8 +58,8 @@ const LogInForm = () => {
         });
         const user = await resp.json();
 
-        setUser(user);
-        console.log(user);
+        login(user);
+
     };
 
     // Function to validate password

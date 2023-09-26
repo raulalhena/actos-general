@@ -1,6 +1,7 @@
-import { AuthContext } from '../interfaces/authContext';
+import { AuthContextInterface } from '../interfaces/authContext';
+import { createContext } from 'react';
 
-export const AuthContext = createContext<AuthContext>({
+export const AuthContext = createContext<AuthContextInterface>({
     user: null,
     setUser: () => {},
 });
