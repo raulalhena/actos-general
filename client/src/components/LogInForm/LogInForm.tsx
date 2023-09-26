@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styles from './LogInForm.module.css';
 import { LogInProps } from '../../interfaces/logInProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
 import TextInput from '../TextInput/TextInput';
+import { AuthProvider } from '../../contexts/AuthContext';
 
 const LogInForm = () => {
+
+    const { setUser } = useContext(AuthProvider);
 
     const [ logInData, setLogInData ] = useState<LogInProps>({
         email: '',
@@ -25,14 +28,14 @@ const LogInForm = () => {
         event.preventDefault();
 
         // Validate password
-        const isValidPassword = validatePassword(logInData.password);
-        if (!isValidPassword) {
-            setPasswordError(
-                'La contraseña debe tener al menos una mayúscula, un número y un carácter especial.'
-            );
-        } else {
-            setPasswordError(null);
-        }
+        // const isValidPassword = validatePassword(logInData.password);
+        // if (!isValidPassword) {
+        //     setPasswordError(
+        //         'La contraseña debe tener al menos una mayúscula, un número y un carácter especial.'
+        //     );
+        // } else {
+        //     setPasswordError(null);
+        // }
 
         // Validate email
         const isValidEmail = validateEmail(logInData.email);
@@ -46,7 +49,17 @@ const LogInForm = () => {
     };
 
     const requestLogin = async () => {
-        // do It
+        const resp = await fetch('http://localhost:8000/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(logInData.email)
+        });
+        const user = await resp.json();
+
+        setUser(user);
+        console.log(user);
     };
 
     // Function to validate password

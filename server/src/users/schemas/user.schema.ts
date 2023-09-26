@@ -16,6 +16,9 @@ export class User {
 
   @Prop({ required: [ true, 'La contraseña del usuario es requerida.' ] })
       password: string;
+  
+  @Prop({ required: [ true, 'El rol del usuario es requerido.' ] })
+      role: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
