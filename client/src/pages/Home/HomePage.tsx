@@ -34,10 +34,13 @@ const HomePage = () => {
                     <h1 className={styles.dash}>—</h1>
                     <h1>Eventos destacados</h1>
                 </div>
-                {eventData.map((event, index) => (
-                    <CardEvent key={index} eventData={event} />
-                ))}
+                <div className={styles.cardGrid}>
+                    {eventData.map((event, index) => (
+                        <CardEvent key={index} eventData={event} />
+                    ))}
+                </div>
             </section>
+
         </>
     );
 };
