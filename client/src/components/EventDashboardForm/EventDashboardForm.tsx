@@ -26,6 +26,7 @@ import SelectStatus from '../SelectStatus/SelectStatus';
 
 import { BsPatchCheckFill } from 'react-icons/bs';
 import ModalDisplay from '../Modal/ModalDisplay';
+import { useNavigate } from 'react-router-dom';
 
 type Props = { eventData: EventDashboardFormProps };
 
@@ -68,76 +69,59 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
     
-        let selectedValue = 0;
+        let selectedValue = false;
         let newStatus = formData.status;
     
         if (value === 'Borrador') {
-            selectedValue = 0;
+            selectedValue = false;
             newStatus = 'Borrador';
             openModal(
                 null,
-                '¿Quieres guardar este evento como borrador?',
-                'El evento solo será visible para el organizador del evento.',
+                'Este evento estará en modo Borrador',
+                'Guarde el cambio para que el evento solo sea visible para el organizador del evento.',
                 'No, cancelar',
-                'Sí, guardar',
+                'Sí, cambiar para Borrador',
                 closeModal,
                 true,
                 () => {
                     setFormData({
                         ...formData,
-                        status: 'Público',
-                        visibility: 1,
+                        visibility: true,
                     });
                     setIsModalOpen(false);
                 },
                 () => {
-
                     setFormData({
                         ...formData,
-                        status: 'Borrador',
-                        visibility: 0,
+                        visibility: false,
                     });
                     setIsModalOpen(false);
                 }
             );
         } else if (value === 'Público') {
-            selectedValue = 1;
+            selectedValue = true;
             newStatus = 'Público';
             openModal(
                 null,
-                '¿Quieres publicar este evento?',
-                'El evento será visible para todos los usuarios.',
+                'Este evento estará en modo Público',
+                'Guarde el cambio para que el evento sea visible para todos los usuarios.',
                 'No, cancelar',
-                'Sí, publicar',
+                'Sí, cambiar para Público',
                 closeModal,
                 true,
                 () => {
                     setFormData({
                         ...formData,
-                        status: 'Borrador',
-                        visibility: 0,
+                        visibility: false,
                     });
                     setIsModalOpen(false);
                 },
                 () => {
                     setFormData({
                         ...formData,
-                        status: 'Público',
-                        visibility: 1,
+                        visibility: true,
                     });
-                    openModal(
-                        null,
-                        'Evento Publicado',
-                        'Tu evento ha sido publicado con éxito',
-                        'Cerrar ventana',
-                        '',
-                        closeModal,
-                        true,
-                        () => {
-                            setIsModalOpen(false);
-                        },
-                        () => {},
-                    );
+                    setIsModalOpen(false);
                 },
                 
             );
@@ -190,34 +174,51 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     };
 
     // Submit Button
+    const navigate = useNavigate();
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
         if (formData.status) alert('Vas a cambiar el estado');
 
-        const resp = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
+        const res = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
         });
+        await res.json();
+
+        const resp = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
         const result = await resp.json();
-        console.log(result);
+
+        setFormData(result);
+
+        const closeModalAndNavigate = () => {
+            closeModal(); // Feche o modal
+            navigate(`/eventdashboard`, { state: { id: result._id } });
+        };
 
         openModal(
             <BsPatchCheckFill className={styles.checkIcon} />,
-            'Evento Guardado',
-            'Tu evento ha sido guardado con éxito',
+            'Cambio Guardado',
+            'Tus cambios han sido guardados con éxito',
             'Cerrar ventana',
             '',
             closeModal,
             true,
-            closeModal,
+            closeModalAndNavigate,
             () => {}
         );
-    };
 
+    };
+    
     /* **************
 START Modal
 ************** */
@@ -381,6 +382,12 @@ END Modal
 
     return (
         <div className={styles.form}>
+            {/* <p className={styles.status}>
+                <span> <b>Visibilidad del evento:</b> </span>
+                <span style={{ color: formData.visibility ? 'green' : '#e15a40' }}>
+                    {formData.visibility ? 'Público' : 'Borrador'}
+                </span>
+            </p> */}
             <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
         
             <form data-testid="event-form" onSubmit={handleSubmit}>

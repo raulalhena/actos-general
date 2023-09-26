@@ -193,13 +193,24 @@ const EventForm = () => {
     // Input
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const id = event.target.id;
-        let value : string | number = event.target.value;
-        id === 'capacity' ? value = +value : ' ';
-        setFormData({
-            ...formData,
-            [id]: value,
-        });
+        const value: string | number = event.target.value;
+    
+        if (id === 'capacity') {
+            const numericValue = Number(value);
+            if (!isNaN(numericValue) && numericValue > 0) {
+                setFormData({
+                    ...formData,
+                    [id]: numericValue,
+                });
+            }
+        } else {
+            setFormData({
+                ...formData,
+                [id]: value,
+            });
+        }
     };
+    
 
     // Select
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
