@@ -52,7 +52,7 @@ const EventForm = () => {
         language: [], //Select con checkbox
         image: '', 
         video: '', 
-        capacity: 0,
+        capacity: undefined,
         isLimited: false,
         // qrEvent: '',
         // qrAttendees: [],
@@ -686,7 +686,7 @@ const EventForm = () => {
                                 <TextInputWithSubtitle
                                     id="capacity"
                                     label="Límite de entradas"
-                                    subtitle="Ingrese solamente caracteres numéricos"
+                                    subtitle="Ingrese solamente caracteres numéricos."
                                     placeholder=""
                                     minLength={0}
                                     maxLength={500}
