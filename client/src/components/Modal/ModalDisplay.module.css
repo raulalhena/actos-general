@@ -36,7 +36,7 @@
 
 .modalBody {
     display: flex;
-    justify: center;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     margin: 1rem 0;
