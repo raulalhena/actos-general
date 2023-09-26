@@ -15,9 +15,11 @@
   flex-direction: column;
 }
 
-.cardGrid {
-display: grid;
-grid-template-columns: repeat(3, 1fr); 
+.cardGrid {    
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -35,6 +37,7 @@ grid-template-columns: repeat(3, 1fr);
     gap: 3rem;
     padding: 5rem;
   }
+
 }
 
 /* Para pantallas más grandes o iguales a 1200px (xl) */
@@ -43,6 +46,12 @@ grid-template-columns: repeat(3, 1fr);
     gap: 3rem;
     padding: 5rem;
   }
+
+  .cardGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 0 10%;
+  }
 }
 
 /* Para pantallas más grandes o iguales a 1400px (xxl) */
@@ -50,5 +59,11 @@ grid-template-columns: repeat(3, 1fr);
   .section {
     gap: 3rem;
     padding: 5rem;
+  }
+
+  .cardGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 0 20%;
   }
 }
