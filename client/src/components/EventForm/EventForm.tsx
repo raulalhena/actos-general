@@ -15,7 +15,6 @@ import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitl
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventForm.module.css';
-// import categories from '../../data/category.json';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
@@ -691,15 +690,6 @@ const EventForm = () => {
                         <ButtonSubmit label="Guardar"/>
                     </div>
                 </div>
-
-                <ProgressTracker
-                    isSection1Visible={isSection1Visible}
-                    isSection2Visible={isSection2Visible}
-                    isSection3Visible={isSection3Visible}
-                    isSection1Complete={isSection1Complete}
-                    isSection2Complete={isSection2Complete}
-                    isSection3Complete={selectedCapacity}
-                />
             </form>
         </div>
     );

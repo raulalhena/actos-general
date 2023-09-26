@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react';
+
 export interface TextInputWithSubtitleProps {
     label: string;
     subtitle: string;
@@ -6,7 +8,7 @@ export interface TextInputWithSubtitleProps {
     maxLength: number;
     minLength: number;
     value: number | string[] | undefined | string;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
     isRequired?: boolean;
     type?: string;
 }

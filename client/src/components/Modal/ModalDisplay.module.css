@@ -38,7 +38,7 @@
     display: flex;
     justify: center;
     align-items: center;
-    Flex-direction: column;
+    flex-direction: column;
     margin: 1rem 0;
     gap:1rem;
 }
