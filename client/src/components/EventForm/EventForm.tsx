@@ -22,6 +22,7 @@ import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
+import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 
 // Form
 const EventForm = () => {
@@ -65,7 +66,7 @@ const EventForm = () => {
     });
 
     // Form fields auto filled state
-    const [ categories, setCategories ] = useState<Array<string>>([]);
+    const [ categories, setCategories ] = useState<Array<EventDashboardFormProps>>([]);
     const [ subcategories, setSubcategories ] = useState<Array<string>>([]);
     const [ types, setTypes ] = useState<Array<string>>([]);
     const [ languages, setLanguages ] = useState<Array<string>>([]);
