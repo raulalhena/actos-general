@@ -1,10 +1,13 @@
 export interface CardEventProps {
     eventData: {
-        title: string;
+        name: string;
         date: string;
         mode: string;
         type: string;
         image: string;
+        category: string;
+        subcategory: string;
+        _id: number;
     };
-    eventId: number;
+    
 }

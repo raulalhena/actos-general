@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Global",
+        "subcategories": ["Zing", "Domum"],
+        "description": ""
+    },
+    {
+        "name": "Empleabilidad",
+        "subcategories": ["Zang", "Damam"],
+        "description": ""
+    },
+    {
+        "name": "Bienestar Emocional",
+        "subcategories": ["Zeng", "Demem"],
+        "description": ""
+    }
+]

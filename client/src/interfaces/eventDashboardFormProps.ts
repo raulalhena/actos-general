@@ -2,6 +2,7 @@ export interface EventDashboardFormProps {
     _id: string;
     name: string;
     category?: string;
+    subcategory?: string;
     tags?: string[];
     mode: string;
     type: string;
@@ -17,7 +18,7 @@ export interface EventDashboardFormProps {
     description: string;
     web?: string;
     organizedBy?: string[];
-    contact?: string;
+    contactEmail?: string;
     isPrivate: boolean;
     language: string[];
     image?: string;
@@ -29,6 +30,7 @@ export interface EventDashboardFormProps {
     submitted?: string[];
     price?: number;
     payment?: string;
-    visibility?: boolean;
-    status?: boolean;
+    visibility?: number;
+    status?: string;
+    isLimited: boolean;
 }

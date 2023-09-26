@@ -134,8 +134,7 @@ const SignupForm = () => {
                         isPassword={true}
                     />
                     {passwordError && <p className={styles.error}>{passwordError}</p>}
-                </section>
-                <TextInput
+                    <TextInput
                         id="passwordConfirmed"
                         label=""
                         placeholder="Confirma tu contraseña"

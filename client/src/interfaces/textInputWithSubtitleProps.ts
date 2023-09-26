@@ -8,4 +8,5 @@ export interface TextInputWithSubtitleProps {
     value: number | string[] | undefined | string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     isRequired?: boolean;
+    type?: string;
 }

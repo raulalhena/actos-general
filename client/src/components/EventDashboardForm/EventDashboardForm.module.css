@@ -1,3 +1,10 @@
+.warning {
+  color: #cacaca;
+  text-align: right;
+  padding-right:0;
+  font-size: 16px;
+}
+
 .buttonSection {
     display: flex;
     justify-content: flex-end;
@@ -14,9 +21,38 @@
   width: 360px;
 }
 
+.finalSectionContainer {
+  display: flex;
+  justify-content: end;
+}
+
+.finalSection {
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  align-items: center;
+  width: 580px;
+}
+
+.selectStatus {
+  width: 40%;
+  height: fit-content;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  /* border: 1.5px solid rgba(143, 143, 143, 1); */
+}
+
+.checkIcon {
+  width: 60px;
+  height: 60px;
+  color: #cacaca;
+}
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
- 
+ .finalSection{
+  gap: 3px;
+ }
   
 }
 

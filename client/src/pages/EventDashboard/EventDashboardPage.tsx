@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-import DropdownButton from '../../components/DropdownButton/DropdownButton';
-import EventDashboardForm from '../../components/EventDashboardForm/EventDashboardForm';
+import { useEffect, useState } from 'react';import EventDashboardForm from '../../components/EventDashboardForm/EventDashboardForm';
 import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRecap';
 import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
+import ImageQR from '../../components/ImageQR/ImageQR';
 
 const EventDashboardPage = () => {
 
@@ -15,6 +14,7 @@ const EventDashboardPage = () => {
         _id: '',
         name: '',
         category: '',
+        subcategory: '',
         tags: [],
         mode: '',
         type: '',
@@ -30,12 +30,13 @@ const EventDashboardPage = () => {
         description: '',
         web: '', 
         organizedBy: [], 
-        contact: '',
+        contactEmail: '',
         isPrivate: false,
         language: [], //Select con checkbox
         image: '', 
         video: '', 
-        capacity: 0
+        capacity: 0,
+        isLimited: false,
         // qrEvent: '',
         // qrAttendees: [],
         // attendees: [],
@@ -57,7 +58,6 @@ const EventDashboardPage = () => {
     }, []);
 
     useEffect(() => {
-        // setEventData(eventData);
         console.log('eventData', eventData);
     }, [ eventData ]);
 
@@ -76,11 +76,11 @@ const EventDashboardPage = () => {
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
                             </p>
                         </div>
-                        <div>
-                            <DropdownButton />
-                        </div>
                     </section>
-                    <InscriptionsRecap capacity={ String(eventData?.capacity) } />
+                    <div className={ styles.infoPanel }>
+                        <ImageQR qr={eventData.qrEvent} />
+                        <InscriptionsRecap capacity={ String(eventData?.capacity) } />
+                    </div>
                 </section>
                 <EventDashboardForm eventData={ eventData } />
             </div>

@@ -1,10 +1,49 @@
+.sectionContainer {
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    align-items:center;
+    gap: 2rem;
+}
+
+.tracker {
+    width: 200px;;
+    justify-content: center;
+    align-items: center;
+}
+
 .title {
+    width: 680px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10rem;
+    gap: 1rem;
     border-bottom: 3px solid #1c2e48;
     margin: 0;
     margin-bottom: 2rem;
     padding: 0 0.5rem ;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (max-width: 600px) {
+    .tracker {
+        display: none;
+    }
+
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+    .title {
+        width: 780px;  
+    }
+
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1600px) {
+
+    .title {
+        width: 780px;  
+    }
 }

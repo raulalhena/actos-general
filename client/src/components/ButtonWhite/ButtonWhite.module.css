@@ -1,18 +1,16 @@
 .button {
-  all: unset;
   width: fit-content;
   height: fit-content;
-  padding: 1rem 5rem;
   flex-shrink: 0;
   border-radius: 0.625rem;
   background: #ffffff;
   color: #e15a40;
   border: 1.5px solid #e15a40;
   text-align: center;
-  font-size: 1.125rem;
-  font-style: normal;
+  font-size: 12px;
+  padding: 0.5rem;
+  font-family: inherit;
   font-weight: 600;
-  line-height: normal;
   letter-spacing: 0.1rem;
   text-transform: uppercase;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -26,5 +24,4 @@
 .button:active {
   background: #e15a40;
   color: #ffffff;
-  transform: scale(0.98);
 }
