@@ -400,28 +400,6 @@ const EventForm = () => {
         });
         setSelectedCapacity(!selectedCapacity);
     };
-<<<<<<< HEAD
-
-    const [ isSection1Complete, setIsSection1Complete ] = useState(false);
-    const [ isSection2Complete, setIsSection2Complete ] = useState(false);
-
-    const isSection1CompleteCheck = (sectionData: any) => {
-        return sectionData.name !== '';
-    };
-
-    const isSection2CompleteCheck = (sectionData: any) => {
-        return sectionData.description !== '';
-    };
-
-    useEffect(() => {
-        setIsSection1Complete(isSection1CompleteCheck(formData));
-    }, [ formData ]);
-
-    useEffect(() => {
-        setIsSection2Complete(isSection2CompleteCheck(formData));
-    }, [ formData ]);
-=======
->>>>>>> dev
     
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
@@ -712,7 +690,6 @@ const EventForm = () => {
                         <ButtonSubmit label="Guardar"/>
                     </div>
                 </div>
-<<<<<<< HEAD
 
                 <ProgressTracker
                     isSection1Visible={isSection1Visible}
@@ -720,14 +697,8 @@ const EventForm = () => {
                     isSection3Visible={isSection3Visible}
                     isSection1Complete={isSection1Complete}
                     isSection2Complete={isSection2Complete}
-<<<<<<< HEAD
-=======
                     isSection3Complete={selectedCapacity}
->>>>>>> dev
                 />
-=======
-                
->>>>>>> dev
             </form>
         </div>
     );
