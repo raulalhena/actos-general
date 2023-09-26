@@ -1,7 +1,7 @@
 import styles from  './ImageQR.module.css';
 
 type Props = {
-    qr: string;
+    qr: string | undefined;
 }
 
 const ImageQR = ({ qr }: Props) => {

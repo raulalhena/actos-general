@@ -1,4 +1,4 @@
-import { SelectCategoriesProps } from '../../interfaces/selectProps';
+import SelectCategoriesProps from '../../interfaces/selectProps';
 import styles from './SelectCategories.module.css';
 
 function SelectCategories(props: SelectCategoriesProps) {
