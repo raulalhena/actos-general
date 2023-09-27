@@ -6,8 +6,8 @@ import { EventDetailProps } from '../../interfaces/eventDetailProps';
 import { IoLocationSharp } from 'react-icons/io5';
 import { IoPeopleSharp } from 'react-icons/io5';
 import { IoLanguageOutline } from 'react-icons/io5';
-import ButtonWhite from '../../components/ButtonWhite/ButtonWhite';
 import { useParams } from 'react-router-dom';
+import ButtonRed from '../../components/ButtonRed/ButtonRed';
 
 const EventDetailPage = () => {
 
@@ -140,7 +140,7 @@ const EventDetailPage = () => {
                 <h1 className={styles.sectionTitle}>Organizadores</h1>
                 <div className={styles.organizedBySection}>
                     <p className={styles.organizedBy}>{eventData.organizedBy}</p>
-                    <ButtonWhite label="contactar" />
+                    <ButtonRed label="contactar" />
                 </div>
             </section>
         </div>
