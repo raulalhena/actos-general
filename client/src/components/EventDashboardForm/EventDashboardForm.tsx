@@ -382,12 +382,12 @@ END Modal
 
     return (
         <div className={styles.form}>
-            {/* <p className={styles.status}>
+            <p className={styles.status}>
                 <span> <b>Visibilidad del evento:</b> </span>
                 <span style={{ color: formData.visibility ? 'green' : '#e15a40' }}>
                     {formData.visibility ? 'Público' : 'Borrador'}
                 </span>
-            </p> */}
+            </p>
             <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
         
             <form data-testid="event-form" onSubmit={handleSubmit}>

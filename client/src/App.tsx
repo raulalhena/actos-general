@@ -9,6 +9,7 @@ import NavBar from './components/NavBar/NavBar';
 import EventDetailPage from './pages/EventDetail/EventDetail';
 import EventsList from './pages/EventsList/EventsList';
 import { AuthProvider } from './providers/AuthProvider';
+import Footer from './components/Footer/Footer';
 
 function Layout ({ children }: any) {
     return (
@@ -16,6 +17,7 @@ function Layout ({ children }: any) {
             <AuthProvider >
                 <NavBar />
                 {children}
+                <Footer />
             </AuthProvider>
         </>
     );
