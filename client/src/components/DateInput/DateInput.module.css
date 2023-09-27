@@ -1,17 +1,18 @@
+.label {
+    font-weight: 600;
+    color: #1c2e48;
+}
+
 .input {
     width: 350px;
     padding: 8px;
-    font-size: 16px;
+    font-size: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     outline: none;
     margin: 1rem 0 2rem 0;
-}
-
-
-.label {
-    font-weight: 600;
-    color: #1c2e48;
+    color: grey;
+    font-family: 'Inter', sans-serif;
 }
 
 .input:focus {
@@ -19,6 +20,9 @@
     border: 1.5px solid #1C2E48!important;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     outline: none;
+}
+.input::placeholder {
+    font-family: inherit;
 }
 
 

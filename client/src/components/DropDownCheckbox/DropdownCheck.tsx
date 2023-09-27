@@ -34,6 +34,13 @@ function DropdownCheck(props: DropDownCheckProps) {
     const handleChange = (selectedOption: any) => {
         setSelected(selectedOption.value);
     };
+    const customStyles = {
+        // Otros estilos si los necesitas
+        placeholder: (provided: any) => ({
+            ...provided,
+            fontSize: '12px',
+        }),
+    };
 
     return (
         <div className={Style.option}>
@@ -63,6 +70,7 @@ function DropdownCheck(props: DropDownCheckProps) {
                         onChange={handleChange}
                         value={selected}
                         placeholder="Seleciona"
+                        styles={customStyles}
                     />
                 </span>
             </div>
