@@ -9,6 +9,7 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [ user, setUser ] = useState<User>({
         id: '',
+        name: '',
         email: '',
         surname: '',
         role: '',
