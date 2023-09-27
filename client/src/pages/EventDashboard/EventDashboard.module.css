@@ -35,8 +35,10 @@
 
 .infoPanel {
   display: flex;
+  width: 100px;
   justify-content: space-between;
   align-items: center;
+  border: 1px solid red;
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */

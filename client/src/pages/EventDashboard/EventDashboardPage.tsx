@@ -3,7 +3,9 @@ import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRe
 import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
-import ImageQR from '../../components/ImageQR/ImageQR';
+import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
+import qrImg from '../../../../server/qr_events/651441b618f217f1a9d762ea.png';
+import { PDFViewer } from '@react-pdf/renderer';
 
 const EventDashboardPage = () => {
 
@@ -61,29 +63,47 @@ const EventDashboardPage = () => {
         console.log('eventData', eventData);
     }, [ eventData ]);
 
+    const [ showPDF, setShowPDF ] = useState(false);
+
+    const createPDF = () => {
+        setShowPDF(true);
+    };
+
     return (
         <>
-            <div className={styles.page}>
-                <section className={styles.top}>
-                    <section className={styles.header}>
-                        <div>
-                            <section className={styles.title}>
-                                <h1 className={styles.dash}>—</h1>
-                                <h1>Resumen de tu evento: {eventData.name}</h1>
-                            </section>
-                            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            </p>
+            { !showPDF ? 
+                <div className={styles.page}>
+                    <section className={styles.top}>
+                        <section className={styles.header}>
+                            <div>
+                                <section className={styles.title}>
+                                    <h1 className={styles.dash}>—</h1>
+                                    <h1>Resumen de tu evento: {eventData.name}</h1>
+                                </section>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                    eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                </p>
+                            </div>
+                        </section>
+                        <div styles={{ border: '10px solid red' }}>
+                            <div styles={{ border: '1px solid red' }}>
+                                <img 
+                                    src={qrImg}
+                                    style={{ maxWidth: '100px', maxHeight: '100px' }} 
+                                />
+                                <button onClick={createPDF}>pdf</button>
+                            </div>
+                            <InscriptionsRecap capacity={ String(eventData?.capacity) } />
                         </div>
                     </section>
-                    <div className={ styles.infoPanel }>
-                        <ImageQR qr={eventData.qrEvent} />
-                        <InscriptionsRecap capacity={ String(eventData?.capacity) } />
-                    </div>
-                </section>
-                <EventDashboardForm eventData={ eventData } />
-            </div>
+                    <EventDashboardForm eventData={ eventData } />
+                </div>
+                :
+                <PDFViewer style={{ width: '100%', height: '90vh' }}>
+                    <QRtoPDFDocument data={eventData.name, qrImg} />
+                </PDFViewer>
+            }
         </>
     );
 };
