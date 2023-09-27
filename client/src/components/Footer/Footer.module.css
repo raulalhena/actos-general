@@ -1,117 +1,119 @@
 .footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10rem;
-  width: 100vw;
-  height: 250px;
-}
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    width: 100vw;
+    height: fit-content;
+    padding: 3rem;
+  }
+  
+  .sectionFooter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    gap: 1.5rem;
+  }
+  
+  .titleFooter {
+    font-weight: 800;
+    font-size: 20px;
+  }
+  
+  .copyright {
+    text-align: center;
+    height: fit-content;
+    padding: 1rem;
+    color: white;
+    background-color: #1c2e48;
+    font-weight: 300;
+  }
+  
+  .copyrightLink {
+    font-weight: 300;
+    font-size: 16px;
+    color: white;
+  }
+  
+  .copyrightLink:hover {
+    font-weight: 600;
+  }
+  
+  .brandSection, .contactSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .logo {
+    width: 175px;
+  }
+  
+  .brandName {
+    font-size: 16px;
+    color: grey;
+    font-weight: 400;
+  }
+  
+  .contactInfo {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1c2e48;
+  }
+  
+  .contactAddress {
+    font-size: 16px;
+    line-height: 1.5rem;
+    font-weight: 400;
+    color: grey;
+  }
+  
+  /* SOCIAL ICONS */
+  .socialSection {
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .icon {
+    font-size: 20px;
+    color: #797979;
+  }
+  
+  .iconContainer {
+    background-color: #eaeaea;
+    padding: 0.8rem;
+    border-radius: 50%;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .iconLink {
+    text-decoration: none;
+  }
 
-.sectionFooter {
-  display: flex;
-  flex-direction: column;
-  padding-top: 3rem;
-  height: 100%;
-  gap: 1.5rem;
-}
-
-.titleFooter {
-  font-weight: 800;
-  font-size: 28px;
-}
-
-.copyright {
-  text-align: center;
-  height: fit-content;
-  padding: 1rem;
-  color: white;
-  background-color: #1c2e48;
-  font-weight: 300;
-}
-
-.copyrightLink {
-  font-weight: 300;
-  font-size: 16px;
-  color: white;
-}
-
-.copyrightLink:hover {
-  font-weight: 600;
-}
-
-.brandSection,
-.contactSection {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.logo {
-  width: 175px;
-}
-
-.brandName {
-  font-size: 16px;
-  color: grey;
-  font-weight: 400;
-}
-
-.contactInfo {
-  font-size: 16px;
-  font-weight: 600;
-  color: #1c2e48;
-}
-
-.contactAddress {
-  font-size: 16px;
-  line-height: 1.5rem;
-  font-weight: 400;
-  color: grey;
-}
-
-/* SOCIAL ICONS */
-.socialSection {
-  display: flex;
-  justify-content: flex-start;
-}
-
-.icon {
-  font-size: 20px;
-  color: #797979;
-}
-
-.iconContainer {
-  background-color: #eaeaea;
-  padding: 0.8rem;
-  border-radius: 50%;
-  margin-right: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.iconLink {
-  text-decoration: none;
-}
-
-
-
-
-/* Para pantallas más grandes o iguales a 768px (md) */
-@media screen and (min-width: 768px) {
-}
-
-/* Para pantallas más grandes o iguales a 992px (lg) */
-@media screen and (min-width: 992px) {
-}
-
-/* Para pantallas más grandes o iguales a 1200px (xl) */
-@media screen and (min-width: 1200px) {
-}
-
-/* Para pantallas más grandes o iguales a 1400px (xxl) */
-@media screen and (min-width: 1400px) {
-    
-}
+  @media screen and (min-width: 992px) {
+    .footer {
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 5rem;
+      gap: 8rem;
+    }
+  
+    .titleFooter {
+      font-size: 28px;
+    }
+  
+    .iconLink:hover .icon {
+      color: white;
+    }
+  
+    .iconLink:hover .iconContainer {
+      background-color: #e15a40;
+    }
+  }

@@ -21,8 +21,10 @@ const Footer = () => {
         <>
             <div className={styles.footer}>
                 <section className={styles.sectionFooter}>
-                        <img src={logo} className={styles.logo} alt="Logo" />
-                        <p className={styles.brandName}>Fundación Privada Nous Cims</p>
+                <div className={styles.brandSection}>
+                    <img src={logo} className={styles.logo} alt="Logo" />
+                    <p className={styles.brandName}>Fundación Privada Nous Cims</p>
+                    </div>
                 </section>
                 <section className={styles.sectionFooter}>
                     <div className={styles.contactSection}>
@@ -54,20 +56,33 @@ const Footer = () => {
                 </section>
             </div>
             <div className={styles.copyright}>
-        © 2023 Nous Cims by ACTOS. Todos los derechos reservados&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-                <a className={styles.copyrightLink} href="https://www.nouscims.com/aviso-legal/">
+        © 2023 Nous Cims by ACTOS. Todos los derechos
+        reservados&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                <a
+                    className={styles.copyrightLink}
+                    href="https://www.nouscims.com/aviso-legal/"
+                >
           Aviso Legal
                 </a>
         &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-                <a className={styles.copyrightLink} href="https://www.nouscims.com/politica-privacidad/">
+                <a
+                    className={styles.copyrightLink}
+                    href="https://www.nouscims.com/politica-privacidad/"
+                >
           Política de Privacidad
                 </a>
         &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-                <a className={styles.copyrightLink} href="https://www.nouscims.com/politica-de-cookies/">
+                <a
+                    className={styles.copyrightLink}
+                    href="https://www.nouscims.com/politica-de-cookies/"
+                >
           Política de Cookies
                 </a>
         &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-                <a className={styles.copyrightLink} href="https://www.nouscims.com/politica-de-calidad/">
+                <a
+                    className={styles.copyrightLink}
+                    href="https://www.nouscims.com/politica-de-calidad/"
+                >
           Política de Calidad
                 </a>
             </div>
