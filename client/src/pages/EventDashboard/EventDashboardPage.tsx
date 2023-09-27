@@ -3,9 +3,9 @@ import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRe
 import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
-import ImageQR from '../../components/ImageQR/ImageQR';
-import { PdfQr } from '../../components/PdfQr/PdfQr';
-import { Document, Image, PDFViewer, Page, Text, View } from '@react-pdf/renderer';
+import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
+import qrImg from '../../../../server/qr_events/651441b618f217f1a9d762ea.png';
+import { PDFViewer } from '@react-pdf/renderer';
 
 const EventDashboardPage = () => {
 
@@ -81,22 +81,19 @@ const EventDashboardPage = () => {
                                     <h1>Resumen de tu evento: {eventData.name}</h1>
                                 </section>
                                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                    eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                 </p>
                             </div>
                         </section>
-                        <div styles={ styles.infoPanel }>
-                            {/* <Image 
-                                src='../../../../server/qr_events/651441b618f217f1a9d762ea.png'
-                                style={{ maxWidth: '90px', maxHeight: '90px' }} 
-                            /> */}
-                            <img 
-                                src='../../../../server/qr_events/651441b618f217f1a9d762ea.png'
-                                style={{ maxWidth: '100px', maxHeight: '100px' }} 
-                            />
-                            {/* <ImageQR qr={eventData.qrEvent} /> */}
-                            <button onClick={createPDF}>pdf</button>
+                        <div styles={{ border: '10px solid red' }}>
+                            <div styles={{ border: '1px solid red' }}>
+                                <img 
+                                    src={qrImg}
+                                    style={{ maxWidth: '100px', maxHeight: '100px' }} 
+                                />
+                                <button onClick={createPDF}>pdf</button>
+                            </div>
                             <InscriptionsRecap capacity={ String(eventData?.capacity) } />
                         </div>
                     </section>
@@ -104,23 +101,7 @@ const EventDashboardPage = () => {
                 </div>
                 :
                 <PDFViewer style={{ width: '100%', height: '90vh' }}>
-                    <Document>
-                        <Page size="A4">
-                            <View>
-                            <Text>Hola</Text>
-                            </View>
-                                 {/*
-                                    <Image src={`data:image/svg+xml;utf8,${encodeURIComponent(eventData.qrEvent)}`} 
-                                        style={{ maxWidth: '90px', maxHeight: '90px' }} />
-                                 */}
-                                 <View>
-                            <Image 
-                                src='../../../../server/qr_events/651441b618f217f1a9d762ea.png'
-                                style={{ maxWidth: '90px', maxHeight: '90px' }} 
-                            />
-                            </View>
-                        </Page>
-                    </Document>
+                    <QRtoPDFDocument data={eventData.name, qrImg} />
                 </PDFViewer>
             }
         </>
