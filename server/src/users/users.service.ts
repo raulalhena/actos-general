@@ -20,7 +20,7 @@ export class UsersService {
 
   async findByEmail(email: string) {
     try {
-      const user = await this.userModel.find({ email: email });
+      const user = await this.userModel.findOne({ email });
       if(!user) throw new HttpException('No se ha podido encontrar el usuario.', HttpStatus.BAD_REQUEST);
       
       return user;
