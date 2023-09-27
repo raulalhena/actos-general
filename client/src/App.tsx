@@ -8,7 +8,7 @@ import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import EventDetailPage from './pages/EventDetail/EventDetail';
 import EventsList from './pages/EventsList/EventsList';
-import { AuthProvider } from './providers/AuthProvider';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
 

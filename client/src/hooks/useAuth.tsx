@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
+import { useUser, User } from './useUser';
 import { useLocalStorage } from './useLocalStorage';
-import { useUser } from './useUser';
 
 export const useAuth = () => {
     const { user, addUser, removeUser } = useUser();
@@ -8,12 +8,12 @@ export const useAuth = () => {
 
     useEffect(() => {
         const user = getItem('user');
-        if(user){
+        if (user) {
             addUser(JSON.parse(user));
         }
     }, []);
 
-    const login = () => {
+    const login = (user: User) => {
         addUser(user);
     };
 

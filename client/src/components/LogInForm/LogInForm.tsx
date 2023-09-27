@@ -54,9 +54,11 @@ const LogInForm = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(logInData.email)
+            body: JSON.stringify(logInData)
         });
         const user = await resp.json();
+
+        console.log('user', user);
 
         login(user);
 
