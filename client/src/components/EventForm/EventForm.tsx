@@ -15,13 +15,13 @@ import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitl
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventForm.module.css';
-// import categories from '../../data/category.json';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
+import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 
 // Form
 const EventForm = () => {
@@ -52,7 +52,7 @@ const EventForm = () => {
         language: [], //Select con checkbox
         image: '', 
         video: '', 
-        capacity: 0,
+        capacity: undefined,
         isLimited: false,
         // qrEvent: '',
         // qrAttendees: [],
@@ -65,7 +65,7 @@ const EventForm = () => {
     });
 
     // Form fields auto filled state
-    const [ categories, setCategories ] = useState<Array<string>>([]);
+    const [ categories, setCategories ] = useState<Array<EventDashboardFormProps>>([]);
     const [ subcategories, setSubcategories ] = useState<Array<string>>([]);
     const [ types, setTypes ] = useState<Array<string>>([]);
     const [ languages, setLanguages ] = useState<Array<string>>([]);
@@ -193,14 +193,24 @@ const EventForm = () => {
     // Input
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const id = event.target.id;
-        let value : string | number = event.target.value;
-        id === 'capacity' ? value = +value : ' ';
-        setFormData({
-            ...formData,
-            [id]: value,
-        });
+        const value: string | number = event.target.value;
+  
+        if (id === 'capacity') {
+            const numericValue = Number(value);
+            if (numericValue >= 0) {
+                setFormData({
+                    ...formData,
+                    [id]: numericValue,
+                });
+            }
+        } else {
+            setFormData({
+                ...formData,
+                [id]: value,
+            });
+        }
     };
-
+    
     // Select
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
@@ -249,7 +259,7 @@ const EventForm = () => {
         } else {
             toast.error('La fecha seleccionada es anterior a la fecha actual.', {
                 position: 'top-right',
-                autoClose: 5000,
+                autoClose: 2500,
                 pauseOnHover: true,
             });
         }
@@ -269,6 +279,11 @@ const EventForm = () => {
             ...prevData,
             image: imageResp.imageUrl 
         }));
+        toast.success('Imagen enviada correctamente', {
+            position: toast.POSITION.TOP_RIGHT,
+            closeOnClick: true,
+            pauseOnHover: true,
+        });
     };
 
     // Submit Button
@@ -285,7 +300,6 @@ const EventForm = () => {
             const errorMessage = `Por favor, complete los siguientes campos obligatorios: ${missingFields.join(', ')}.`;
             toast.error(errorMessage, {
                 position: toast.POSITION.TOP_RIGHT,
-                autoClose: 5000,
                 closeOnClick: true,
                 pauseOnHover: true,
             });
@@ -410,7 +424,7 @@ const EventForm = () => {
             <form data-testid="event-form" className={styles.formContainer} onSubmit={handleSubmit}>
                 
                 <div className={styles.formContent} >
-                    <ToastContainer position="top-right" autoClose={3000} />
+                    <ToastContainer position="top-right" autoClose={2500} />
                     <SectionForm
                         title="1 INFORMACIÓN BÁSICA"
                         isVisible={isSection1Visible}
@@ -672,7 +686,7 @@ const EventForm = () => {
                                 <TextInputWithSubtitle
                                     id="capacity"
                                     label="Límite de entradas"
-                                    subtitle="Ingrese solamente caracteres numéricos"
+                                    subtitle="Ingrese solamente caracteres numéricos."
                                     placeholder=""
                                     minLength={0}
                                     maxLength={500}
@@ -690,7 +704,6 @@ const EventForm = () => {
                         <ButtonSubmit label="Guardar"/>
                     </div>
                 </div>
-                
             </form>
         </div>
     );

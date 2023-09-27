@@ -1,8 +1,15 @@
 .warning {
   color: #cacaca;
-  text-align: right;
-  padding-right:0;
+  text-align: left;
+  padding-left:0;
   font-size: 16px;
+  margin-bottom: 2rem;
+}
+.status {
+  text-align: left;
+  padding-left:0;
+  font-size: 16px;
+  margin-bottom: 1rem;
 }
 
 .buttonSection {

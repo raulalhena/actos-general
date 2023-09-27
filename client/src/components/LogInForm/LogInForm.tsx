@@ -3,8 +3,11 @@ import styles from './LogInForm.module.css';
 import { LogInProps } from '../../interfaces/logInProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
 import TextInput from '../TextInput/TextInput';
+import { useAuth } from '../../hooks/useAuth';
 
 const LogInForm = () => {
+
+    const { login } = useAuth();
 
     const [ logInData, setLogInData ] = useState<LogInProps>({
         email: '',
@@ -46,7 +49,19 @@ const LogInForm = () => {
     };
 
     const requestLogin = async () => {
-        // do It
+        const resp = await fetch('http://localhost:8000/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(logInData)
+        });
+        const user = await resp.json();
+
+        console.log('user', user);
+
+        login(user);
+
     };
 
     // Function to validate password

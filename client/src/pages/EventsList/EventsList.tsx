@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 
 const EventsList = () => {
 
-    const [ events, setEvents ] = useState();
+    const [ events, setEvents ] = useState<Array<EventDashboardFormProps>>();
 
     useEffect(() => {
         const getAllEvents = async () => {
@@ -18,7 +19,7 @@ const EventsList = () => {
 
     return (
         <div>
-            {events && events.map((event, index) => {
+            {events && events.map((event: EventDashboardFormProps, index: number) => {
                 return (
                     <div key={index}>
                         <Link style={{ color: '#333' }}to={`/event/${event._id}`}>{event.name}</Link>

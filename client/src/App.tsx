@@ -8,12 +8,15 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import EventDetailPage from './pages/EventDetail/EventDetail';
 import EventsList from './pages/EventsList/EventsList';
+import { AuthProvider } from './providers/AuthProvider';
 
 function Layout ({ children }: any) {
     return (
         <>
-            <NavBar />
-            {children}
+            <AuthProvider >
+                <NavBar />
+                {children}
+            </AuthProvider>
         </>
     );
 }
