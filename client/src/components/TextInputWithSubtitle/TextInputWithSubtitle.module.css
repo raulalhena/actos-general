@@ -4,7 +4,8 @@
 }
 
 .subtitle {
-  color: #cacaca;
+  color: grey;
+  font-size: 14px;
 }
 
 .input {
@@ -14,7 +15,7 @@
   border-radius: 5px;
   border: 1px solid #cacaca;
   margin: 1rem 0 2rem 0;
-  font-size: 16px; 
+  font-size: 12px; 
   transition: border 0.3s ease-in-out;
 }
 

@@ -71,6 +71,7 @@ const EventDashboardPage = () => {
                                 <h1 className={styles.dash}>—</h1>
                                 <h1>Resumen de tu evento: {eventData.name}</h1>
                             </section>
+                            <br />
                             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.

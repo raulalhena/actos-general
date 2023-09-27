@@ -6,14 +6,14 @@
     gap: 2rem;
 }
 
-.tracker {
+/* .tracker {
     width: 200px;;
     justify-content: center;
     align-items: center;
-}
+} */
 
 .title {
-    width: 680px;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -21,7 +21,7 @@
     border-bottom: 3px solid #1c2e48;
     margin: 0;
     margin-bottom: 2rem;
-    padding: 0 0.5rem ;
+    padding: 0 2.5rem ;
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */
@@ -42,8 +42,8 @@
 
 /* Para pantallas más grandes o iguales a 1400px (xxl) */
 @media screen and (min-width: 1600px) {
-
+    
     .title {
-        width: 780px;  
+        width: 1300px;
     }
 }

@@ -193,16 +193,33 @@ const EventForm = () => {
     // Input
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const id = event.target.id;
-        const value: string | number = event.target.value;
-  
+        const value: string = event.target.value;
+
         if (id === 'capacity') {
             const numericValue = Number(value);
-            if (numericValue >= 0) {
+            if (numericValue >= 1) {
                 setFormData({
                     ...formData,
                     [id]: numericValue,
                 });
+            } else {
+                toast.error('Si hay limite de entradas, el número debe ser mayor o igual a 1', {
+                    position: 'top-right',
+                    autoClose: 2500,
+                    pauseOnHover: true,
+                });
             }
+        } else if (id === 'webLink' || id === 'web') {
+
+            let newValue = value;
+            if (value.startsWith('www')) {
+                newValue = 'http://' + value;
+            }
+
+            setFormData({
+                ...formData,
+                [id]: newValue,
+            });
         } else {
             setFormData({
                 ...formData,
@@ -458,7 +475,7 @@ const EventForm = () => {
                                 isRequired={true}
                                 id="name" 
                                 label="Nombre del evento *"
-                                placeholder="Evento"
+                                placeholder="ej.: Carrera Solidaria por la Educación (mínimo 3 caracteres)"
                                 minLength={3}
                                 maxLength={75}
                                 value={formData.name}
@@ -597,20 +614,20 @@ const EventForm = () => {
                             <TagsInputComponent
                                 id="organizedBy"
                                 label="Organizadores"
-                                subtitle="Entidades que colaboran en el evento."
-                                placeHolder="Añade un nombre y presiona Enter"
+                                subtitle="Para añadir las entidades colaboradoras del evento, escribe el nombre y presiona Enter."
+                                placeHolder=""
                                 value={formData.organizedBy}
                                 onChange={handleTagsOrganizadorChange}
                             />
                             <TextInputWithSubtitle
                                 id="contactEmail"
                                 label="Información de contacto"
-                                placeholder="email@email.com"
+                                placeholder="ej.: email@email.com"
                                 minLength={3}
                                 maxLength={75}
                                 value={formData.contactEmail}
                                 onChange={handleInputChange}
-                                subtitle='Contacto para mas informacion'
+                                subtitle='Ingresa un correo electrónico para que puedan contactar para más informaciones sobre el evento.'
                                 isRequired={false}
                                 type="email"
                             />
@@ -624,10 +641,11 @@ const EventForm = () => {
 
                         </FormField>
                         <FormField>
-                            <TextInput
+                            <TextInputWithSubtitle
                                 id="web"
                                 label="Añade un enlace a un página web con más información"
-                                placeholder="https://actos.com"
+                                subtitle='Comparte una URL relevante, como la página web del evento o recursos adicionales.'
+                                placeholder="ej.: https://actos.com"
                                 minLength={3}
                                 maxLength={75}
                                 value={formData.web}
@@ -641,9 +659,9 @@ const EventForm = () => {
                                 id="tags"
                                 value={formData.tags}
                                 label="Etiquetas"
+                                subtitle="Para añadir etiquetas claves del evento, escribe el nombre y presiona Enter"
                                 onChange={handleTagsChange}
-                                placeHolder="Escribe etiquetas y presione Enter"
-                                subtitle=''
+                                placeHolder=""
                             />
                         </FormField>
                         <FormField>
@@ -686,8 +704,8 @@ const EventForm = () => {
                                 <TextInputWithSubtitle
                                     id="capacity"
                                     label="Límite de entradas"
-                                    subtitle="Ingrese solamente caracteres numéricos."
-                                    placeholder=""
+                                    subtitle="Ingrese solamente caracteres numéricos mayores que 0."
+                                    placeholder="ej.: 20"
                                     minLength={0}
                                     maxLength={500}
                                     value={formData.capacity} 
