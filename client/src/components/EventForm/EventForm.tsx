@@ -193,8 +193,8 @@ const EventForm = () => {
     // Input
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const id = event.target.id;
-        const value: string | number = event.target.value;
-  
+        const value: string = event.target.value;
+
         if (id === 'capacity') {
             const numericValue = Number(value);
             if (numericValue >= 0) {
@@ -203,6 +203,17 @@ const EventForm = () => {
                     [id]: numericValue,
                 });
             }
+        } else if (id === 'webLink' || id === 'web') {
+
+            let newValue = value;
+            if (value.startsWith('www')) {
+                newValue = 'http://' + value;
+            }
+
+            setFormData({
+                ...formData,
+                [id]: newValue,
+            });
         } else {
             setFormData({
                 ...formData,
