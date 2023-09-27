@@ -5,6 +5,7 @@ import { useLocation } from 'react-router';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import ImageQR from '../../components/ImageQR/ImageQR';
 import { PdfQr } from '../../components/PdfQr/PdfQr';
+import { Document, Image, PDFViewer, Page, Text, View } from '@react-pdf/renderer';
 
 const EventDashboardPage = () => {
 
@@ -62,37 +63,66 @@ const EventDashboardPage = () => {
         console.log('eventData', eventData);
     }, [ eventData ]);
 
-    const [ qrPDF, setPDF ] = useState();
+    const [ showPDF, setShowPDF ] = useState(false);
 
     const createPDF = () => {
-        setPDF(eventData.qrEvent);
+        setShowPDF(true);
     };
 
     return (
         <>
-            <div className={styles.page}>
-                <section className={styles.top}>
-                    <section className={styles.header}>
-                        <div>
-                            <section className={styles.title}>
-                                <h1 className={styles.dash}>—</h1>
-                                <h1>Resumen de tu evento: {eventData.name}</h1>
-                            </section>
-                            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            </p>
+            { !showPDF ? 
+                <div className={styles.page}>
+                    <section className={styles.top}>
+                        <section className={styles.header}>
+                            <div>
+                                <section className={styles.title}>
+                                    <h1 className={styles.dash}>—</h1>
+                                    <h1>Resumen de tu evento: {eventData.name}</h1>
+                                </section>
+                                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                </p>
+                            </div>
+                        </section>
+                        <div styles={ styles.infoPanel }>
+                            {/* <Image 
+                                src='../../../../server/qr_events/651441b618f217f1a9d762ea.png'
+                                style={{ maxWidth: '90px', maxHeight: '90px' }} 
+                            /> */}
+                            <img 
+                                src='../../../../server/qr_events/651441b618f217f1a9d762ea.png'
+                                style={{ maxWidth: '100px', maxHeight: '100px' }} 
+                            />
+                            {/* <ImageQR qr={eventData.qrEvent} /> */}
+                            <button onClick={createPDF}>pdf</button>
+                            <InscriptionsRecap capacity={ String(eventData?.capacity) } />
                         </div>
                     </section>
-                    <div className={ styles.infoPanel }>
-                        <ImageQR qr={eventData.qrEvent} />
-                        <button onClick={createPDF}>pdf</button>
-                        <PdfQr path='../../assets/logo.svg' />
-                        <InscriptionsRecap capacity={ String(eventData?.capacity) } />
-                    </div>
-                </section>
-                <EventDashboardForm eventData={ eventData } />
-            </div>
+                    <EventDashboardForm eventData={ eventData } />
+                </div>
+                :
+                <PDFViewer style={{ width: '100%', height: '90vh' }}>
+                    <Document>
+                        <Page size="A4">
+                            <View>
+                            <Text>Hola</Text>
+                            </View>
+                                 {/*
+                                    <Image src={`data:image/svg+xml;utf8,${encodeURIComponent(eventData.qrEvent)}`} 
+                                        style={{ maxWidth: '90px', maxHeight: '90px' }} />
+                                 */}
+                                 <View>
+                            <Image 
+                                src='../../../../server/qr_events/651441b618f217f1a9d762ea.png'
+                                style={{ maxWidth: '90px', maxHeight: '90px' }} 
+                            />
+                            </View>
+                        </Page>
+                    </Document>
+                </PDFViewer>
+            }
         </>
     );
 };
