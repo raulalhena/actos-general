@@ -4,6 +4,7 @@ import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import ImageQR from '../../components/ImageQR/ImageQR';
+import { PdfQr } from '../../components/PdfQr/PdfQr';
 
 const EventDashboardPage = () => {
 
@@ -61,6 +62,12 @@ const EventDashboardPage = () => {
         console.log('eventData', eventData);
     }, [ eventData ]);
 
+    const [ qrPDF, setPDF ] = useState();
+
+    const createPDF = () => {
+        setPDF(eventData.qrEvent);
+    };
+
     return (
         <>
             <div className={styles.page}>
@@ -79,6 +86,8 @@ const EventDashboardPage = () => {
                     </section>
                     <div className={ styles.infoPanel }>
                         <ImageQR qr={eventData.qrEvent} />
+                        <button onClick={createPDF}>pdf</button>
+                        <PdfQr path='../../assets/logo.svg' />
                         <InscriptionsRecap capacity={ String(eventData?.capacity) } />
                     </div>
                 </section>
