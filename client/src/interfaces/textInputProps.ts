@@ -1,5 +1,3 @@
-import { ChangeEvent } from 'react';
-
 export interface TextInputProps {
     label: string;
     subtitle?: string;
