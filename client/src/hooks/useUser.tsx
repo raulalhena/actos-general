@@ -14,7 +14,14 @@ export const useUser = () => {
     };
 
     const removeUser = () => {
-        setUser(null);
+        setUser({
+            id: '',
+            name: '', 
+            surname: '',
+            email: '', 
+            role: '',
+            token: ''
+        });
         setItem('user', '');
     };
 

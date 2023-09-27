@@ -1,10 +1,13 @@
-import { createContext } from 'react';
+import { createContext, Dispatch, SetStateAction } from 'react';
 import { User } from '../interfaces/User';
-import { AuthContextInterface } from '../interfaces/authContext';
   
 const initialContext = {
     user: null,
-    setUser: (user: User) => {}
-} as AuthContextInterface;
+    setUser: () => undefined
+};
   
-export const AuthContext = createContext(initialContext);
+export const AuthContext = createContext<{ 
+        user: User | null, 
+        setUser: Dispatch<SetStateAction<User>>
+    }>
+    (initialContext);
