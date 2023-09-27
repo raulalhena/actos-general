@@ -52,7 +52,7 @@ const EventForm = () => {
         language: [], //Select con checkbox
         image: '', 
         video: '', 
-        capacity: 0,
+        capacity: undefined,
         isLimited: false,
         // qrEvent: '',
         // qrAttendees: [],
@@ -194,10 +194,10 @@ const EventForm = () => {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const id = event.target.id;
         const value: string | number = event.target.value;
-    
+  
         if (id === 'capacity') {
             const numericValue = Number(value);
-            if (!isNaN(numericValue) && numericValue > 0) {
+            if (numericValue >= 0) {
                 setFormData({
                     ...formData,
                     [id]: numericValue,
@@ -211,7 +211,6 @@ const EventForm = () => {
         }
     };
     
-
     // Select
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
@@ -260,7 +259,7 @@ const EventForm = () => {
         } else {
             toast.error('La fecha seleccionada es anterior a la fecha actual.', {
                 position: 'top-right',
-                autoClose: 5000,
+                autoClose: 2500,
                 pauseOnHover: true,
             });
         }
@@ -280,6 +279,11 @@ const EventForm = () => {
             ...prevData,
             image: imageResp.imageUrl 
         }));
+        toast.success('Imagen enviada correctamente', {
+            position: toast.POSITION.TOP_RIGHT,
+            closeOnClick: true,
+            pauseOnHover: true,
+        });
     };
 
     // Submit Button
@@ -296,7 +300,6 @@ const EventForm = () => {
             const errorMessage = `Por favor, complete los siguientes campos obligatorios: ${missingFields.join(', ')}.`;
             toast.error(errorMessage, {
                 position: toast.POSITION.TOP_RIGHT,
-                autoClose: 5000,
                 closeOnClick: true,
                 pauseOnHover: true,
             });
@@ -421,7 +424,7 @@ const EventForm = () => {
             <form data-testid="event-form" className={styles.formContainer} onSubmit={handleSubmit}>
                 
                 <div className={styles.formContent} >
-                    <ToastContainer position="top-right" autoClose={3000} />
+                    <ToastContainer position="top-right" autoClose={2500} />
                     <SectionForm
                         title="1 INFORMACIÓN BÁSICA"
                         isVisible={isSection1Visible}
@@ -683,7 +686,7 @@ const EventForm = () => {
                                 <TextInputWithSubtitle
                                     id="capacity"
                                     label="Límite de entradas"
-                                    subtitle="Ingrese solamente caracteres numéricos"
+                                    subtitle="Ingrese solamente caracteres numéricos."
                                     placeholder=""
                                     minLength={0}
                                     maxLength={500}
