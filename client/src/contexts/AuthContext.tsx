@@ -1,20 +1,10 @@
 import { createContext } from 'react';
 import { User } from '../interfaces/User';
-
-interface AuthContext {
-    user: User | null;
-    setUser: Dispatch<SetStateAction<User>>
-  }
+import { AuthContextInterface } from '../interfaces/authContext';
   
 const initialContext = {
-    user: {
-        email: null,
-  
-    },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    user: null,
     setUser: (user: User) => {}
-} as UserContextInterface;
+} as AuthContextInterface;
   
 export const AuthContext = createContext(initialContext);
-  
- 

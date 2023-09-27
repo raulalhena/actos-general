@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { useUser, User } from './useUser';
+import { useUser } from './useUser';
+import { User } from '../interfaces/User';
 import { useLocalStorage } from './useLocalStorage';
 
 export const useAuth = () => {

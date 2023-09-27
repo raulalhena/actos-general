@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { User } from '../hooks/useUser';
+import { useState, ReactNode } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
+import { User } from '../interfaces/User';
 
 interface AuthProviderProps {
     children: ReactNode
@@ -8,8 +8,11 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [ user, setUser ] = useState<User>({
+        id: '',
         email: '',
-        password: ''
+        surname: '',
+        role: '',
+        token: ''
     });
 
     return (

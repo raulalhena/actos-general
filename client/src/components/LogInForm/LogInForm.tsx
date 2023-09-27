@@ -28,14 +28,14 @@ const LogInForm = () => {
         event.preventDefault();
 
         // Validate password
-        // const isValidPassword = validatePassword(logInData.password);
-        // if (!isValidPassword) {
-        //     setPasswordError(
-        //         'La contraseña debe tener al menos una mayúscula, un número y un carácter especial.'
-        //     );
-        // } else {
-        //     setPasswordError(null);
-        // }
+        const isValidPassword = validatePassword(logInData.password);
+        if (!isValidPassword) {
+            setPasswordError(
+                'La contraseña debe tener al menos una mayúscula, un número y un carácter especial.'
+            );
+        } else {
+            setPasswordError(null);
+        }
 
         // Validate email
         const isValidEmail = validateEmail(logInData.email);
