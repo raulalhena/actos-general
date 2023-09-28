@@ -7,9 +7,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MiscModule } from './misc/misc.module';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({ 
+      rootPath: join(__dirname, '..', '/dist/public'),
+      exclude: [ '/api/*' ]
+   }),
     ConfigModule.forRoot({isGlobal: true}),
     EventsModule,
     UsersModule,
