@@ -150,7 +150,8 @@ const EventDetailPage = () => {
                 <h1 className={styles.sectionTitle}>Organizadores</h1>
                 <div className={styles.organizedBySection}>
                     <p className={styles.organizedBy}>{eventData.organizedBy}</p>
-                    <ButtonRed label="contactar" />
+                    <a href={'mailto:' + eventData.contactEmail}><ButtonRed label="contactar" /></a>
+                    
                 </div>
             </section>
         </div>
