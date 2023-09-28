@@ -1,38 +1,43 @@
 .container {
-  width: fit-content;
-  height: fit-content;
-  border-radius: 12px;
-  border: 1.5px solid rgba(28, 46, 72, 1);
+display: flex;
+flex-direction: column;
+gap: 1rem;
+width: 50vw;
+}
+
+.containerSection {
+  border: 1px solid #cacaca;
+  border-radius: 20px;
+  padding: 0.5rem;
+  padding-left: 1rem;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  box-shadow: 4px 4px 0 0 #cacaca;
-  gap: 2rem;
-  padding: 1rem;
-  margin: 1rem;
+  gap: 0.5rem;
+  color: #1C2E48;
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.1);
 }
 
-.inscriptions {
+.containerSection a, .containerSection p {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 16px;
+  color: #1C2E48;
+  font-weight: 500;
 }
 
-/* Para pantallas más grandes o iguales a 768px (md) */
-@media screen and (min-width: 768px) {
+.container a :hover {
+  font-weight: 700;
+  color: #E15A40;
 }
 
-/* Para pantallas más grandes o iguales a 992px (lg) */
-@media screen and (min-width: 992px) {
+.inscriptionsSection {
+  font-weight: 700;
+  color: #E15A40;
 }
 
-/* Para pantallas más grandes o iguales a 1200px (xl) */
-@media screen and (min-width: 1200px) {
-}
-
-/* Para pantallas más grandes o iguales a 1400px (xxl) */
-@media screen and (min-width: 1400px) {
-  .container {
-    flex-direction: row;
-  }
+.icon {
+  font-size: 16px;
+  color: #1C2E48;
+  font-weight: 500;
 }

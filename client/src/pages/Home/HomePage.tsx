@@ -22,13 +22,13 @@ const HomePage = () => {
     return (
         <>
             <HomePageHeader />
-            <section className={styles.section}>
+            {/* <section className={styles.section}>
                 <div className={styles.title}>
                     <h1 className={styles.dash}>—</h1>
                     <h1>Categorías</h1>
                 </div>
                 <HomePageCategories />
-            </section>
+            </section> */}
             <section className={styles.section}>
                 <div className={styles.title}>
                     <h1 className={styles.dash}>—</h1>
