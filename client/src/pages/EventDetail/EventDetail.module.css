@@ -1,3 +1,7 @@
+.description p{
+  font-size: 16px;
+}
+
 .page {
   display: flex;
   flex-direction: column;

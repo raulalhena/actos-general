@@ -44,6 +44,10 @@ const EventDetailPage = () => {
         fetchData();
     }, [ _id ]);
 
+    const renderFormattedDescription = () => {
+        return <div className={styles.description} dangerouslySetInnerHTML={{ __html: eventData.description }} />;
+    };
+
     return (
         <div className={styles.page}>
 
@@ -111,7 +115,9 @@ const EventDetailPage = () => {
             {/* DESCRIPTION, WEBLINK */}
             <section className={styles.section}>
                 <h1 className={styles.sectionTitle}>Acerca de este evento</h1>
-                <p className={styles.description}>{eventData.description}</p>
+                <p className={styles.description}>
+                    {renderFormattedDescription()}
+                </p>
                 <a href={eventData.webLink} className={styles.webLink}>
                     {eventData.webLink}
                 </a>
