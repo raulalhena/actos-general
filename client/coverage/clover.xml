@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1695886582991" clover="3.2.0">
-  <project timestamp="1695886582991" name="All files">
-    <metrics statements="1286" coveredstatements="830" conditionals="41" coveredconditionals="30" methods="50" coveredmethods="20" elements="1377" coveredelements="880" complexity="0" loc="1286" ncloc="1286" packages="19" files="19" classes="19"/>
+<coverage generated="1695897437399" clover="3.2.0">
+  <project timestamp="1695897437399" name="All files">
+    <metrics statements="1287" coveredstatements="831" conditionals="41" coveredconditionals="30" methods="50" coveredmethods="20" elements="1378" coveredelements="881" complexity="0" loc="1287" ncloc="1287" packages="19" files="19" classes="19"/>
     <package name="components.Button">
       <metrics statements="15" coveredstatements="15" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="ButtonSubmit.tsx" path="D:\Yumi\factoria-f5\projects\ACTOS\actos-general\client\src\components\Button\ButtonSubmit.tsx">
@@ -236,9 +236,9 @@
       </file>
     </package>
     <package name="components.EventForm">
-      <metrics statements="730" coveredstatements="448" conditionals="21" coveredconditionals="12" methods="29" coveredmethods="6"/>
+      <metrics statements="731" coveredstatements="449" conditionals="21" coveredconditionals="12" methods="29" coveredmethods="6"/>
       <file name="EventForm.tsx" path="D:\Yumi\factoria-f5\projects\ACTOS\actos-general\client\src\components\EventForm\EventForm.tsx">
-        <metrics statements="730" coveredstatements="448" conditionals="21" coveredconditionals="12" methods="29" coveredmethods="6"/>
+        <metrics statements="731" coveredstatements="449" conditionals="21" coveredconditionals="12" methods="29" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -941,8 +941,8 @@
         <line num="700" count="1" type="stmt"/>
         <line num="701" count="1" type="stmt"/>
         <line num="702" count="1" type="stmt"/>
-        <line num="703" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="704" count="0" type="stmt"/>
+        <line num="703" count="1" type="stmt"/>
+        <line num="704" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="705" count="0" type="stmt"/>
         <line num="706" count="0" type="stmt"/>
         <line num="707" count="0" type="stmt"/>
@@ -954,7 +954,7 @@
         <line num="713" count="0" type="stmt"/>
         <line num="714" count="0" type="stmt"/>
         <line num="715" count="0" type="stmt"/>
-        <line num="716" count="1" type="stmt"/>
+        <line num="716" count="0" type="stmt"/>
         <line num="717" count="1" type="stmt"/>
         <line num="718" count="1" type="stmt"/>
         <line num="719" count="1" type="stmt"/>
@@ -969,6 +969,7 @@
         <line num="728" count="1" type="stmt"/>
         <line num="729" count="1" type="stmt"/>
         <line num="730" count="1" type="stmt"/>
+        <line num="731" count="1" type="stmt"/>
       </file>
     </package>
     <package name="components.FormField">
