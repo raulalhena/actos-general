@@ -1,8 +1,8 @@
 .container {
-display: flex;
-flex-direction: column;
-gap: 1rem;
-width: 50vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 50vw;
 }
 
 .containerSection {
@@ -13,31 +13,44 @@ width: 50vw;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #1C2E48;
+  color: #1c2e48;
   box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.1);
 }
 
-.containerSection a, .containerSection p {
+.containerSection a,
+.containerSection p {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 16px;
-  color: #1C2E48;
+  font-size: 14px;
+  color: #1c2e48;
   font-weight: 500;
 }
 
 .container a :hover {
   font-weight: 700;
-  color: #E15A40;
+  color: #e15a40;
 }
 
 .inscriptionsSection {
   font-weight: 700;
-  color: #E15A40;
+  color: #e15a40;
 }
 
 .icon {
   font-size: 16px;
-  color: #1C2E48;
+  color: #1c2e48;
   font-weight: 500;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) {
+  .container {
+    width: 50vw;
+  }
+
+  .containerSection a,
+.containerSection p {
+  font-size: 16px;
+}
 }
