@@ -4,6 +4,9 @@ import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRe
 import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
+import { PDFViewer, Page, Document, View, Image } from '@react-pdf/renderer';
+import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
+import qrImg from '../../../../server/src/public/65156e86d59ccd3651d50422.png';
 
 const EventDashboardPage = () => {
     const location = useLocation();
@@ -60,24 +63,38 @@ const EventDashboardPage = () => {
         console.log('eventData', eventData);
     }, [ eventData ]);
 
+    const [ showPDF, setShowPDF ] = useState(false);
+
+    const createPDF = () => {
+        setShowPDF(!showPDF);
+    };
+
+    // console.log(typeof qrImg)
+
     return (
         <>
-            <div className={styles.page}>
-                <section className={styles.top}>
-                    <section className={styles.header}>
-                        <div>
-                            <section className={styles.title}>
-                                <h1 className={styles.dash}>—</h1>
-                                <h1>Resumen de tu evento: {eventData.name}</h1>
-                            </section>
+            { !showPDF ?
+                <div className={styles.page}>
+                    <section className={styles.top}>
+                        <section className={styles.header}>
+                            <div>
+                                <section className={styles.title}>
+                                    <h1 className={styles.dash}>—</h1>
+                                    <h1>Resumen de tu evento: {eventData.name}</h1>
+                                </section>
+                            </div>
+                        </section>
+                        <div className={styles.containerSection}>
+                            <InscriptionsRecap capacity={String(eventData?.capacity)} createPDF={createPDF}/>
                         </div>
                     </section>
-                    <div className={styles.containerSection}>
-                        <InscriptionsRecap capacity={String(eventData?.capacity)} />{' '}
-                    </div>
-                </section>
-                <EventDashboardForm eventData={eventData} />
-            </div>
+                    <EventDashboardForm eventData={eventData} />
+                </div>
+                :
+                <PDFViewer style={{ width: '100%', height: '90vh' }}>                 
+                    <QRtoPDFDocument eventData={eventData}  qrImg={qrImg}/>
+                </PDFViewer>
+            }
         </>
     );
 };

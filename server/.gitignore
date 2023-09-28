@@ -3,3 +3,4 @@ dist
 .env
 upload
 qr_events
+/src/public
