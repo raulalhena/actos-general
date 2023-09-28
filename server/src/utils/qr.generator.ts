@@ -5,7 +5,7 @@ import { createWriteStream } from 'fs';
 const generateEventQR = async (eventId: Types.ObjectId) => {
     try{
         const qr_svg = qr.image(eventId.toString(), { type: 'svg' });
-        qr_svg.pipe(createWriteStream(`qr_events/${eventId.toString()}.svg`));   
+        qr_svg.pipe(createWriteStream(`../../dist/public/assets/${eventId.toString()}.svg`));   
         const eventQR = qr.imageSync(`http://localhost:8000/api/event/${eventId.toString()}`, { type: 'svg' });
         return eventQR;
     } catch(error){ 
