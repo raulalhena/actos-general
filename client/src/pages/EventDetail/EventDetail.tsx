@@ -8,7 +8,6 @@ import { IoPeopleSharp } from 'react-icons/io5';
 import { IoLanguageOutline } from 'react-icons/io5';
 import { useParams } from 'react-router-dom';
 import ButtonRed from '../../components/ButtonRed/ButtonRed';
-import DOMPurify from 'dompurify';
 
 const EventDetailPage = () => {
 
@@ -45,7 +44,9 @@ const EventDetailPage = () => {
         fetchData();
     }, [ _id ]);
 
-    const purifiedDescription = DOMPurify.sanitize(eventData.description, { ALLOWED_TAGS: [] });
+    const renderFormattedDescription = () => {
+        return <div className={styles.description} dangerouslySetInnerHTML={{ __html: eventData.description }} />;
+    };
 
     return (
         <div className={styles.page}>
@@ -115,7 +116,7 @@ const EventDetailPage = () => {
             <section className={styles.section}>
                 <h1 className={styles.sectionTitle}>Acerca de este evento</h1>
                 <p className={styles.description}>
-                    {purifiedDescription}
+                    {renderFormattedDescription()}
                 </p>
                 <a href={eventData.webLink} className={styles.webLink}>
                     {eventData.webLink}
