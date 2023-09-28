@@ -1,6 +1,5 @@
 import { Document, Image, Page, View } from '@react-pdf/renderer';
-import Img from '../../../../server/qr_events/651441b618f217f1a9d762ea.png';
-
+// import Img from '../../../../server/qr_events/651441b618f217f1a9d762ea.png';
 
 type Props = {
     qrImg: string;

@@ -4,7 +4,7 @@ import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
-import qrImg from '../../../../server/qr_events/651441b618f217f1a9d762ea.png';
+// import qrImg from '../../../../server/qr_events/651441b618f217f1a9d762ea.png';
 import { PDFViewer } from '@react-pdf/renderer';
 
 const EventDashboardPage = () => {
@@ -88,10 +88,10 @@ const EventDashboardPage = () => {
                         </section>
                         <div styles={{ border: '10px solid red' }}>
                             <div styles={{ border: '1px solid red' }}>
-                                <img 
+                                {/* <img 
                                     src={qrImg}
                                     style={{ maxWidth: '100px', maxHeight: '100px' }} 
-                                />
+                                /> */}
                                 <button onClick={createPDF}>pdf</button>
                             </div>
                             <InscriptionsRecap capacity={ String(eventData?.capacity) } />
