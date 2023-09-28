@@ -37,7 +37,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     useEffect(() => {
         setFormData(eventData);
-        console.log('form data', formData);
+        // console.log('form data', formData);
     }, [ eventData, formData ]);
 
     // Visibility
@@ -111,12 +111,22 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                     });
                     setIsModalOpen(false);
                 },
-                () => {
+                async () => {
                     setFormData({
                         ...formData,
                         visibility: false,
                     });
                     setIsModalOpen(false);
+
+                    const res = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
+                        method: 'PUT',
+                        headers:{ 'Content-type': 'application/json' },
+                        body: JSON.stringify({
+                            visibility: false
+                        })
+                    });
+
+                    return res;
                 }
             );
         } else if (value === 'Público') {
@@ -137,12 +147,22 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                     });
                     setIsModalOpen(false);
                 },
-                () => {
+                async () => {
                     setFormData({
                         ...formData,
                         visibility: true,
                     });
                     setIsModalOpen(false);
+
+                    const res = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
+                        method: 'PUT',
+                        headers:{ 'Content-type': 'application/json' },
+                        body: JSON.stringify({
+                            visibility: true
+                        })
+                    });
+
+                    return res;
                 },
                 
             );
