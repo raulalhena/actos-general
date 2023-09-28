@@ -4,7 +4,7 @@ import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRe
 import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
-import { PDFViewer, Page, Document, View, Image } from '@react-pdf/renderer';
+import { PDFViewer } from '@react-pdf/renderer';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
 import qrImg from '../../../../server/src/public/65156e86d59ccd3651d50422.png';
 
@@ -68,8 +68,6 @@ const EventDashboardPage = () => {
     const createPDF = () => {
         setShowPDF(!showPDF);
     };
-
-    // console.log(typeof qrImg)
 
     return (
         <>
