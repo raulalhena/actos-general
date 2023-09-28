@@ -99,7 +99,7 @@ const EventDashboardPage = () => {
                     </section>
                     <EventDashboardForm eventData={ eventData } />
                 </div>
-                :
+                : 
                 <PDFViewer style={{ width: '100%', height: '90vh' }}>
                     <QRtoPDFDocument data={eventData.name, qrImg} />
                 </PDFViewer>
