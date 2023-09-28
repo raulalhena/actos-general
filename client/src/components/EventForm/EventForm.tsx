@@ -699,6 +699,7 @@ const EventForm = () => {
                                 subtitle={'Activa el botón para definir número de entradas.'}
                                 onChange={handleToggleCapacityChange}
                                 isChecked={selectedCapacity}
+                                className={styles}
                             />
                             {selectedCapacity ? (
                                 <TextInputWithSubtitle

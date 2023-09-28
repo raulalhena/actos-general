@@ -1,4 +1,4 @@
-import ButtonWhite from '../ButtonWhite/ButtonWhite';
+import ButtonRed from '../ButtonRed/ButtonRed';
 import styles from './InscriptionsRecap.module.css';
 
 interface InscriptionsRecapProps {
@@ -17,7 +17,7 @@ const InscriptionsRecap = ({ capacity }: InscriptionsRecapProps) => {
                     <h2>Inscripciones</h2>
                 </section>
                 <section>
-                    <ButtonWhite label="Mostrar Usuarios Inscritos" />
+                    <ButtonRed label="Mostrar Usuarios Inscritos" />
                 </section>
             </div>
         </>
