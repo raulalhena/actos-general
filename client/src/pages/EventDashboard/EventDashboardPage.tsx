@@ -1,14 +1,11 @@
-import { useEffect, useState } from 'react';import EventDashboardForm from '../../components/EventDashboardForm/EventDashboardForm';
+import { useEffect, useState } from 'react';
+import EventDashboardForm from '../../components/EventDashboardForm/EventDashboardForm';
 import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRecap';
 import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
-import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
-import qrImg from '../../../../server/qr_events/651441b618f217f1a9d762ea.png';
-import { PDFViewer } from '@react-pdf/renderer';
 
 const EventDashboardPage = () => {
-
     const location = useLocation();
     const eventId = location.state?.id;
 
@@ -20,33 +17,33 @@ const EventDashboardPage = () => {
         tags: [],
         mode: '',
         type: '',
-        address: '', 
-        webLink: '', 
+        address: '',
+        webLink: '',
         date: '',
         startTime: '',
         endTime: '',
         timeZone: '',
         showTime: false,
         showDate: false,
-        confirmed: false, 
+        confirmed: false,
         description: '',
-        web: '', 
-        organizedBy: [], 
+        web: '',
+        organizedBy: [],
         contactEmail: '',
         isPrivate: false,
         language: [], //Select con checkbox
-        image: '', 
-        video: '', 
+        image: '',
+        video: '',
         capacity: 0,
         isLimited: false,
-        // qrEvent: '',
-        // qrAttendees: [],
-        // attendees: [],
-        // submitted: [],
-        // price: 0, 
-        // payment: '', 
-        // visibility: false,
-        // status: false
+    // qrEvent: '',
+    // qrAttendees: [],
+    // attendees: [],
+    // submitted: [],
+    // price: 0,
+    // payment: '',
+    // visibility: false,
+    // status: false
     });
 
     useEffect(() => {
@@ -63,47 +60,24 @@ const EventDashboardPage = () => {
         console.log('eventData', eventData);
     }, [ eventData ]);
 
-    const [ showPDF, setShowPDF ] = useState(false);
-
-    const createPDF = () => {
-        setShowPDF(true);
-    };
-
     return (
         <>
-            { !showPDF ? 
-                <div className={styles.page}>
-                    <section className={styles.top}>
-                        <section className={styles.header}>
-                            <div>
-                                <section className={styles.title}>
-                                    <h1 className={styles.dash}>—</h1>
-                                    <h1>Resumen de tu evento: {eventData.name}</h1>
-                                </section>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                            </div>
-                        </section>
-                        <div style={{ border: '10px solid red' }}>
-                            <div style={{ border: '1px solid red' }}>
-                                <img 
-                                    src={qrImg}
-                                    style={{ maxWidth: '100px', maxHeight: '100px' }} 
-                                />
-                                <button onClick={createPDF}>pdf</button>
-                            </div>
-                            <InscriptionsRecap capacity={ String(eventData?.capacity) } />
+            <div className={styles.page}>
+                <section className={styles.top}>
+                    <section className={styles.header}>
+                        <div>
+                            <section className={styles.title}>
+                                <h1 className={styles.dash}>—</h1>
+                                <h1>Resumen de tu evento: {eventData.name}</h1>
+                            </section>
                         </div>
                     </section>
-                    <EventDashboardForm eventData={ eventData } />
-                </div>
-                : 
-                <PDFViewer style={{ width: '100%', height: '90vh' }}>
-                    <QRtoPDFDocument data={eventData.name, qrImg} />
-                </PDFViewer>
-            }
+                    <div className={styles.containerSection}>
+                        <InscriptionsRecap capacity={String(eventData?.capacity)} />{' '}
+                    </div>
+                </section>
+                <EventDashboardForm eventData={eventData} />
+            </div>
         </>
     );
 };

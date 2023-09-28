@@ -384,6 +384,15 @@ const EventForm = () => {
         e.preventDefault();
         e.stopPropagation();
         const file = e.dataTransfer.files[0];
+        if(file.size > 2000000) {
+            toast.error(`El tamaño supera el máximo de 2MB. Imagen usada: ${(file.size/1000000).toFixed(2)}MB.`, {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+            e.dataTransfer.clearData();
+            return;
+        }
         e.dataTransfer.clearData();
         // setEventImage(file);
         handleFile(file);
