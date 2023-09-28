@@ -14,19 +14,16 @@ import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitl
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventDashboardForm.module.css';
-import categories from '../../data/category.json';
-import timeZone from '../../data/timeZone.json';
-import languages from '../../data/languages.json';
-import time from '../../data/time.json';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { ToastContainer } from 'react-toastify';
-import types from '../../data/type.json';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 import SelectStatus from '../SelectStatus/SelectStatus';
 
 import { BsPatchCheckFill } from 'react-icons/bs';
 import ModalDisplay from '../Modal/ModalDisplay';
 import { useNavigate } from 'react-router-dom';
+import SelectCategories from '../SelectCategories/SelectCategories';
+import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 
 type Props = { eventData: EventDashboardFormProps };
 
@@ -47,7 +44,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     // Text area
     const handleTextChange = (text: string ) => {
-        // console.log(text)
         setFormData({
             ...formData,
             description: text,
@@ -89,7 +85,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // Select
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
-    
+        console.log(formData.category);
         let selectedValue = false;
         let newStatus = formData.status;
     
@@ -419,6 +415,117 @@ END Modal
         setSelectedCapacity(!selectedCapacity);
     };
 
+    // Form fields auto filled state
+    const [ categories, setCategories ] = useState<Array<EventDashboardFormProps>>([]);
+    const [ subcategories, setSubcategories ] = useState<Array<string>>([]);
+    const [ types, setTypes ] = useState<Array<string>>([]);
+    const [ languages, setLanguages ] = useState<Array<string>>([]);
+    const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
+    const [ time, setTime ] = useState<Array<string>>([]);
+   
+    // Get all data to fill fields
+    useEffect(() => {
+        const getCategories = async () => {
+            const resp = await fetch('http://localhost:8000/api/misc/categories');
+            const categoriesDb = await resp.json();
+   
+            setCategories(categoriesDb);
+        };
+   
+        getCategories();
+    }, []);
+   
+    // get types
+   
+    useEffect(() => {
+        const getTypes = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/types');
+                const data = await response.json();
+                const typeNames = data.map((type: { name: string; }) => type.name);
+                setTypes(typeNames);
+            } catch (error) {
+                console.error('Error al obtener los tipos:', error);
+            }
+        };
+        getTypes();
+    }, []);
+   
+    // get languages
+   
+    useEffect(() => {
+        const getLanguages = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/languages');
+                const data = await response.json();
+                const language = data.map((language: { name: string; }) => language.name);
+                setLanguages(language);
+            } catch (error) {
+                console.error('Error al obtener los idiomas:', error);
+            }
+        };
+        getLanguages();
+           
+    }, []);
+   
+    // get time zone
+   
+    useEffect(() => {
+        const getTimeZone = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/timezones');
+                const data = await response.json();
+                const timeZone = data.map((timeZone: { name: string; }) => timeZone.name);
+                setTimeZone(timeZone);
+            } catch (error) {
+                console.error('Error al obtener las zonas horarias:', error);
+            }
+        };
+        getTimeZone();
+    }, []);
+   
+    // get time
+   
+    useEffect(() => {
+        const getTime = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/times');
+                const data = await response.json();
+                const time = data.map((time: { name: string; }) => time.name);
+                setTime(time);
+            } catch (error) {
+                console.error('Error al obtener las horas:', error);
+            }
+        };
+        getTime();
+    }, []);
+
+    const [ selectedCategory, setSelectedCategory ] = useState(eventData.category);
+
+    // Categories Handle Change
+    const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+        console.log(selectedCategory);
+        const { value } = event.target;
+        const selected = event.target.selectedOptions[0].text;
+        console.log(value);
+        setSelectedCategory(selectedCategory);
+
+        setFormData({
+            ...formData,
+            category: selected,
+        });
+
+        await getSubcategories(value);
+    };
+
+    // Get Subcategories
+    const getSubcategories = async (categoryId: string) => {
+        const resp = await fetch(`http://localhost:8000/api/misc/categories/${categoryId}/subcategories`);
+        const categoriesDb = await resp.json();
+        
+        setSubcategories(categoriesDb.subcategories);
+    };
+
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     return (
@@ -440,17 +547,17 @@ END Modal
                     toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
 
                     <FormField>
-                        <Select
+                        <SelectCategories
                             id="category"
                             label="Categoría *"
                             options={categories}
-                            value={formData.category}
-                            onChange={handleSelectChange}
+                            value={selectedCategory}
+                            onChange={handleCategoryChange}
                         />
-                        <Select
+                        <SelectSubcategories
                             id="subcategory"
                             label="Subcategoría *"
-                            options={categories}
+                            options={subcategories}
                             value={formData.subcategory}
                             onChange={handleSelectChange}
                         />
