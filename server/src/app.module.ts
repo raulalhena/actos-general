@@ -12,10 +12,10 @@ import { join } from 'path';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({ 
-      rootPath: join(__dirname, '..', '/dist/public'),
-      exclude: [ '/api/*' ]
-   }),
+  //   ServeStaticModule.forRoot({ 
+  //     rootPath: join(__dirname, '..', '/dist/public'),
+  //     exclude: [ '/api/*' ]
+  //  }),
     ConfigModule.forRoot({isGlobal: true}),
     EventsModule,
     UsersModule,
