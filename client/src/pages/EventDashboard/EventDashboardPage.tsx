@@ -86,8 +86,8 @@ const EventDashboardPage = () => {
                                 </p>
                             </div>
                         </section>
-                        <div styles={{ border: '10px solid red' }}>
-                            <div styles={{ border: '1px solid red' }}>
+                        <div style={{ border: '10px solid red' }}>
+                            <div style={{ border: '1px solid red' }}>
                                 <img 
                                     src={qrImg}
                                     style={{ maxWidth: '100px', maxHeight: '100px' }} 
@@ -99,7 +99,7 @@ const EventDashboardPage = () => {
                     </section>
                     <EventDashboardForm eventData={ eventData } />
                 </div>
-                :
+                : 
                 <PDFViewer style={{ width: '100%', height: '90vh' }}>
                     <QRtoPDFDocument data={eventData.name, qrImg} />
                 </PDFViewer>
