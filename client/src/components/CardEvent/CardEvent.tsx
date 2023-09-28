@@ -1,6 +1,6 @@
 import styles from './CardEvent.module.css';
 import { CardEventProps } from '../../interfaces/cardEventProps';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/zing.png';
 import prueba from '../../assets/prueba.jpg';
 import { Link } from 'react-router-dom';
 
