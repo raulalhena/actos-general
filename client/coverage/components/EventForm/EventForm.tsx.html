@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.42% </span>
+                <span class="strong">61.29% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>449/731</span>
+                <span class='fraction'>453/739</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20.68% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/29</span>
+                <span class='fraction'>6/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.42% </span>
+                <span class="strong">61.29% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>449/731</span>
+                <span class='fraction'>453/739</span>
             </div>
         
             
@@ -794,7 +794,15 @@
 <a name='L729'></a><a href='#L729'>729</a>
 <a name='L730'></a><a href='#L730'>730</a>
 <a name='L731'></a><a href='#L731'>731</a>
-<a name='L732'></a><a href='#L732'>732</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L732'></a><a href='#L732'>732</a>
+<a name='L733'></a><a href='#L733'>733</a>
+<a name='L734'></a><a href='#L734'>734</a>
+<a name='L735'></a><a href='#L735'>735</a>
+<a name='L736'></a><a href='#L736'>736</a>
+<a name='L737'></a><a href='#L737'>737</a>
+<a name='L738'></a><a href='#L738'>738</a>
+<a name='L739'></a><a href='#L739'>739</a>
+<a name='L740'></a><a href='#L740'>740</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -872,6 +880,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -988,6 +997,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1004,6 +1016,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1498,7 +1515,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1549,6 +1565,7 @@ import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
+import TextInputNumber from '../TextInputNumber/TextInputNumber';
 &nbsp;
 // Form
 const EventForm = () =&gt; {
@@ -1722,21 +1739,7 @@ const EventForm = () =&gt; {
 <span class="cstat-no" title="statement not covered" >        const id = event.target.id;</span>
 <span class="cstat-no" title="statement not covered" >        const value: string = event.target.value;</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >        if (id === 'capacity') {</span>
-<span class="cstat-no" title="statement not covered" >            const numericValue = Number(value);</span>
-<span class="cstat-no" title="statement not covered" >            if (numericValue &gt;= 1) {</span>
-<span class="cstat-no" title="statement not covered" >                setFormData({</span>
-<span class="cstat-no" title="statement not covered" >                    ...formData,</span>
-<span class="cstat-no" title="statement not covered" >                    [id]: numericValue,</span>
-<span class="cstat-no" title="statement not covered" >                });</span>
-<span class="cstat-no" title="statement not covered" >            } else {</span>
-<span class="cstat-no" title="statement not covered" >                toast.error('Si hay limite de entradas, el número debe ser mayor o igual a 1', {</span>
-<span class="cstat-no" title="statement not covered" >                    position: 'top-right',</span>
-<span class="cstat-no" title="statement not covered" >                    autoClose: 2500,</span>
-<span class="cstat-no" title="statement not covered" >                    pauseOnHover: true,</span>
-<span class="cstat-no" title="statement not covered" >                });</span>
-<span class="cstat-no" title="statement not covered" >            }</span>
-<span class="cstat-no" title="statement not covered" >        } else if (id === 'webLink' || id === 'web') {</span>
+<span class="cstat-no" title="statement not covered" >        if (id === 'webLink' || id === 'web') {</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >            let newValue = value;</span>
 <span class="cstat-no" title="statement not covered" >            if (value.startsWith('www')) {</span>
@@ -1752,6 +1755,28 @@ const EventForm = () =&gt; {
 <span class="cstat-no" title="statement not covered" >                ...formData,</span>
 <span class="cstat-no" title="statement not covered" >                [id]: value,</span>
 <span class="cstat-no" title="statement not covered" >            });</span>
+<span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" >    };</span>
+&nbsp;
+    // Input
+    const handleInputNumberChange = <span class="fstat-no" title="function not covered" >(event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        const id = event.target.id;</span>
+<span class="cstat-no" title="statement not covered" >        const value: string = event.target.value;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        if (id === 'capacity') {</span>
+<span class="cstat-no" title="statement not covered" >            const numericValue = Number(value);</span>
+<span class="cstat-no" title="statement not covered" >            if (numericValue &gt;= 0) {</span>
+<span class="cstat-no" title="statement not covered" >                setFormData({</span>
+<span class="cstat-no" title="statement not covered" >                    ...formData,</span>
+<span class="cstat-no" title="statement not covered" >                    [id]: numericValue,</span>
+<span class="cstat-no" title="statement not covered" >                });</span>
+<span class="cstat-no" title="statement not covered" >            } else {</span>
+<span class="cstat-no" title="statement not covered" >                toast.error('Si hay limite de entradas, el número deben ser numeros positivos', {</span>
+<span class="cstat-no" title="statement not covered" >                    position: 'top-right',</span>
+<span class="cstat-no" title="statement not covered" >                    autoClose: 2500,</span>
+<span class="cstat-no" title="statement not covered" >                    pauseOnHover: true,</span>
+<span class="cstat-no" title="statement not covered" >                });</span>
+<span class="cstat-no" title="statement not covered" >            }</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
 <span class="cstat-no" title="statement not covered" >    };</span>
     
@@ -2226,20 +2251,19 @@ const EventForm = () =&gt; {
                                 subtitle={'Activa el botón para definir número de entradas.'}
                                 onChange={handleToggleCapacityChange}
                                 isChecked={selectedCapacity}
-                                className={styles}
+                                // className={styles}
                             /&gt;
                             {<span class="branch-0 cbranch-no" title="branch not covered" >selectedCapacity ? (</span>
-<span class="cstat-no" title="statement not covered" >                                &lt;TextInputWithSubtitle</span>
+<span class="cstat-no" title="statement not covered" >                                &lt;TextInputNumber</span>
 <span class="cstat-no" title="statement not covered" >                                    id="capacity"</span>
 <span class="cstat-no" title="statement not covered" >                                    label="Límite de entradas"</span>
 <span class="cstat-no" title="statement not covered" >                                    subtitle="Ingrese solamente caracteres numéricos mayores que 0."</span>
 <span class="cstat-no" title="statement not covered" >                                    placeholder="ej.: 20"</span>
-<span class="cstat-no" title="statement not covered" >                                    minLength={0}</span>
-<span class="cstat-no" title="statement not covered" >                                    maxLength={500}</span>
+<span class="cstat-no" title="statement not covered" >                                    // minLength={0}</span>
+<span class="cstat-no" title="statement not covered" >                                    // maxLength={500}</span>
 <span class="cstat-no" title="statement not covered" >                                    value={formData.capacity} </span>
-<span class="cstat-no" title="statement not covered" >                                    onChange={handleInputChange}</span>
+<span class="cstat-no" title="statement not covered" >                                    onChange={handleInputNumberChange}</span>
 <span class="cstat-no" title="statement not covered" >                                    isRequired={true}</span>
-<span class="cstat-no" title="statement not covered" >                                    type='number'</span>
 <span class="cstat-no" title="statement not covered" >                                /&gt;</span>
                             ): null }
                         &lt;/FormField&gt;
@@ -2263,7 +2287,7 @@ export default EventForm;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-09-28T10:37:17.250Z
+                at 2023-09-28T13:59:19.860Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

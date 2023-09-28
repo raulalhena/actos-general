@@ -10,7 +10,7 @@ import qrImg from '../../../../server/src/public/65156e86d59ccd3651d50422.png';
 
 const EventDashboardPage = () => {
     const location = useLocation();
-    const eventId = location.state.id;
+    const eventId = location.state?.id;
 
     const [ eventData, setEventData ] = useState<EventDashboardFormProps>({
         _id: '',
