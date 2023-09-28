@@ -83,7 +83,7 @@ const EventDashboardPage = () => {
                             </div>
                         </section>
                         <div className={styles.containerSection}>
-                            <InscriptionsRecap capacity={String(eventData?.capacity)} createPDF={createPDF}/>
+                            <InscriptionsRecap eventData={ eventData } createPDF={createPDF}/>
                         </div>
                     </section>
                     <EventDashboardForm eventData={eventData} />

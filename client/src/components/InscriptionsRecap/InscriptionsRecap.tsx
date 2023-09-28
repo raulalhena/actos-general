@@ -1,18 +1,19 @@
 import styles from './InscriptionsRecap.module.css';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
 import qrImg from '../../../../server/qr_events/65157c68a98cad7b39aa8f0c.png';
-import { PDFViewer } from '@react-pdf/renderer';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 import { BiSolidDownload } from 'react-icons/bi';
 import { useState } from 'react';
 import { FaUserCheck, FaTicketAlt } from 'react-icons/fa';
+import { EventFormProps } from '../../interfaces/eventFormProps';
 
 interface InscriptionsRecapProps {
-  capacity: string;
+  eventData: EventFormProps;
   createPDF: () => void;
 }
 
-const InscriptionsRecap = ({ capacity, createPDF }: InscriptionsRecapProps) => {
-    console.log('capacity', capacity);
+const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
+    console.log('capacity', eventData);
 
     return (
         <>  
@@ -21,18 +22,20 @@ const InscriptionsRecap = ({ capacity, createPDF }: InscriptionsRecapProps) => {
                     <div className={styles.containerSection}>
                         <FaUserCheck className={styles.icon} />
                         <p>
-                0/{capacity === 'undefined' ? '-' : capacity} Usuarios Inscritos
+                0/{eventData.capacity === undefined ? '-' : eventData.capacity} Usuarios Inscritos
                         </p>
                     </div>
                 </a>
 
                 <div className={styles.containerSection}>
                     <BiSolidDownload className={styles.icon} />
-                    <button style={{ boxShadow: 'none', border: '0px', backgroundColor: '#fff' }} onClick={createPDF}>Descargar QR del evento (.PDF)</button>
+                    <PDFDownloadLink document={ <QRtoPDFDocument eventData={eventData}  qrImg={qrImg}/> } fileName={ eventData.name } >
+                        <button>Descargar QR del evento (.PDF)</button>
+                    </PDFDownloadLink>
                     <p>|</p>
-                    <button style={{ boxShadow: 'none', border: '0px', backgroundColor: '#fff' }} onClick={createPDF}>
+                    <a href={qrImg} download>
                         <p>Descargar QR del evento (.PNG)</p>
-                    </button>
+                    </a>
                 </div>
             </div>
         </>
