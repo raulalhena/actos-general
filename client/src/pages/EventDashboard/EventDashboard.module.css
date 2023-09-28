@@ -19,7 +19,6 @@
 .top {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 3rem;
   margin-bottom: 6rem;
 }
@@ -40,6 +39,17 @@
   justify-content: space-between;
   align-items: center;
   border: 1px solid red;
+}
+
+.container {
+  width: fit-content;
+  /* border-radius: 12px; */
+  border: 1.5px solid rgba(28, 46, 72, 1);
+  /* box-shadow: 4px 4px 0 0 #cacaca; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1rem;
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */
