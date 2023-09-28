@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaLinkedinIn, FaYoutube } from 'react-icons/fa';
 import styles from './Footer.module.css';
 import logo from '../../assets/logo.png';
@@ -21,9 +20,9 @@ const Footer = () => {
         <>
             <div className={styles.footer}>
                 <section className={styles.sectionFooter}>
-                <div className={styles.brandSection}>
-                    <img src={logo} className={styles.logo} alt="Logo" />
-                    <p className={styles.brandName}>Fundación Privada Nous Cims</p>
+                    <div className={styles.brandSection}>
+                        <img src={logo} className={styles.logo} alt="Logo" />
+                        <p className={styles.brandName}>Fundación Privada Nous Cims</p>
                     </div>
                 </section>
                 <section className={styles.sectionFooter}>
@@ -42,16 +41,18 @@ const Footer = () => {
                     </div>
                 </section>
                 <section className={styles.sectionFooter}>
-                    <h1 className={styles.titleFooter}>#nouscims</h1>
                     <div className={styles.socialSection}>
-                        {socialMediaLinks.map((link, index) => (
-                            <div className={styles.iconModeContainer} key={index}>
-                                <a href={link.url} className={styles.iconLink}>
-                                    <div className={styles.iconContainer}>{link.icon}</div>
-                                </a>
-                                <span className={styles.mode}></span>
-                            </div>
-                        ))}
+                        <h1 className={styles.titleFooter}>#nouscims</h1>
+                        <div className={styles.socialIcons}>
+                            {socialMediaLinks.map((link, index) => (
+                                <div className={styles.iconModeContainer} key={index}>
+                                    <a href={link.url} className={styles.iconLink}>
+                                        <div className={styles.iconContainer}>{link.icon}</div>
+                                    </a>
+                                    <span className={styles.mode}></span>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </section>
             </div>

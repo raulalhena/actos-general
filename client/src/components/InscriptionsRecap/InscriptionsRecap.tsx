@@ -12,7 +12,7 @@ const InscriptionsRecap = ({ capacity }: InscriptionsRecapProps) => {
         <>
             <div className={styles.container}>
                 <section className={styles.inscriptions}>
-                    <h1>0/{capacity ? capacity : '-'}</h1>
+                    <h1>0/{ capacity === 'undefined' ? '-' : capacity }</h1>
                     <br />
                     <h2>Inscripciones</h2>
                 </section>
