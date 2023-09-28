@@ -1,13 +1,12 @@
 import LogInForm from '../../components/LogInForm/LogInForm';
 import styles from './login.module.css';
+import loginprueba from '../../assets/loginprueba.jpg';
 
 const LoginPage = () => {
     return (
-        <div>
-            <section className={styles.header}>Aquí va una imagen</section>
-            <div className={styles.container}>
+        <div className={styles.header}>
+            <img src={loginprueba}/>
                 <LogInForm />
-            </div>
         </div>
     );
 };

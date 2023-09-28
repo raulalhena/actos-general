@@ -91,6 +91,10 @@ const SignupForm = () => {
     return (
         <div className={styles.container}>
             <form onSubmit={handleSubmit}>
+            <section className={styles.optionTitle}>
+                    <h2>¿Ya tienes cuenta?</h2>
+                    <a href='./login' className={styles.registerLink}>Inicia sesión</a>
+                </section>
                 <section className={styles.signupForm}>
                     <h1>Registro de usuario</h1>
                     <TextInput

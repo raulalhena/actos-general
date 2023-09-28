@@ -80,9 +80,9 @@ const LogInForm = () => {
     return (
         <div className={styles.container}>
             <form onSubmit={handleSubmit}>
-                <section className={styles.registerTitle}>
+                <section className={styles.optionTitle}>
                     <h2>¿No tienes cuenta?</h2>
-                    <h2 className={styles.registerLink}>Regístrate</h2>
+                    <a href='./signup' className={styles.registerLink}>Regístrate</a>
                 </section>
                 <section className={styles.logInForm}>
                     <h1>Iniciar sesión</h1>
