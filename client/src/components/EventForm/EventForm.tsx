@@ -435,7 +435,7 @@ const EventForm = () => {
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     return (
-        <div className={styles.form}>
+        <div data-testid='event-form-component' className={styles.form}>
 
             <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
             <form data-testid="event-form" className={styles.formContainer} onSubmit={handleSubmit}>
