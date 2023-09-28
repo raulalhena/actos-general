@@ -8,6 +8,7 @@ import { IoPeopleSharp } from 'react-icons/io5';
 import { IoLanguageOutline } from 'react-icons/io5';
 import { useParams } from 'react-router-dom';
 import ButtonRed from '../../components/ButtonRed/ButtonRed';
+import ButtonInscription from '../../components/ButtonInscription/ButtonInscription';
 
 const EventDetailPage = () => {
 
@@ -59,19 +60,22 @@ const EventDetailPage = () => {
                 </div>
             </div>
 
+            <h1 className={styles.eventTitle}>{eventData.name}</h1>
             {/* CATEGORIES */}
-
-            <section className={styles.section}>
+            <section className={styles.sectionTopButtons}>
                 <div className={styles.categorySubcategorySection}>
                     <span className={styles.category}>{eventData.category}</span>
                     <span className={styles.subcategory}>{eventData.subcategory}</span>
                 </div>
+
+                {/*INSCRIPTION */}
+                <div className={styles.categorySubcategorySection}>
+                    <ButtonInscription label="Inscribirse al evento" />
+                </div>
             </section>
-            <h1 className={styles.eventTitle}>{eventData.name}</h1>
             <hr />
 
-            {/* MODE, TYPE, LANGUAGE */}
-            
+            {/* MODE, TYPE, LANGUAGE */} 
             <section className={styles.section}>
                 <div className={styles.detailsSection}>
                     <div className={styles.iconModeContainer}>
