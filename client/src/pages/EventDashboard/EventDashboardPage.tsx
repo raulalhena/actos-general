@@ -10,7 +10,7 @@ import { PDFViewer } from '@react-pdf/renderer';
 const EventDashboardPage = () => {
 
     const location = useLocation();
-    const eventId = location.state.id;
+    const eventId = location.state?.id;
 
     const [ eventData, setEventData ] = useState<EventDashboardFormProps>({
         _id: '',

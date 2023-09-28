@@ -15,7 +15,7 @@ import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventDashboardForm.module.css';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 import SelectStatus from '../SelectStatus/SelectStatus';
 
@@ -24,6 +24,7 @@ import ModalDisplay from '../Modal/ModalDisplay';
 import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
+import TextInputNumber from '../TextInputNumber/TextInputNumber';
 
 type Props = { eventData: EventDashboardFormProps };
 
@@ -55,15 +56,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         const id = event.target.id;
         const value: string = event.target.value;
 
-        if (id === 'capacity') {
-            const numericValue = Number(value);
-            if (numericValue >= 1) {
-                setFormData({
-                    ...formData,
-                    [id]: numericValue,
-                });
-            }
-        } else if (id === 'webLink' || id === 'web') {
+        if (id === 'webLink' || id === 'web') {
 
             let newValue = value;
             if (value.startsWith('www')) {
@@ -79,6 +72,28 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                 ...formData,
                 [id]: value,
             });
+        }
+    };
+
+    // Input
+    const handleInputNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const id = event.target.id;
+        const value: string = event.target.value;
+
+        if (id === 'capacity') {
+            const numericValue = Number(value);
+            if (numericValue >= 0) {
+                setFormData({
+                    ...formData,
+                    [id]: numericValue,
+                });
+            } else {
+                toast.error('Si hay limite de entradas, el número deben ser numeros positivos', {
+                    position: 'top-right',
+                    autoClose: 2500,
+                    pauseOnHover: true,
+                });
+            }
         }
     };
 
@@ -485,7 +500,6 @@ END Modal
     }, []);
    
     // get time
-   
     useEffect(() => {
         const getTime = async () => {
             try {
@@ -529,7 +543,7 @@ END Modal
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     return (
-        <div className={styles.form}>
+        <div data-testid='dashboard-component' className={styles.form}>
             <p className={styles.status}>
                 <span> <b>Visibilidad del evento:</b> </span>
                 <span style={{ color: formData.visibility ? 'green' : '#e15a40' }}>
@@ -798,17 +812,14 @@ END Modal
                             isChecked={selectedCapacity}
                         />
                         {selectedCapacity ? (
-                            <TextInputWithSubtitle
+                            <TextInputNumber
                                 id="capacity"
                                 label="Límite de entradas"
                                 subtitle="Ingrese solamente caracteres numéricos"
                                 placeholder="ej.: 20"
-                                minLength={0}
-                                maxLength={500}
                                 value={formData.capacity} 
-                                onChange={handleInputChange}
+                                onChange={handleInputNumberChange}
                                 isRequired={true}
-                                type='number'
                             />
                         ): null }
                     </FormField>

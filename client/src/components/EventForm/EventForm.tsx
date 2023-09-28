@@ -22,6 +22,7 @@ import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
+import TextInputNumber from '../TextInputNumber/TextInputNumber';
 
 // Form
 const EventForm = () => {
@@ -195,21 +196,7 @@ const EventForm = () => {
         const id = event.target.id;
         const value: string = event.target.value;
 
-        if (id === 'capacity') {
-            const numericValue = Number(value);
-            if (numericValue >= 1) {
-                setFormData({
-                    ...formData,
-                    [id]: numericValue,
-                });
-            } else {
-                toast.error('Si hay limite de entradas, el número debe ser mayor o igual a 1', {
-                    position: 'top-right',
-                    autoClose: 2500,
-                    pauseOnHover: true,
-                });
-            }
-        } else if (id === 'webLink' || id === 'web') {
+        if (id === 'webLink' || id === 'web') {
 
             let newValue = value;
             if (value.startsWith('www')) {
@@ -225,6 +212,28 @@ const EventForm = () => {
                 ...formData,
                 [id]: value,
             });
+        }
+    };
+
+    // Input
+    const handleInputNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const id = event.target.id;
+        const value: string = event.target.value;
+
+        if (id === 'capacity') {
+            const numericValue = Number(value);
+            if (numericValue >= 0) {
+                setFormData({
+                    ...formData,
+                    [id]: numericValue,
+                });
+            } else {
+                toast.error('Si hay limite de entradas, el número deben ser numeros positivos', {
+                    position: 'top-right',
+                    autoClose: 2500,
+                    pauseOnHover: true,
+                });
+            }
         }
     };
     
@@ -699,20 +708,19 @@ const EventForm = () => {
                                 subtitle={'Activa el botón para definir número de entradas.'}
                                 onChange={handleToggleCapacityChange}
                                 isChecked={selectedCapacity}
-                                className={styles}
+                                // className={styles}
                             />
                             {selectedCapacity ? (
-                                <TextInputWithSubtitle
+                                <TextInputNumber
                                     id="capacity"
                                     label="Límite de entradas"
                                     subtitle="Ingrese solamente caracteres numéricos mayores que 0."
                                     placeholder="ej.: 20"
-                                    minLength={0}
-                                    maxLength={500}
+                                    // minLength={0}
+                                    // maxLength={500}
                                     value={formData.capacity} 
-                                    onChange={handleInputChange}
+                                    onChange={handleInputNumberChange}
                                     isRequired={true}
-                                    type='number'
                                 />
                             ): null }
                         </FormField>
