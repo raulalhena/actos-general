@@ -13,7 +13,9 @@ describe('AuthService', () => {
 
   const mockUsersService = {
     findByEmail: jest.fn().mockReturnValue(Promise.resolve(userResult)),
-    login: jest.fn()
+    login: jest.fn().mockResolvedValue({
+      access_token: expect.any(String)
+    })
   }
 
   beforeEach(async () => {
