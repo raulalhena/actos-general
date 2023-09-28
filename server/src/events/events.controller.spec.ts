@@ -103,9 +103,11 @@ describe('EventsController', () => {
 
     findOne: jest.fn().mockResolvedValue(eventResult),
 
-    update: jest.fn().mockResolvedValue({
-      ...eventResult,
-      visibility: true
+    update: jest.fn().mockImplementation((updateEvent:UpdateEventDto) => {
+      return {
+        ...eventResult,
+        visibility: true
+      }
     }),
 
     delete: jest.fn()
@@ -136,7 +138,7 @@ describe('EventsController', () => {
   it('create() POST should return Event Object', async () => {
     expect(await controller.create(newEvent)).toMatchObject({
       _id: expect.any(Types.ObjectId),
-      qrEvent: svgQR
+      qrEvent: eventResult.qrEvent
     });
   });
 

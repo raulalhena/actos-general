@@ -12,7 +12,8 @@ describe('AuthService', () => {
   let service: AuthService;
 
   const mockUsersService = {
-    findByEmail: jest.fn().mockReturnValue(Promise.resolve(userResult))
+    findByEmail: jest.fn().mockReturnValue(Promise.resolve(userResult)),
+    login: jest.fn()
   }
 
   beforeEach(async () => {
@@ -23,7 +24,9 @@ describe('AuthService', () => {
 					useValue: mockUsersService
 				}
       ],
-    }).compile();
+    }).overrideProvider(AuthService)
+    .useValue(mockUsersService)
+    .compile();
 
     service = module.get<AuthService>(AuthService);
   });
@@ -32,12 +35,14 @@ describe('AuthService', () => {
     expect(service).toBeDefined();
   });
 
-  it('login() should return a User object', async () => {
+  it('login() should return the access token', async () => {
     const getUserLoginDto: GetUserLoginDto = {
       email: 'prueba1@actos.com',
       password: '1234'
     };
 
-    expect(await service.login(getUserLoginDto)).toMatchObject(userResult);
+    expect(await service.login(getUserLoginDto)).toMatchObject({
+      access_token: expect.any(String)
+    });
   });
 });
