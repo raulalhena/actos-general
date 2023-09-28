@@ -57,12 +57,33 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // Input
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const id = event.target.id;
-        let value : string | number = event.target.value;
-        id === 'capacity' ? value = +value : ' ';
-        setFormData({
-            ...formData,
-            [id]: value,
-        });
+        const value: string = event.target.value;
+
+        if (id === 'capacity') {
+            const numericValue = Number(value);
+            if (numericValue >= 1) {
+                setFormData({
+                    ...formData,
+                    [id]: numericValue,
+                });
+            }
+        } else if (id === 'webLink' || id === 'web') {
+
+            let newValue = value;
+            if (value.startsWith('www')) {
+                newValue = 'http://' + value;
+            }
+
+            setFormData({
+                ...formData,
+                [id]: newValue,
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [id]: value,
+            });
+        }
     };
 
     // Select
@@ -382,12 +403,12 @@ END Modal
 
     return (
         <div className={styles.form}>
-            {/* <p className={styles.status}>
+            <p className={styles.status}>
                 <span> <b>Visibilidad del evento:</b> </span>
                 <span style={{ color: formData.visibility ? 'green' : '#e15a40' }}>
                     {formData.visibility ? 'Público' : 'Borrador'}
                 </span>
-            </p> */}
+            </p>
             <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
         
             <form data-testid="event-form" onSubmit={handleSubmit}>
@@ -532,7 +553,7 @@ END Modal
                                 <TextInput
                                     id="address"
                                     label="Añade una dirección"
-                                    placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
+                                    placeholder="ej.: Entrença, 332-334. 7ª planta 08029 Barcelona"
                                     minLength={3}
                                     maxLength={75}
                                     value={formData.address}
@@ -564,20 +585,20 @@ END Modal
                         <TagsInputComponent
                             id="organizedBy"
                             label="Organizadores"
-                            subtitle="Entidades que colaboran en el evento."
-                            placeHolder="Añade un nombre y presiona Enter"
+                            subtitle="Para añadir las entidades colaboradoras del evento, escribe el nombre y presiona Enter."
+                            placeHolder=""
                             value={formData.organizedBy}
                             onChange={handleTagsOrganizadorChange}
                         />
                         <TextInputWithSubtitle
                             id="contactEmail"
                             label="Información de contacto"
-                            placeholder="email@email.com"
+                            placeholder="ej.: email@email.com"
                             minLength={3}
                             maxLength={75}
                             value={formData.contactEmail}
                             onChange={handleInputChange}
-                            subtitle='Contacto para mas informacion'
+                            subtitle='Ingresa un correo electrónico para que puedan contactar para más informaciones sobre el evento.'
                             isRequired={false}
                             type="email"
                         />
@@ -591,10 +612,11 @@ END Modal
 
                     </FormField>
                     <FormField>
-                        <TextInput
+                        <TextInputWithSubtitle
                             id="web"
-                            label="Añade un enlace a un página web con más información"
-                            placeholder="https://actos.com"
+                            label="Página web"
+                            subtitle='Comparte una URL relevante, como la página web del evento o recursos adicionales.'
+                            placeholder="ej.: https://actos.com"
                             minLength={3}
                             maxLength={75}
                             value={formData.web}
@@ -609,8 +631,8 @@ END Modal
                             value={formData.tags}
                             label="Etiquetas"
                             onChange={handleTagsChange}
-                            placeHolder="Escribe etiquetas y presione Enter"
-                            subtitle=''
+                            placeHolder=''
+                            subtitle='Para añadir etiquetas claves del evento, escribe el nombre y presiona Enter'
                         />
                     </FormField>
                     <FormField>
@@ -653,7 +675,7 @@ END Modal
                                 id="capacity"
                                 label="Límite de entradas"
                                 subtitle="Ingrese solamente caracteres numéricos"
-                                placeholder=""
+                                placeholder="ej.: 20"
                                 minLength={0}
                                 maxLength={500}
                                 value={formData.capacity} 

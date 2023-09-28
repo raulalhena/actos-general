@@ -9,7 +9,12 @@
 }
 
 .subtitle{
-  color: #cacaca
+  color: grey;
+  font-size: 14px;
+}
+
+.customInput::placeholder {
+  font-size: 12px;
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */

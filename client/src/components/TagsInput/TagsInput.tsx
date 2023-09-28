@@ -23,6 +23,7 @@ const TagsInputComponent = (props: TagsInputProps) => {
                     placeHolder={placeHolder}
                     value={value}
                     onChange={onChange}
+                    classNames={{ input: styles.customInput }}
                 />
             </div>
             
