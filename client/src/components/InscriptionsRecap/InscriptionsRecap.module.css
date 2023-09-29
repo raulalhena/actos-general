@@ -43,6 +43,19 @@
   font-weight: 500;
 }
 
+.pdfButton {
+  border-style: none;
+  background-color: white;
+  font-size: 16px;
+  color: #1c2e48;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+}
+
+.pdfButton:hover {
+  cursor: pointer;
+}
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
   .container {
@@ -50,7 +63,7 @@
   }
 
   .containerSection a,
-.containerSection p {
-  font-size: 16px;
-}
+  .containerSection p {
+    font-size: 16px;
+  }
 }

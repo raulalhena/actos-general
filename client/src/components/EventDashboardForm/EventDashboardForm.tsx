@@ -18,7 +18,6 @@ import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProp
 import { ToastContainer, toast } from 'react-toastify';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 import SelectStatus from '../SelectStatus/SelectStatus';
-
 import { BsPatchCheckFill } from 'react-icons/bs';
 import ModalDisplay from '../Modal/ModalDisplay';
 import { useNavigate } from 'react-router-dom';
@@ -82,13 +81,15 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
         if (id === 'capacity') {
             const numericValue = Number(value);
-            if (numericValue >= 0) {
+
+            if (!isNaN(numericValue) && numericValue >= 0) {
+
                 setFormData({
                     ...formData,
-                    [id]: numericValue,
+                    [id]: value,
                 });
             } else {
-                toast.error('Si hay limite de entradas, el número deben ser numeros positivos', {
+                toast.error('Ingrese un número mayor que cero', {
                     position: 'top-right',
                     autoClose: 2500,
                     pauseOnHover: true,
@@ -815,7 +816,7 @@ END Modal
                             <TextInputNumber
                                 id="capacity"
                                 label="Límite de entradas"
-                                subtitle="Ingrese solamente caracteres numéricos"
+                                subtitle="Ingrese solamente caracteres numéricos mayores que 0."
                                 placeholder="ej.: 20"
                                 value={formData.capacity} 
                                 onChange={handleInputNumberChange}
