@@ -102,90 +102,30 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // Select
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
-        console.log(formData.category);
-        let selectedValue = false;
-        let newStatus = formData.status;
-    
-        if (value === 'Borrador') {
-            selectedValue = false;
-            newStatus = 'Borrador';
-            openModal(
-                null,
-                'Este evento estará en modo Borrador',
-                'Guarde el cambio para que el evento solo sea visible para el organizador del evento.',
-                'No, cancelar',
-                'Sí, cambiar para Borrador',
-                closeModal,
-                true,
-                () => {
-                    setFormData({
-                        ...formData,
-                        visibility: true,
-                    });
-                    setIsModalOpen(false);
-                },
-                async () => {
-                    setFormData({
-                        ...formData,
-                        visibility: false,
-                    });
-                    setIsModalOpen(false);
 
-                    const res = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
-                        method: 'PUT',
-                        headers:{ 'Content-type': 'application/json' },
-                        body: JSON.stringify({
-                            visibility: false
-                        })
-                    });
-
-                    return res;
-                }
-            );
+        // EventTime: Start and End Time
+        if (id === 'endTime' && value < formData.startTime) {
+            toast.error('La hora de finalización no puede ser anterior a la hora de inicio.', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+        } else if (value === 'Borrador') {
+            setFormData({
+                ...formData,
+                visibility: false,
+            });
         } else if (value === 'Público') {
-            selectedValue = true;
-            newStatus = 'Público';
-            openModal(
-                null,
-                'Este evento estará en modo Público',
-                'Guarde el cambio para que el evento sea visible para todos los usuarios.',
-                'No, cancelar',
-                'Sí, cambiar para Público',
-                closeModal,
-                true,
-                () => {
-                    setFormData({
-                        ...formData,
-                        visibility: false,
-                    });
-                    setIsModalOpen(false);
-                },
-                async () => {
-                    setFormData({
-                        ...formData,
-                        visibility: true,
-                    });
-                    setIsModalOpen(false);
-
-                    const res = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
-                        method: 'PUT',
-                        headers:{ 'Content-type': 'application/json' },
-                        body: JSON.stringify({
-                            visibility: true
-                        })
-                    });
-
-                    return res;
-                },
-                
-            );
+            setFormData({
+                ...formData,
+                visibility: true,
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [id]: value,
+            });
         }
-        setFormData({
-            ...formData,
-            visibility: selectedValue,
-            status: newStatus,
-            [id]: value
-        });
     };
     
     // Tags

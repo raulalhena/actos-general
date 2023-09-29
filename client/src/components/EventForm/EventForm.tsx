@@ -465,9 +465,8 @@ const EventForm = () => {
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     return (
-        <div data-testid='event-form-component' className={styles.form}>
+        <div data-testid='event-form-component' className={styles.formEvent}>
 
-            <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
             <form data-testid="event-form" className={styles.formContainer} onSubmit={handleSubmit}>
                 
                 <div className={styles.formContent} >
@@ -476,7 +475,7 @@ const EventForm = () => {
                         title="1 INFORMACIÓN BÁSICA"
                         isVisible={isSection1Visible}
                         toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
-
+                        <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
                         <FormField>
                             <SelectCategories
                                 id="category"
