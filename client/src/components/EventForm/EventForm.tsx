@@ -343,6 +343,7 @@ const EventForm = () => {
         });
         const result = await resp.json();
         navigate(`/eventdashboard`, { state: { id: result._id } });
+        window.scrollTo(0, 0);
         
     };
 
