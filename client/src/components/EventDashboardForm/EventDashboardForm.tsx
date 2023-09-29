@@ -202,6 +202,14 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         });
     };
 
+    //language
+    const handleLanguageChange = (languages: string[]) => {
+        setFormData({
+            ...formData,
+            language: languages,
+        });
+    };
+
     // DateInput
     const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFormData({
@@ -750,7 +758,10 @@ END Modal
                         <DropdownCheck 
                             id="languages"
                             label="Idioma del Evento"
-                            options={languages}/>
+                            options={languages}
+                            values={formData.language}
+                            onChange={handleLanguageChange}
+                        />
 
                     </FormField>
                     <FormField>

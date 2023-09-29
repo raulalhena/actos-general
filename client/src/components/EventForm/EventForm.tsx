@@ -260,6 +260,14 @@ const EventForm = () => {
         }
     };
 
+    //language
+    const handleLanguageChange = (languages: string[]) => {
+        setFormData({
+            ...formData,
+            language: languages,
+        });
+    };
+
     // Tags
     const handleTagsChange = (newTags: string[]) => {
         setFormData({
@@ -334,6 +342,7 @@ const EventForm = () => {
             return;
         }
     
+        console.log('formData aqui: ' + JSON.stringify(formData));
         const resp = await fetch('http://localhost:8000/api/events', {
             method: 'POST',
             headers: {
@@ -658,7 +667,10 @@ const EventForm = () => {
                             <DropdownCheck 
                                 id="language"
                                 label="Idioma del Evento"
-                                options={languages}/>
+                                options={languages}
+                                values={formData.language}
+                                onChange={handleLanguageChange}
+                            />
 
                         </FormField>
                         <FormField>
