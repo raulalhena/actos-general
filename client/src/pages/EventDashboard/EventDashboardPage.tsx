@@ -55,9 +55,9 @@ const EventDashboardPage = () => {
             const data = await resp.json();
             setEventData(data);
         };
-
+    
         fetchEvent();
-    }, []);
+    }, [ eventId ]);
 
     useEffect(() => {
         console.log('eventData', eventData);

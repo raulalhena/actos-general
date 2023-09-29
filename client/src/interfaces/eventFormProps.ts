@@ -30,6 +30,5 @@ export interface EventFormProps  {
     price?: number;
     payment?: string;
     visibility?: boolean;
-    status?: boolean
     isLimited: boolean;
 }
