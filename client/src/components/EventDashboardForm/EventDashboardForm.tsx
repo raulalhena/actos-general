@@ -33,9 +33,9 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
 
-    useEffect(() => {
-        setFormData(eventData);
-    }, [ eventData ]);
+    // useEffect(() => {
+    //     setFormData(eventData);
+    // }, [ eventData ]);
 
     // Visibility
     const [ isSection1Visible, setIsSection1Visible ] = useState(true);
@@ -212,6 +212,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         const result = await resp.json();
 
         setFormData(result);
+        setVisibility(result.visibility);
 
         const closeModalAndNavigate = () => {
             closeModal(); // Feche o modal
@@ -400,6 +401,7 @@ END Modal
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
     const [ time, setTime ] = useState<Array<string>>([]);
+    const [ visibility, setVisibility ] = useState<boolean>(false);
 
     // Get all data to fill fields
     useEffect(() => {
@@ -474,6 +476,11 @@ END Modal
         getTime();
     }, []);
 
+    // get visibility
+    useEffect(() => {
+        setVisibility(formData.visibility ?? false);
+    }, []);
+
     const [ selectedCategory, setSelectedCategory ] = useState(eventData.category);
 
     // Categories Handle Change
@@ -507,11 +514,11 @@ END Modal
             <p className={styles.status}>
                 <span>
                     <b>
-                        <VscCircleFilled style={{ color: formData.visibility ? 'green' : '#e15a40' }} />
+                        <VscCircleFilled style={{ color: visibility ? 'green' : '#e15a40' }} />
                     </b>
                 </span>
-                <span style={{ color: formData.visibility ? 'green' : '#e15a40' }}>
-                    {formData.visibility ? 'Público' : 'Borrador'}
+                <span style={{ color: visibility ? 'green' : '#e15a40' }}>
+                    {visibility ? 'Público' : 'Borrador'}
                 </span>
             </p>
         
