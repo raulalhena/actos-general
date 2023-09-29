@@ -35,8 +35,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     useEffect(() => {
         setFormData(eventData);
-        // console.log('form data', formData);
-    }, [ eventData, formData ]);
+    }, [ eventData ]);
 
     // Visibility
     const [ isSection1Visible, setIsSection1Visible ] = useState(true);
@@ -110,22 +109,34 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                 autoClose: 2500,
                 pauseOnHover: true,
             });
-        } else if (value === 'Borrador') {
-            setFormData({
-                ...formData,
-                visibility: false,
-            });
-        } else if (value === 'Público') {
-            setFormData({
-                ...formData,
-                visibility: true,
-            });
         } else {
             setFormData({
                 ...formData,
                 [id]: value,
             });
         }
+    };
+
+    // Select
+    const handleVisibilityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = event.target;
+    
+        if (value === 'Borrador') {
+            console.log('Estado alterado para Borrador');
+            setFormData({
+                ...formData,
+                visibility: false,
+            });
+            console.log('estado visibilidade: ' + formData.visibility);
+
+        } else if (value === 'Público') {
+            console.log('Estado alterado para Público');
+            setFormData({
+                ...formData,
+                visibility: true,
+            });
+            console.log('estado visibilidade: ' + formData.visibility);
+        } 
     };
     
     // Tags
@@ -181,7 +192,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        if (formData.status) alert('Vas a cambiar el estado');
+        if (formData.visibility) alert('Vas a cambiar el estado');
 
         const res = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
             method: 'PUT',
@@ -218,6 +229,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             closeModalAndNavigate,
             () => {}
         );
+
+        console.log('submited: ' + JSON.stringify(formData));
 
     };
     
@@ -387,21 +400,20 @@ END Modal
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
     const [ time, setTime ] = useState<Array<string>>([]);
-   
+
     // Get all data to fill fields
     useEffect(() => {
         const getCategories = async () => {
             const resp = await fetch('http://localhost:8000/api/misc/categories');
             const categoriesDb = await resp.json();
-   
+
             setCategories(categoriesDb);
         };
-   
+
         getCategories();
     }, []);
-   
+
     // get types
-   
     useEffect(() => {
         const getTypes = async () => {
             try {
@@ -415,9 +427,8 @@ END Modal
         };
         getTypes();
     }, []);
-   
+
     // get languages
-   
     useEffect(() => {
         const getLanguages = async () => {
             try {
@@ -430,11 +441,10 @@ END Modal
             }
         };
         getLanguages();
-           
+    
     }, []);
-   
+
     // get time zone
-   
     useEffect(() => {
         const getTimeZone = async () => {
             try {
@@ -448,7 +458,7 @@ END Modal
         };
         getTimeZone();
     }, []);
-   
+
     // get time
     useEffect(() => {
         const getTime = async () => {
@@ -787,11 +797,11 @@ END Modal
                     <div className={styles.finalSection}>
                         <div className={styles.selectStatus}>
                             <SelectStatus
-                                id="status"
+                                id="visibility"
                                 label=""
                                 options={ [ 'Borrador', 'Público' ] }
-                                value={formData.status}
-                                onChange={handleSelectChange}
+                                value={formData.visibility ? 'Público' : 'Borrador'}
+                                onChange={handleVisibilityChange}
                             />
                         </div>
                         <div className={styles.buttonSection}>

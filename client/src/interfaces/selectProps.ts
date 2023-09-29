@@ -2,7 +2,7 @@ export interface SelectProps {
     label?: string;
     options: string[];
     id: string;
-    value: number |string | string[] | undefined;
+    value: string | undefined;
     onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
     isRequired?: boolean;
 }
