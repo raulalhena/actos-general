@@ -19,6 +19,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 import SelectStatus from '../SelectStatus/SelectStatus';
 import { BsPatchCheckFill } from 'react-icons/bs';
+import { VscCircleFilled } from 'react-icons/vsc';
 import ModalDisplay from '../Modal/ModalDisplay';
 import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
@@ -552,14 +553,17 @@ END Modal
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     return (
-        <div data-testid='dashboard-component' className={styles.form}>
+        <div data-testid='dashboard-component' className={styles.formDash}>
             <p className={styles.status}>
-                <span> <b>Visibilidad del evento:</b> </span>
+                <span>
+                    <b>
+                        <VscCircleFilled style={{ color: formData.visibility ? 'green' : '#e15a40' }} />
+                    </b>
+                </span>
                 <span style={{ color: formData.visibility ? 'green' : '#e15a40' }}>
                     {formData.visibility ? 'Público' : 'Borrador'}
                 </span>
             </p>
-            <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
         
             <form data-testid="event-form" onSubmit={handleSubmit}>
                 <ToastContainer position="top-right" autoClose={3000} />
@@ -568,6 +572,7 @@ END Modal
                     title="1 INFORMACIÓN BÁSICA"
                     isVisible={isSection1Visible}
                     toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
+                    <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
 
                     <FormField>
                         <SelectCategories
