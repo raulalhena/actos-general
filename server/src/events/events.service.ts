@@ -13,6 +13,14 @@ export class EventsService {
   ) {}
   
 
+  async saveImage(file: Express.Multer.File) {
+    try {
+      this.eventModel.findOneAndUpdate({ _id: '650f420a63716b305a350ec7' }, { image: file})
+    } catch (error) {
+      
+    }
+  }
+
   async create(createEventDto: CreateEventDto) {
     try {
       const newEvent = await this.eventModel.create(createEventDto);
@@ -52,6 +60,16 @@ export class EventsService {
       return 'El registro de usuario se ha realizado con éxito';
     } catch(error) {
       throw new HttpException('Error al registrar la asistencia', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async getImage(id: ObjectId) {
+    try {
+      const event = await this.eventModel.findById({ _id: id });
+      
+      return Buffer.from(event['image'], 'base64');
+    } catch (error) {
+      throw new HttpException(error.messge, HttpStatus.BAD_REQUEST);
     }
   }
 }

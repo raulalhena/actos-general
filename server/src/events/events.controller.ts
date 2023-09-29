@@ -4,6 +4,7 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ObjectId } from 'mongoose';
+import { Header } from '@nestjs/common';
 
 @Controller('events')
 export class EventsController {
@@ -17,6 +18,7 @@ export class EventsController {
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
+      this.eventsService.saveImage(file);
       return { 
           imageUrl: file.path
       };
@@ -45,5 +47,11 @@ export class EventsController {
   @Delete(':id')
   delete(@Param('id') id: ObjectId) {
   	return this.eventsService.delete(id);
+  }
+
+  @Get('/:id/image')
+  @Header('Content-Type', 'image/*')
+  async getImage(@Param('id') id: ObjectId) {
+    return await this.eventsService.getImage(id);
   }
 }
