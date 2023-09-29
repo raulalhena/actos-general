@@ -6,7 +6,7 @@ import { useLocation } from 'react-router';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { PDFViewer } from '@react-pdf/renderer';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
-import qrImg from '../../../../server/src/public/65156e86d59ccd3651d50422.png';
+import qrImg from '../../../../server/src/public/65157e08822b661558d58771.png';
 
 const EventDashboardPage = () => {
     const location = useLocation();
