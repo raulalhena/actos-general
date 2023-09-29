@@ -585,7 +585,7 @@ const EventForm = () => {
                                 <TextInput
                                     id="address"
                                     label="Añade una dirección *"
-                                    placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
+                                    placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona  (mínimo 3 caracteres)"
                                     minLength={3}
                                     maxLength={75}
                                     value={formData.address}
@@ -598,7 +598,7 @@ const EventForm = () => {
                                     isRequired={true}
                                     id="webLink"
                                     label="Añade un link de acceso *"
-                                    placeholder="Escribe el link de acceso a tu evento."
+                                    placeholder="Escribe el link de acceso a tu evento.  (mínimo 3 caracteres)"
                                     minLength={3}
                                     maxLength={75}
                                     value={formData.webLink}
@@ -611,7 +611,7 @@ const EventForm = () => {
                                     <TextInput
                                         id="address"
                                         label="Añade una dirección *"
-                                        placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
+                                        placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona  (mínimo 3 caracteres)"
                                         minLength={3}
                                         maxLength={75}
                                         value={formData.address}
@@ -621,7 +621,7 @@ const EventForm = () => {
                                     <TextInput
                                         id="webLink"
                                         label="Añade un link de acceso *"
-                                        placeholder="Escribe el link de acceso a tu evento."
+                                        placeholder="Escribe el link de acceso a tu evento.  (mínimo 3 caracteres)"
                                         minLength={3}
                                         maxLength={75}
                                         value={formData.webLink}
