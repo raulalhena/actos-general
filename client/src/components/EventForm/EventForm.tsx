@@ -53,7 +53,7 @@ const EventForm = () => {
         language: [], //Select con checkbox
         image: '', 
         video: '', 
-        capacity: undefined,
+        capacity: '',
         isLimited: false,
         // qrEvent: '',
         // qrAttendees: [],
@@ -222,13 +222,15 @@ const EventForm = () => {
 
         if (id === 'capacity') {
             const numericValue = Number(value);
-            if (numericValue >= 0) {
+
+            if (!isNaN(numericValue) && numericValue >= 0) {
+
                 setFormData({
                     ...formData,
-                    [id]: numericValue,
+                    [id]: value,
                 });
             } else {
-                toast.error('Si hay limite de entradas, el número deben ser numeros positivos', {
+                toast.error('Ingrese un número mayor que cero', {
                     position: 'top-right',
                     autoClose: 2500,
                     pauseOnHover: true,
@@ -725,8 +727,6 @@ const EventForm = () => {
                                     label="Límite de entradas"
                                     subtitle="Ingrese solamente caracteres numéricos mayores que 0."
                                     placeholder="ej.: 20"
-                                    // minLength={0}
-                                    // maxLength={500}
                                     value={formData.capacity} 
                                     onChange={handleInputNumberChange}
                                     isRequired={true}
