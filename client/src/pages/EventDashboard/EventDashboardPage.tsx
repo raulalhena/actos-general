@@ -37,7 +37,7 @@ const EventDashboardPage = () => {
         language: [], //Select con checkbox
         image: '',
         video: '',
-        capacity: 0,
+        capacity: '',
         isLimited: false,
     // qrEvent: '',
     // qrAttendees: [],

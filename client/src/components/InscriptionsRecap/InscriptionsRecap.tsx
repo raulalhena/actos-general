@@ -3,8 +3,7 @@ import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocumen
 import qrImg from '../../../../server/qr_events/65157c68a98cad7b39aa8f0c.png';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { BiSolidDownload } from 'react-icons/bi';
-import { useState } from 'react';
-import { FaUserCheck, FaTicketAlt } from 'react-icons/fa';
+import { FaUserCheck } from 'react-icons/fa';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 
 interface InscriptionsRecapProps {
@@ -22,7 +21,8 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                     <div className={styles.containerSection}>
                         <FaUserCheck className={styles.icon} />
                         <p>
-                0/{eventData.capacity === undefined ? '-' : eventData.capacity} Usuarios Inscritos
+                0/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity : '- '}
+Usuarios Inscritos
                         </p>
                     </div>
                 </a>
