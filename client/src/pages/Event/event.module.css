@@ -1,17 +1,28 @@
-.eventpage{
-    padding: 0 2%;
-    margin: 3rem 1rem;
+.eventpage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    padding: 0 2rem;
 }
 
-.title {
+.topTitle {
     display: flex;
     gap: 1rem;
+    margin: 4rem 0;
+    width: 780px;
 }
 
 .dash {
     color: #E15A40;
 }
 
-p {
-    margin-bottom: 4rem;
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (max-width: 768px) {
+    .topTitle {
+        align-items: center;
+        justify-content: center;
+        max-width: 400px;
+    }
 }
