@@ -145,15 +145,26 @@ const EventDetailPage = () => {
             </section>
             <hr />
             
-            {/* ORGANIZED BY */}            
+            {/* ORGANIZED BY */}
             <section className={styles.section}>
                 <h1 className={styles.sectionTitle}>Organizadores</h1>
                 <div className={styles.organizedBySection}>
-                    <p className={styles.organizedBy}>{eventData.organizedBy}</p>
+                    <div className={styles.tags}>
+                        {eventData.organizedBy && eventData.organizedBy.length > 0 ? (
+                            eventData.organizedBy.map((organizedBy, index) => (
+                                <span key={index} className={styles.tagChip}>
+                                    {organizedBy}
+                                </span>
+                            ))
+                        ) : (
+                            <span className={styles.tagChip}></span>
+                        )}
+                        
+                    </div>
                     <a href={'mailto:' + eventData.contactEmail}><ButtonRed label="contactar" /></a>
-                    
-                </div>
+                </div>          
             </section>
+            <hr />
         </div>
     );
 };

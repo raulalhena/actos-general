@@ -479,7 +479,7 @@ END Modal
     // get visibility
     useEffect(() => {
         setVisibility(formData.visibility ?? false);
-    }, []);
+    }, [ formData.visibility ]);
 
     const [ selectedCategory, setSelectedCategory ] = useState(eventData.category);
 
