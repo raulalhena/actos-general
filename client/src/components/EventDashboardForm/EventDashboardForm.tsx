@@ -21,7 +21,7 @@ import SelectStatus from '../SelectStatus/SelectStatus';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { VscCircleFilled } from 'react-icons/vsc';
 import ModalDisplay from '../Modal/ModalDisplay';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
@@ -30,14 +30,18 @@ type Props = { eventData: EventDashboardFormProps };
 
 // Form
 const EventDashboardForm = ( { eventData }: Props ) => {
+    // const navigate = useNavigate();
 
     const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
+    console.log('eventdata 2 de la pagina: ' + JSON.stringify(formData));
 
-    // useEffect(() => {
-    //     setFormData(eventData);
-    // }, [ eventData ]);
+    useEffect(() => {
+        console.log('useeffect passa qui?');
+        console.log('valor de eventdata: ' + JSON.stringify(eventData));
+        setFormData(eventData);
+    }, [ eventData ]);
 
-    // Visibility
+    // VisibilitySection
     const [ isSection1Visible, setIsSection1Visible ] = useState(true);
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
@@ -122,20 +126,16 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         const { value } = event.target;
     
         if (value === 'Borrador') {
-            console.log('Estado alterado para Borrador');
             setFormData({
                 ...formData,
                 visibility: false,
             });
-            console.log('estado visibilidade: ' + formData.visibility);
 
         } else if (value === 'Público') {
-            console.log('Estado alterado para Público');
             setFormData({
                 ...formData,
                 visibility: true,
             });
-            console.log('estado visibilidade: ' + formData.visibility);
         } 
     };
     
@@ -186,53 +186,89 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         }));
     };
 
-    // Submit Button
-    const navigate = useNavigate();
-
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+    
+        if (visibility !== formData.visibility) {
+            openModal(
+                null,
+                `Este evento estará en modo ${
+                    formData.visibility ? 'Público' : 'Borrador'
+                }`,
+                '',
+                'No, cancelar',
+                `Sí, cambiar para ${formData.visibility ? 'público' : 'Borrador'}`,
+                closeModal,
+                true,
+                () => {
+                    setFormData({
+                        ...formData,
+                        visibility: !formData.visibility,
+                    });
+                    setIsModalOpen(false);
+                },
+                async () => {
+                    const res = await fetch(
+                        `http://localhost:8000/api/events/${formData._id}`,
+                        {
+                            method: 'PUT',
+                            headers: { 'Content-type': 'application/json' },
+                            body: JSON.stringify(formData),
+                        }
+                    );
 
-        if (formData.visibility) alert('Vas a cambiar el estado');
-
-        const res = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
-        await res.json();
-
-        const resp = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        const result = await resp.json();
-
-        setFormData(result);
-        setVisibility(result.visibility);
-
-        const closeModalAndNavigate = () => {
-            closeModal(); // Feche o modal
-            navigate(`/eventdashboard`, { state: { id: result._id } });
-        };
-
-        openModal(
-            <BsPatchCheckFill className={styles.checkIcon} />,
-            'Cambio Guardado',
-            'Tus cambios han sido guardados con éxito',
-            'Cerrar ventana',
-            '',
-            closeModal,
-            true,
-            closeModalAndNavigate,
-            () => {}
-        );
-
-        console.log('submited: ' + JSON.stringify(formData));
-
+                    if (res.ok) {
+                        const res = await fetch(
+                            `http://localhost:8000/api/events/${formData._id}`,
+                            {
+                                method: 'GET',
+                                headers: { 'Content-Type': 'application/json' },
+                            }
+                        );
+    
+                        if (res.ok) {
+                            const result = await res.json();
+                            setFormData(result);
+                            setVisibility(result.visibility);
+        
+                            openModal(
+                                <BsPatchCheckFill className={styles.checkIcon} />,
+                                'Cambio Guardado',
+                                'Tus cambios han sido guardados con éxito',
+                                'Cerrar ventana',
+                                '',
+                                closeModal,
+                                true,
+                                closeModal,
+                                () => {}
+                            );
+                        } else {
+                            // Handle the case when the get request fails
+                            // Mensaje de erro?
+                        }
+                    } else {
+                        // Handle the case when the PUT request fails
+                        // Mensaje de erro?
+                    }
+                }
+            );
+        } else {
+            setFormData({
+                ...formData
+            });
+            openModal(
+                <BsPatchCheckFill className={styles.checkIcon} />,
+                'Cambio Guardado',
+                'Tus cambios han sido guardados con éxito',
+                'Cerrar ventana',
+                '',
+                closeModal,
+                true,
+                closeModal,
+                () => {}
+            );
+            
+        }
     };
     
     /* **************
@@ -478,8 +514,8 @@ END Modal
 
     // get visibility
     useEffect(() => {
-        setVisibility(formData.visibility ?? false);
-    }, [ formData.visibility ]);
+        setVisibility(formData.visibility ?? false); //cuando es null(??) es false
+    }, []);
 
     const [ selectedCategory, setSelectedCategory ] = useState(eventData.category);
 
