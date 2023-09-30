@@ -106,6 +106,15 @@ const EventDetailPage = () => {
             <section className={styles.section}>
                 <h1 className={styles.sectionTitle}>Fecha y hora</h1>
                 <p className={styles.date}>{eventData.date}</p>
+                <div>
+                    <p className={styles.date}>
+                        {eventData.startTime} - {eventData.endTime}
+                    </p>
+                    <p >
+                        {eventData.timeZone}
+                    </p>
+                </div>
+                
             </section>
             <hr />
             
