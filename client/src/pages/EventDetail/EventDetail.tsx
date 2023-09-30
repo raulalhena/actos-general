@@ -140,41 +140,38 @@ const EventDetailPage = () => {
             <hr />
             
             {/* TAGS */}
-            <section className={styles.section}>
-                <h1 className={styles.sectionTitle}>Etiquetas</h1>
-                <div className={styles.tags}>
-                    {eventData.tags && eventData.tags.length > 0 ? (
-                        eventData.tags.map((tag, index) => (
+            {eventData.tags && eventData.tags.length > 0 && (
+                <section className={styles.section}>
+                    <h1 className={styles.sectionTitle}>Etiquetas</h1>
+                    <div className={styles.tags}>
+                        {eventData.tags.map((tag, index) => (
                             <span key={index} className={styles.tagChip}>
                                 {tag}
                             </span>
-                        ))
-                    ) : (
-                        <span className={styles.tagChip}></span>
-                    )}
-                </div>
-            </section>
+                        ))}
+                    </div>
+                </section>
+            )}
             <hr />
-            
+
             {/* ORGANIZED BY */}
-            <section className={styles.section}>
-                <h1 className={styles.sectionTitle}>Organizadores</h1>
-                <div className={styles.organizedBySection}>
-                    <div className={styles.tags}>
-                        {eventData.organizedBy && eventData.organizedBy.length > 0 ? (
-                            eventData.organizedBy.map((organizedBy, index) => (
+            {eventData.organizedBy && eventData.organizedBy.length > 0 && (
+                <section className={styles.section}>
+                    <h1 className={styles.sectionTitle}>Organizadores</h1>
+                    <div className={styles.organizedBySection}>
+                        <div className={styles.tags}>
+                            {eventData.organizedBy.map((organizedBy, index) => (
                                 <span key={index} className={styles.tagChip}>
                                     {organizedBy}
                                 </span>
-                            ))
-                        ) : (
-                            <span className={styles.tagChip}></span>
-                        )}
-                        
+                            ))}
+                        </div>
+                        <a href={'mailto:' + eventData.contactEmail}>
+                            <ButtonRed label="contactar" />
+                        </a>
                     </div>
-                    <a href={'mailto:' + eventData.contactEmail}><ButtonRed label="contactar" /></a>
-                </div>          
-            </section>
+                </section>
+            )}
             {/* <hr /> */}
         </div>
     );

@@ -515,7 +515,7 @@ END Modal
     // get visibility
     useEffect(() => {
         setVisibility(formData.visibility ?? false); //cuando es null(??) es false
-    }, []);
+    }, []); //no tocar la dependencia, dejar vacio*
 
     const [ selectedCategory, setSelectedCategory ] = useState(eventData.category);
 
