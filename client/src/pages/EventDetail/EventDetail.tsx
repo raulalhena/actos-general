@@ -75,7 +75,7 @@ const EventDetailPage = () => {
             </section>
             <hr />
 
-            {/* MODE, TYPE, LANGUAGE */} 
+            {/* MODE, TYPE, LANGUAGE */}
             <section className={styles.section}>
                 <div className={styles.detailsSection}>
                     <div className={styles.iconModeContainer}>
@@ -90,14 +90,16 @@ const EventDetailPage = () => {
                         </div>
                         <span className={styles.type}>{eventData.type}</span>
                     </div>
-                    <div className={styles.iconModeContainer}>
-                        <div className={styles.iconContainer}>
-                            <IoLanguageOutline className={styles.icon} />
+                    {eventData.language && eventData.language.length > 0 && (
+                        <div className={styles.iconModeContainer}>
+                            <div className={styles.iconContainer}>
+                                <IoLanguageOutline className={styles.icon} />
+                            </div>
+                            <span className={styles.language}>
+                                {eventData.language.join(', ')}
+                            </span>
                         </div>
-                        <span className={styles.language}>
-                            {eventData.language.join(', ')}
-                        </span>
-                    </div>
+                    )}
                 </div>
             </section>
             <hr />
@@ -173,7 +175,7 @@ const EventDetailPage = () => {
                     <a href={'mailto:' + eventData.contactEmail}><ButtonRed label="contactar" /></a>
                 </div>          
             </section>
-            <hr />
+            {/* <hr /> */}
         </div>
     );
 };
