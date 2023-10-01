@@ -1,5 +1,5 @@
 .header {
-  background-color: #1C2E48;
+  background: linear-gradient(#cfe0f5, #e6ecf4);
   width: 100vw;
   height: fit-content;
   display: flex;
@@ -22,7 +22,7 @@
 
 .title,
 .subtitle {
-  color: white;
+  color:  #1C2E48;
 }
 
 .title {

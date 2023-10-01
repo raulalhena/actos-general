@@ -8,12 +8,6 @@ ul {
   list-style: none;
 }
 
-a {
-  text-decoration: none;
-  color: #1c2e48;
-  font-size: 18px;
-}
-
 .navbar {
   background-color: rgb(255, 255, 255);
   padding: 2rem 3rem;
@@ -40,6 +34,8 @@ a {
   text-transform: uppercase;
   font-weight: 600;
   color: #1c2e48;
+  text-decoration: none;
+  font-size: 18px;
 }
 
 @media screen and (max-width: 768px) {

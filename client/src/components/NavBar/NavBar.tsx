@@ -19,7 +19,7 @@ function Navbar() {
     return (
         <>
             <nav className={styles.navbar}>
-                <a href="/" onClick={removeActive}>
+                <a className={styles.navbarLink} href="/" onClick={removeActive}>
                     <img src={Logo} className={styles.logo} alt="Logo" />
                 </a>
                 <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>

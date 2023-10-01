@@ -1,3 +1,4 @@
+import SearchBar from '../SearchBar/SearchBar';
 import styles from './HomePageHeader.module.css';
 
 const HomePageHeader = () => {
@@ -11,7 +12,7 @@ const HomePageHeader = () => {
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     </h2>
                 </div>
-                <div className={styles.searchBar}>Aquí va una search bar</div>
+                <SearchBar />
             </section>
         </>
     );

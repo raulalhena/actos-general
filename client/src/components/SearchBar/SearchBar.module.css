@@ -1,0 +1,41 @@
+
+ .searchWrapper {    
+     height: 70px;
+     overflow: hidden;
+     background: rgba(255,255,255,0);
+     border-radius:50px;
+     position: relative;
+     width:450px;
+     border-radius: 50px;
+     background: rgba(255, 255, 255, 0.5);
+ }
+
+.inputHolder .searchInput {
+     position: relative;
+     background: transparent;
+     box-sizing: border-box;
+     border:none;
+     outline:none;
+     font-size: 16px;
+     font-weight: 400;
+     line-height: 20px;
+     color:#000000;
+ }
+
+ .searchWrapper .inputHolder .searchIcon {
+     width:70px;
+     height:70px;
+     border:none;
+     border-radius:6px;
+     background: #FFF;
+     padding:0px;
+     outline:none;
+     float:right;
+     cursor: pointer;
+ }
+
+ .searchIcon {
+    font-size: 20px;
+    color: #1c2e48;
+    rotate: 90deg;
+ }
