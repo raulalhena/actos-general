@@ -46,7 +46,7 @@ export class Event {
       mode: string;
 
   @Prop()
-      image: string;
+      image: Blob;
 
   @Prop()
       video: string;

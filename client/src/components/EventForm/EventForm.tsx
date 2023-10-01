@@ -23,6 +23,7 @@ import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
+import { Buffer } from 'buffer';
 
 // Form
 const EventForm = () => {
@@ -301,25 +302,40 @@ const EventForm = () => {
         }
     };
 
+    console.log('img a', formData);
+
     // Send Image
-    const sendImage = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const convertToBase64 = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        const imageData = new FormData();
-        imageData.append('file', eventImage);
-        const resp = await fetch('http://localhost:8000/api/events/upload', {
-            method: 'POST',
-            body: imageData
+
+        const fileReader = new FileReader();
+        await fileReader.readAsDataURL(eventImage);
+        const imgBase64 = await fileReader.result;
+        console.log('base64', imgBase64);
+        setFormData({
+            ...formData,
+            image: await eventImage.text()
         });
-        const imageResp = await resp.json();
-        setFormData((prevData) => ({ 
-            ...prevData,
-            image: imageResp.imageUrl 
-        }));
-        toast.success('Imagen enviada correctamente', {
-            position: toast.POSITION.TOP_RIGHT,
-            closeOnClick: true,
-            pauseOnHover: true,
-        });
+
+        if(imgBase64){
+            setFormData({
+                ...formData,
+                image: eventImage.text()
+            });
+
+            toast.success('Imagen guardada correctamente', {
+                position: toast.POSITION.TOP_RIGHT,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        } else {
+            toast.error('Ha habido un error al procesar la imagen', {
+                position: toast.POSITION.TOP_RIGHT,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }
+        return;
     };
 
     // Submit Button
@@ -700,7 +716,7 @@ const EventForm = () => {
                             <ImageUploader 
                                 id="image"
                                 removeImage={removeImage}
-                                sendImage={sendImage}
+                                convertToBase64={convertToBase64}
                                 previewURL={previewURL}
                                 imgVisibility={imgVisibility}
                                 onDrop={handleDrop}

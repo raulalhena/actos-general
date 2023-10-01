@@ -12,13 +12,14 @@ export class EventsController {
 
   @Post()
     create(@Body() createEventDto: CreateEventDto) {
+        console.log(createEventDto.image);
         return this.eventsService.create(createEventDto);
     }
 
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
-      this.eventsService.saveImage(file);
+  @Post(':id/upload')
+  @UseInterceptors(FileInterceptor('image'))
+  uploadFile(@Param('id') id: ObjectId, @UploadedFile() file: Express.Multer.File) {
+      this.eventsService.saveImage(id, file);
       return { 
           imageUrl: file.path
       };

@@ -168,20 +168,20 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     };
 
     // Send Image
-    const sendImage = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        const imageData = new FormData();
-        imageData.append('file', eventImage);
-        const resp = await fetch('http://localhost:8000/api/events/upload', {
-            method: 'POST',
-            body: imageData
-        });
-        const imageResp = await resp.json();
-        setFormData((prevData) => ({ 
-            ...prevData,
-            image: imageResp.imageUrl 
-        }));
-    };
+    // const sendImage = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    //     e.preventDefault();
+    //     const imageData = new FormData();
+    //     imageData.append('file', eventImage);
+    //     const resp = await fetch(`http://localhost:8000/api/events/${formData._id}/upload`, {
+    //         method: 'POST',
+    //         body: imageData
+    //     });
+    //     const imageResp = await resp.json();
+    //     setFormData((prevData) => ({ 
+    //         ...prevData,
+    //         image: imageResp.imageUrl 
+    //     }));
+    // };
 
     //SUBMIT
     const handleSubmit = async (event: React.FormEvent) => {
@@ -355,13 +355,13 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     const [ previewURL, setPreviewURL ] = useState<string>('');
     const [ imgVisibility, setImgVisibility ] = useState<string>('none');
     const [ eventImage, setEventImage ] = useState<any>('');
-    const [ image, setImage ] = useState<Blob | undefined>();
+    const [ image, setImage ] = useState<Blob | undefined>(formData.image);
 
     // setImage(formData.image);
 
     // File Handler
     const handleFile = (file: any) => {
-        setEventImage(() => file);
+        setImage(() => file);
         setPreviewURL(URL.createObjectURL(file));
         setImgVisibility('block');
     };
@@ -372,7 +372,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         e.stopPropagation();
         const file = e.dataTransfer.files[0];
         e.dataTransfer.clearData();
-        // setEventImage(file);
+        // setImage(file);
         handleFile(file);
     };
 
@@ -511,6 +511,12 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     useEffect(() => {
         setVisibility(formData.visibility ?? false); //cuando es null(??) es false
     }, []); //no tocar la dependencia, dejar vacio*
+
+    useEffect(() => {
+        setImage(formData.image);
+    }, [ formData ]);
+
+    console.log('img fda', formData.image);
 
     const [ selectedCategory, setSelectedCategory ] = useState(eventData.category);
 
@@ -785,7 +791,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                         <ImageUploader 
                             id="image"
                             removeImage={removeImage}
-                            sendImage={sendImage}
+                            // sendImage={sendImage}
                             previewURL={previewURL}
                             imgVisibility={imgVisibility}
                             onDrop={handleDrop}

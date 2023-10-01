@@ -13,9 +13,9 @@ export class EventsService {
   ) {}
   
 
-  async saveImage(file: Express.Multer.File) {
+  async saveImage(id: ObjectId, file: Express.Multer.File) {
     try {
-      this.eventModel.findOneAndUpdate({ _id: '650f420a63716b305a350ec7' }, { image: file})
+      this.eventModel.findOneAndUpdate({ _id: id }, { image: file})
     } catch (error) {
       
     }
