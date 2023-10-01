@@ -46,7 +46,7 @@ const Footer = () => {
                         <div className={styles.socialIcons}>
                             {socialMediaLinks.map((link, index) => (
                                 <div className={styles.iconModeContainer} key={index}>
-                                    <a href={link.url} className={styles.iconLink}>
+                                    <a href={link.url} className={styles.iconLink} target="_blank" >
                                         <div className={styles.iconContainer}>{link.icon}</div>
                                     </a>
                                     <span className={styles.mode}></span>

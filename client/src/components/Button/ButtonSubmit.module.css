@@ -2,13 +2,13 @@
   all: unset;
   width: fit-content;
   height: fit-content;
-  padding: 1rem 5rem;
+  padding: 1rem 2rem;
   flex-shrink: 0;
   border-radius: 0.625rem;
   background: #e15a40;
   color: #fff;
   text-align: center;
-  font-size: 1.125rem;
+  font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -16,11 +16,9 @@
   text-transform: uppercase;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
 .buttonStyle:hover, .buttonStyle:active {
     cursor: pointer;
-  }
-
-.buttonStyle:active {
   background: #ffffff;
   color: #e15a40;
   border: 1.5px solid #e15a40;
