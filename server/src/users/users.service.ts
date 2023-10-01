@@ -10,8 +10,9 @@ export class UsersService {
 
   constructor(@InjectModel(User.name) private userModel: Model<User>) { }
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CreateUserDto) {
+    const newUser = await this.userModel.create(createUserDto)
+    return newUser;
   }
 
   findAll() {

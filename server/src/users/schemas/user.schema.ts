@@ -18,7 +18,7 @@ export class User {
   @Prop({ required: [ true, 'La contraseña del usuario es requerida.' ] })
       password: string;
   
-  @Prop({ required: [ true, 'El rol del usuario es requerido.' ] })
+  @Prop({ required: [ true, 'El rol del usuario es requerido.' ], default: 'user' })
       roles: Role[];
 }
 

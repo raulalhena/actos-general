@@ -31,8 +31,8 @@ export class AuthService {
 
   }
 
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
+  async create(createAuthDto: CreateAuthDto) {
+    return this.userService.create(createAuthDto);
   }
 
   findAll() {
