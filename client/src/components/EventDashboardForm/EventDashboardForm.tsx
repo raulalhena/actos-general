@@ -33,11 +33,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // const navigate = useNavigate();
 
     const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
-    console.log('eventdata 2 de la pagina: ' + JSON.stringify(formData));
 
     useEffect(() => {
-        console.log('useeffect passa qui?');
-        console.log('valor de eventdata: ' + JSON.stringify(eventData));
         setFormData(eventData);
     }, [ eventData ]);
 
@@ -121,7 +118,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         }
     };
 
-    // Select
+    // SelectVisibility(draft and public status)
     const handleVisibilityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = event.target;
     
@@ -186,6 +183,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         }));
     };
 
+    //SUBMIT
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
     
@@ -205,7 +203,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                         ...formData,
                         visibility: !formData.visibility,
                     });
-                    setIsModalOpen(false);
+                    closeModal();
                 },
                 async () => {
                     const res = await fetch(
@@ -242,14 +240,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                 closeModal,
                                 () => {}
                             );
-                        } else {
-                            // Handle the case when the get request fails
-                            // Mensaje de erro?
-                        }
-                    } else {
-                        // Handle the case when the PUT request fails
-                        // Mensaje de erro?
-                    }
+                        } 
+                    } 
                 }
             );
         } else {
