@@ -1,13 +1,13 @@
 .header {
-  background-color: #1C2E48;
+  background: linear-gradient(#cfe0f5, #e6ecf4);
   width: 100vw;
   height: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 4rem;
-  padding: 5rem;
+  gap: 2rem;
+  padding: 4rem;
   text-align: center;
 }
 
@@ -22,7 +22,7 @@
 
 .title,
 .subtitle {
-  color: white;
+  color:  #1C2E48;
 }
 
 .title {

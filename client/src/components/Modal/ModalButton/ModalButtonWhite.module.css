@@ -1,0 +1,51 @@
+.button {
+    all: unset;
+    width: fit-content;
+    height: fit-content;
+    flex-shrink: 0;
+    border: 1.5px solid #e15a40;
+    border-radius: 0.625rem;
+    background: #ffffff;
+    color: #e15a40;
+    text-align: center;
+    font-size: 12px;
+    padding: 0.5rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover, .button:active {
+    cursor: pointer;
+}
+
+.button:active {
+    background: #e15a40;
+    color: #e15a40;
+    border: 1.5px solid #e15a40;
+    transform: scale(0.98);
+}
+
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+    .button {
+    font-size: 14px;
+    padding: 1rem;
+}
+
+.button:hover {
+    cursor: pointer;
+    /* background: #e15a40;
+    color: #fff; */
+    border: 1.5px solid #e15a40;
+    transform: scale(0.98);
+    }
+
+.ticketIcon {
+    font-size: 18px;
+}
+}

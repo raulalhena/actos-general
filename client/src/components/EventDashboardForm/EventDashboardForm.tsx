@@ -19,8 +19,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 import SelectStatus from '../SelectStatus/SelectStatus';
 import { BsPatchCheckFill } from 'react-icons/bs';
+import { VscCircleFilled } from 'react-icons/vsc';
 import ModalDisplay from '../Modal/ModalDisplay';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
@@ -29,15 +30,15 @@ type Props = { eventData: EventDashboardFormProps };
 
 // Form
 const EventDashboardForm = ( { eventData }: Props ) => {
+    // const navigate = useNavigate();
 
     const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
 
     useEffect(() => {
         setFormData(eventData);
-        // console.log('form data', formData);
-    }, [ eventData, formData ]);
+    }, [ eventData ]);
 
-    // Visibility
+    // VisibilitySection
     const [ isSection1Visible, setIsSection1Visible ] = useState(true);
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
@@ -101,90 +102,38 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // Select
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
-        console.log(formData.category);
-        let selectedValue = false;
-        let newStatus = formData.status;
+
+        // EventTime: Start and End Time
+        if (id === 'endTime' && value < formData.startTime) {
+            toast.error('La hora de finalización no puede ser anterior a la hora de inicio.', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [id]: value,
+            });
+        }
+    };
+
+    // SelectVisibility(draft and public status)
+    const handleVisibilityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = event.target;
     
         if (value === 'Borrador') {
-            selectedValue = false;
-            newStatus = 'Borrador';
-            openModal(
-                null,
-                'Este evento estará en modo Borrador',
-                'Guarde el cambio para que el evento solo sea visible para el organizador del evento.',
-                'No, cancelar',
-                'Sí, cambiar para Borrador',
-                closeModal,
-                true,
-                () => {
-                    setFormData({
-                        ...formData,
-                        visibility: true,
-                    });
-                    setIsModalOpen(false);
-                },
-                async () => {
-                    setFormData({
-                        ...formData,
-                        visibility: false,
-                    });
-                    setIsModalOpen(false);
+            setFormData({
+                ...formData,
+                visibility: false,
+            });
 
-                    const res = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
-                        method: 'PUT',
-                        headers:{ 'Content-type': 'application/json' },
-                        body: JSON.stringify({
-                            visibility: false
-                        })
-                    });
-
-                    return res;
-                }
-            );
         } else if (value === 'Público') {
-            selectedValue = true;
-            newStatus = 'Público';
-            openModal(
-                null,
-                'Este evento estará en modo Público',
-                'Guarde el cambio para que el evento sea visible para todos los usuarios.',
-                'No, cancelar',
-                'Sí, cambiar para Público',
-                closeModal,
-                true,
-                () => {
-                    setFormData({
-                        ...formData,
-                        visibility: false,
-                    });
-                    setIsModalOpen(false);
-                },
-                async () => {
-                    setFormData({
-                        ...formData,
-                        visibility: true,
-                    });
-                    setIsModalOpen(false);
-
-                    const res = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
-                        method: 'PUT',
-                        headers:{ 'Content-type': 'application/json' },
-                        body: JSON.stringify({
-                            visibility: true
-                        })
-                    });
-
-                    return res;
-                },
-                
-            );
-        }
-        setFormData({
-            ...formData,
-            visibility: selectedValue,
-            status: newStatus,
-            [id]: value
-        });
+            setFormData({
+                ...formData,
+                visibility: true,
+            });
+        } 
     };
     
     // Tags
@@ -199,6 +148,14 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         setFormData({
             ...formData,
             organizedBy: newOrganizedBy,
+        });
+    };
+
+    //language
+    const handleLanguageChange = (languages: string[]) => {
+        setFormData({
+            ...formData,
+            language: languages,
         });
     };
 
@@ -226,50 +183,84 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         }));
     };
 
-    // Submit Button
-    const navigate = useNavigate();
-
+    //SUBMIT
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+    
+        if (visibility !== formData.visibility) {
+            openModal(
+                null,
+                `Este evento estará en modo ${
+                    formData.visibility ? 'Público' : 'Borrador'
+                }`,
+                '',
+                'No, cancelar',
+                `Sí, cambiar para ${formData.visibility ? 'público' : 'Borrador'}`,
+                closeModal,
+                true,
+                () => {
+                    setFormData({
+                        ...formData,
+                        visibility: !formData.visibility,
+                    });
+                    closeModal();
+                },
+                async () => {
+                    const res = await fetch(
+                        `http://localhost:8000/api/events/${formData._id}`,
+                        {
+                            method: 'PUT',
+                            headers: { 'Content-type': 'application/json' },
+                            body: JSON.stringify(formData),
+                        }
+                    );
 
-        if (formData.status) alert('Vas a cambiar el estado');
-
-        const res = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
-        await res.json();
-
-        const resp = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        const result = await resp.json();
-
-        setFormData(result);
-
-        const closeModalAndNavigate = () => {
-            closeModal(); // Feche o modal
-            navigate(`/eventdashboard`, { state: { id: result._id } });
-        };
-
-        openModal(
-            <BsPatchCheckFill className={styles.checkIcon} />,
-            'Cambio Guardado',
-            'Tus cambios han sido guardados con éxito',
-            'Cerrar ventana',
-            '',
-            closeModal,
-            true,
-            closeModalAndNavigate,
-            () => {}
-        );
-
+                    if (res.ok) {
+                        const res = await fetch(
+                            `http://localhost:8000/api/events/${formData._id}`,
+                            {
+                                method: 'GET',
+                                headers: { 'Content-Type': 'application/json' },
+                            }
+                        );
+    
+                        if (res.ok) {
+                            const result = await res.json();
+                            setFormData(result);
+                            setVisibility(result.visibility);
+        
+                            openModal(
+                                <BsPatchCheckFill className={styles.checkIcon} />,
+                                'Cambio Guardado',
+                                'Tus cambios han sido guardados con éxito',
+                                'Cerrar ventana',
+                                '',
+                                closeModal,
+                                true,
+                                closeModal,
+                                () => {}
+                            );
+                        } 
+                    } 
+                }
+            );
+        } else {
+            setFormData({
+                ...formData
+            });
+            openModal(
+                <BsPatchCheckFill className={styles.checkIcon} />,
+                'Cambio Guardado',
+                'Tus cambios han sido guardados con éxito',
+                'Cerrar ventana',
+                '',
+                closeModal,
+                true,
+                closeModal,
+                () => {}
+            );
+            
+        }
     };
     
     /* **************
@@ -441,21 +432,21 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
     const [ time, setTime ] = useState<Array<string>>([]);
-   
+    const [ visibility, setVisibility ] = useState<boolean>(false);
+
     // Get all data to fill fields
     useEffect(() => {
         const getCategories = async () => {
             const resp = await fetch('http://localhost:8000/api/misc/categories');
             const categoriesDb = await resp.json();
-   
+
             setCategories(categoriesDb);
         };
-   
+
         getCategories();
     }, []);
-   
+
     // get types
-   
     useEffect(() => {
         const getTypes = async () => {
             try {
@@ -469,9 +460,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         };
         getTypes();
     }, []);
-   
+
     // get languages
-   
     useEffect(() => {
         const getLanguages = async () => {
             try {
@@ -484,11 +474,10 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             }
         };
         getLanguages();
-           
+    
     }, []);
-   
+
     // get time zone
-   
     useEffect(() => {
         const getTimeZone = async () => {
             try {
@@ -502,7 +491,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         };
         getTimeZone();
     }, []);
-   
+
     // get time
     useEffect(() => {
         const getTime = async () => {
@@ -517,6 +506,11 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         };
         getTime();
     }, []);
+
+    // get visibility
+    useEffect(() => {
+        setVisibility(formData.visibility ?? false); //cuando es null(??) es false
+    }, []); //no tocar la dependencia, dejar vacio*
 
     const [ selectedCategory, setSelectedCategory ] = useState(eventData.category);
 
@@ -547,14 +541,17 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     return (
-        <div data-testid='dashboard-component' className={styles.form}>
+        <div data-testid='dashboard-component' className={styles.formDash}>
             <p className={styles.status}>
-                <span> <b>Visibilidad del evento:</b> </span>
-                <span style={{ color: formData.visibility ? 'green' : '#e15a40' }}>
-                    {formData.visibility ? 'Público' : 'Borrador'}
+                <span>
+                    <b>
+                        <VscCircleFilled style={{ color: visibility ? 'green' : '#e15a40' }} />
+                    </b>
+                </span>
+                <span style={{ color: visibility ? 'green' : '#e15a40' }}>
+                    {visibility ? 'Público' : 'Borrador'}
                 </span>
             </p>
-            <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
         
             <form data-testid="event-form" onSubmit={handleSubmit}>
                 <ToastContainer position="top-right" autoClose={3000} />
@@ -563,6 +560,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                     title="1 INFORMACIÓN BÁSICA"
                     isVisible={isSection1Visible}
                     toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
+                    <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
 
                     <FormField>
                         <SelectCategories
@@ -753,7 +751,10 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                         <DropdownCheck 
                             id="languages"
                             label="Idioma del Evento"
-                            options={languages}/>
+                            options={languages}
+                            values={formData.language}
+                            onChange={handleLanguageChange}
+                        />
 
                     </FormField>
                     <FormField>
@@ -835,11 +836,11 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                     <div className={styles.finalSection}>
                         <div className={styles.selectStatus}>
                             <SelectStatus
-                                id="status"
+                                id="visibility"
                                 label=""
                                 options={ [ 'Borrador', 'Público' ] }
-                                value={formData.status}
-                                onChange={handleSelectChange}
+                                value={formData.visibility ? 'Público' : 'Borrador'}
+                                onChange={handleVisibilityChange}
                             />
                         </div>
                         <div className={styles.buttonSection}>

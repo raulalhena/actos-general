@@ -3,6 +3,12 @@
   font-family: 'Inter' , sans-serif;
 }
 
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 h1 {
   color: #1c2e48;
   font-size: 30px;
@@ -17,7 +23,7 @@ p {
 
 h2 {
     color: #1c2e48;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
 }
 
@@ -27,6 +33,20 @@ h3 {
   font-weight: 600;
 }
 
+a {
+  font-size: 14px;  
+  color: #e15a40;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  list-style: none;
+}
 
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {

@@ -2,11 +2,10 @@ import { useState } from 'react';
 import styles from './LogInForm.module.css';
 import { LogInProps } from '../../interfaces/logInProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
-import TextInput from '../TextInput/TextInput';
 import { useAuth } from '../../hooks/useAuth';
+import TextInputSmall from '../TextInputSmall/TextInputSmall';
 
 const LogInForm = () => {
-
     const { login } = useAuth();
 
     const [ logInData, setLogInData ] = useState<LogInProps>({
@@ -52,16 +51,15 @@ const LogInForm = () => {
         const resp = await fetch('http://localhost:8000/api/auth/login', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(logInData)
+            body: JSON.stringify(logInData),
         });
         const user = await resp.json();
 
         console.log('user', user);
 
         login(user);
-
     };
 
     // Function to validate password
@@ -79,42 +77,46 @@ const LogInForm = () => {
 
     return (
         <div className={styles.container}>
-            <form onSubmit={handleSubmit}>
-                <section className={styles.optionTitle}>
-                    <h2>¿No tienes cuenta?</h2>
-                    <a href='./signup' className={styles.registerLink}>Regístrate</a>
-                </section>
-                <section className={styles.logInForm}>
-                    <h1>Iniciar sesión</h1>
-                    <TextInput
-                        id="email"
-                        label=""
-                        placeholder="Email"
-                        minLength={3}
-                        maxLength={175}
-                        value={logInData.email}
-                        onChange={handleInputChange}
-                    />
-                    {emailError && <p className={styles.error}>{emailError}</p>}
-                    <TextInput
-                        id="password"
-                        label=""
-                        placeholder="Contraseña"
-                        minLength={3}
-                        maxLength={175}
-                        value={logInData.password}
-                        onChange={handleInputChange}
-                        isPassword={true}
-                    />
-                    {passwordError && <p className={styles.error}>{passwordError}</p>}
-                    <h3 className={styles.forgotPasswordLink}>
-            ¿Has olvidado tu contraseña?
-                    </h3>
-                </section>
-                <div className={styles.buttonSection}>
-                    <ButtonSubmit label="Iniciar sesión" />
-                </div>
-            </form>
+            <div className={styles.form}>
+                <form onSubmit={handleSubmit}>
+                    <section className={styles.optionTitle}>
+                        <h2>¿No tienes cuenta?</h2>
+                        <a href="./signup" className={styles.registerLink}>
+              Regístrate
+                        </a>
+                    </section>
+                    <section>
+                        <h1>Iniciar sesión</h1>
+                        <TextInputSmall
+                            id="email"
+                            label=""
+                            placeholder="Email"
+                            minLength={3}
+                            maxLength={175}
+                            value={logInData.email}
+                            onChange={handleInputChange}
+                        />
+                        {emailError && <p className={styles.error}>{emailError}</p>}
+                        <TextInputSmall
+                            id="password"
+                            label=""
+                            placeholder="Contraseña"
+                            minLength={3}
+                            maxLength={175}
+                            value={logInData.password}
+                            onChange={handleInputChange}
+                            isPassword={true}
+                        />
+                        {passwordError && <p className={styles.error}>{passwordError}</p>}
+                        <h3 className={styles.forgotPasswordLink}>
+              ¿Has olvidado tu contraseña?
+                        </h3>
+                    </section>
+                    <div className={styles.buttonSection}>
+                        <ButtonSubmit label="Iniciar sesión" />
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };
