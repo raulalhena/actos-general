@@ -37,7 +37,7 @@ const EventDashboardPage = () => {
         language: [], //Select con checkbox
         image: '',
         video: '',
-        capacity: 0,
+        capacity: '',
         isLimited: false,
     // qrEvent: '',
     // qrAttendees: [],
@@ -55,9 +55,9 @@ const EventDashboardPage = () => {
             const data = await resp.json();
             setEventData(data);
         };
-
+    
         fetchEvent();
-    }, []);
+    }, [ eventId ]);
 
     useEffect(() => {
         console.log('eventData', eventData);

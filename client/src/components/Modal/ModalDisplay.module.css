@@ -64,6 +64,7 @@
     font-size: 20px;
 }
 
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
     .modalFooter {

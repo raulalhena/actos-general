@@ -4,7 +4,6 @@ import qrImg from '../../../../server/qr_events/65157c68a98cad7b39aa8f0c.png';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { BiSolidDownload } from 'react-icons/bi';
 import { FaUserCheck } from 'react-icons/fa';
-import { IoLogoWhatsapp } from 'react-icons/Io';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 
 interface InscriptionsRecapProps {
@@ -24,6 +23,8 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                         <p>
               0/{eventData.capacity === undefined ? '-' : eventData.capacity}{' '}
               Usuarios Inscritos
+                0/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
+Usuarios Inscritos
                         </p>
                     </div>
                 </a>

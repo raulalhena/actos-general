@@ -5,12 +5,12 @@ const EventPage = () => {
 
     return (
         <div className={styles.eventpage}>  
-            <section className={styles.title}>
+            <section className={styles.topTitle}>
                 <h1 className={styles.dash}>—</h1>
                 <h1>Crea tu propio evento</h1>
             </section>
             <br />
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p className={styles.subtitleForm}></p>
             <EventForm />
         </div>
     );

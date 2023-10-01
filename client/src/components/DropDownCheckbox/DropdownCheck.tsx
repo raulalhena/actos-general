@@ -20,7 +20,7 @@ const Option = (props: any) => {
 };
 
 function DropdownCheck(props: DropDownCheckProps) {
-    const { options, id, label } = props;
+    const { options, id, label, values, onChange } = props;
 
     const toJsonObject = (element: string): object => {
         return { 
@@ -29,13 +29,19 @@ function DropdownCheck(props: DropDownCheckProps) {
         };
     };
 
-    const [ selected, setSelected ] = useState(null);
+    const [ selected, setSelected ] = useState(values.map(toJsonObject));
 
-    const handleChange = (selectedOption: any) => {
-        setSelected(selectedOption.value);
+    const toString = (element: { value: string }): string => {
+        return element.value;
     };
+    
+    const handleChange = (selectedOption: any) => {
+        setSelected(selectedOption);
+        onChange(selectedOption.map(toString));
+
+    };
+
     const customStyles = {
-        // Otros estilos si los necesitas
         placeholder: (provided: any) => ({
             ...provided,
             fontSize: '12px',
