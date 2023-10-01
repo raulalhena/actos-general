@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './SignupForm.module.css';
 import { SignupProps } from '../../interfaces/signupProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
-import TextInput from '../TextInput/TextInput';
+import TextInputSmall from '../TextInputSmall/TextInputSmall';
 
 const SignupForm = () => {
     const [ signupData, setSignupData ] = useState<SignupProps>({
@@ -29,16 +29,20 @@ const SignupForm = () => {
 
         // Validate name
         const isValidName = validateName(signupData.name);
-        if(!isValidName) {
-            setNameError('El nombre no puede estar en blanco, contener números o espacios en blanco o ser menor de 2 carácteres');
+        if (!isValidName) {
+            setNameError(
+                'El nombre no puede estar en blanco, contener números o espacios en blanco o ser menor de 2 carácteres'
+            );
         } else {
             setNameError(null);
         }
 
         // Validate surname
         const isValidSurname = validateSurname(signupData.surname);
-        if(!isValidSurname) {
-            setSurnameError('El apellido no puede estar en blanco, contener números o ser menor de 2 carácteres');
+        if (!isValidSurname) {
+            setSurnameError(
+                'El apellido no puede estar en blanco, contener números o ser menor de 2 carácteres'
+            );
         } else {
             setSurnameError(null);
         }
@@ -90,70 +94,74 @@ const SignupForm = () => {
 
     return (
         <div className={styles.container}>
-            <form onSubmit={handleSubmit}>
-            <section className={styles.optionTitle}>
-                    <h2>¿Ya tienes cuenta?</h2>
-                    <a href='./login' className={styles.registerLink}>Inicia sesión</a>
-                </section>
-                <section className={styles.signupForm}>
-                    <h1>Registro de usuario</h1>
-                    <TextInput
-                        id="name"
-                        label=""
-                        placeholder="Nombre"
-                        minLength={2}
-                        maxLength={175}
-                        value={signupData.name}
-                        onChange={handleInputChange}
-                    />
-                    {nameError && <p className={styles.error}>{nameError}</p>}
-                    <TextInput
-                        id="surname"
-                        label=""
-                        placeholder="Apellidos"
-                        minLength={2}
-                        maxLength={175}
-                        value={signupData.surname}
-                        onChange={handleInputChange}
-                    />
-                    {surnameError && <p className={styles.error}>{surnameError}</p>}
-                    <TextInput
-                        id="email"
-                        label=""
-                        placeholder="Email"
-                        minLength={3}
-                        maxLength={175}
-                        value={signupData.email}
-                        onChange={handleInputChange}
-                    />
-                    {emailError && <p className={styles.error}>{emailError}</p>}
-                    <TextInput
-                        id="password"
-                        label=""
-                        placeholder="Contraseña"
-                        minLength={3}
-                        maxLength={175}
-                        value={signupData.password}
-                        onChange={handleInputChange}
-                        isPassword={true}
-                    />
-                    {passwordError && <p className={styles.error}>{passwordError}</p>}
-                    <TextInput
-                        id="passwordConfirmed"
-                        label=""
-                        placeholder="Confirma tu contraseña"
-                        minLength={3}
-                        maxLength={175}
-                        value={signupData.password}
-                        onChange={handleInputChange}
-                        isPassword={true}
-                    />
-                    {passwordError && <p className={styles.error}>{passwordError}</p>}
-                </section>
-                <div className={styles.buttonSection}>
-                    <ButtonSubmit label="Registrarse" />
-                </div>
-            </form>
+            <div className={styles.form}>
+                <form onSubmit={handleSubmit}>
+                    <section className={styles.optionTitle}>
+                        <h2>¿Ya tienes cuenta?</h2>
+                        <a href="./login" className={styles.registerLink}>
+              Inicia sesión
+                        </a>
+                    </section>
+                    <section>
+                        <h1>Registro de usuario</h1>
+                        <TextInputSmall
+                            id="name"
+                            label=""
+                            placeholder="Nombre"
+                            minLength={2}
+                            maxLength={175}
+                            value={signupData.name}
+                            onChange={handleInputChange}
+                        />
+                        {nameError && <p className={styles.error}>{nameError}</p>}
+                        <TextInputSmall
+                            id="surname"
+                            label=""
+                            placeholder="Apellidos"
+                            minLength={2}
+                            maxLength={175}
+                            value={signupData.surname}
+                            onChange={handleInputChange}
+                        />
+                        {surnameError && <p className={styles.error}>{surnameError}</p>}
+                        <TextInputSmall
+                            id="email"
+                            label=""
+                            placeholder="Email"
+                            minLength={3}
+                            maxLength={175}
+                            value={signupData.email}
+                            onChange={handleInputChange}
+                        />
+                        {emailError && <p className={styles.error}>{emailError}</p>}
+                        <TextInputSmall
+                            id="password"
+                            label=""
+                            placeholder="Contraseña"
+                            minLength={3}
+                            maxLength={175}
+                            value={signupData.password}
+                            onChange={handleInputChange}
+                            isPassword={true}
+                        />
+                        {passwordError && <p className={styles.error}>{passwordError}</p>}
+                        <TextInputSmall
+                            id="passwordConfirmed"
+                            label=""
+                            placeholder="Confirma tu contraseña"
+                            minLength={3}
+                            maxLength={175}
+                            value={signupData.password}
+                            onChange={handleInputChange}
+                            isPassword={true}
+                        />
+                        {passwordError && <p className={styles.error}>{passwordError}</p>}
+                    </section>
+                    <div className={styles.buttonSection}>
+                        <ButtonSubmit label="Registrarse" />
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };

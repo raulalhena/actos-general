@@ -1,34 +1,40 @@
-.container {
-    margin: 3rem 3rem;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.form {
+  width: fit-content;
+  padding: 1rem 0rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .optionTitle {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 3rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0 2rem 0;
+  color: #1c2e48;
 }
 
 .registerLink {
-    color: #e15a40;
-    font-weight: 700;
-}
-
-.form {
-    margin-bottom: 5rem;
-}
-
-.forgotPasswordLink {
-    text-align: center;
-    margin-bottom: 4rem;
+  color: #e15a40;
+  font-weight: 700;
 }
 
 .buttonSection {
-    display: flex;
-    justify-content: center;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* Para pantallas más grandes o iguales a 900px (xl) */
+@media screen and (min-width: 900px) {
+  .form {
+    padding: 0rem;
+  }
+
+  .buttonSection {
+    margin-top: 3rem;
+  }
+
 }

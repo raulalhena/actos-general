@@ -15,13 +15,15 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
     console.log('capacity', eventData);
 
     return (
-        <>  
+        <>
             <div className={styles.container}>
                 <a href="">
                     <div className={styles.containerSection}>
                         <FaUserCheck className={styles.icon} />
                         <p>
-                0/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity : '- '}
+              0/{eventData.capacity === undefined ? '-' : eventData.capacity}{' '}
+              Usuarios Inscritos
+                0/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
 Usuarios Inscritos
                         </p>
                     </div>
@@ -29,8 +31,13 @@ Usuarios Inscritos
 
                 <div className={styles.containerSection}>
                     <BiSolidDownload className={styles.icon} />
-                    <PDFDownloadLink document={ <QRtoPDFDocument eventData={eventData}  qrImg={qrImg}/> } fileName={ eventData.name } >
-                        <button className={styles.pdfButton}>Descargar QR del evento (.PDF)</button>
+                    <PDFDownloadLink
+                        document={<QRtoPDFDocument eventData={eventData} qrImg={qrImg} />}
+                        fileName={eventData.name}
+                    >
+                        <button className={styles.pdfButton}>
+              Descargar QR del evento (.PDF)
+                        </button>
                     </PDFDownloadLink>
                     <p>|</p>
                     <a href={qrImg} download>
@@ -38,6 +45,7 @@ Usuarios Inscritos
                     </a>
                 </div>
 
+<<<<<<< HEAD
                 <div className={styles.containerSection}>
                     {/* <IoLogoWhatsapp className={styles.icon} /> */}
                     <a
@@ -46,6 +54,17 @@ Usuarios Inscritos
                         target="_blank"
                     >Comparte el QR por Whatsapp</a>
                 </div>
+=======
+                {/* <div className={styles.containerSection}>
+                    <IoLogoWhatsapp className={styles.icon} />
+                    <a
+                        href={`whatsapp://send?pdf=${<QRtoPDFDocument eventData={eventData} qrImg={qrImg} />}`}
+                        data-action="share/whatsapp/share"
+                        target="_blank"
+                    >Comparte el QR por Whatsapp</a>
+                </div> */}
+
+>>>>>>> 45ae63c5660f08d6f870ef6ee49db5a88c8ba7fb
             </div>
         </>
     );

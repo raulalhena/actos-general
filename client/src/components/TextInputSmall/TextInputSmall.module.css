@@ -1,0 +1,29 @@
+.label {
+  font-weight: 600;
+  color: #1c2e48;
+}
+
+.input {
+  width: 300px;
+  height: 40px;
+  padding-left: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #cacaca;
+  margin: 0.5rem 0 0rem 0;
+  font-size: 14px; 
+  font-family: 'Inter', sans-serif;
+}
+
+.input:focus {
+  border: 1.5px solid #1C2E48;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+  outline: none;
+  caret-color: #e15a40 ;
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1000px) {
+  .input {
+    width: 350px;
+  }
+}

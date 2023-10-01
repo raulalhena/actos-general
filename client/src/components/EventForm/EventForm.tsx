@@ -260,6 +260,14 @@ const EventForm = () => {
         }
     };
 
+    //language
+    const handleLanguageChange = (languages: string[]) => {
+        setFormData({
+            ...formData,
+            language: languages,
+        });
+    };
+
     // Tags
     const handleTagsChange = (newTags: string[]) => {
         setFormData({
@@ -334,6 +342,7 @@ const EventForm = () => {
             return;
         }
     
+        console.log('formData aqui: ' + JSON.stringify(formData));
         const resp = await fetch('http://localhost:8000/api/events', {
             method: 'POST',
             headers: {
@@ -456,9 +465,8 @@ const EventForm = () => {
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     return (
-        <div data-testid='event-form-component' className={styles.form}>
+        <div data-testid='event-form-component' className={styles.formEvent}>
 
-            <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
             <form data-testid="event-form" className={styles.formContainer} onSubmit={handleSubmit}>
                 
                 <div className={styles.formContent} >
@@ -467,7 +475,7 @@ const EventForm = () => {
                         title="1 INFORMACIÓN BÁSICA"
                         isVisible={isSection1Visible}
                         toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
-
+                        <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
                         <FormField>
                             <SelectCategories
                                 id="category"
@@ -576,7 +584,7 @@ const EventForm = () => {
                                 <TextInput
                                     id="address"
                                     label="Añade una dirección *"
-                                    placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
+                                    placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona  (mínimo 3 caracteres)"
                                     minLength={3}
                                     maxLength={75}
                                     value={formData.address}
@@ -589,7 +597,7 @@ const EventForm = () => {
                                     isRequired={true}
                                     id="webLink"
                                     label="Añade un link de acceso *"
-                                    placeholder="Escribe el link de acceso a tu evento."
+                                    placeholder="Escribe el link de acceso a tu evento.  (mínimo 3 caracteres)"
                                     minLength={3}
                                     maxLength={75}
                                     value={formData.webLink}
@@ -602,7 +610,7 @@ const EventForm = () => {
                                     <TextInput
                                         id="address"
                                         label="Añade una dirección *"
-                                        placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
+                                        placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona  (mínimo 3 caracteres)"
                                         minLength={3}
                                         maxLength={75}
                                         value={formData.address}
@@ -612,7 +620,7 @@ const EventForm = () => {
                                     <TextInput
                                         id="webLink"
                                         label="Añade un link de acceso *"
-                                        placeholder="Escribe el link de acceso a tu evento."
+                                        placeholder="Escribe el link de acceso a tu evento.  (mínimo 3 caracteres)"
                                         minLength={3}
                                         maxLength={75}
                                         value={formData.webLink}
@@ -658,7 +666,10 @@ const EventForm = () => {
                             <DropdownCheck 
                                 id="language"
                                 label="Idioma del Evento"
-                                options={languages}/>
+                                options={languages}
+                                values={formData.language}
+                                onChange={handleLanguageChange}
+                            />
 
                         </FormField>
                         <FormField>

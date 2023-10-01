@@ -1,0 +1,36 @@
+.searchBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50px;
+}
+
+.searchInput {
+  position: relative;
+  background: transparent;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  width: 450px;
+  height: 60px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+  padding-left: 2rem;
+}
+
+.searchIcon {
+  cursor: pointer;
+  font-size: 20px;
+  color: #1c2e48;
+  border-style: none;
+  background-color: white;
+  width: 70px;
+  height: 60px;
+  border-radius: 0 50px 50px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

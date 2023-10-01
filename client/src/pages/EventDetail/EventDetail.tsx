@@ -75,7 +75,7 @@ const EventDetailPage = () => {
             </section>
             <hr />
 
-            {/* MODE, TYPE, LANGUAGE */} 
+            {/* MODE, TYPE, LANGUAGE */}
             <section className={styles.section}>
                 <div className={styles.detailsSection}>
                     <div className={styles.iconModeContainer}>
@@ -90,14 +90,16 @@ const EventDetailPage = () => {
                         </div>
                         <span className={styles.type}>{eventData.type}</span>
                     </div>
-                    <div className={styles.iconModeContainer}>
-                        <div className={styles.iconContainer}>
-                            <IoLanguageOutline className={styles.icon} />
+                    {eventData.language && eventData.language.length > 0 && (
+                        <div className={styles.iconModeContainer}>
+                            <div className={styles.iconContainer}>
+                                <IoLanguageOutline className={styles.icon} />
+                            </div>
+                            <span className={styles.language}>
+                                {eventData.language.join(', ')}
+                            </span>
                         </div>
-                        <span className={styles.language}>
-                            {eventData.language.join(', ')}
-                        </span>
-                    </div>
+                    )}
                 </div>
             </section>
             <hr />
@@ -106,6 +108,15 @@ const EventDetailPage = () => {
             <section className={styles.section}>
                 <h1 className={styles.sectionTitle}>Fecha y hora</h1>
                 <p className={styles.date}>{eventData.date}</p>
+                <div>
+                    <p className={styles.date}>
+                        {eventData.startTime} - {eventData.endTime}
+                    </p>
+                    <p >
+                        {eventData.timeZone}
+                    </p>
+                </div>
+                
             </section>
             <hr />
             
@@ -129,31 +140,39 @@ const EventDetailPage = () => {
             <hr />
             
             {/* TAGS */}
-            <section className={styles.section}>
-                <h1 className={styles.sectionTitle}>Etiquetas</h1>
-                <div className={styles.tags}>
-                    {eventData.tags && eventData.tags.length > 0 ? (
-                        eventData.tags.map((tag, index) => (
+            {eventData.tags && eventData.tags.length > 0 && (
+                <section className={styles.section}>
+                    <h1 className={styles.sectionTitle}>Etiquetas</h1>
+                    <div className={styles.tags}>
+                        {eventData.tags.map((tag, index) => (
                             <span key={index} className={styles.tagChip}>
                                 {tag}
                             </span>
-                        ))
-                    ) : (
-                        <span className={styles.tagChip}></span>
-                    )}
-                </div>
-            </section>
+                        ))}
+                    </div>
+                </section>
+            )}
             <hr />
-            
-            {/* ORGANIZED BY */}            
-            <section className={styles.section}>
-                <h1 className={styles.sectionTitle}>Organizadores</h1>
-                <div className={styles.organizedBySection}>
-                    <p className={styles.organizedBy}>{eventData.organizedBy}</p>
-                    <a href={'mailto:' + eventData.contactEmail}><ButtonRed label="contactar" /></a>
-                    
-                </div>
-            </section>
+
+            {/* ORGANIZED BY */}
+            {eventData.organizedBy && eventData.organizedBy.length > 0 && (
+                <section className={styles.section}>
+                    <h1 className={styles.sectionTitle}>Organizadores</h1>
+                    <div className={styles.organizedBySection}>
+                        <div className={styles.tags}>
+                            {eventData.organizedBy.map((organizedBy, index) => (
+                                <span key={index} className={styles.tagChip}>
+                                    {organizedBy}
+                                </span>
+                            ))}
+                        </div>
+                        <a href={'mailto:' + eventData.contactEmail}>
+                            <ButtonRed label="contactar" />
+                        </a>
+                    </div>
+                </section>
+            )}
+            {/* <hr /> */}
         </div>
     );
 };
