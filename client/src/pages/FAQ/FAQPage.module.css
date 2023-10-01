@@ -49,6 +49,7 @@
 .expanded {
   .faqQuestion {
     background: linear-gradient(#cfe0f5, #e6ecf4);
+    border-radius: 5px 5px 0px 0px;
   }
 }
 
@@ -56,7 +57,7 @@
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 0px 0px 5px 5px;
   display: none;
 }
 

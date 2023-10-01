@@ -2,26 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.searchWrapper {
-  height: 60px;
-  width: auto;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   background: rgba(255, 255, 255, 0.5);
-  padding: 0 20px;
-  border-radius: 50px 0px 0px 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.inputHolder {
-  font-size: 16px;
-  font-weight: 400;
-  color: #000000;
-  display: flex;
-  align-items: center;
-  padding-left: 1rem;
+  border-radius: 50px;
 }
 
 .searchInput {
@@ -30,12 +13,12 @@
   box-sizing: border-box;
   border: none;
   outline: none;
-  width: 350px;
-  height: 70px;
+  width: 450px;
+  height: 60px;
   font-size: 16px;
   font-weight: 400;
-  line-height: 20px;
   color: #000000;
+  padding-left: 2rem;
 }
 
 .searchIcon {

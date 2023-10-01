@@ -22,7 +22,7 @@ const FAQPage = () => {
             pregunta:
         '¿Cómo puedo ponerme en contacto con el organizador del evento?',
             respuesta:
-        'Puedes ponerse en contacto con el organizador del evento a través de la función de mensajería en la página del evento o encontrar la información de contacto en la descripción del evento si el organizador la ha proporcionado.',
+        'Puede ponerse en contacto con el organizador del evento a través del botón Contactar en la página de cada evento.',
         },
     ];
 

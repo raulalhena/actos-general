@@ -3,15 +3,13 @@ import styles from './Navbar.module.css';
 import Logo from '../../assets/logo.png';
 
 function Navbar() {
-    // adding the states
     const [ isActive, setIsActive ] = useState(false);
+    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
 
-    // add the active class
     const toggleActiveClass = () => {
         setIsActive(!isActive);
     };
 
-    // clean up function to remove the active class
     const removeActive = () => {
         setIsActive(false);
     };
@@ -48,7 +46,10 @@ function Navbar() {
               Crear Evento
                         </a>
                     </li>
-                    <div className={styles.authButtons}>
+                </ul>
+
+                {!isLoggedIn && (
+                    <>
                         <li onClick={removeActive}>
                             <a href="/login" className={styles.navLink}>
                 Iniciar sesión
@@ -59,8 +60,8 @@ function Navbar() {
                 Registrarse
                             </a>
                         </li>
-                    </div>
-                </ul>
+                    </>
+                )}
 
                 <div
                     className={`${styles.hamburger} ${isActive ? styles.active : ''}`}
