@@ -6,12 +6,12 @@ function Navbar() {
     // adding the states
     const [ isActive, setIsActive ] = useState(false);
 
-    //add the active class
+    // add the active class
     const toggleActiveClass = () => {
         setIsActive(!isActive);
     };
 
-    //clean up function to remove the active class
+    // clean up function to remove the active class
     const removeActive = () => {
         setIsActive(false);
     };
@@ -25,29 +25,41 @@ function Navbar() {
                 <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>
                     <li onClick={removeActive}>
                         <a href="/myevents" className={styles.navLink}>
-                            Agenda
+              Agenda
                         </a>
                     </li>
                     <li onClick={removeActive}>
                         <a href="/myevents" className={styles.navLink}>
-                            Mis eventos
+              Mis eventos
                         </a>
                     </li>
                     <li onClick={removeActive}>
                         <a href="/myevents" className={styles.navLink}>
-                            FAQs
+              FAQs
                         </a>
                     </li>
                     <li onClick={removeActive}>
                         <a href="/eventslist" className={styles.navLink}>
-                            Eventos Activos
+              Eventos Activos
                         </a>
                     </li>
                     <li onClick={removeActive}>
                         <a href="/event" className={styles.navLink}>
-                            Crear Evento
+              Crear Evento
                         </a>
                     </li>
+                    <div className={styles.authButtons}>
+                        <li onClick={removeActive}>
+                            <a href="/login" className={styles.navLink}>
+                Iniciar sesión
+                            </a>
+                        </li>
+                        <li onClick={removeActive}>
+                            <a href="/signup" className={styles.navLink}>
+                Registrarse
+                            </a>
+                        </li>
+                    </div>
                 </ul>
 
                 <div
