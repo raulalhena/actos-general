@@ -28,7 +28,7 @@
 @media screen and (min-width: 900px) {
   .container {
     width: fit-content;
-    padding: 3rem;
+    padding: 1rem 3rem;
     display: flex;
     flex-direction: row;
     border-radius: 30px;

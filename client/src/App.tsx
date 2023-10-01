@@ -10,6 +10,7 @@ import EventDetailPage from './pages/EventDetail/EventDetail';
 import EventsList from './pages/EventsList/EventsList';
 import { AuthProvider } from './providers/AuthProvider';
 import Footer from './components/Footer/Footer';
+import FAQPage from './pages/FAQ/FAQPage';
 
 function Layout ({ children }: any) {
     return (
@@ -42,6 +43,7 @@ function App() {
                             <Route path="/" element={<HomePage/>} />
                             <Route path="/event" element={<EventPage/>} />
                             <Route path="/eventdashboard" element={<EventDashboardPage/>} />
+                            <Route path="/faq" element={<FAQPage/>} />
                             <Route path='/eventslist' element={<EventsList />} />
                             <Route path="/event/:_id" element={<EventDetailPage/>} />
                         </Routes>

@@ -34,8 +34,8 @@ function Navbar() {
                         </a>
                     </li>
                     <li onClick={removeActive}>
-                        <a href="/myevents" className={styles.navLink}>
-              FAQs
+                        <a href="/faq" className={styles.navLink}>
+              FAQ
                         </a>
                     </li>
                     <li onClick={removeActive}>
