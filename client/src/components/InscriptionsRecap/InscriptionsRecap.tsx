@@ -45,7 +45,6 @@ Usuarios Inscritos
                     </a>
                 </div>
 
-<<<<<<< HEAD
                 <div className={styles.containerSection}>
                     {/* <IoLogoWhatsapp className={styles.icon} /> */}
                     <a
@@ -54,17 +53,6 @@ Usuarios Inscritos
                         target="_blank"
                     >Comparte el QR por Whatsapp</a>
                 </div>
-=======
-                {/* <div className={styles.containerSection}>
-                    <IoLogoWhatsapp className={styles.icon} />
-                    <a
-                        href={`whatsapp://send?pdf=${<QRtoPDFDocument eventData={eventData} qrImg={qrImg} />}`}
-                        data-action="share/whatsapp/share"
-                        target="_blank"
-                    >Comparte el QR por Whatsapp</a>
-                </div> */}
-
->>>>>>> 45ae63c5660f08d6f870ef6ee49db5a88c8ba7fb
             </div>
         </>
     );
