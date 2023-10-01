@@ -273,8 +273,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     };
     
     /* **************
-START Modal
-************** */
+    START Modal
+    ************** */
     
     const [ isModalOpen, setIsModalOpen ] = useState(false);
 
@@ -330,8 +330,8 @@ START Modal
     };
 
     /* **************
-END Modal
-************** */
+    END Modal
+    ************** */
 
     // Button Radio
     const [ selectedMode, setSelectedMode ] = useState<string>('');
@@ -364,6 +364,9 @@ END Modal
     const [ previewURL, setPreviewURL ] = useState<string>('');
     const [ imgVisibility, setImgVisibility ] = useState<string>('none');
     const [ eventImage, setEventImage ] = useState<any>('');
+    const [ image, setImage ] = useState<Blob | undefined>();
+
+    // setImage(formData.image);
 
     // File Handler
     const handleFile = (file: any) => {
@@ -786,6 +789,7 @@ END Modal
                             imgVisibility={imgVisibility}
                             onDrop={handleDrop}
                             onDragOver={handleDragOver}
+                            value={image}
                         />
                     </FormField>
 

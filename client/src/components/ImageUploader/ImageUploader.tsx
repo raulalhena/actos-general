@@ -9,9 +9,12 @@ interface ImageUploaderProps {
     sendImage: (e: React.MouseEvent<HTMLButtonElement>) => void;
     onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
     onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
+    image: Blob;
 }
 
-export const ImageUploader = ({ previewURL, imgVisibility, sendImage, removeImage, onDrop, onDragOver }: ImageUploaderProps) => {
+export const ImageUploader = ({ image, previewURL, imgVisibility, sendImage, removeImage, onDrop, onDragOver }: ImageUploaderProps) => {
+
+    console.log('image', image)
 
     return (
         <div className={styles.uploadImgContainer} onDrop={onDrop} onDragOver={onDragOver}>
@@ -27,7 +30,7 @@ export const ImageUploader = ({ previewURL, imgVisibility, sendImage, removeImag
                     </div>
                 )}
                 <img
-                    src={previewURL}
+                    src={image}
                     className={styles.image}
                     style={{ display: imgVisibility }}
                     alt="uploaded"
