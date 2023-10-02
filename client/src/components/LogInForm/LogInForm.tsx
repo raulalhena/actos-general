@@ -7,7 +7,7 @@ import TextInputSmall from '../TextInputSmall/TextInputSmall';
 import { Link, useNavigate } from 'react-router-dom';
 
 const LogInForm = () => {
-    const { login, isLogged } = useAuth();
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const [ logInData, setLogInData ] = useState<LogInProps>({
