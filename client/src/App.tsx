@@ -55,7 +55,7 @@ function App() {
                                 <CreateEvent />
                             </ProtectedRoute>
                         } />
-                        <Route path='/createevent' element={
+                        <Route path='/eventdashboard' element={
                             <ProtectedRoute isAllowed={ isLogged && user.role === 'admin' }>
                                 <EventDashboard />
                             </ProtectedRoute>
