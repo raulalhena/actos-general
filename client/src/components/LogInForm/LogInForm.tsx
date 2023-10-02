@@ -58,12 +58,11 @@ const LogInForm = () => {
             body: JSON.stringify(logInData),
         });
         const { accessToken, ...user } = await resp.json();
-
         user.user.token = accessToken;
         console.log('user', user);
 
         login(user);
-        isLogged ? navigate('/home') : null;
+        navigate('/home');
     };
 
     // Function to validate password

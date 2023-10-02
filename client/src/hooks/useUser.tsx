@@ -11,6 +11,8 @@ export const useUser = () => {
     const addUser = (user: User) => {
         setUser(user);
         setItem('user', JSON.stringify(user));
+        
+        console.log('is logged useUser', isLogged);
         setLogged(true);
     };
 
