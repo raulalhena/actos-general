@@ -10,7 +10,7 @@
 .topTitle {
     display: flex;
     gap: 1rem;
-    margin-top: 4rem;
+    margin: 4rem 0 3rem 0;
     width: 780px;
 }
 
