@@ -30,7 +30,7 @@ function Navbar() {
                             Agenda
                         </Link>
                     </li>
-                    {isLogged && (
+                    {isLogged && user.role === 'user' && (
                         <li onClick={removeActive}>
                             <Link to="/myevents" className={styles.navLink}>
                                 Mis eventos

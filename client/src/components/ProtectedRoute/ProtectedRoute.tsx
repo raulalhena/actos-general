@@ -1,17 +1,15 @@
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 interface Props {
     children: ReactNode;
-    isAllowed: boolean;
+    role: string[];
 }
 
-export const ProtectedRoute = ( { isAllowed, children }: Props ) => {
+export const ProtectedRoute = ( { role, children }: Props ) => {
+    const { isLogged, user } = useAuth();
 
-    const navigate = useNavigate();
-
-    if(!isAllowed) navigate('/login');
-
-    return children;
+    return (isLogged && role.includes(user.role)) ? children : <Navigate to='/login' />;
 };
 
 export default ProtectedRoute;

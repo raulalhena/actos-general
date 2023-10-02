@@ -4,7 +4,6 @@ import CardEvent from '../../components/CardEvent/CardEvent';
 import styles from './home.module.css';
 // import HomePageCategories from '../../components/HomePageCategories/HomePageCategories';
 import { CardEventProps } from '../../interfaces/cardEventProps';
-import { useAuth } from '../../hooks/useAuth';
 import { Link } from 'react-router-dom';
 import ButtonRed from '../../components/Button/ButtonRed/ButtonRed';
 

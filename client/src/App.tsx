@@ -37,8 +37,6 @@ function App() {
     const nonNavbar =
         location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/404';
 
-    const { user, isLogged } = useAuth();
-
     return (
         <>
             {nonNavbar ? (
@@ -52,17 +50,17 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path='/createevent' element={
-                            <ProtectedRoute isAllowed={ isLogged && user.role === 'admin' }>
+                            <ProtectedRoute role={ [ 'admin' ] }>
                                 <CreateEvent />
                             </ProtectedRoute>
                         } />
                         <Route path='/eventdashboard' element={
-                            <ProtectedRoute isAllowed={ isLogged && user.role === 'admin' }>
+                            <ProtectedRoute role={ [ 'admin' ] }>
                                 <EventDashboard />
                             </ProtectedRoute>
                         } />
                         <Route path='/myevents' element={
-                            <ProtectedRoute isAllowed={ isLogged }>
+                            <ProtectedRoute role={ [ 'user' ] }>
                                 <MyEvents />
                             </ProtectedRoute>
                         } />
