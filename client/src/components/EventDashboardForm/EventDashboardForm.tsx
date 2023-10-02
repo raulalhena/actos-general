@@ -586,7 +586,6 @@ END Modal
                     name: mode.name,
                     text: mode.text, 
                     value: mode.value,
-                    checked: true, 
                 }));
                 setMode(modeData);
                 
@@ -744,6 +743,7 @@ END Modal
                         <RadioGroupContainer
                             radioButtons={mode}
                             selectedValue={selectedMode}
+                            
                             label="Modalidad *"
                             onChange={handleModeChange}
                             isRequired={true}
