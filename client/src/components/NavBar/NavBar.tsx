@@ -30,11 +30,13 @@ function Navbar() {
                             Agenda
                         </Link>
                     </li>
-                    <li onClick={removeActive}>
-                        <Link to="/myevents" className={styles.navLink}>
-                            Mis eventos
-                        </Link>
-                    </li>
+                    {isLogged && (
+                        <li onClick={removeActive}>
+                            <Link to="/myevents" className={styles.navLink}>
+                                Mis eventos
+                            </Link>
+                        </li>
+                    )}
                     <li onClick={removeActive}>
                         <Link to="/faq" className={styles.navLink}>
                             FAQ

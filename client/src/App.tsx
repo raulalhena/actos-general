@@ -17,6 +17,7 @@ import AllEvents from './pages/AllEvents/AllEvents';
 import ScrollTopButton from './components/ScrollTopButton/ScrollTopButton';
 import { useAuth } from './hooks/useAuth';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import MyEvents from './pages/MyEvents/MyEvents';
 
 function Layout({ children }: any) {
     return (
@@ -58,6 +59,11 @@ function App() {
                         <Route path='/eventdashboard' element={
                             <ProtectedRoute isAllowed={ isLogged && user.role === 'admin' }>
                                 <EventDashboard />
+                            </ProtectedRoute>
+                        } />
+                        <Route path='/myevents' element={
+                            <ProtectedRoute isAllowed={ isLogged }>
+                                <MyEvents />
                             </ProtectedRoute>
                         } />
                         <Route path="/faq" element={<FAQ />} />
