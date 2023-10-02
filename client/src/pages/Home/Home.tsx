@@ -5,7 +5,6 @@ import styles from './home.module.css';
 // import HomePageCategories from '../../components/HomePageCategories/HomePageCategories';
 import { CardEventProps } from '../../interfaces/cardEventProps';
 import { useAuth } from '../../hooks/useAuth';
-import ButtonWhite from '../../components/ButtonWhite/ButtonWhite';
 import { Link } from 'react-router-dom';
 import ButtonRed from '../../components/ButtonRed/ButtonRed';
 
@@ -37,7 +36,7 @@ const HomePage = () => {
             {/* <section className={styles.section}>
                 <div className={styles.title}>
                     <h1 className={styles.dash}>—</h1>
-                    <h1>Categorías</h1>
+                    <h1>Proyectos</h1>
                 </div>
                 <HomePageCategories />
             </section> */}

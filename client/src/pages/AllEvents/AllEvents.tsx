@@ -22,7 +22,7 @@ const AllEvents = () => {
             <section className={styles.section}>
                 <div className={styles.title}>
                     <h1 className={styles.dash}>—</h1>
-                    <h1>Todos los eventos de Nous Zims</h1>
+                    <h1>Todos los eventos de Nous Cims</h1>
                 </div>
                 <div className={styles.cardGrid}>
                     {eventData.map((event, index) => (
