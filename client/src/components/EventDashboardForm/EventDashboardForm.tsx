@@ -185,6 +185,30 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     //SUBMIT
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+
+        type EventFormPropsKey = keyof EventDashboardFormProps;
+        const requiredFields: EventFormPropsKey[] = [
+            'name',
+            'description',
+            'date',
+            'category',
+            'subcategory',
+            'type',
+            'mode',
+            'startTime',
+            'endTime'
+        ];
+
+        const missingFields = requiredFields.filter((field) => !formData[field]);
+        if (missingFields.length > 0) {
+            const errorMessage = `Por favor, complete los siguientes campos obligatorios: ${missingFields.join(', ')}.`;
+            toast.error(errorMessage, {
+                position: toast.POSITION.TOP_RIGHT,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+            return;
+        }
     
         if (visibility !== formData.visibility) {
             openModal(
@@ -245,7 +269,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             );
 
         } else {
-            console.log('submit - guadar');
             const res = await fetch(
                 `http://localhost:8000/api/events/${formData._id}`,
                 {
@@ -484,7 +507,7 @@ END Modal
         const subcategoriesDb = await resp.json();
         console.log('subcategiries :', subcategoriesDb.subcategories );
         setSubcategories(Array.from(subcategoriesDb.subcategories));
-        // setSubcategories(Array.from(subcategoriesDb));
+        
     };
 
     // get types
@@ -579,10 +602,10 @@ END Modal
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
 
         const { value } = event.target;
-        console.log('value es lalalalalala:' + value);  
+       
         let categoryName = '';   
         categories.forEach(category => {
-            console.log('name:' , category.name, category._id, value);
+    
             if(category._id === value) 
                 categoryName = category.name;
         });

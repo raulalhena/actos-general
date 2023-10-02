@@ -263,14 +263,13 @@ const EventForm = () => {
 
         //EventTime: Start and End Time
         if (id === 'endTime' && value < formData.startTime) {
-            
             toast.error('La hora de finalización no puede ser anterior a la hora de inicio.', {
                 position: 'top-right',
                 autoClose: 2500,
                 pauseOnHover: true,
             });
 
-        } else if  (id === 'startTime' && value > formData.endTime){
+        } else if  (id === 'startTime' && formData.endTime !== '' && value > formData.endTime){
             toast.error('La hora de inicio no puede ser posterior a la hora de finalización.', {
                 position: 'top-right',
                 autoClose: 2500,
@@ -350,7 +349,6 @@ const EventForm = () => {
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log(formData);
 
         type EventFormPropsKey = keyof EventFormProps;
 
@@ -367,7 +365,6 @@ const EventForm = () => {
             return;
         }
     
-        console.log('formData aqui: ' + JSON.stringify(formData));
         const resp = await fetch('http://localhost:8000/api/events', {
             method: 'POST',
             headers: {
@@ -386,7 +383,7 @@ const EventForm = () => {
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
-        console.log('values de mode es: !', value);
+
         setSelectedMode(value);
         setFormData({
             ...formData,
