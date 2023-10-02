@@ -62,7 +62,7 @@ const LogInForm = () => {
         console.log('user', user);
 
         login(user);
-        navigate('/home');
+        navigate('/');
     };
 
     // Function to validate password
