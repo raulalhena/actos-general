@@ -65,7 +65,7 @@ const LogInForm = () => {
             user.user.token = accessToken;
             console.log('user', user);
 
-            login(user);
+            login(user.user);
             navigate('/');
         } else {
             toast.error('Error al validar al usuario', {

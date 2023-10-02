@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './Navbar.module.css';
 import Logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom'; // Importa Link desde react-router-dom
@@ -8,7 +8,7 @@ function Navbar() {
     const [ isActive, setIsActive ] = useState(false);
     const { user, isLogged } = useAuth();
 
-    console.log('user ', user);
+    console.log('user ', user.role);
 
     const toggleActiveClass = () => {
         setIsActive(!isActive);
@@ -17,8 +17,6 @@ function Navbar() {
     const removeActive = () => {
         setIsActive(false);
     };
-
-    console.log('is logged navbar', isLogged)
 
     return (
         <>
@@ -47,11 +45,13 @@ function Navbar() {
                             Eventos Activos
                         </Link>
                     </li>
-                    <li onClick={removeActive}>
-                        <Link to="/createevent" className={styles.navLink}>
+                    {isLogged && user.role === 'admin' && (
+                        <li onClick={removeActive}>
+                            <Link to="/createevent" className={styles.navLink}>
                             Crear Evento
-                        </Link>
-                    </li>
+                            </Link>
+                        </li>
+                    )}
                 </ul>
 
                 {!isLogged ? (

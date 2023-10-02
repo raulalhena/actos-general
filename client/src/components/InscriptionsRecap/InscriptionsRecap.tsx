@@ -1,6 +1,6 @@
 import styles from './InscriptionsRecap.module.css';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
-import qrImg from '../../../../server/qr_events/651441b618f217f1a9d762ea.png';
+import qrImg from '../../../../server/qr_events/65157a98fe5f547d2bf205c5.png';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { BiSolidDownload } from 'react-icons/bi';
 import { FaUserCheck } from 'react-icons/fa';
@@ -23,7 +23,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                         <p>
 
                 0/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
-Usuarios Inscritos
+                Usuarios Inscritos
                         </p>
                     </div>
                 </a>
