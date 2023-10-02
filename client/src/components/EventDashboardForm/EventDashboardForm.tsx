@@ -558,11 +558,12 @@ END Modal
             try {
                 const response = await fetch('http://localhost:8000/api/misc/modes');
                 const data = await response.json();
-                const modeData = data.map((mode: { name: string; text: string;  value: string }) => ({
+                const modeData = data.map((mode: { _id : string; name: string; text: string;  value: string }) => ({
+                    id: mode._id,
                     name: mode.name,
                     text: mode.text, 
                     value: mode.value,
-                    checked: false, 
+                    checked: true, 
                 }));
                 setMode(modeData);
                 

@@ -1,5 +1,5 @@
 export interface ButtonCardRadioProps{
-
+    id: string;
     name : string;
     text: string;
     value: string;
