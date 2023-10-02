@@ -25,7 +25,7 @@ const Login = () => {
     }, []);
 
     return (
-        <div className={styles.page}>
+        <div data-testid='login-page' className={styles.page}>
             <div className={styles.container}>
                 <div className={styles.sectionImg}>
                     {showImg ? (

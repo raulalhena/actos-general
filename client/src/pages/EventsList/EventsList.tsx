@@ -18,7 +18,7 @@ const EventsList = () => {
     });
 
     return (
-        <div>
+        <div data-testid='eventsList-page'>
             {events && events.map((event: EventDashboardFormProps, index: number) => {
                 return (
                     <div key={index}>

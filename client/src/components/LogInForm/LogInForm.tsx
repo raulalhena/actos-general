@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './LogInForm.module.css';
 import { LogInProps } from '../../interfaces/logInProps';
-import ButtonSubmit from '../Button/ButtonSubmit';
+import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import { useAuth } from '../../hooks/useAuth';
 import TextInputSmall from '../TextInputSmall/TextInputSmall';
 import { Link, useNavigate } from 'react-router-dom';

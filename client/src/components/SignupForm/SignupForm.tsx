@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './SignupForm.module.css';
 import { SignupProps } from '../../interfaces/signupProps';
-import ButtonSubmit from '../Button/ButtonSubmit';
+import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import TextInputSmall from '../TextInputSmall/TextInputSmall';
 import { Link } from 'react-router-dom';
 

@@ -37,7 +37,7 @@ const FAQ = () => {
     };
 
     return (
-        <div className={styles.faqPage}>
+        <div data-testid='faq-page' className={styles.faqPage}>
             <div className={styles.title}>
                 <h1 className={styles.dash}>—</h1>
                 <h1>Preguntas frecuentes</h1>

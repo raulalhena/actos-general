@@ -86,7 +86,7 @@ const EventDetailPage = () => {
     const formattedDate = formatDate(eventData.date);
 
     return (
-        <div className={styles.page}>
+        <div data-testid='event-detail' className={styles.page}>
             {/* IMAGE */}
             <div className={styles.imageSection}>
                 <img src={prueba} className={styles.eventImage} />

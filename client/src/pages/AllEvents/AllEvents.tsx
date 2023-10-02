@@ -19,7 +19,7 @@ const AllEvents = () => {
 
     return (
         <>
-            <section className={styles.section}>
+            <section data-testid='allEvents-page' className={styles.section}>
                 <div className={styles.title}>
                     <h1 className={styles.dash}>—</h1>
                     <h1>Todos los eventos de Nous Cims</h1>
