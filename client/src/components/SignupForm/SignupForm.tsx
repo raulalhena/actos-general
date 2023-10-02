@@ -20,8 +20,9 @@ const SignupForm = () => {
     const [ surnameError, setSurnameError ] = useState<string | null>(null);
     const [ passwordError, setPasswordError ] = useState<string | null>(null);
     const [ emailError, setEmailError ] = useState<string | null>(null);
+    const [ notPasswordMatchError, setNotPasswordMatchError ] = useState<string | null>(null);
 
-    const [ passwordConfirmed, setPasswordConfirmed ] = useState<string>();
+    const [ passwordConfirmed, setPasswordConfirmed ] = useState<string>(null);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = event.target;
@@ -34,12 +35,8 @@ const SignupForm = () => {
 
     const handleConfirmPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
-        if(!matchPassword(signupData.password, value)) {
-            console.log('password no coihnciden');
-            return;
-        }
+       
         setPasswordConfirmed(value);
-
     };
 
     const handleSubmit = async (event: React.FormEvent) => {
@@ -86,19 +83,32 @@ const SignupForm = () => {
 
         // Validate match password
         const isMatchPassword = matchPassword(signupData.password, passwordConfirmed);
+        if (!isMatchPassword) {
+            setNotPasswordMatchError('Las contraseñas no coinciden.');
+        } else {
+            setNotPasswordMatchError(null);
+        }
 
-        const { passwordConfirmed, ...signupData } = signupData;
-        console.log('sign data', JSON.stringify(signupData));
+        console.log('sign up ', signupData);
 
-        const resp = await fetch('http://localhost:8000/api/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'applications/json'
-            },
-            body: JSON.stringify(signupData)
-        });
+        if(
+            validateEmail(signupData.email) &&
+            validateName(signupData.name) &&
+            validateSurname(signupData.surname) &&
+            validatePassword(signupData.password) &&
+            matchPassword(signupData.password, passwordConfirmed)
+        ){
 
-        if(resp.ok) navigate('/login');
+            const resp = await fetch('http://localhost:8000/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(signupData)
+            });
+
+            if(resp.ok) navigate('/login');
+        }
 
     };
 
@@ -195,7 +205,7 @@ const SignupForm = () => {
                             onChange={handleConfirmPassword}
                             isPassword={true}
                         />
-                        {passwordError && <p className={styles.error}>{passwordError}</p>}
+                        {notPasswordMatchError && <p className={styles.error}>{notPasswordMatchError}</p>}
                     </section>
                     <div className={styles.buttonSection}>
                         <ButtonSubmit label="Registrarse" />
