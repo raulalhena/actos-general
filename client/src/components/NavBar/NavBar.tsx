@@ -4,8 +4,8 @@ import Logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom'; // Importa Link desde react-router-dom
 
 function Navbar() {
-    const [isActive, setIsActive] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [ isActive, setIsActive ] = useState(false);
+    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
 
     const toggleActiveClass = () => {
         setIsActive(!isActive);
@@ -43,7 +43,7 @@ function Navbar() {
                         </Link>
                     </li>
                     <li onClick={removeActive}>
-                        <Link to="/event" className={styles.navLink}>
+                        <Link to="/createevent" className={styles.navLink}>
                             Crear Evento
                         </Link>
                     </li>

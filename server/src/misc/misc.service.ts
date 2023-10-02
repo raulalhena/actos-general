@@ -85,7 +85,7 @@ export class MiscService {
    */
 
  bulkCreateCategory( createCategoryDto: CreateCategoryDto[]) {
-   return this.categoryModel.create(createCategoryDto);
+   return this.categoryModel.create(createCategoryDto, { ordered: true });
  }
 
  bulkCreateSubcategory( createSubcategoryDto: CreateSubcategoryDto[]) {
@@ -101,7 +101,7 @@ export class MiscService {
  }
 
  bulkCreateTime( createTimeDto: CreateTimeDto[]) {
-   return this.timeModel.create(createTimeDto);
+   return this.timeModel.create(createTimeDto, { ordered: true });
  }
 
  bulkCreateTimeZone( createTimeZoneDto: CreateTimeZoneDto[]) {

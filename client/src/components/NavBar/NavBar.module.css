@@ -31,6 +31,11 @@
   text-decoration: none;
   font-size: 18px;
 }
+
+.navLink:hover {
+  color: #e15a40;
+  transition: 0.1s;
+}
   
 @media screen and (max-width: 768px) {
   .hamburger {
@@ -87,10 +92,5 @@
     padding: 2rem;
     border-bottom: 1px solid #e2e2e2;
     width: 100vw;
-  }
-
-  .navLink:hover {
-    color: #e15a40;
-    transition: 0.2s;
   }
 }

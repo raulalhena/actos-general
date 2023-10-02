@@ -4,9 +4,11 @@ import { LogInProps } from '../../interfaces/logInProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
 import { useAuth } from '../../hooks/useAuth';
 import TextInputSmall from '../TextInputSmall/TextInputSmall';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LogInForm = () => {
-    const { login } = useAuth();
+    const { login, isLogged } = useAuth();
+    const navigate = useNavigate();
 
     const [ logInData, setLogInData ] = useState<LogInProps>({
         email: '',
@@ -55,11 +57,12 @@ const LogInForm = () => {
             },
             body: JSON.stringify(logInData),
         });
-        const user = await resp.json();
-
+        const { accessToken, ...user } = await resp.json();
+        user.user.token = accessToken;
         console.log('user', user);
 
         login(user);
+        navigate('/');
     };
 
     // Function to validate password
@@ -81,9 +84,9 @@ const LogInForm = () => {
                 <form onSubmit={handleSubmit}>
                     <section className={styles.optionTitle}>
                         <h2>¿No tienes cuenta?</h2>
-                        <a href="./signup" className={styles.registerLink}>
+                        <Link to="/signup" className={styles.registerLink}>
               Regístrate
-                        </a>
+                        </Link>
                     </section>
                     <section>
                         <h1>Iniciar sesión</h1>

@@ -1,0 +1,28 @@
+.createEvent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    padding: 0 2rem;
+}
+
+.topTitle {
+    display: flex;
+    gap: 1rem;
+    margin: 4rem 0 3rem 0;
+    width: 780px;
+}
+
+.dash {
+    color: #E15A40;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (max-width: 768px) {
+    .topTitle {
+        align-items: center;
+        justify-content: center;
+        max-width: 400px;
+    }
+}
