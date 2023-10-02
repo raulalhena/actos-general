@@ -1,7 +1,6 @@
 import { useState, ChangeEvent, useEffect } from 'react';
-// import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 import { EventFormProps } from '../../interfaces/eventFormProps';
-import ButtonSubmit from '../Button/ButtonSubmit';
+import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import RadioGroupContainer from '../Button/ButtonContainer/RadioCardContainer';
 import DateInput from '../DateInput/DateInput';
 import FormField from '../FormField/FormField';
@@ -22,6 +21,7 @@ import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
+import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 
 // Form
 const EventForm = () => {
@@ -71,7 +71,7 @@ const EventForm = () => {
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
     const [ time, setTime ] = useState<Array<string>>([]);
-    const [ mode, setMode ] = useState<Array<string>>([]);
+    const [ mode, setMode ] = useState<ButtonCardRadioProps[]>([]);
 
     // Get all data to fill fields
     useEffect(() => {
@@ -154,8 +154,14 @@ const EventForm = () => {
             try {
                 const response = await fetch('http://localhost:8000/api/misc/modes');
                 const data = await response.json();
-                const mode = data.map((mode: { name: string;}) => mode.name);
-                setMode(mode);
+                const modeData = data.map((mode: { name: string; text: string;  value: string }) => ({
+                    name: mode.name,
+                    text: mode.text, 
+                    value: mode.value,
+                    checked: false, 
+                }));
+                setMode(modeData);
+                
             } catch (error) {
                 console.error('Error al obtener las horas:', error);
             }
@@ -250,14 +256,20 @@ const EventForm = () => {
         }
     };
     
-    // Select
+    // Select TIME
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
 
         //EventTime: Start and End Time
         if (id === 'endTime' && value < formData.startTime) {
-            
             toast.error('La hora de finalización no puede ser anterior a la hora de inicio.', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+
+        } else if  (id === 'startTime' && formData.endTime !== '' && value > formData.endTime){
+            toast.error('La hora de inicio no puede ser posterior a la hora de finalización.', {
                 position: 'top-right',
                 autoClose: 2500,
                 pauseOnHover: true,
@@ -336,7 +348,6 @@ const EventForm = () => {
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log(formData);
 
         type EventFormPropsKey = keyof EventFormProps;
 
@@ -353,7 +364,6 @@ const EventForm = () => {
             return;
         }
     
-        console.log('formData aqui: ' + JSON.stringify(formData));
         const resp = await fetch('http://localhost:8000/api/events', {
             method: 'POST',
             headers: {
@@ -372,20 +382,13 @@ const EventForm = () => {
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
-        console.log('values de mode es: !', value);
+
         setSelectedMode(value);
         setFormData({
             ...formData,
             mode: value,
         });
     };
-
-    // Mode Radio Group
-    // const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
-    //     ...container,
-    //     checked: selectedMode === container.value,
-    //     onChange: () => handleModeChange(container.value),
-    // }));
 
     /**************************************************
     ** Image Uploader
@@ -592,7 +595,7 @@ const EventForm = () => {
                                 onChange={handleModeChange}
                                 isRequired={true}
                             />
-                            {selectedMode === 'option1' && (
+                            {selectedMode === 'Presencial' && (
                                 <TextInput
                                     id="address"
                                     label="Añade una dirección *"
@@ -604,7 +607,7 @@ const EventForm = () => {
                                     isRequired={true}
                                 />
                             )}
-                            {selectedMode === 'option2' && (
+                            {selectedMode === 'En línea' && (
                                 <TextInput
                                     isRequired={true}
                                     id="webLink"
@@ -617,7 +620,7 @@ const EventForm = () => {
                                     type="url"
                                 />
                             )}
-                            {selectedMode === 'option3' && (
+                            {selectedMode === 'Híbrido' && (
                                 <>
                                     <TextInput
                                         id="address"

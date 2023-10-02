@@ -1,7 +1,7 @@
-import { ButtonSubmitProps } from '../../interfaces/buttonSubmitProps';
-import styles from './ButtonWhite.module.css';
+import { ButtonSubmitProps } from '../../../interfaces/buttonSubmitProps';
+import styles from './ButtonRed.module.css';
 
-const ButtonWhite = (props: ButtonSubmitProps) => {
+const ButtonRed = (props: ButtonSubmitProps) => {
     const { label, onClick } = props;
     return (
         <div className={styles.container}>
@@ -12,4 +12,4 @@ const ButtonWhite = (props: ButtonSubmitProps) => {
     );
 };
 
-export default ButtonWhite;
+export default ButtonRed;

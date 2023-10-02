@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, useEffect } from 'react';
 import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
-import ButtonSubmit from '../Button/ButtonSubmit';
+import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import RadioGroupContainer from '../Button/ButtonContainer/RadioCardContainer';
 import DateInput from '../DateInput/DateInput';
 import FormField from '../FormField/FormField';
@@ -12,7 +12,6 @@ import  TextArea  from '../TextArea/TextArea';
 import TextInput from '../TextInput/TextInput';
 import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
-import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventDashboardForm.module.css';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { ToastContainer, toast } from 'react-toastify';
@@ -186,6 +185,30 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     //SUBMIT
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+
+        type EventFormPropsKey = keyof EventDashboardFormProps;
+        const requiredFields: EventFormPropsKey[] = [
+            'name',
+            'description',
+            'date',
+            'category',
+            'subcategory',
+            'type',
+            'mode',
+            'startTime',
+            'endTime'
+        ];
+
+        const missingFields = requiredFields.filter((field) => !formData[field]);
+        if (missingFields.length > 0) {
+            const errorMessage = `Por favor, complete los siguientes campos obligatorios: ${missingFields.join(', ')}.`;
+            toast.error(errorMessage, {
+                position: toast.POSITION.TOP_RIGHT,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+            return;
+        }
     
         if (visibility !== formData.visibility) {
             openModal(
@@ -246,7 +269,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             );
 
         } else {
-            console.log('submit - guadar');
             const res = await fetch(
                 `http://localhost:8000/api/events/${formData._id}`,
                 {
@@ -349,7 +371,7 @@ END Modal
 ************** */
 
     // Button Radio
-    const [ selectedMode, setSelectedMode ] = useState<string>('');
+    const [ selectedMode, setSelectedMode ] = useState<string>(formData.mode);
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
@@ -363,11 +385,6 @@ END Modal
     // Capacity Radio Groug handler
 
     // Mode Radio Group
-    const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
-        ...container,
-        checked: selectedMode === container.value,
-        onChange: () => handleModeChange(container.value),
-    }));
 
     // Capacity Radio Group
 
@@ -455,6 +472,7 @@ END Modal
     const [ time, setTime ] = useState<Array<string>>([]);
     const [ visibility, setVisibility ] = useState<boolean>(false);
     const [ selectedCategory, setSelectedCategory ] = useState(formData.category);
+    const [ mode, setMode ] = useState<ButtonCardRadioProps[]>([]);
 
     // Get all data to fill fields
     // Get Categories
@@ -489,7 +507,7 @@ END Modal
         const subcategoriesDb = await resp.json();
         console.log('subcategiries :', subcategoriesDb.subcategories );
         setSubcategories(Array.from(subcategoriesDb.subcategories));
-        // setSubcategories(Array.from(subcategoriesDb));
+        
     };
 
     // get types
@@ -558,15 +576,35 @@ END Modal
         setVisibility(formData.visibility ?? false); //cuando es null(??) es false
     }, []); //no tocar la dependencia, dejar vacio*
 
+    useEffect(() => {
+        const getMode = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/modes');
+                const data = await response.json();
+                const modeData = data.map((mode: { _id : string; name: string; text: string;  value: string }) => ({
+                    id: mode._id,
+                    name: mode.name,
+                    text: mode.text, 
+                    value: mode.value,
+                }));
+                setMode(modeData);
+                
+            } catch (error) {
+                console.error('Error al obtener las horas:', error);
+            }
+        };
+        getMode();
+    }, []);
+
     // Categories Handle Change
 
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
 
         const { value } = event.target;
-        console.log('value es lalalalalala:' + value);  
+       
         let categoryName = '';   
         categories.forEach(category => {
-            console.log('name:' , category.name, category._id, value);
+    
             if(category._id === value) 
                 categoryName = category.name;
         });
@@ -703,13 +741,14 @@ END Modal
                     </FormField>
                     <FormField>
                         <RadioGroupContainer
-                            radioButtons={modeRadioButtons}
-                            selectedValue={formData.mode}
-                            label="Modalidad"
+                            radioButtons={mode}
+                            selectedValue={selectedMode}
+                            
+                            label="Modalidad *"
                             onChange={handleModeChange}
                             isRequired={true}
                         />
-                        {formData.mode === 'option1' && (
+                        {formData.mode === 'Presencial' && (
                             <TextInput
                                 id="address"
                                 label="Añade una dirección"
@@ -720,8 +759,9 @@ END Modal
                                 onChange={handleInputChange}
                                 isRequired={true}
                             />
+                            
                         )}
-                        {formData.mode === 'option2' && (
+                        {formData.mode === 'En línea' && (
                             <TextInput
                                 isRequired={true}
                                 id="webLink"
@@ -734,7 +774,7 @@ END Modal
                                 type="url"
                             />
                         )}
-                        {formData.mode === 'option3' && (
+                        {formData.mode === 'Híbrido' && (
                             <>
                                 <TextInput
                                     id="address"
@@ -746,6 +786,7 @@ END Modal
                                     onChange={handleInputChange}
                                     isRequired={true}
                                 />
+                                <br />
                                 <TextInput
                                     id="webLink"
                                     label="Añade un link de acceso"
@@ -757,7 +798,9 @@ END Modal
                                     isRequired={true}
                                     type="url"
                                 />
+                                <br />
                             </>
+                            
                         )}
                     </FormField>
                 </SectionForm>

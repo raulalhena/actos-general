@@ -7,6 +7,12 @@
   padding: 0 2rem;
 }
 
+.containerSection {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+}
+
 .title {
   display: flex;
   gap: 1rem;
@@ -33,13 +39,13 @@
   margin-top: 3rem;
 }
 
-.infoPanel {
+/* .infoPanel {
   display: flex;
   width: 100px;
   justify-content: space-between;
   align-items: center;
   border: 1px solid red;
-}
+} */
 
 .container {
   width: fit-content;

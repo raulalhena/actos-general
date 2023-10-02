@@ -1,4 +1,4 @@
-import { ButtonSubmitProps } from '../../interfaces/buttonSubmitProps';
+import { ButtonSubmitProps } from '../../../interfaces/buttonSubmitProps';
 import styles from './ButtonInscription.module.css';
 import { IoTicketOutline } from 'react-icons/io5';
 
