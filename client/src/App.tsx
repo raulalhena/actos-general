@@ -11,6 +11,7 @@ import EventsList from './pages/EventsList/EventsList';
 import { AuthProvider } from './providers/AuthProvider';
 import Footer from './components/Footer/Footer';
 import FAQPage from './pages/FAQ/FAQPage';
+import ScrollTopButton from './components/ScrollTopButton/ScrollTopButton';
 
 function Layout ({ children }: any) {
     return (
@@ -18,6 +19,7 @@ function Layout ({ children }: any) {
             <AuthProvider >
                 <NavBar />
                 {children}
+                <ScrollTopButton/>
                 <Footer />
             </AuthProvider>
         </>
