@@ -8,7 +8,7 @@ import { PDFViewer } from '@react-pdf/renderer';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
 import qrImg from '../../../../server/src/public/65157e08822b661558d58771.png';
 
-const EventDashboardPage = () => {
+const EventDashboard = () => {
     const location = useLocation();
     const eventId = location.state?.id;
 
@@ -97,4 +97,4 @@ const EventDashboardPage = () => {
     );
 };
 
-export default EventDashboardPage;
+export default EventDashboard;

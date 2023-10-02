@@ -4,7 +4,7 @@ import { LogInProps } from '../../interfaces/logInProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
 import { useAuth } from '../../hooks/useAuth';
 import TextInputSmall from '../TextInputSmall/TextInputSmall';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LogInForm = () => {
     const { login, isLogged } = useAuth();

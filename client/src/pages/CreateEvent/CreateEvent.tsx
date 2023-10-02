@@ -1,10 +1,10 @@
 import EventForm from '../../components/EventForm/EventForm';
-import styles from './event.module.css';
+import styles from './CreateEvent.module.css';
 
-const EventPage = () => {
+const CreateEvent = () => {
 
     return (
-        <div className={styles.eventpage}>  
+        <div className={styles.createEvent}>  
             <section className={styles.topTitle}>
                 <h1 className={styles.dash}>—</h1>
                 <h1>Crea tu propio evento</h1>
@@ -16,4 +16,4 @@ const EventPage = () => {
     );
 };
 
-export default EventPage;
+export default CreateEvent;

@@ -1,0 +1,48 @@
+.notFoundPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    position: relative;
+    gap: 1rem;
+}
+
+.notFoundImg {
+    max-width: 85%;
+}
+
+.notFoundText {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 10px;
+    gap: 1.5rem;
+}
+
+@media screen and (min-width: 568px) {
+    .notFoundImg {
+        max-width: 65%;
+    }
+}
+
+@media screen and (min-width: 668px) {
+    .notFoundImg {
+        max-width: 55%;
+    }
+}
+
+@media screen and (min-width: 868px) {
+    .notFoundImg {
+        max-width: 45%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .notFoundImg {
+        max-width: 35%;
+    }
+}
