@@ -16,28 +16,11 @@
   width: 100vw;
 }
 
-
 .cardGrid {    
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.eventsButton {
-  font-size: 16px;
-  border-radius: 12px;
-  border: 1px solid #b0b0b0;
-  background: #f5f5f5;
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  width: fit-content;
-  outline: none;
-}
-
-.eventsButton:hover {
-  cursor: pointer;
 }
 
 .buttonSection {
@@ -61,7 +44,6 @@
     gap: 3rem;
     padding: 5rem;
   }
-
 }
 
 /* Para pantallas más grandes o iguales a 1200px (xl) */
