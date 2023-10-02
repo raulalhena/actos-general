@@ -3,6 +3,7 @@ import SignupForm from '../../components/SignupForm/SignupForm';
 import styles from './signup.module.css';
 import Img from '../../assets/login.png';
 import Logo from '../../assets/logo.png';
+import { Link } from 'react-router-dom';
 
 function SignupPage() {
     const [ showImg, setShowImg ] = useState(true);
@@ -28,9 +29,13 @@ function SignupPage() {
             <div className={styles.container}>
                 <div className={styles.sectionImg}>
                     {showImg ? (
-                        <img src={Img} alt="NousCims" className={styles.img} />
+                        <Link to="/">
+                            <img src={Img} alt="NousCims" className={styles.img} />
+                        </Link>
                     ) : (
-                        <img src={Logo} alt="Logo" className={styles.logo} />
+                        <Link to="/">
+                            <img src={Logo} alt="Logo" className={styles.logo} />
+                        </Link>
                     )}
                 </div>
                 <SignupForm />

@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import styles from './Navbar.module.css';
 import Logo from '../../assets/logo.png';
+import { Link } from 'react-router-dom'; // Importa Link desde react-router-dom
 
 function Navbar() {
-    const [ isActive, setIsActive ] = useState(false);
-    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+    const [isActive, setIsActive] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const toggleActiveClass = () => {
         setIsActive(!isActive);
@@ -17,48 +18,48 @@ function Navbar() {
     return (
         <>
             <nav className={styles.navbar}>
-                <a className={styles.navbarLink} href="/" onClick={removeActive}>
+                <Link to="/" className={styles.navbarLink} onClick={removeActive}>
                     <img src={Logo} className={styles.logo} alt="Logo" />
-                </a>
+                </Link>
                 <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>
                     <li onClick={removeActive}>
-                        <a href="/myevents" className={styles.navLink}>
-              Agenda
-                        </a>
+                        <Link to="/myevents" className={styles.navLink}>
+                            Agenda
+                        </Link>
                     </li>
                     <li onClick={removeActive}>
-                        <a href="/myevents" className={styles.navLink}>
-              Mis eventos
-                        </a>
+                        <Link to="/myevents" className={styles.navLink}>
+                            Mis eventos
+                        </Link>
                     </li>
                     <li onClick={removeActive}>
-                        <a href="/faq" className={styles.navLink}>
-              FAQ
-                        </a>
+                        <Link to="/faq" className={styles.navLink}>
+                            FAQ
+                        </Link>
                     </li>
                     <li onClick={removeActive}>
-                        <a href="/eventslist" className={styles.navLink}>
-              Eventos Activos
-                        </a>
+                        <Link to="/eventslist" className={styles.navLink}>
+                            Eventos Activos
+                        </Link>
                     </li>
                     <li onClick={removeActive}>
-                        <a href="/event" className={styles.navLink}>
-              Crear Evento
-                        </a>
+                        <Link to="/event" className={styles.navLink}>
+                            Crear Evento
+                        </Link>
                     </li>
                 </ul>
 
                 {!isLoggedIn && (
                     <>
                         <li onClick={removeActive}>
-                            <a href="/login" className={styles.navLink}>
-                Iniciar sesión
-                            </a>
+                            <Link to="/login" className={styles.navLink}>
+                                Iniciar sesión
+                            </Link>
                         </li>
                         <li onClick={removeActive}>
-                            <a href="/signup" className={styles.navLink}>
-                Registrarse
-                            </a>
+                            <Link to="/signup" className={styles.navLink}>
+                                Registrarse
+                            </Link>
                         </li>
                     </>
                 )}

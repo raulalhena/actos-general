@@ -4,6 +4,7 @@ import { UpdateEventDto } from './dto/update-event.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types, ObjectId } from 'mongoose';
 import { generateEventQR } from '../utils/qr.generator';
+import { EventInscriptionDto } from './dto/event-inscription.dto';
 
 
 @Injectable()
@@ -52,6 +53,19 @@ export class EventsService {
       return 'El registro de usuario se ha realizado con éxito';
     } catch(error) {
       throw new HttpException('Error al registrar la asistencia', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async eventInscription(eventInscriptionDto: EventInscriptionDto) {
+    try {
+      const updateData = {
+        $push: { submitted: eventInscriptionDto.userId }
+      }
+      const updateEventSubmitted = await this.eventModel.findOneAndUpdate({_id: eventInscriptionDto.eventId}, updateData, {new: true})
+
+      return updateEventSubmitted
+    } catch (error) {
+      throw error
     }
   }
 }

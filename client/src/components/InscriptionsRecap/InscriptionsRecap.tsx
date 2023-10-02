@@ -21,8 +21,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                     <div className={styles.containerSection}>
                         <FaUserCheck className={styles.icon} />
                         <p>
-              0/{eventData.capacity === undefined ? '-' : eventData.capacity}{' '}
-              Usuarios Inscritos
+
                 0/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
 Usuarios Inscritos
                         </p>
