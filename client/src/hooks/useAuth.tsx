@@ -4,7 +4,7 @@ import { User } from '../interfaces/User';
 import { useLocalStorage } from './useLocalStorage';
 
 export const useAuth = () => {
-    const { user, addUser, removeUser, isLogged } = useUser();
+    const { user, addUser, removeUser } = useUser();
     const { getItem } = useLocalStorage();
 
     useEffect(() => {
@@ -22,5 +22,5 @@ export const useAuth = () => {
         removeUser();
     };
 
-    return { user, login, logout, isLogged };
+    return { user, login, logout };
 };

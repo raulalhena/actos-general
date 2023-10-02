@@ -12,8 +12,8 @@ export const useUser = () => {
         setUser(user);
         setItem('user', JSON.stringify(user));
         
-        console.log('is logged useUser', isLogged);
-        setLogged(true);
+        // console.log('is logged useUser', isLogged);
+        // setLogged(true);
     };
 
     const removeUser = () => {
@@ -28,5 +28,5 @@ export const useUser = () => {
         setItem('user', '');
     };
 
-    return { user, addUser, removeUser, isLogged };
+    return { user, addUser, removeUser };
 };
