@@ -12,6 +12,7 @@ import { AuthProvider } from './providers/AuthProvider';
 import Footer from './components/Footer/Footer';
 import FAQ from './pages/FAQ/FAQ';
 import NotFound from './pages/NotFound/NotFound';
+import Logout from './components/Logout/Logout';
 import AllEvents from './pages/AllEvents/AllEvents';
 import ScrollTopButton from './components/ScrollTopButton/ScrollTopButton';
 
@@ -50,6 +51,7 @@ function App() {
                         <Route path="/faq" element={<FAQ />} />
                         <Route path="/eventslist" element={<EventsList />} />
                         <Route path="/event/:_id" element={<EventDetail />} />
+                        <Route path='/logout' element={<Logout />} />
                         <Route path="/allevents" element={<AllEvents />} />
                         <Route path="*" element={<Navigate to='/404' />} />
                     </Routes>
