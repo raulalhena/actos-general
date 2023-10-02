@@ -45,11 +45,13 @@ function Navbar() {
                             Eventos Activos
                         </Link>
                     </li>
-                    <li onClick={removeActive}>
-                        <Link to="/createevent" className={styles.navLink}>
+                    {isLogged && user.role === 'admin' && (
+                        <li onClick={removeActive}>
+                            <Link to="/createevent" className={styles.navLink}>
                             Crear Evento
-                        </Link>
-                    </li>
+                            </Link>
+                        </li>
+                    )}
                 </ul>
 
                 {!isLogged ? (
