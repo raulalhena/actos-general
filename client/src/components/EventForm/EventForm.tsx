@@ -22,6 +22,7 @@ import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
+import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 
 // Form
 const EventForm = () => {
@@ -71,7 +72,7 @@ const EventForm = () => {
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
     const [ time, setTime ] = useState<Array<string>>([]);
-    const [ mode, setMode ] = useState<Array<string>>([]);
+    const [ mode, setMode ] = useState<ButtonCardRadioProps[]>([]);
 
     // Get all data to fill fields
     useEffect(() => {
@@ -154,8 +155,14 @@ const EventForm = () => {
             try {
                 const response = await fetch('http://localhost:8000/api/misc/modes');
                 const data = await response.json();
-                const mode = data.map((mode: { name: string;}) => mode.name);
-                setMode(mode);
+                const modeData = data.map((mode: { name: string; text: string;  value: string }) => ({
+                    name: mode.name,
+                    text: mode.text, 
+                    value: mode.value,
+                    checked: false, 
+                }));
+                setMode(modeData);
+                
             } catch (error) {
                 console.error('Error al obtener las horas:', error);
             }
@@ -592,7 +599,7 @@ const EventForm = () => {
                                 onChange={handleModeChange}
                                 isRequired={true}
                             />
-                            {selectedMode === 'option1' && (
+                            {selectedMode === 'Presencial' && (
                                 <TextInput
                                     id="address"
                                     label="Añade una dirección *"
@@ -604,7 +611,7 @@ const EventForm = () => {
                                     isRequired={true}
                                 />
                             )}
-                            {selectedMode === 'option2' && (
+                            {selectedMode === 'En línea' && (
                                 <TextInput
                                     isRequired={true}
                                     id="webLink"
@@ -617,7 +624,7 @@ const EventForm = () => {
                                     type="url"
                                 />
                             )}
-                            {selectedMode === 'option3' && (
+                            {selectedMode === 'Híbrido' && (
                                 <>
                                     <TextInput
                                         id="address"
