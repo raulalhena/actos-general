@@ -4,6 +4,7 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ObjectId } from 'mongoose';
+import { EventInscriptionDto } from './dto/event-inscription.dto';
 
 @Controller('events')
 export class EventsController {
@@ -26,6 +27,11 @@ export class EventsController {
     attendanceRecord(@Param('eventId') eventId: ObjectId, @Param('userId') userId: ObjectId) {
       return this.eventsService.attendanceRecord(eventId, userId);
     }
+
+  @Put('inscription')
+  eventInscription(@Body() eventInscriptionDto: EventInscriptionDto) {
+    return this.eventsService.eventInscription(eventInscriptionDto)
+  }
 
   @Get()
   findAll() {
