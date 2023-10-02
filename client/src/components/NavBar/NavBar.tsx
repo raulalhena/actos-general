@@ -23,7 +23,7 @@ function Navbar() {
                 </Link>
                 <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>
                     <li onClick={removeActive}>
-                        <Link to="/myevents" className={styles.navLink}>
+                        <Link to="/allevents" className={styles.navLink}>
                             Agenda
                         </Link>
                     </li>
