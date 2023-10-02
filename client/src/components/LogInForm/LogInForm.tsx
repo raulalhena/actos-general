@@ -4,10 +4,11 @@ import { LogInProps } from '../../interfaces/logInProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
 import { useAuth } from '../../hooks/useAuth';
 import TextInputSmall from '../TextInputSmall/TextInputSmall';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const LogInForm = () => {
-    const { login } = useAuth();
+    const { login, isLogged } = useAuth();
+    const navigate = useNavigate();
 
     const [ logInData, setLogInData ] = useState<LogInProps>({
         email: '',
@@ -56,11 +57,12 @@ const LogInForm = () => {
             },
             body: JSON.stringify(logInData),
         });
-        const user = await resp.json();
-
+        const { accessToken, ...user } = await resp.json();
+        user.user.token = accessToken;
         console.log('user', user);
 
         login(user);
+        navigate('/home');
     };
 
     // Function to validate password
