@@ -9,13 +9,11 @@ import { Link } from 'react-router-dom';
 import ButtonRed from '../../components/Button/ButtonRed/ButtonRed';
 
 const HomePage = () => {
-    const { isLogged, user } = useAuth();
     const [ allEvents, setAllEvents ] = useState<CardEventProps['eventData'][]>([]);
     const [ latestEvents, setLatestEvents ] = useState<
     CardEventProps['eventData'][]
   >([]);
 
-    isLogged ? console.log('is logged') : null;
     const [ eventData, setEventData ] = useState<CardEventProps['eventData'][]>([]);
 
     useEffect(() => {

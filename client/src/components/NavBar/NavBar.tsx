@@ -8,7 +8,7 @@ function Navbar() {
     const [ isActive, setIsActive ] = useState(false);
     const { user, isLogged } = useAuth();
 
-    console.log('user ', user.role);
+    console.log('user role ', user.role);
 
     const toggleActiveClass = () => {
         setIsActive(!isActive);
