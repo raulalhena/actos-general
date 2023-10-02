@@ -2,7 +2,7 @@ import  { useEffect, useState } from 'react';
 import HomePageHeader from '../../components/HomePageHeader/HomePageHeader';
 import CardEvent from '../../components/CardEvent/CardEvent';
 import styles from './home.module.css';
-import HomePageCategories from '../../components/HomePageCategories/HomePageCategories';
+// import HomePageCategories from '../../components/HomePageCategories/HomePageCategories';
 import { CardEventProps } from '../../interfaces/cardEventProps';
 import { useAuth } from '../../hooks/useAuth';
 

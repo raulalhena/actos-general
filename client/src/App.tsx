@@ -4,13 +4,14 @@ import EventDashboard from './pages/EventDashboard/EventDashboard';
 import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 import Home from './pages/Home/Home';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
-import EventDetailPage from './pages/EventDetail/EventDetail';
+import EventDetail from './pages/EventDetail/EventDetail';
 import EventsList from './pages/EventsList/EventsList';
 import { AuthProvider } from './providers/AuthProvider';
 import Footer from './components/Footer/Footer';
 import FAQ from './pages/FAQ/FAQ';
+import NotFound from './pages/NotFound/NotFound';
 
 function Layout({ children }: any) {
     return (
@@ -27,7 +28,7 @@ function Layout({ children }: any) {
 function App() {
     const location = useLocation();
     const nonNavbar =
-    location.pathname === '/login' || location.pathname === '/signup';
+        location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/404';
 
     return (
         <>
@@ -35,6 +36,7 @@ function App() {
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
+                    <Route path="/404" element={<NotFound />} />
                 </Routes>
             ) : (
                 <Layout>
@@ -44,7 +46,8 @@ function App() {
                         <Route path="/eventdashboard" element={<EventDashboard />} />
                         <Route path="/faq" element={<FAQ />} />
                         <Route path="/eventslist" element={<EventsList />} />
-                        <Route path="/event/:_id" element={<EventDetailPage />} />
+                        <Route path="/event/:_id" element={<EventDetail />} />
+                        <Route path="*" element={<Navigate to='/404' />} />
                     </Routes>
                 </Layout>
             )}

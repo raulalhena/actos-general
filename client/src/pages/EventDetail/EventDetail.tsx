@@ -11,7 +11,6 @@ import ButtonRed from '../../components/ButtonRed/ButtonRed';
 import ButtonInscription from '../../components/ButtonInscription/ButtonInscription';
 
 const EventDetailPage = () => {
-
     const { _id } = useParams();
 
     const [ eventData, setEventData ] = useState<EventDetailProps>({
@@ -33,8 +32,8 @@ const EventDetailPage = () => {
         endTime: '',
         timeZone: '',
         tags: [],
-        webLink: ''
-    });      
+        webLink: '',
+    });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -46,12 +45,27 @@ const EventDetailPage = () => {
     }, [ _id ]);
 
     const renderFormattedDescription = () => {
-        return <div className={styles.description} dangerouslySetInnerHTML={{ __html: eventData.description }} />;
+        return (
+            <div
+                className={styles.description}
+                dangerouslySetInnerHTML={{ __html: eventData.description }}
+            />
+        );
     };
+
+    function formatDate(originalDate: string) {
+        const date = new Date(originalDate);
+        const day = date.getDate();
+        const month = date.toLocaleString('default', { month: 'long' });
+        const year = date.getFullYear();
+        
+        return `${day} de ${month} de ${year}`;
+    }
+    
+    const formattedDate = formatDate(eventData.date);
 
     return (
         <div className={styles.page}>
-
             {/* IMAGE */}
             <div className={styles.imageSection}>
                 <img src={prueba} className={styles.eventImage} />
@@ -107,38 +121,33 @@ const EventDetailPage = () => {
             {/* DATE */}
             <section className={styles.section}>
                 <h1 className={styles.sectionTitle}>Fecha y hora</h1>
-                <p className={styles.date}>{eventData.date}</p>
-                <div>
+                <div className={styles.dateSection}>
+                    <p className={styles.date}>{formattedDate},</p>
                     <p className={styles.date}>
-                        {eventData.startTime} - {eventData.endTime}
+            de {eventData.startTime} a {eventData.endTime}
                     </p>
-                    <p >
-                        {eventData.timeZone}
-                    </p>
+                    <p className={styles.date}>({eventData.timeZone})</p>
                 </div>
-                
             </section>
             <hr />
-            
+
             {/* ADDRESS */}
             <section className={styles.section}>
                 <h1 className={styles.sectionTitle}>Ubicación</h1>
                 <p className={styles.address}>{eventData.address}</p>
             </section>
             <hr />
-            
+
             {/* DESCRIPTION, WEBLINK */}
             <section className={styles.section}>
                 <h1 className={styles.sectionTitle}>Acerca de este evento</h1>
-                <p className={styles.description}>
-                    {renderFormattedDescription()}
-                </p>
+                <p className={styles.description}>{renderFormattedDescription()}</p>
                 <a href={eventData.webLink} className={styles.webLink}>
                     {eventData.webLink}
                 </a>
             </section>
             <hr />
-            
+
             {/* TAGS */}
             {eventData.tags && eventData.tags.length > 0 && (
                 <section className={styles.section}>
