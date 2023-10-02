@@ -1,11 +1,11 @@
 import  { useEffect, useState } from 'react';
 import HomePageHeader from '../../components/HomePageHeader/HomePageHeader';
 import CardEvent from '../../components/CardEvent/CardEvent';
-import styles from './page.module.css';
+import styles from './home.module.css';
 import HomePageCategories from '../../components/HomePageCategories/HomePageCategories';
 import { CardEventProps } from '../../interfaces/cardEventProps';
 
-const HomePage = () => {
+const Home = () => {
     const [ eventData, setEventData ] = useState<CardEventProps['eventData'][]>([]);
     
     useEffect(() => {
@@ -45,4 +45,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default Home;

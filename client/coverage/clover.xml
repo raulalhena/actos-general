@@ -1420,7 +1420,7 @@
     </package>
     <package name="pages.Event">
       <metrics statements="19" coveredstatements="19" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
-      <file name="EventPage.tsx" path="D:\Yumi\factoria-f5\projects\ACTOS\actos-general\client\src\pages\Event\EventPage.tsx">
+      <file name="CreateEvent.tsx" path="D:\Yumi\factoria-f5\projects\ACTOS\actos-general\client\src\pages\CreateEvent\CreateEvent.tsx">
         <metrics statements="19" coveredstatements="19" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>

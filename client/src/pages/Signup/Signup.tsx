@@ -5,7 +5,7 @@ import Img from '../../assets/login.png';
 import Logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
 
-function SignupPage() {
+function Signup() {
     const [ showImg, setShowImg ] = useState(true);
 
     const handleResize = () => {
@@ -44,4 +44,4 @@ function SignupPage() {
     );
 }
 
-export default SignupPage;
+export default Signup;
