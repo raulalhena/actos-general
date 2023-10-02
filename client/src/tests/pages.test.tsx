@@ -1,8 +1,18 @@
-import { render, fireEvent, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { test, expect } from 'vitest';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import CreateEvent from '../pages/CreateEvent/CreateEvent';
 import EventDashboard from '../pages/EventDashboard/EventDashboard';
+
+// Mock manual para o react-pdf/renderer
+// jest.mock('@react-pdf/renderer', () => {
+//     return {
+//         PDFDownloadLink: () => null,
+//         StyleSheet: {
+//             create: () => null
+//         }
+//     };
+// });
 
 test('Render Create Event Page', async () => {
     const { getByText } = render(
@@ -13,11 +23,9 @@ test('Render Create Event Page', async () => {
         </MemoryRouter>
     );
 
-    // Verifica si la página CreateEvent se está renderizando
     const eventFormComponent = screen.getByTestId('event-form-component');
     expect(eventFormComponent).toBeInTheDocument();
 
-    // Simula una acción en la página, por ejemplo, hacer clic en un botón
     fireEvent.click(getByText('Guardar'));
 });
 
@@ -30,7 +38,8 @@ test('Render Dashboard Page', async () => {
         </MemoryRouter>
     );
 
-    // Verifica si la página CreateEvent se está renderizando
-    const eventFormComponent = screen.getByTestId('dashboard-component');
-    expect(eventFormComponent).toBeInTheDocument();
+    await waitFor(() => {
+        const eventFormComponent = screen.getByTestId('dashboard-component');
+        expect(eventFormComponent).toBeInTheDocument();
+    });
 });
