@@ -4,13 +4,14 @@ import { useLocalStorage } from './useLocalStorage';
 import { User } from '../interfaces/User';
 
 export const useUser = () => {
-    const { user, setUser } = useContext(AuthContext);
+    const { user, setUser, isLogged, setLogged } = useContext(AuthContext);
    
     const { setItem } = useLocalStorage();
 
     const addUser = (user: User) => {
         setUser(user);
         setItem('user', JSON.stringify(user));
+        setLogged(true);
     };
 
     const removeUser = () => {
@@ -25,5 +26,5 @@ export const useUser = () => {
         setItem('user', '');
     };
 
-    return { user, addUser, removeUser };
+    return { user, addUser, removeUser, isLogged };
 };
