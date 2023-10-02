@@ -12,7 +12,6 @@ import  TextArea  from '../TextArea/TextArea';
 import TextInput from '../TextInput/TextInput';
 import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
-import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventDashboardForm.module.css';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { ToastContainer, toast } from 'react-toastify';
@@ -349,7 +348,7 @@ END Modal
 ************** */
 
     // Button Radio
-    const [ selectedMode, setSelectedMode ] = useState<string>('');
+    const [ selectedMode, setSelectedMode ] = useState<string>(formData.mode);
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
@@ -363,11 +362,6 @@ END Modal
     // Capacity Radio Groug handler
 
     // Mode Radio Group
-    const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
-        ...container,
-        checked: selectedMode === container.value,
-        onChange: () => handleModeChange(container.value),
-    }));
 
     // Capacity Radio Group
 
@@ -455,6 +449,7 @@ END Modal
     const [ time, setTime ] = useState<Array<string>>([]);
     const [ visibility, setVisibility ] = useState<boolean>(false);
     const [ selectedCategory, setSelectedCategory ] = useState(formData.category);
+    const [ mode, setMode ] = useState<ButtonCardRadioProps[]>([]);
 
     // Get all data to fill fields
     // Get Categories
@@ -557,6 +552,26 @@ END Modal
     useEffect(() => {
         setVisibility(formData.visibility ?? false); //cuando es null(??) es false
     }, []); //no tocar la dependencia, dejar vacio*
+
+    useEffect(() => {
+        const getMode = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/modes');
+                const data = await response.json();
+                const modeData = data.map((mode: { name: string; text: string;  value: string }) => ({
+                    name: mode.name,
+                    text: mode.text, 
+                    value: mode.value,
+                    checked: false, 
+                }));
+                setMode(modeData);
+                
+            } catch (error) {
+                console.error('Error al obtener las horas:', error);
+            }
+        };
+        getMode();
+    }, []);
 
     // Categories Handle Change
 
@@ -703,13 +718,13 @@ END Modal
                     </FormField>
                     <FormField>
                         <RadioGroupContainer
-                            radioButtons={modeRadioButtons}
-                            selectedValue={formData.mode}
-                            label="Modalidad"
+                            radioButtons={mode}
+                            selectedValue={selectedMode}
+                            label="Modalidad *"
                             onChange={handleModeChange}
                             isRequired={true}
                         />
-                        {formData.mode === 'option1' && (
+                        {formData.mode === 'Presencial' && (
                             <TextInput
                                 id="address"
                                 label="Añade una dirección"
@@ -721,7 +736,7 @@ END Modal
                                 isRequired={true}
                             />
                         )}
-                        {formData.mode === 'option2' && (
+                        {formData.mode === 'En línea' && (
                             <TextInput
                                 isRequired={true}
                                 id="webLink"
@@ -734,7 +749,7 @@ END Modal
                                 type="url"
                             />
                         )}
-                        {formData.mode === 'option3' && (
+                        {formData.mode === 'Híbrido' && (
                             <>
                                 <TextInput
                                     id="address"
