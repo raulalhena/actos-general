@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, useEffect } from 'react';
-import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
+// import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
 import RadioGroupContainer from '../Button/ButtonContainer/RadioCardContainer';
@@ -13,7 +13,6 @@ import  TextArea  from '../TextArea/TextArea';
 import TextInput from '../TextInput/TextInput';
 import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
-import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventForm.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -382,11 +381,11 @@ const EventForm = () => {
     };
 
     // Mode Radio Group
-    const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
-        ...container,
-        checked: selectedMode === container.value,
-        onChange: () => handleModeChange(container.value),
-    }));
+    // const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
+    //     ...container,
+    //     checked: selectedMode === container.value,
+    //     onChange: () => handleModeChange(container.value),
+    // }));
 
     /**************************************************
     ** Image Uploader

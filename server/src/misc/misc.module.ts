@@ -11,6 +11,7 @@ import { Time, TimeSchema } from './schemas/time.schema';
 import { TimeZone, TimeZoneSchema } from './schemas/timezone.schema';
 import { Visibility, VisibilitySchema } from './schemas/visibility.schema';
 import { Capacity, CapacitySchema } from './schemas/capacity.schema';
+import { Mode, ModeSchema } from './schemas/mode.schema';
 
 
 @Module({
@@ -47,6 +48,10 @@ import { Capacity, CapacitySchema } from './schemas/capacity.schema';
       {
         name: Capacity.name,
         schema: CapacitySchema
+      },
+      {
+        name: Mode.name,
+        schema: ModeSchema
       },
 
     ])
