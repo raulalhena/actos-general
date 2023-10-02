@@ -94,7 +94,7 @@ export class MiscService {
  }
 
  bulkCreateTime( createTimeDto: CreateTimeDto[]) {
-   return this.timeModel.create(createTimeDto);
+   return this.timeModel.create(createTimeDto, { ordered: true });
  }
 
  bulkCreateTimeZone( createTimeZoneDto: CreateTimeZoneDto[]) {
