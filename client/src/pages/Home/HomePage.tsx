@@ -4,8 +4,12 @@ import CardEvent from '../../components/CardEvent/CardEvent';
 import styles from './page.module.css';
 import HomePageCategories from '../../components/HomePageCategories/HomePageCategories';
 import { CardEventProps } from '../../interfaces/cardEventProps';
+import { useAuth } from '../../hooks/useAuth';
 
 const HomePage = () => {
+    const { isLogged, user } = useAuth();
+
+    isLogged ? console.log('is logged' ) : null;
     const [ eventData, setEventData ] = useState<CardEventProps['eventData'][]>([]);
     
     useEffect(() => {
