@@ -257,7 +257,7 @@ const EventForm = () => {
         }
     };
     
-    // Select
+    // Select TIME
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
 
@@ -265,6 +265,13 @@ const EventForm = () => {
         if (id === 'endTime' && value < formData.startTime) {
             
             toast.error('La hora de finalización no puede ser anterior a la hora de inicio.', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+
+        } else if  (id === 'startTime' && value > formData.endTime){
+            toast.error('La hora de inicio no puede ser posterior a la hora de finalización.', {
                 position: 'top-right',
                 autoClose: 2500,
                 pauseOnHover: true,
@@ -386,13 +393,6 @@ const EventForm = () => {
             mode: value,
         });
     };
-
-    // Mode Radio Group
-    // const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
-    //     ...container,
-    //     checked: selectedMode === container.value,
-    //     onChange: () => handleModeChange(container.value),
-    // }));
 
     /**************************************************
     ** Image Uploader
