@@ -9,6 +9,7 @@ import { CreateTimeDto } from './dto/create-time.dto';
 import { CreateTimeZoneDto } from './dto/create-timezone.dto';
 import { CreateVisibilityDto } from './dto/create-visibility.dto';
 import { ObjectId } from 'mongoose';
+import { CreateModeDto } from './dto/create-mode.dto';
 
 @Controller('misc')
 export class MiscController {
@@ -56,6 +57,11 @@ export class MiscController {
   @Post('visibilities')
   createVisibility(@Body() createVisibilityDto: CreateVisibilityDto) {
     return this.miscService.createVisibility(createVisibilityDto);
+  }
+
+  @Post('mode')
+  createMode(@Body() createModeDto: CreateModeDto) {
+    return this.miscService.createMode(createModeDto);
   }
 
   /*
@@ -153,6 +159,11 @@ export class MiscController {
     @Get('visibilities')
     findAllVisibilities() {
       return this.miscService.findAllVisibilities();
+    }
+
+    @Get('modes')
+    findAllModes() {
+      return this.miscService.findAllModes();
     }
   
     /*
