@@ -15,6 +15,8 @@ import NotFound from './pages/NotFound/NotFound';
 import Logout from './components/Logout/Logout';
 import AllEvents from './pages/AllEvents/AllEvents';
 import ScrollTopButton from './components/ScrollTopButton/ScrollTopButton';
+import { useAuth } from './hooks/useAuth';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function Layout({ children }: any) {
     return (
@@ -34,6 +36,8 @@ function App() {
     const nonNavbar =
         location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/404';
 
+    const { user, isLogged } = useAuth();
+
     return (
         <>
             {nonNavbar ? (
@@ -46,8 +50,16 @@ function App() {
                 <Layout>
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/createevent" element={<CreateEvent />} />
-                        <Route path="/eventdashboard" element={<EventDashboard />} />
+                        <Route path='/createevent' element={
+                            <ProtectedRoute isAllowed={ isLogged && user.role === 'admin' }>
+                                <CreateEvent />
+                            </ProtectedRoute>
+                        } />
+                        <Route path='/createevent' element={
+                            <ProtectedRoute isAllowed={ isLogged && user.role === 'admin' }>
+                                <EventDashboard />
+                            </ProtectedRoute>
+                        } />
                         <Route path="/faq" element={<FAQ />} />
                         <Route path="/eventslist" element={<EventsList />} />
                         <Route path="/event/:_id" element={<EventDetail />} />
