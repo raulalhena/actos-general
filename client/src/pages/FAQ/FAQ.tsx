@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import styles from './FAQPage.module.css';
+import styles from './FAQ.module.css';
 
-const FAQPage = () => {
+const FAQ = () => {
     const faqData = [
         {
             pregunta: '¿Cómo puedo encontrar eventos cerca de mí?',
@@ -69,4 +69,4 @@ const FAQPage = () => {
     );
 };
 
-export default FAQPage;
+export default FAQ;
