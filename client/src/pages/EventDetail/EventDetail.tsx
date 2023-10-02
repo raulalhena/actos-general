@@ -7,8 +7,8 @@ import { IoLocationSharp } from 'react-icons/io5';
 import { IoPeopleSharp } from 'react-icons/io5';
 import { IoLanguageOutline } from 'react-icons/io5';
 import { useParams } from 'react-router-dom';
-import ButtonRed from '../../components/ButtonRed/ButtonRed';
-import ButtonInscription from '../../components/ButtonInscription/ButtonInscription';
+import ButtonRed from '../../components/Button/ButtonRed/ButtonRed';
+import ButtonInscription from '../../components/Button/ButtonInscription/ButtonInscription';
 
 const EventDetailPage = () => {
     const { _id } = useParams();
