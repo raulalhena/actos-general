@@ -244,22 +244,46 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                     } 
                 }
             );
+
         } else {
-            setFormData({
-                ...formData
-            });
-            openModal(
-                <BsPatchCheckFill className={styles.checkIcon} />,
-                'Cambio Guardado',
-                'Tus cambios han sido guardados con éxito',
-                'Cerrar ventana',
-                '',
-                closeModal,
-                true,
-                closeModal,
-                () => {}
+            console.log('submit - guadar');
+            const res = await fetch(
+                `http://localhost:8000/api/events/${formData._id}`,
+                {
+                    method: 'PUT',
+                    headers: { 'Content-type': 'application/json' },
+                    body: JSON.stringify(formData),
+                }
             );
-            
+
+            if (res.ok) {
+                const res = await fetch(
+                    `http://localhost:8000/api/events/${formData._id}`,
+                    {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' },
+                    }
+                );
+
+                if (res.ok) {
+                    const result = await res.json();
+                    console.log('result' , result);
+                    setFormData(result);
+                    setVisibility(result.visibility);
+    
+                    openModal(
+                        <BsPatchCheckFill className={styles.checkIcon} />,
+                        'Cambio Guardado',
+                        'Tus cambios han sido guardados con éxito',
+                        'Cerrar ventana',
+                        '',
+                        closeModal,
+                        true,
+                        closeModal,
+                        () => {}
+                    );
+                } 
+            } 
         }
     };
     
@@ -430,18 +454,43 @@ END Modal
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
     const [ time, setTime ] = useState<Array<string>>([]);
     const [ visibility, setVisibility ] = useState<boolean>(false);
+    const [ selectedCategory, setSelectedCategory ] = useState(formData.category);
 
     // Get all data to fill fields
+    // Get Categories
     useEffect(() => {
+        
         const getCategories = async () => {
+            let categoryId = '';
             const resp = await fetch('http://localhost:8000/api/misc/categories');
             const categoriesDb = await resp.json();
 
+            console.log('data es' , Array.from(categoriesDb));
             setCategories(categoriesDb);
-        };
+            categories.forEach(category => {
+                console.log('name 1:' , category.name, category._id);
+                if(category.name === formData.category) categoryId=category._id;
 
+            });
+            setSelectedCategory(categoryId);
+            console.log( 'category id es -!!: ', categoryId);
+            getSubcategories(categoryId);
+        };
         getCategories();
-    }, []);
+    }, [ formData.category ]);
+
+    // Get Subcategories
+    const getSubcategories = async (selectedCategory: string) => {
+
+        console.log('"aqui selected category es : "' , selectedCategory);
+        const resp = await fetch(`http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`);
+        
+        if (resp.ok) console.log('pasa aqui test');
+        const subcategoriesDb = await resp.json();
+        console.log('subcategiries :', subcategoriesDb.subcategories );
+        setSubcategories(Array.from(subcategoriesDb.subcategories));
+        // setSubcategories(Array.from(subcategoriesDb));
+    };
 
     // get types
     useEffect(() => {
@@ -509,30 +558,27 @@ END Modal
         setVisibility(formData.visibility ?? false); //cuando es null(??) es false
     }, []); //no tocar la dependencia, dejar vacio*
 
-    const [ selectedCategory, setSelectedCategory ] = useState(eventData.category);
-
     // Categories Handle Change
+
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        console.log(selectedCategory);
+
         const { value } = event.target;
-        const selected = event.target.selectedOptions[0].text;
-        console.log(value);
-        setSelectedCategory(selectedCategory);
+        console.log('value es lalalalalala:' + value);  
+        let categoryName = '';   
+        categories.forEach(category => {
+            console.log('name:' , category.name, category._id, value);
+            if(category._id === value) 
+                categoryName = category.name;
+        });
 
         setFormData({
             ...formData,
-            category: selected,
+            category: categoryName,
         });
+        setSelectedCategory(value);
 
         await getSubcategories(value);
-    };
-
-    // Get Subcategories
-    const getSubcategories = async (categoryId: string) => {
-        const resp = await fetch(`http://localhost:8000/api/misc/categories/${categoryId}/subcategories`);
-        const categoriesDb = await resp.json();
         
-        setSubcategories(categoriesDb.subcategories);
     };
 
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);

@@ -72,6 +72,7 @@ const EventForm = () => {
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
     const [ time, setTime ] = useState<Array<string>>([]);
+    const [ mode, setMode ] = useState<Array<string>>([]);
 
     // Get all data to fill fields
     useEffect(() => {
@@ -86,7 +87,6 @@ const EventForm = () => {
     }, []);
 
     // get types
-
     useEffect(() => {
         const getTypes = async () => {
             try {
@@ -103,7 +103,6 @@ const EventForm = () => {
     }, []);
 
     // get languages
-
     useEffect(() => {
         const getLanguages = async () => {
             try {
@@ -120,7 +119,6 @@ const EventForm = () => {
     }, []);
 
     // get time zone
-
     useEffect(() => {
         const getTimeZone = async () => {
             try {
@@ -137,7 +135,6 @@ const EventForm = () => {
     }, []);
 
     // get time
-
     useEffect(() => {
         const getTime = async () => {
             try {
@@ -150,6 +147,21 @@ const EventForm = () => {
             }
         };
         getTime();
+    }, []);
+    
+    //get Modes
+    useEffect(() => {
+        const getMode = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/modes');
+                const data = await response.json();
+                const mode = data.map((mode: { name: string;}) => mode.name);
+                setMode(mode);
+            } catch (error) {
+                console.error('Error al obtener las horas:', error);
+            }
+        };
+        getMode();
     }, []);
 
     // Visibility
@@ -361,6 +373,7 @@ const EventForm = () => {
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
+        console.log('values de mode es: !', value);
         setSelectedMode(value);
         setFormData({
             ...formData,
@@ -574,7 +587,7 @@ const EventForm = () => {
                         </FormField>
                         <FormField>
                             <RadioGroupContainer
-                                radioButtons={modeRadioButtons}
+                                radioButtons={mode}
                                 selectedValue={selectedMode}
                                 label="Modalidad *"
                                 onChange={handleModeChange}
