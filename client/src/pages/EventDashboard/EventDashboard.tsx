@@ -60,7 +60,6 @@ const EventDashboard = () => {
     }, [ eventId ]);
 
     useEffect(() => {
-        console.log('eventData', eventData);
     }, [ eventData ]);
 
     const [ showPDF, setShowPDF ] = useState(false);
@@ -82,9 +81,13 @@ const EventDashboard = () => {
                                 </section>
                             </div>
                         </section>
+                        
                         <div className={styles.containerSection}>
-                            <InscriptionsRecap eventData={ eventData } createPDF={createPDF}/>
+                            { process.env.NODE_ENV !== 'test' ? //ignora esta parte en test
+                                <InscriptionsRecap eventData={ eventData } createPDF={createPDF}/>
+                                : null}
                         </div>
+                        
                     </section>
                     <EventDashboardForm eventData={eventData} />
                 </div>

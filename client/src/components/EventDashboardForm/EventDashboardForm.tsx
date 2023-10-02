@@ -289,7 +289,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
                 if (res.ok) {
                     const result = await res.json();
-                    console.log('result' , result);
                     setFormData(result);
                     setVisibility(result.visibility);
     
@@ -483,15 +482,12 @@ END Modal
             const resp = await fetch('http://localhost:8000/api/misc/categories');
             const categoriesDb = await resp.json();
 
-            console.log('data es' , Array.from(categoriesDb));
             setCategories(categoriesDb);
             categories.forEach(category => {
-                console.log('name 1:' , category.name, category._id);
                 if(category.name === formData.category) categoryId=category._id;
 
             });
             setSelectedCategory(categoryId);
-            console.log( 'category id es -!!: ', categoryId);
             getSubcategories(categoryId);
         };
         getCategories();
@@ -500,12 +496,10 @@ END Modal
     // Get Subcategories
     const getSubcategories = async (selectedCategory: string) => {
 
-        console.log('"aqui selected category es : "' , selectedCategory);
         const resp = await fetch(`http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`);
         
-        if (resp.ok) console.log('pasa aqui test');
         const subcategoriesDb = await resp.json();
-        console.log('subcategiries :', subcategoriesDb.subcategories );
+
         setSubcategories(Array.from(subcategoriesDb.subcategories));
         
     };

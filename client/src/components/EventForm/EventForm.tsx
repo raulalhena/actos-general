@@ -92,7 +92,6 @@ const EventForm = () => {
                 const response = await fetch('http://localhost:8000/api/misc/types');
                 const data = await response.json();
                 const typeNames = data.map((type: { name: string; }) => type.name);
-                console.log(typeNames);
                 setTypes(typeNames);
             } catch (error) {
                 console.error('Error al obtener los tipos:', error);
@@ -124,7 +123,6 @@ const EventForm = () => {
                 const response = await fetch('http://localhost:8000/api/misc/timezones');
                 const data = await response.json();
                 const timeZone = data.map((timeZone: { name: string; }) => timeZone.name);
-                console.log(timeZone);
                 setTimeZone(timeZone);
             } catch (error) {
                 console.error('Error al obtener las zonas horarias:', error);
