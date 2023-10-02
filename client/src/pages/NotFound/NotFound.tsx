@@ -1,4 +1,4 @@
-import ButtonRed from '../../components/ButtonRed/ButtonRed';
+import ButtonRed from '../../components/Button/ButtonRed/ButtonRed';
 import styles from './NotFound.module.css';
 import notFoundImage from '../../assets/notfound.png';
 import { Link } from 'react-router-dom'; // Importa el componente Link

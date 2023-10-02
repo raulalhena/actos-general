@@ -6,7 +6,7 @@ import styles from './home.module.css';
 import { CardEventProps } from '../../interfaces/cardEventProps';
 import { useAuth } from '../../hooks/useAuth';
 import { Link } from 'react-router-dom';
-import ButtonRed from '../../components/ButtonRed/ButtonRed';
+import ButtonRed from '../../components/Button/ButtonRed/ButtonRed';
 
 const HomePage = () => {
     const { isLogged, user } = useAuth();
