@@ -5,6 +5,7 @@ import ButtonSubmit from '../Button/ButtonSubmit';
 import { useAuth } from '../../hooks/useAuth';
 import TextInputSmall from '../TextInputSmall/TextInputSmall';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const LogInForm = () => {
     const { login } = useAuth();
@@ -57,12 +58,20 @@ const LogInForm = () => {
             },
             body: JSON.stringify(logInData),
         });
-        const { accessToken, ...user } = await resp.json();
-        user.user.token = accessToken;
-        console.log('user', user);
+        if(resp.ok) {
+            const { accessToken, ...user } = await resp.json();
+            console.log(user);
+            console.log('acc tok', accessToken);
+            user.user.token = accessToken;
+            console.log('user', user);
 
-        login(user);
-        navigate('/');
+            login(user);
+            navigate('/');
+        } else {
+            toast.error('Error al validar al usuario', {
+
+            });
+        }
     };
 
     // Function to validate password

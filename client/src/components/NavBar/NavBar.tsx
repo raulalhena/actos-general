@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Navbar.module.css';
 import Logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom'; // Importa Link desde react-router-dom
+import { useAuth } from '../../hooks/useAuth';
 
 function Navbar() {
     const [ isActive, setIsActive ] = useState(false);
-    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+    const { user, isLogged } = useAuth();
+
+    console.log('user ', user);
 
     const toggleActiveClass = () => {
         setIsActive(!isActive);
@@ -14,6 +17,8 @@ function Navbar() {
     const removeActive = () => {
         setIsActive(false);
     };
+
+    console.log('is logged navbar', isLogged)
 
     return (
         <>
@@ -49,11 +54,11 @@ function Navbar() {
                     </li>
                 </ul>
 
-                {!isLoggedIn && (
+                {!isLogged ? (
                     <>
                         <li onClick={removeActive}>
                             <Link to="/login" className={styles.navLink}>
-                                Iniciar sesión
+                                Iniciar sesión {user.name}
                             </Link>
                         </li>
                         <li onClick={removeActive}>
@@ -62,7 +67,16 @@ function Navbar() {
                             </Link>
                         </li>
                     </>
-                )}
+                )
+                    :
+                    <>
+                        <li onClick={removeActive}>
+                            <Link to="/logout" className={styles.navLink}>
+                                Cerrar sesión
+                            </Link>
+                        </li>
+                    </>
+                }
 
                 <div
                     className={`${styles.hamburger} ${isActive ? styles.active : ''}`}

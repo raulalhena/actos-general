@@ -12,6 +12,7 @@ import { AuthProvider } from './providers/AuthProvider';
 import Footer from './components/Footer/Footer';
 import FAQ from './pages/FAQ/FAQ';
 import NotFound from './pages/NotFound/NotFound';
+import Logout from './components/Logout/Logout';
 
 function Layout({ children }: any) {
     return (
@@ -47,6 +48,7 @@ function App() {
                         <Route path="/faq" element={<FAQ />} />
                         <Route path="/eventslist" element={<EventsList />} />
                         <Route path="/event/:_id" element={<EventDetail />} />
+                        <Route path='/logout' element={<Logout />} />
                         <Route path="*" element={<Navigate to='/404' />} />
                     </Routes>
                 </Layout>
