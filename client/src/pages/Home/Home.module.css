@@ -1,3 +1,4 @@
+
 .title {
   display: flex;
   gap: 1rem;
@@ -9,10 +10,10 @@
 
 .section {
   border-bottom: 1px solid #cacaca;
-  padding: 2rem;
   gap: 1rem;
   display: flex;
   flex-direction: column;
+  width: 100vw;
 }
 
 .cardGrid {    
@@ -22,6 +23,12 @@
   align-items: center;
 }
 
+.buttonSection {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 80vw;
+}
 
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
@@ -37,7 +44,6 @@
     gap: 3rem;
     padding: 5rem;
   }
-
 }
 
 /* Para pantallas más grandes o iguales a 1200px (xl) */

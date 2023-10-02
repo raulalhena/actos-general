@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, useEffect } from 'react';
-import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
+// import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 import ButtonSubmit from '../Button/ButtonSubmit';
 import RadioGroupContainer from '../Button/ButtonContainer/RadioCardContainer';
@@ -13,7 +13,6 @@ import  TextArea  from '../TextArea/TextArea';
 import TextInput from '../TextInput/TextInput';
 import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
-import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventForm.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -72,6 +71,7 @@ const EventForm = () => {
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
     const [ time, setTime ] = useState<Array<string>>([]);
+    const [ mode, setMode ] = useState<Array<string>>([]);
 
     // Get all data to fill fields
     useEffect(() => {
@@ -86,7 +86,6 @@ const EventForm = () => {
     }, []);
 
     // get types
-
     useEffect(() => {
         const getTypes = async () => {
             try {
@@ -103,7 +102,6 @@ const EventForm = () => {
     }, []);
 
     // get languages
-
     useEffect(() => {
         const getLanguages = async () => {
             try {
@@ -120,7 +118,6 @@ const EventForm = () => {
     }, []);
 
     // get time zone
-
     useEffect(() => {
         const getTimeZone = async () => {
             try {
@@ -137,7 +134,6 @@ const EventForm = () => {
     }, []);
 
     // get time
-
     useEffect(() => {
         const getTime = async () => {
             try {
@@ -150,6 +146,21 @@ const EventForm = () => {
             }
         };
         getTime();
+    }, []);
+    
+    //get Modes
+    useEffect(() => {
+        const getMode = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/modes');
+                const data = await response.json();
+                const mode = data.map((mode: { name: string;}) => mode.name);
+                setMode(mode);
+            } catch (error) {
+                console.error('Error al obtener las horas:', error);
+            }
+        };
+        getMode();
     }, []);
 
     // Visibility
@@ -361,6 +372,7 @@ const EventForm = () => {
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
+        console.log('values de mode es: !', value);
         setSelectedMode(value);
         setFormData({
             ...formData,
@@ -369,11 +381,11 @@ const EventForm = () => {
     };
 
     // Mode Radio Group
-    const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
-        ...container,
-        checked: selectedMode === container.value,
-        onChange: () => handleModeChange(container.value),
-    }));
+    // const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
+    //     ...container,
+    //     checked: selectedMode === container.value,
+    //     onChange: () => handleModeChange(container.value),
+    // }));
 
     /**************************************************
     ** Image Uploader
@@ -574,7 +586,7 @@ const EventForm = () => {
                         </FormField>
                         <FormField>
                             <RadioGroupContainer
-                                radioButtons={modeRadioButtons}
+                                radioButtons={mode}
                                 selectedValue={selectedMode}
                                 label="Modalidad *"
                                 onChange={handleModeChange}
