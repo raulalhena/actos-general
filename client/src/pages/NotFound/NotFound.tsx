@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'; // Importa el componente Link
 
 function NotFound() {
     return (
-        <div className={styles.notFoundPage}>
+        <div data-testid='notFound-page' className={styles.notFoundPage}>
             <img src={notFoundImage} className={styles.notFoundImg} alt="Imagen de página no encontrada" />
             <div className={styles.notFoundText}>
                 <h1>Oops! Página no encontrada</h1>
