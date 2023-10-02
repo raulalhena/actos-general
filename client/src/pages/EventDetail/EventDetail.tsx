@@ -49,6 +49,27 @@ const EventDetailPage = () => {
         return <div className={styles.description} dangerouslySetInnerHTML={{ __html: eventData.description }} />;
     };
 
+    const handleEventInscription = async () => {
+        let userId;
+        const getUser = localStorage.getItem('user');
+        if (getUser !== null) {
+            const userObject = JSON.parse(getUser);
+            userId = userObject.user._id;
+            console.log(userId);
+        }
+
+        const res = await fetch('http://localhost:8000/api/events/inscription', {
+            method: 'PUT',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+                userId: userId,
+                eventId: _id
+            })
+        });
+
+        return res;
+    };
+
     return (
         <div className={styles.page}>
 
@@ -70,7 +91,7 @@ const EventDetailPage = () => {
 
                 {/*INSCRIPTION */}
                 <div className={styles.categorySubcategorySection}>
-                    <ButtonInscription label="Inscribirse al evento" />
+                    <ButtonInscription label="Inscribirse al evento" onClick={handleEventInscription}/>
                 </div>
             </section>
             <hr />
