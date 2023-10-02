@@ -730,8 +730,7 @@ const EventForm = () => {
                                 label={'El evento tiene limite de entrada'}
                                 subtitle={'Activa el botón para definir número de entradas.'}
                                 onChange={handleToggleCapacityChange}
-                                isChecked={selectedCapacity}
-                                // className={styles}
+                                isChecked={formData.isLimited}
                             />
                             {selectedCapacity ? (
                                 <TextInputNumber

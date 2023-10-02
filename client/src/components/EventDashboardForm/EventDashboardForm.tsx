@@ -811,9 +811,9 @@ END Modal
                             label={'El evento tiene limite de entrada'}
                             subtitle={'Activa el botón para definir número de entradas.'}
                             onChange={handleToggleCapacityChange}
-                            isChecked={selectedCapacity}
+                            isChecked={formData.isLimited}
                         />
-                        {selectedCapacity ? (
+                        {formData.isLimited ? (
                             <TextInputNumber
                                 id="capacity"
                                 label="Límite de entradas"
