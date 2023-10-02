@@ -736,6 +736,7 @@ END Modal
                                 onChange={handleInputChange}
                                 isRequired={true}
                             />
+                            
                         )}
                         {formData.mode === 'En línea' && (
                             <TextInput
@@ -762,6 +763,7 @@ END Modal
                                     onChange={handleInputChange}
                                     isRequired={true}
                                 />
+                                <br />
                                 <TextInput
                                     id="webLink"
                                     label="Añade un link de acceso"
@@ -773,7 +775,9 @@ END Modal
                                     isRequired={true}
                                     type="url"
                                 />
+                                <br />
                             </>
+                            
                         )}
                     </FormField>
                 </SectionForm>

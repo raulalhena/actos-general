@@ -6,7 +6,7 @@ function TextInput(props: TextInputProps) {
     props;
 
     return (
-        <div>
+        <div >
             <label className={styles.label} htmlFor={id}>
                 {label}
             </label>
