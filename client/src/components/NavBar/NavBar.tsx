@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './Navbar.module.css';
 import Logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom'; // Importa Link desde react-router-dom
@@ -17,8 +17,6 @@ function Navbar() {
     const removeActive = () => {
         setIsActive(false);
     };
-
-    console.log('is logged navbar', isLogged)
 
     return (
         <>
