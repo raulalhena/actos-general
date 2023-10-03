@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types, ObjectId } from 'mongoose';
 import { generateEventQR } from '../utils/qr.generator';
 import { EventInscriptionDto } from './dto/event-inscription.dto';
+import { EventUnsubscriptionDto } from './dto/event-unsubscription.dto';
 
 
 @Injectable()
@@ -76,6 +77,18 @@ export class EventsService {
       return updateEventSubmitted
     } catch (error) {
       throw error
+    }
+  }
+
+  async eventUnsubscription(eventUnsubscriptionDto: EventUnsubscriptionDto) {
+    try {
+      const unsuscribedEvent = { 
+        $pull: { submitted: eventUnsubscriptionDto.userId }
+      };
+
+      const updatedUnsuscribedEvent = await this.eventModel.findByIdAndUpdate({ _id: eventUnsubscriptionDto.eventId }, unsuscribedEvent, { new: true });
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 }

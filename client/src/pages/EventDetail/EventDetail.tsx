@@ -9,9 +9,11 @@ import { IoLanguageOutline } from 'react-icons/io5';
 import { useParams } from 'react-router-dom';
 import ButtonRed from '../../components/Button/ButtonRed/ButtonRed';
 import ButtonInscription from '../../components/Button/ButtonInscription/ButtonInscription';
+import { useAuth } from '../../hooks/useAuth';
 
 const EventDetailPage = () => {
     const { _id } = useParams();
+    const { user } = useAuth();
 
     const [ eventData, setEventData ] = useState<EventDetailProps>({
         _id: '',
@@ -35,14 +37,33 @@ const EventDetailPage = () => {
         webLink: '',
     });
 
+    const [ inscription, setInscription ] = useState<boolean>(false);
+ 
     useEffect(() => {
-        const fetchData = async () => {
+        const getEvent = async () => {
             const response = await fetch(`http://localhost:8000/api/events/${_id}`);
             const data = await response.json();
             setEventData(data);
         };
-        fetchData();
+
+        getEvent();
     }, [ _id ]);
+
+    useEffect(() => {
+        const checkInscription = async () => {
+            const res = await fetch(`http://localhost:8000/api/events/user/${user._id}`);
+            const inscriptionEvents = await res.json();
+
+            const insEvents = Array.from(inscriptionEvents); 
+
+            insEvents.forEach(sEvent => {
+                if(sEvent._id === _id) setInscription(true);
+            });
+            
+        };
+
+        checkInscription();
+    }, [ eventData ]);
 
     const renderFormattedDescription = () => {
         return (
@@ -53,25 +74,30 @@ const EventDetailPage = () => {
         );
     };
 
-    const handleEventInscription = async () => {
-        let userId;
-        const getUser = localStorage.getItem('user');
-        if (getUser !== null) {
-            const userObject = JSON.parse(getUser);
-            userId = userObject.user._id;
-            console.log(userId);
-        }
-
-        const res = await fetch('http://localhost:8000/api/events/inscription', {
+    const handleEventUnsubscription = async () => {
+        const res = await fetch('http://localhost:8000/api/events/unsubscription', {
             method: 'PUT',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({
-                userId: userId,
+                userId: user._id,
                 eventId: _id
             })
         });
 
-        return res;
+        return;
+    };
+
+    const handleEventInscription = async () => {
+        const res = await fetch('http://localhost:8000/api/events/inscription', {
+            method: 'PUT',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+                userId: user._id,
+                eventId: _id
+            })
+        });
+
+        return;
     };
     
     function formatDate(originalDate: string) {
@@ -105,7 +131,11 @@ const EventDetailPage = () => {
 
                 {/*INSCRIPTION */}
                 <div className={styles.categorySubcategorySection}>
-                    <ButtonInscription label="Inscribirse al evento" onClick={handleEventInscription}/>
+                    {!inscription ?
+                        <ButtonInscription label="Inscribirse al evento" onClick={handleEventInscription}/>
+                        :
+                        <ButtonInscription label="Eliminar inscripción" onClick={handleEventUnsubscription}/>
+                    }
                 </div>
             </section>
             <hr />
