@@ -20,7 +20,6 @@ import SelectStatus from '../SelectStatus/SelectStatus';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { VscCircleFilled } from 'react-icons/vsc';
 import ModalDisplay from '../Modal/ModalDisplay';
-// import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
@@ -29,7 +28,6 @@ type Props = { eventData: EventDashboardFormProps };
 
 // Form
 const EventDashboardForm = ( { eventData }: Props ) => {
-    // const navigate = useNavigate();
 
     const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
 
@@ -370,7 +368,7 @@ END Modal
 ************** */
 
     // Button Radio
-    const [ selectedMode, setSelectedMode ] = useState<string>(formData.mode);
+    const [ selectedMode, setSelectedMode ] = useState<string>('');
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
@@ -380,12 +378,6 @@ END Modal
             mode: value,
         });
     };
-
-    // Capacity Radio Groug handler
-
-    // Mode Radio Group
-
-    // Capacity Radio Group
 
     /**************************************************
     ** Image Uploader
@@ -574,12 +566,12 @@ END Modal
         const getMode = async () => {
             try {
                 const response = await fetch('http://localhost:8000/api/misc/modes');
+
                 const data = await response.json();
-                const modeData = data.map((mode: { _id : string; name: string; text: string;  value: string }) => ({
-                    id: mode._id,
-                    name: mode.name,
-                    text: mode.text, 
-                    value: mode.value,
+                const modeData = data.map((mode: { _id : string; name: string; text: string;  value: string; }) => ({
+                    ...mode,
+                    checked: formData.mode === mode.value,
+                    onChange: () => handleModeChange(mode.value),
                 }));
                 setMode(modeData);
                 
@@ -588,7 +580,7 @@ END Modal
             }
         };
         getMode();
-    }, []);
+    }, [ selectedMode ]);
 
     // Categories Handle Change
 
@@ -736,8 +728,7 @@ END Modal
                     <FormField>
                         <RadioGroupContainer
                             radioButtons={mode}
-                            selectedValue={selectedMode}
-                            
+                            selectedValue={formData.mode}
                             label="Modalidad *"
                             onChange={handleModeChange}
                             isRequired={true}
