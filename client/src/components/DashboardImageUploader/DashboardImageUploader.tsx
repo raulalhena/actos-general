@@ -1,4 +1,4 @@
-import styles from './ImageUploader.module.css';
+import styles from './DashboardImageUploader.module.css';
 import { RiFolderUploadFill } from 'react-icons/ri';
 
 interface ImageUploaderProps {
@@ -11,8 +11,8 @@ interface ImageUploaderProps {
     image: Blob;
 }
 
-export const ImageUploader = ({ image, previewURL, imgVisibility, removeImage, onDrop, onDragOver }: ImageUploaderProps) => {
-    
+export const DashboardImageUploader = ({ image, previewURL, imgVisibility, removeImage, onDrop, onDragOver }: ImageUploaderProps) => {
+
     return (
         <div className={styles.uploadImgContainer} onDrop={onDrop} onDragOver={onDragOver}>
             <label className={styles.label}>Imagen</label>

@@ -4,7 +4,7 @@ import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import RadioGroupContainer from '../Button/ButtonContainer/RadioCardContainer';
 import DateInput from '../DateInput/DateInput';
 import FormField from '../FormField/FormField';
-import { ImageUploader } from '../ImageUploader/ImageUploader';
+import { DashboardImageUploader } from '../DashboardImageUploader/DashboardImageUploader';
 import SectionForm from '../SectionForm/SectionForm';
 import Select from '../Select/Select';
 import TagsInputComponent from '../TagsInput/TagsInput';
@@ -391,10 +391,10 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     ******************/
 
     //  States
-    const [ previewURL, setPreviewURL ] = useState<string>('');
-    const [ imgVisibility, setImgVisibility ] = useState<string>('none');
-    const [ eventImage, setEventImage ] = useState<any>('');
-    const [ image, setImage ] = useState<Blob | undefined>(formData.image);
+    const [ previewURL, setPreviewURL ] = useState<string>(formData.image);
+    const [ imgVisibility, setImgVisibility ] = useState<string>('block');
+    const [ eventImage, setEventImage ] = useState<string>('');
+    const [ image, setImage ] = useState<Blob | string | undefined>(formData.image);
 
     // setImage(formData.image);
 
@@ -868,10 +868,10 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                         />
                     </FormField>
                     <FormField>
-                        <ImageUploader 
+                        <DashboardImageUploader 
                             id="image"
                             removeImage={removeImage}
-                            // sendImage={sendImage}
+                            image={image}
                             previewURL={previewURL}
                             imgVisibility={imgVisibility}
                             onDrop={handleDrop}

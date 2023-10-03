@@ -729,7 +729,6 @@ const EventForm = () => {
                             <ImageUploader 
                                 id="image"
                                 removeImage={removeImage}
-                                convertToBase64={convertToBase64}
                                 previewURL={previewURL}
                                 imgVisibility={imgVisibility}
                                 onDrop={handleDrop}
