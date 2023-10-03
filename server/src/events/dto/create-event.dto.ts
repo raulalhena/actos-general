@@ -24,7 +24,7 @@ export class CreateEventDto {
     showTime: boolean;
     type: string;
     mode: string;
-    image: Blob;
+    image: string;
     video: string;
     capacity: number;
     price: number;

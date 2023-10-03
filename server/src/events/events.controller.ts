@@ -14,6 +14,7 @@ export class EventsController {
 
   @Post()
     create(@Body() createEventDto: CreateEventDto) {
+        console.log(createEventDto.image);
         return this.eventsService.create(createEventDto);
     }
 

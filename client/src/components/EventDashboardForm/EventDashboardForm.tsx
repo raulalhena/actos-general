@@ -20,7 +20,6 @@ import SelectStatus from '../SelectStatus/SelectStatus';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { VscCircleFilled } from 'react-icons/vsc';
 import ModalDisplay from '../Modal/ModalDisplay';
-// import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
@@ -164,22 +163,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             date: e.target.value,
         });
     };
-
-    // Send Image
-    // const sendImage = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    //     e.preventDefault();
-    //     const imageData = new FormData();
-    //     imageData.append('file', eventImage);
-    //     const resp = await fetch(`http://localhost:8000/api/events/${formData._id}/upload`, {
-    //         method: 'POST',
-    //         body: imageData
-    //     });
-    //     const imageResp = await resp.json();
-    //     setFormData((prevData) => ({ 
-    //         ...prevData,
-    //         image: imageResp.imageUrl 
-    //     }));
-    // };
 
     //SUBMIT
     const handleSubmit = async (event: React.FormEvent) => {
@@ -393,8 +376,15 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     //  States
     const [ previewURL, setPreviewURL ] = useState<string>(formData.image);
     const [ imgVisibility, setImgVisibility ] = useState<string>('block');
-    const [ eventImage, setEventImage ] = useState<string>('');
     const [ image, setImage ] = useState<Blob | string | undefined>(formData.image);
+
+    useEffect(() => {
+        setPreviewURL(formData.image);
+        setImgVisibility('block');
+        setImage(formData.image);
+    }, []);
+
+    console.log('preview url ', previewURL);
 
     // setImage(formData.image);
 
@@ -403,6 +393,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         setImage(() => file);
         setPreviewURL(URL.createObjectURL(file));
         setImgVisibility('block');
+
     };
 
     // Drop handler
@@ -411,7 +402,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         e.stopPropagation();
         const file = e.dataTransfer.files[0];
         e.dataTransfer.clearData();
-        // setImage(file);
         handleFile(file);
     };
 
@@ -425,7 +415,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         e.preventDefault();
         setPreviewURL('');
         setImgVisibility('none');
-        setEventImage(() => '');
     };
 
     /******************

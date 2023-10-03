@@ -21,7 +21,6 @@ import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
-import { Buffer } from 'buffer';
 import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 
 // Form
@@ -54,15 +53,7 @@ const EventForm = () => {
         image: '', 
         video: '', 
         capacity: '',
-        isLimited: false,
-        // qrEvent: '',
-        // qrAttendees: [],
-        // attendees: [],
-        // submitted: [],
-        // price: 0, 
-        // payment: '', 
-        // visibility: false,
-        // status: false
+        isLimited: false
     });
 
     // Form fields auto filled state
@@ -328,15 +319,18 @@ const EventForm = () => {
     // Send Image
     const convertToBase64 = () => {
 
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(eventImage);
-        fileReader.onloadend = () => {
-            setFormData({
-                ...formData,
-                image: fileReader.result
-            });
-            console.log('base64', fileReader.result);
-        };
+        if(imageFile) {
+            console.log('eventImage is');
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(imageFile);
+            fileReader.onloadend = () => {
+                setFormData({
+                    ...formData,
+                    image: fileReader.result
+                });
+                console.log('base64', fileReader.result);
+            };
+        }
 
         //     toast.success('Imagen guardada correctamente', {
         //         position: toast.POSITION.TOP_RIGHT,
@@ -407,11 +401,11 @@ const EventForm = () => {
     //  States
     const [ previewURL, setPreviewURL ] = useState<string>('');
     const [ imgVisibility, setImgVisibility ] = useState<string>('none');
-    const [ eventImage, setEventImage ] = useState<Blob>(null);
+    const [ imageFile, setImageFile ] = useState<Blob>(null);
 
     // File Handler
     const handleFile = (file: any) => {
-        setEventImage(() => file);
+        setImageFile(() => file);
         setPreviewURL(URL.createObjectURL(file));
         convertToBase64();
         setImgVisibility('block');
@@ -422,7 +416,6 @@ const EventForm = () => {
         e.preventDefault();
         e.stopPropagation();
         const file = e.dataTransfer.files[0];
-        console.log('type file on drop', typeof file);
         if(file.size > 2000000) {
             toast.error(`El tamaño supera el máximo de 2MB. Imagen usada: ${(file.size/1000000).toFixed(2)}MB.`, {
                 position: 'top-right',
@@ -433,7 +426,6 @@ const EventForm = () => {
             return;
         }
         e.dataTransfer.clearData();
-        // setEventImage(file);
         handleFile(file);
     };
 
@@ -447,7 +439,7 @@ const EventForm = () => {
         e.preventDefault();
         setPreviewURL('');
         setImgVisibility('none');
-        setEventImage(() => '');
+        setImageFile(() => null);
         setFormData({ 
             ...formData,
             image: ''
@@ -490,8 +482,6 @@ const EventForm = () => {
     };
     
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
-
-    console.log('event image', eventImage);
 
     return (
         <div data-testid='event-form-component' className={styles.formEvent}>
