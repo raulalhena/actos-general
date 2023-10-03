@@ -8,8 +8,6 @@ function Navbar() {
     const [ isActive, setIsActive ] = useState(false);
     const { user, isLogged } = useAuth();
 
-    console.log('user role ', user.role);
-
     const toggleActiveClass = () => {
         setIsActive(!isActive);
     };
@@ -30,7 +28,7 @@ function Navbar() {
                             Agenda
                         </Link>
                     </li>
-                    {isLogged && user.role === 'user' && (
+                    {isLogged && user && user.role === 'user' && (
                         <li onClick={removeActive}>
                             <Link to="/myevents" className={styles.navLink}>
                                 Mis eventos
@@ -42,14 +40,14 @@ function Navbar() {
                             FAQ
                         </Link>
                     </li>
-                    {isLogged && user.role === 'admin' (
+                    {isLogged && user && user.role === 'admin' && (
                         <li onClick={removeActive}>
                             <Link to="/eventslist" className={styles.navLink}>
-                                Eventos Activos
+            Eventos Activos
                             </Link>
                         </li>
                     )}
-                    {isLogged && user.role === 'admin' && (
+                    {isLogged && user && user.role === 'admin' && (
                         <li onClick={removeActive}>
                             <Link to="/createevent" className={styles.navLink}>
                             Crear Evento
@@ -62,7 +60,7 @@ function Navbar() {
                     <>
                         <li onClick={removeActive}>
                             <Link to="/login" className={styles.navLink}>
-                                Iniciar sesión {user.name}
+                                Iniciar sesión {user ? user.name : ''}
                             </Link>
                         </li>
                         <li onClick={removeActive}>
