@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, useEffect } from 'react';
 import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
-import ButtonSubmit from '../Button/ButtonSubmit';
+import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import RadioGroupContainer from '../Button/ButtonContainer/RadioCardContainer';
 import DateInput from '../DateInput/DateInput';
 import FormField from '../FormField/FormField';
@@ -12,32 +12,32 @@ import  TextArea  from '../TextArea/TextArea';
 import TextInput from '../TextInput/TextInput';
 import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
-import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventDashboardForm.module.css';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 import SelectStatus from '../SelectStatus/SelectStatus';
-
 import { BsPatchCheckFill } from 'react-icons/bs';
+import { VscCircleFilled } from 'react-icons/vsc';
 import ModalDisplay from '../Modal/ModalDisplay';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
+import TextInputNumber from '../TextInputNumber/TextInputNumber';
 
 type Props = { eventData: EventDashboardFormProps };
 
 // Form
 const EventDashboardForm = ( { eventData }: Props ) => {
+    // const navigate = useNavigate();
 
     const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
 
     useEffect(() => {
         setFormData(eventData);
-        // console.log('form data', formData);
-    }, [ eventData, formData ]);
+    }, [ eventData ]);
 
-    // Visibility
+    // VisibilitySection
     const [ isSection1Visible, setIsSection1Visible ] = useState(true);
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
@@ -55,15 +55,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         const id = event.target.id;
         const value: string = event.target.value;
 
-        if (id === 'capacity') {
-            const numericValue = Number(value);
-            if (numericValue >= 1) {
-                setFormData({
-                    ...formData,
-                    [id]: numericValue,
-                });
-            }
-        } else if (id === 'webLink' || id === 'web') {
+        if (id === 'webLink' || id === 'web') {
 
             let newValue = value;
             if (value.startsWith('www')) {
@@ -82,93 +74,65 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         }
     };
 
+    // Input
+    const handleInputNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const id = event.target.id;
+        const value: string = event.target.value;
+
+        if (id === 'capacity') {
+            const numericValue = Number(value);
+
+            if (!isNaN(numericValue) && numericValue >= 0) {
+
+                setFormData({
+                    ...formData,
+                    [id]: value,
+                });
+            } else {
+                toast.error('Ingrese un número mayor que cero', {
+                    position: 'top-right',
+                    autoClose: 2500,
+                    pauseOnHover: true,
+                });
+            }
+        }
+    };
+
     // Select
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
-        console.log(formData.category);
-        let selectedValue = false;
-        let newStatus = formData.status;
+
+        // EventTime: Start and End Time
+        if (id === 'endTime' && value < formData.startTime) {
+            toast.error('La hora de finalización no puede ser anterior a la hora de inicio.', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [id]: value,
+            });
+        }
+    };
+
+    // SelectVisibility(draft and public status)
+    const handleVisibilityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = event.target;
     
         if (value === 'Borrador') {
-            selectedValue = false;
-            newStatus = 'Borrador';
-            openModal(
-                null,
-                'Este evento estará en modo Borrador',
-                'Guarde el cambio para que el evento solo sea visible para el organizador del evento.',
-                'No, cancelar',
-                'Sí, cambiar para Borrador',
-                closeModal,
-                true,
-                () => {
-                    setFormData({
-                        ...formData,
-                        visibility: true,
-                    });
-                    setIsModalOpen(false);
-                },
-                async () => {
-                    setFormData({
-                        ...formData,
-                        visibility: false,
-                    });
-                    setIsModalOpen(false);
+            setFormData({
+                ...formData,
+                visibility: false,
+            });
 
-                    const res = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
-                        method: 'PUT',
-                        headers:{ 'Content-type': 'application/json' },
-                        body: JSON.stringify({
-                            visibility: false
-                        })
-                    });
-
-                    return res;
-                }
-            );
         } else if (value === 'Público') {
-            selectedValue = true;
-            newStatus = 'Público';
-            openModal(
-                null,
-                'Este evento estará en modo Público',
-                'Guarde el cambio para que el evento sea visible para todos los usuarios.',
-                'No, cancelar',
-                'Sí, cambiar para Público',
-                closeModal,
-                true,
-                () => {
-                    setFormData({
-                        ...formData,
-                        visibility: false,
-                    });
-                    setIsModalOpen(false);
-                },
-                async () => {
-                    setFormData({
-                        ...formData,
-                        visibility: true,
-                    });
-                    setIsModalOpen(false);
-
-                    const res = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
-                        method: 'PUT',
-                        headers:{ 'Content-type': 'application/json' },
-                        body: JSON.stringify({
-                            visibility: true
-                        })
-                    });
-
-                    return res;
-                },
-                
-            );
-        }
-        setFormData({
-            ...formData,
-            visibility: selectedValue,
-            status: newStatus,
-            [id]: value
-        });
+            setFormData({
+                ...formData,
+                visibility: true,
+            });
+        } 
     };
     
     // Tags
@@ -183,6 +147,14 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         setFormData({
             ...formData,
             organizedBy: newOrganizedBy,
+        });
+    };
+
+    //language
+    const handleLanguageChange = (languages: string[]) => {
+        setFormData({
+            ...formData,
+            language: languages,
         });
     };
 
@@ -210,50 +182,130 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         }));
     };
 
-    // Submit Button
-    const navigate = useNavigate();
-
+    //SUBMIT
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        if (formData.status) alert('Vas a cambiar el estado');
+        type EventFormPropsKey = keyof EventDashboardFormProps;
+        const requiredFields: EventFormPropsKey[] = [
+            'name',
+            'description',
+            'date',
+            'category',
+            'subcategory',
+            'type',
+            'mode',
+            'startTime',
+            'endTime'
+        ];
 
-        const res = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
-        await res.json();
+        const missingFields = requiredFields.filter((field) => !formData[field]);
+        if (missingFields.length > 0) {
+            const errorMessage = `Por favor, complete los siguientes campos obligatorios: ${missingFields.join(', ')}.`;
+            toast.error(errorMessage, {
+                position: toast.POSITION.TOP_RIGHT,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+            return;
+        }
+    
+        if (visibility !== formData.visibility) {
+            openModal(
+                null,
+                `Este evento estará en modo ${
+                    formData.visibility ? 'Público' : 'Borrador'
+                }`,
+                '',
+                'No, cancelar',
+                `Sí, cambiar para ${formData.visibility ? 'público' : 'Borrador'}`,
+                closeModal,
+                true,
+                () => {
+                    setFormData({
+                        ...formData,
+                        visibility: !formData.visibility,
+                    });
+                    closeModal();
+                },
+                async () => {
+                    const res = await fetch(
+                        `http://localhost:8000/api/events/${formData._id}`,
+                        {
+                            method: 'PUT',
+                            headers: { 'Content-type': 'application/json' },
+                            body: JSON.stringify(formData),
+                        }
+                    );
 
-        const resp = await fetch(`http://localhost:8000/api/events/${formData._id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        const result = await resp.json();
+                    if (res.ok) {
+                        const res = await fetch(
+                            `http://localhost:8000/api/events/${formData._id}`,
+                            {
+                                method: 'GET',
+                                headers: { 'Content-Type': 'application/json' },
+                            }
+                        );
+    
+                        if (res.ok) {
+                            const result = await res.json();
+                            setFormData(result);
+                            setVisibility(result.visibility);
+        
+                            openModal(
+                                <BsPatchCheckFill className={styles.checkIcon} />,
+                                'Cambio Guardado',
+                                'Tus cambios han sido guardados con éxito',
+                                'Cerrar ventana',
+                                '',
+                                closeModal,
+                                true,
+                                closeModal,
+                                () => {}
+                            );
+                        } 
+                    } 
+                }
+            );
 
-        setFormData(result);
+        } else {
+            const res = await fetch(
+                `http://localhost:8000/api/events/${formData._id}`,
+                {
+                    method: 'PUT',
+                    headers: { 'Content-type': 'application/json' },
+                    body: JSON.stringify(formData),
+                }
+            );
 
-        const closeModalAndNavigate = () => {
-            closeModal(); // Feche o modal
-            navigate(`/eventdashboard`, { state: { id: result._id } });
-        };
+            if (res.ok) {
+                const res = await fetch(
+                    `http://localhost:8000/api/events/${formData._id}`,
+                    {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' },
+                    }
+                );
 
-        openModal(
-            <BsPatchCheckFill className={styles.checkIcon} />,
-            'Cambio Guardado',
-            'Tus cambios han sido guardados con éxito',
-            'Cerrar ventana',
-            '',
-            closeModal,
-            true,
-            closeModalAndNavigate,
-            () => {}
-        );
-
+                if (res.ok) {
+                    const result = await res.json();
+                    setFormData(result);
+                    setVisibility(result.visibility);
+    
+                    openModal(
+                        <BsPatchCheckFill className={styles.checkIcon} />,
+                        'Cambio Guardado',
+                        'Tus cambios han sido guardados con éxito',
+                        'Cerrar ventana',
+                        '',
+                        closeModal,
+                        true,
+                        closeModal,
+                        () => {}
+                    );
+                } 
+            } 
+        }
     };
     
     /* **************
@@ -318,7 +370,7 @@ END Modal
 ************** */
 
     // Button Radio
-    const [ selectedMode, setSelectedMode ] = useState<string>('');
+    const [ selectedMode, setSelectedMode ] = useState<string>(formData.mode);
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
@@ -332,11 +384,6 @@ END Modal
     // Capacity Radio Groug handler
 
     // Mode Radio Group
-    const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
-        ...container,
-        checked: selectedMode === container.value,
-        onChange: () => handleModeChange(container.value),
-    }));
 
     // Capacity Radio Group
 
@@ -422,21 +469,42 @@ END Modal
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
     const [ time, setTime ] = useState<Array<string>>([]);
-   
+    const [ visibility, setVisibility ] = useState<boolean>(false);
+    const [ selectedCategory, setSelectedCategory ] = useState(formData.category);
+    const [ mode, setMode ] = useState<ButtonCardRadioProps[]>([]);
+
     // Get all data to fill fields
+    // Get Categories
     useEffect(() => {
+        
         const getCategories = async () => {
+            let categoryId = '';
             const resp = await fetch('http://localhost:8000/api/misc/categories');
             const categoriesDb = await resp.json();
-   
+
             setCategories(categoriesDb);
+            categories.forEach(category => {
+                if(category.name === formData.category) categoryId=category._id;
+
+            });
+            setSelectedCategory(categoryId);
+            getSubcategories(categoryId);
         };
-   
         getCategories();
-    }, []);
-   
+    }, [ formData.category ]);
+
+    // Get Subcategories
+    const getSubcategories = async (selectedCategory: string) => {
+
+        const resp = await fetch(`http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`);
+        
+        const subcategoriesDb = await resp.json();
+
+        setSubcategories(Array.from(subcategoriesDb.subcategories));
+        
+    };
+
     // get types
-   
     useEffect(() => {
         const getTypes = async () => {
             try {
@@ -450,9 +518,8 @@ END Modal
         };
         getTypes();
     }, []);
-   
+
     // get languages
-   
     useEffect(() => {
         const getLanguages = async () => {
             try {
@@ -465,11 +532,10 @@ END Modal
             }
         };
         getLanguages();
-           
+    
     }, []);
-   
+
     // get time zone
-   
     useEffect(() => {
         const getTimeZone = async () => {
             try {
@@ -483,9 +549,8 @@ END Modal
         };
         getTimeZone();
     }, []);
-   
+
     // get time
-   
     useEffect(() => {
         const getTime = async () => {
             try {
@@ -500,43 +565,68 @@ END Modal
         getTime();
     }, []);
 
-    const [ selectedCategory, setSelectedCategory ] = useState(eventData.category);
+    // get visibility
+    useEffect(() => {
+        setVisibility(formData.visibility ?? false); //cuando es null(??) es false
+    }, []); //no tocar la dependencia, dejar vacio*
+
+    useEffect(() => {
+        const getMode = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/modes');
+                const data = await response.json();
+                const modeData = data.map((mode: { _id : string; name: string; text: string;  value: string }) => ({
+                    id: mode._id,
+                    name: mode.name,
+                    text: mode.text, 
+                    value: mode.value,
+                }));
+                setMode(modeData);
+                
+            } catch (error) {
+                console.error('Error al obtener las horas:', error);
+            }
+        };
+        getMode();
+    }, []);
 
     // Categories Handle Change
+
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        console.log(selectedCategory);
+
         const { value } = event.target;
-        const selected = event.target.selectedOptions[0].text;
-        console.log(value);
-        setSelectedCategory(selectedCategory);
+       
+        let categoryName = '';   
+        categories.forEach(category => {
+    
+            if(category._id === value) 
+                categoryName = category.name;
+        });
 
         setFormData({
             ...formData,
-            category: selected,
+            category: categoryName,
         });
+        setSelectedCategory(value);
 
         await getSubcategories(value);
-    };
-
-    // Get Subcategories
-    const getSubcategories = async (categoryId: string) => {
-        const resp = await fetch(`http://localhost:8000/api/misc/categories/${categoryId}/subcategories`);
-        const categoriesDb = await resp.json();
         
-        setSubcategories(categoriesDb.subcategories);
     };
 
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     return (
-        <div className={styles.form}>
+        <div data-testid='dashboard-component' className={styles.formDash}>
             <p className={styles.status}>
-                <span> <b>Visibilidad del evento:</b> </span>
-                <span style={{ color: formData.visibility ? 'green' : '#e15a40' }}>
-                    {formData.visibility ? 'Público' : 'Borrador'}
+                <span>
+                    <b>
+                        <VscCircleFilled style={{ color: visibility ? 'green' : '#e15a40' }} />
+                    </b>
+                </span>
+                <span style={{ color: visibility ? 'green' : '#e15a40' }}>
+                    {visibility ? 'Público' : 'Borrador'}
                 </span>
             </p>
-            <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
         
             <form data-testid="event-form" onSubmit={handleSubmit}>
                 <ToastContainer position="top-right" autoClose={3000} />
@@ -545,6 +635,7 @@ END Modal
                     title="1 INFORMACIÓN BÁSICA"
                     isVisible={isSection1Visible}
                     toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
+                    <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
 
                     <FormField>
                         <SelectCategories
@@ -644,13 +735,14 @@ END Modal
                     </FormField>
                     <FormField>
                         <RadioGroupContainer
-                            radioButtons={modeRadioButtons}
-                            selectedValue={formData.mode}
-                            label="Modalidad"
+                            radioButtons={mode}
+                            selectedValue={selectedMode}
+                            
+                            label="Modalidad *"
                             onChange={handleModeChange}
                             isRequired={true}
                         />
-                        {formData.mode === 'option1' && (
+                        {formData.mode === 'Presencial' && (
                             <TextInput
                                 id="address"
                                 label="Añade una dirección"
@@ -661,8 +753,9 @@ END Modal
                                 onChange={handleInputChange}
                                 isRequired={true}
                             />
+                            
                         )}
-                        {formData.mode === 'option2' && (
+                        {formData.mode === 'En línea' && (
                             <TextInput
                                 isRequired={true}
                                 id="webLink"
@@ -675,7 +768,7 @@ END Modal
                                 type="url"
                             />
                         )}
-                        {formData.mode === 'option3' && (
+                        {formData.mode === 'Híbrido' && (
                             <>
                                 <TextInput
                                     id="address"
@@ -687,6 +780,7 @@ END Modal
                                     onChange={handleInputChange}
                                     isRequired={true}
                                 />
+                                <br />
                                 <TextInput
                                     id="webLink"
                                     label="Añade un link de acceso"
@@ -698,7 +792,9 @@ END Modal
                                     isRequired={true}
                                     type="url"
                                 />
+                                <br />
                             </>
+                            
                         )}
                     </FormField>
                 </SectionForm>
@@ -735,7 +831,10 @@ END Modal
                         <DropdownCheck 
                             id="languages"
                             label="Idioma del Evento"
-                            options={languages}/>
+                            options={languages}
+                            values={formData.language}
+                            onChange={handleLanguageChange}
+                        />
 
                     </FormField>
                     <FormField>
@@ -795,20 +894,17 @@ END Modal
                             label={'El evento tiene limite de entrada'}
                             subtitle={'Activa el botón para definir número de entradas.'}
                             onChange={handleToggleCapacityChange}
-                            isChecked={selectedCapacity}
+                            isChecked={formData.isLimited}
                         />
-                        {selectedCapacity ? (
-                            <TextInputWithSubtitle
+                        {formData.isLimited ? (
+                            <TextInputNumber
                                 id="capacity"
                                 label="Límite de entradas"
-                                subtitle="Ingrese solamente caracteres numéricos"
+                                subtitle="Ingrese solamente caracteres numéricos mayores que 0."
                                 placeholder="ej.: 20"
-                                minLength={0}
-                                maxLength={500}
                                 value={formData.capacity} 
-                                onChange={handleInputChange}
+                                onChange={handleInputNumberChange}
                                 isRequired={true}
-                                type='number'
                             />
                         ): null }
                     </FormField>
@@ -819,11 +915,11 @@ END Modal
                     <div className={styles.finalSection}>
                         <div className={styles.selectStatus}>
                             <SelectStatus
-                                id="status"
+                                id="visibility"
                                 label=""
                                 options={ [ 'Borrador', 'Público' ] }
-                                value={formData.status}
-                                onChange={handleSelectChange}
+                                value={formData.visibility ? 'Público' : 'Borrador'}
+                                onChange={handleVisibilityChange}
                             />
                         </div>
                         <div className={styles.buttonSection}>

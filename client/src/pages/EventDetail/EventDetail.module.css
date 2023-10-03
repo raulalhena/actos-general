@@ -1,3 +1,7 @@
+.description p{
+  font-size: 16px;
+}
+
 .page {
   display: flex;
   flex-direction: column;
@@ -6,7 +10,7 @@
 
 .eventTitle {
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
   font-weight: 700;
   font-size: 32px;
 }
@@ -28,6 +32,17 @@ hr {
   gap: 1rem;
   color: #4f4f4f;
   line-height: 2rem;
+}
+
+.sectionTopButtons{
+  padding: 1rem 0;
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: space-between; 
+  gap: 1rem;
+  color: #4f4f4f;
+  line-height: 2rem;
+
 }
 
 .detailsSection {
@@ -58,8 +73,6 @@ hr {
 
 .categorySubcategorySection {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
   gap: 1rem;
 }
 
@@ -71,15 +84,14 @@ hr {
   display: flex;
   align-items: center;
   padding: 0rem 0.5rem;
-  width: fit-content;
 }
 
 .subcategory {
   color: #e15a40;
-  font-size: 16px;
-  border-radius: 10px;
   border: 1px solid #e15a40;
   background: #f5f5f5;
+  font-size: 16px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   padding: 0 0.5rem;
@@ -114,16 +126,14 @@ hr {
   justify-content: center;
 }
 
-.date {
+.date, .address, .description, .organizedBy {
   font-size: 16px;
+  color: #797979;
 }
 
-.address {
-  font-size: 16px;
-}
-
-.description {
-  font-size: 16px;
+.dateSection {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .webLink {
@@ -144,6 +154,7 @@ hr {
 .tags {
   display: flex;
   gap: 1rem;
+  
 }
 
 .organizedBySection {
@@ -180,12 +191,20 @@ hr {
 
   .category {
     font-size: 16px;
-    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 1rem;
+    border-radius: 20px;
   }
 
   .subcategory {
     font-size: 16px;
-    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 1rem;
+    border-radius: 20px;
   }
 
   .webLink {

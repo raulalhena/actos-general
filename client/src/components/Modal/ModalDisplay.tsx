@@ -1,8 +1,8 @@
 import ReactModal from 'react-modal';
 import styles from './ModalDisplay.module.css';
-import ButtonWhite from '../ButtonWhite/ButtonWhite';
-import ButtonRed from '../ButtonRed/ButtonRed';
 import { ModalDisplayProps } from '../../interfaces/modalDisplayProps';
+import ModalButtonRed from './ModalButton/ModalButtonRed';
+import ModalButtonWhite from './ModalButton/ModalButtonWhite';
 
 const ModalDisplay = (props: ModalDisplayProps) => {
 
@@ -41,8 +41,14 @@ const ModalDisplay = (props: ModalDisplayProps) => {
                         <h2 className={styles.h2}><b>{title}</b></h2>
                         <p className={styles.p}>{subtitle}</p>
                         <div className={styles.modalFooter}>
-                            {button1Text && <ButtonWhite label={button1Text} onClick={onButton1Click}/>}
-                            {button2Text && <ButtonRed label={button2Text} onClick={onButton2Click}/>}
+                            {button1Text && <ModalButtonWhite 
+                                label={button1Text} 
+                                onClick={onButton1Click} 
+                            />}
+                            {button2Text && <ModalButtonRed
+                                label={button2Text} 
+                                onClick={onButton2Click } 
+                            />}
                         </div>
                     </div>
                     

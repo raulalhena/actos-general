@@ -1,24 +1,57 @@
-import ButtonWhite from '../ButtonWhite/ButtonWhite';
 import styles from './InscriptionsRecap.module.css';
+import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
+import qrImg from '../../../../server/qr_events/65157a98fe5f547d2bf205c5.png';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import { BiSolidDownload } from 'react-icons/bi';
+import { FaUserCheck } from 'react-icons/fa';
+import { EventFormProps } from '../../interfaces/eventFormProps';
 
 interface InscriptionsRecapProps {
-    capacity: string;
+  eventData: EventFormProps;
+  createPDF: () => void;
 }
 
-const InscriptionsRecap = ({ capacity }: InscriptionsRecapProps) => {
-    console.log('capacity', capacity);
+const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
+    console.log('capacity', eventData);
 
     return (
         <>
             <div className={styles.container}>
-                <section className={styles.inscriptions}>
-                    <h1>0/{ capacity === 'undefined' ? '-' : capacity }</h1>
-                    <br />
-                    <h2>Inscripciones</h2>
-                </section>
-                <section>
-                    <ButtonWhite label="Mostrar Usuarios Inscritos" />
-                </section>
+                <a href="">
+                    <div className={styles.containerSection}>
+                        <FaUserCheck className={styles.icon} />
+                        <p>
+
+                0/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
+                Usuarios Inscritos
+                        </p>
+                    </div>
+                </a>
+
+                <div className={styles.containerSection}>
+                    <BiSolidDownload className={styles.icon} />
+                    <PDFDownloadLink
+                        document={<QRtoPDFDocument eventData={eventData} qrImg={qrImg} />}
+                        fileName={eventData.name}
+                    >
+                        <button className={styles.pdfButton}>
+              Descargar QR del evento (.PDF)
+                        </button>
+                    </PDFDownloadLink>
+                    <p>|</p>
+                    <a href={qrImg} download>
+                        <p>Descargar QR del evento (.PNG)</p>
+                    </a>
+                </div>
+
+                <div className={styles.containerSection}>
+                    {/* <IoLogoWhatsapp className={styles.icon} /> */}
+                    <a
+                        href={`http://web.whatsapp.com/send?text=${encodeURIComponent(qrImg)}`}
+                        data-action="share/whatsapp/share"
+                        target="_blank"
+                    >Comparte el QR por Whatsapp</a>
+                </div>
             </div>
         </>
     );

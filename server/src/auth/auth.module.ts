@@ -9,10 +9,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot(),
     UsersModule,
-    JwtModule.register({
-      global: true,
-      secret: process.env.SECRET,
-      signOptions: {expiresIn: '1d'}
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secret: 'VERY SECRET KEY',
+        signOptions: {
+            expiresIn: '1d',
+        },
+      }),
+      inject: [ConfigService],
     })
   ],
   controllers: [AuthController],

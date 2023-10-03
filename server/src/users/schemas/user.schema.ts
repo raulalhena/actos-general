@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
+import { Role } from 'src/auth/guards/role.enum';
 
 export type UserDocument = HydratedDocument<Event>;
 
@@ -17,7 +18,7 @@ export class User {
   @Prop({ required: [ true, 'La contraseña del usuario es requerida.' ] })
       password: string;
   
-  @Prop({ required: [ true, 'El rol del usuario es requerido.' ] })
+  @Prop({ required: [ true, 'El rol del usuario es requerido.' ], default: 'user' })
       role: string;
 }
 

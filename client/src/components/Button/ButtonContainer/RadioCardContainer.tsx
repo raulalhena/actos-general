@@ -13,9 +13,9 @@ function RadioCardContainer({
             <label className={styles.label}>{label}</label>
             <br />
             <div className={styles.radioGroupContainer}>
-                {radioButtons.map((radioButton) => (
+                {radioButtons.map((radioButton, index) => (
                     <ButtonCardRadio
-                        key={radioButton.id}
+                        key={index}
                         {...radioButton}
                         checked={selectedValue === radioButton.value}
                         onChange={() => onChange(radioButton.value)}

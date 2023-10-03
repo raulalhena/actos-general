@@ -1,7 +1,6 @@
 import { useState, ChangeEvent, useEffect } from 'react';
-import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 import { EventFormProps } from '../../interfaces/eventFormProps';
-import ButtonSubmit from '../Button/ButtonSubmit';
+import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import RadioGroupContainer from '../Button/ButtonContainer/RadioCardContainer';
 import DateInput from '../DateInput/DateInput';
 import FormField from '../FormField/FormField';
@@ -13,7 +12,6 @@ import  TextArea  from '../TextArea/TextArea';
 import TextInput from '../TextInput/TextInput';
 import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
-import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventForm.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,6 +20,8 @@ import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
+import TextInputNumber from '../TextInputNumber/TextInputNumber';
+import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 
 // Form
 const EventForm = () => {
@@ -52,7 +52,7 @@ const EventForm = () => {
         language: [], //Select con checkbox
         image: '', 
         video: '', 
-        capacity: undefined,
+        capacity: '',
         isLimited: false,
         // qrEvent: '',
         // qrAttendees: [],
@@ -71,6 +71,7 @@ const EventForm = () => {
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
     const [ time, setTime ] = useState<Array<string>>([]);
+    const [ mode, setMode ] = useState<ButtonCardRadioProps[]>([]);
 
     // Get all data to fill fields
     useEffect(() => {
@@ -85,14 +86,12 @@ const EventForm = () => {
     }, []);
 
     // get types
-
     useEffect(() => {
         const getTypes = async () => {
             try {
                 const response = await fetch('http://localhost:8000/api/misc/types');
                 const data = await response.json();
                 const typeNames = data.map((type: { name: string; }) => type.name);
-                console.log(typeNames);
                 setTypes(typeNames);
             } catch (error) {
                 console.error('Error al obtener los tipos:', error);
@@ -102,7 +101,6 @@ const EventForm = () => {
     }, []);
 
     // get languages
-
     useEffect(() => {
         const getLanguages = async () => {
             try {
@@ -119,14 +117,12 @@ const EventForm = () => {
     }, []);
 
     // get time zone
-
     useEffect(() => {
         const getTimeZone = async () => {
             try {
                 const response = await fetch('http://localhost:8000/api/misc/timezones');
                 const data = await response.json();
                 const timeZone = data.map((timeZone: { name: string; }) => timeZone.name);
-                console.log(timeZone);
                 setTimeZone(timeZone);
             } catch (error) {
                 console.error('Error al obtener las zonas horarias:', error);
@@ -136,7 +132,6 @@ const EventForm = () => {
     }, []);
 
     // get time
-
     useEffect(() => {
         const getTime = async () => {
             try {
@@ -149,6 +144,27 @@ const EventForm = () => {
             }
         };
         getTime();
+    }, []);
+    
+    //get Modes
+    useEffect(() => {
+        const getMode = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/modes');
+                const data = await response.json();
+                const modeData = data.map((mode: { name: string; text: string;  value: string }) => ({
+                    name: mode.name,
+                    text: mode.text, 
+                    value: mode.value,
+                    checked: false, 
+                }));
+                setMode(modeData);
+                
+            } catch (error) {
+                console.error('Error al obtener las horas:', error);
+            }
+        };
+        getMode();
     }, []);
 
     // Visibility
@@ -195,21 +211,7 @@ const EventForm = () => {
         const id = event.target.id;
         const value: string = event.target.value;
 
-        if (id === 'capacity') {
-            const numericValue = Number(value);
-            if (numericValue >= 1) {
-                setFormData({
-                    ...formData,
-                    [id]: numericValue,
-                });
-            } else {
-                toast.error('Si hay limite de entradas, el número debe ser mayor o igual a 1', {
-                    position: 'top-right',
-                    autoClose: 2500,
-                    pauseOnHover: true,
-                });
-            }
-        } else if (id === 'webLink' || id === 'web') {
+        if (id === 'webLink' || id === 'web') {
 
             let newValue = value;
             if (value.startsWith('www')) {
@@ -227,15 +229,45 @@ const EventForm = () => {
             });
         }
     };
+
+    // Input
+    const handleInputNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const id = event.target.id;
+        const value: string = event.target.value;
+
+        if (id === 'capacity') {
+            const numericValue = Number(value);
+
+            if (!isNaN(numericValue) && numericValue >= 0) {
+
+                setFormData({
+                    ...formData,
+                    [id]: value,
+                });
+            } else {
+                toast.error('Ingrese un número mayor que cero', {
+                    position: 'top-right',
+                    autoClose: 2500,
+                    pauseOnHover: true,
+                });
+            }
+        }
+    };
     
-    // Select
+    // Select TIME
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
 
         //EventTime: Start and End Time
         if (id === 'endTime' && value < formData.startTime) {
-            
             toast.error('La hora de finalización no puede ser anterior a la hora de inicio.', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+
+        } else if  (id === 'startTime' && formData.endTime !== '' && value > formData.endTime){
+            toast.error('La hora de inicio no puede ser posterior a la hora de finalización.', {
                 position: 'top-right',
                 autoClose: 2500,
                 pauseOnHover: true,
@@ -247,6 +279,14 @@ const EventForm = () => {
                 [id]: value,
             });
         }
+    };
+
+    //language
+    const handleLanguageChange = (languages: string[]) => {
+        setFormData({
+            ...formData,
+            language: languages,
+        });
     };
 
     // Tags
@@ -306,7 +346,6 @@ const EventForm = () => {
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log(formData);
 
         type EventFormPropsKey = keyof EventFormProps;
 
@@ -332,6 +371,7 @@ const EventForm = () => {
         });
         const result = await resp.json();
         navigate(`/eventdashboard`, { state: { id: result._id } });
+        window.scrollTo(0, 0);
         
     };
 
@@ -340,19 +380,13 @@ const EventForm = () => {
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
+
         setSelectedMode(value);
         setFormData({
             ...formData,
             mode: value,
         });
     };
-
-    // Mode Radio Group
-    const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
-        ...container,
-        checked: selectedMode === container.value,
-        onChange: () => handleModeChange(container.value),
-    }));
 
     /**************************************************
     ** Image Uploader
@@ -375,6 +409,15 @@ const EventForm = () => {
         e.preventDefault();
         e.stopPropagation();
         const file = e.dataTransfer.files[0];
+        if(file.size > 2000000) {
+            toast.error(`El tamaño supera el máximo de 2MB. Imagen usada: ${(file.size/1000000).toFixed(2)}MB.`, {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+            e.dataTransfer.clearData();
+            return;
+        }
         e.dataTransfer.clearData();
         // setEventImage(file);
         handleFile(file);
@@ -435,9 +478,8 @@ const EventForm = () => {
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
     return (
-        <div className={styles.form}>
+        <div data-testid='event-form-component' className={styles.formEvent}>
 
-            <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
             <form data-testid="event-form" className={styles.formContainer} onSubmit={handleSubmit}>
                 
                 <div className={styles.formContent} >
@@ -446,7 +488,7 @@ const EventForm = () => {
                         title="1 INFORMACIÓN BÁSICA"
                         isVisible={isSection1Visible}
                         toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
-
+                        <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
                         <FormField>
                             <SelectCategories
                                 id="category"
@@ -545,17 +587,17 @@ const EventForm = () => {
                         </FormField>
                         <FormField>
                             <RadioGroupContainer
-                                radioButtons={modeRadioButtons}
+                                radioButtons={mode}
                                 selectedValue={selectedMode}
                                 label="Modalidad *"
                                 onChange={handleModeChange}
                                 isRequired={true}
                             />
-                            {selectedMode === 'option1' && (
+                            {selectedMode === 'Presencial' && (
                                 <TextInput
                                     id="address"
                                     label="Añade una dirección *"
-                                    placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
+                                    placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona  (mínimo 3 caracteres)"
                                     minLength={3}
                                     maxLength={75}
                                     value={formData.address}
@@ -563,12 +605,12 @@ const EventForm = () => {
                                     isRequired={true}
                                 />
                             )}
-                            {selectedMode === 'option2' && (
+                            {selectedMode === 'En línea' && (
                                 <TextInput
                                     isRequired={true}
                                     id="webLink"
                                     label="Añade un link de acceso *"
-                                    placeholder="Escribe el link de acceso a tu evento."
+                                    placeholder="Escribe el link de acceso a tu evento.  (mínimo 3 caracteres)"
                                     minLength={3}
                                     maxLength={75}
                                     value={formData.webLink}
@@ -576,12 +618,12 @@ const EventForm = () => {
                                     type="url"
                                 />
                             )}
-                            {selectedMode === 'option3' && (
+                            {selectedMode === 'Híbrido' && (
                                 <>
                                     <TextInput
                                         id="address"
                                         label="Añade una dirección *"
-                                        placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona"
+                                        placeholder="Entrença, 332-334. 7ª planta 08029 Barcelona  (mínimo 3 caracteres)"
                                         minLength={3}
                                         maxLength={75}
                                         value={formData.address}
@@ -591,7 +633,7 @@ const EventForm = () => {
                                     <TextInput
                                         id="webLink"
                                         label="Añade un link de acceso *"
-                                        placeholder="Escribe el link de acceso a tu evento."
+                                        placeholder="Escribe el link de acceso a tu evento.  (mínimo 3 caracteres)"
                                         minLength={3}
                                         maxLength={75}
                                         value={formData.webLink}
@@ -637,7 +679,10 @@ const EventForm = () => {
                             <DropdownCheck 
                                 id="language"
                                 label="Idioma del Evento"
-                                options={languages}/>
+                                options={languages}
+                                values={formData.language}
+                                onChange={handleLanguageChange}
+                            />
 
                         </FormField>
                         <FormField>
@@ -698,20 +743,17 @@ const EventForm = () => {
                                 label={'El evento tiene limite de entrada'}
                                 subtitle={'Activa el botón para definir número de entradas.'}
                                 onChange={handleToggleCapacityChange}
-                                isChecked={selectedCapacity}
+                                isChecked={formData.isLimited}
                             />
                             {selectedCapacity ? (
-                                <TextInputWithSubtitle
+                                <TextInputNumber
                                     id="capacity"
                                     label="Límite de entradas"
                                     subtitle="Ingrese solamente caracteres numéricos mayores que 0."
                                     placeholder="ej.: 20"
-                                    minLength={0}
-                                    maxLength={500}
                                     value={formData.capacity} 
-                                    onChange={handleInputChange}
+                                    onChange={handleInputNumberChange}
                                     isRequired={true}
-                                    type='number'
                                 />
                             ): null }
                         </FormField>

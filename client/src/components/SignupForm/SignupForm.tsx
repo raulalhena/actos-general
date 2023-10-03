@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styles from './SignupForm.module.css';
 import { SignupProps } from '../../interfaces/signupProps';
-import ButtonSubmit from '../Button/ButtonSubmit';
-import TextInput from '../TextInput/TextInput';
+import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
+import TextInputSmall from '../TextInputSmall/TextInputSmall';
+import { Link, useNavigate } from 'react-router-dom';
+import ConfirmPasswordInput from '../ConfirmPasswordInput/ConfirmPasswordInput';
 
 const SignupForm = () => {
     const [ signupData, setSignupData ] = useState<SignupProps>({
@@ -11,34 +13,51 @@ const SignupForm = () => {
         email: '',
         password: '',
     });
+
+    const navigate = useNavigate();
+
     const [ nameError, setNameError ] = useState<string | null>(null);
     const [ surnameError, setSurnameError ] = useState<string | null>(null);
     const [ passwordError, setPasswordError ] = useState<string | null>(null);
     const [ emailError, setEmailError ] = useState<string | null>(null);
+    const [ notPasswordMatchError, setNotPasswordMatchError ] = useState<string | null>(null);
+
+    const [ passwordConfirmed, setPasswordConfirmed ] = useState<string>(null);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = event.target;
+
         setSignupData({
             ...signupData,
             [id]: value,
         });
     };
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleConfirmPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+       
+        setPasswordConfirmed(value);
+    };
+
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
         // Validate name
         const isValidName = validateName(signupData.name);
-        if(!isValidName) {
-            setNameError('El nombre no puede estar en blanco, contener números o espacios en blanco o ser menor de 2 carácteres');
+        if (!isValidName) {
+            setNameError(
+                'El nombre no puede estar en blanco, contener números o espacios en blanco o ser menor de 2 carácteres'
+            );
         } else {
             setNameError(null);
         }
 
         // Validate surname
         const isValidSurname = validateSurname(signupData.surname);
-        if(!isValidSurname) {
-            setSurnameError('El apellido no puede estar en blanco, contener números o ser menor de 2 carácteres');
+        if (!isValidSurname) {
+            setSurnameError(
+                'El apellido no puede estar en blanco, contener números o ser menor de 2 carácteres'
+            );
         } else {
             setSurnameError(null);
         }
@@ -61,6 +80,36 @@ const SignupForm = () => {
             setEmailError(null);
             console.log(signupData);
         }
+
+        // Validate match password
+        const isMatchPassword = matchPassword(signupData.password, passwordConfirmed);
+        if (!isMatchPassword) {
+            setNotPasswordMatchError('Las contraseñas no coinciden.');
+        } else {
+            setNotPasswordMatchError(null);
+        }
+
+        console.log('sign up ', signupData);
+
+        if(
+            validateEmail(signupData.email) &&
+            validateName(signupData.name) &&
+            validateSurname(signupData.surname) &&
+            validatePassword(signupData.password) &&
+            matchPassword(signupData.password, passwordConfirmed)
+        ){
+
+            const resp = await fetch('http://localhost:8000/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(signupData)
+            });
+
+            if(resp.ok) navigate('/login');
+        }
+
     };
 
     // Function to validate name
@@ -88,68 +137,81 @@ const SignupForm = () => {
         return emailRegex.test(email);
     };
 
+    // Function to validate match password
+    const matchPassword = (password: strign, confirmedPassword: string) => {
+        return password === confirmedPassword;
+    };
+
     return (
         <div className={styles.container}>
-            <form onSubmit={handleSubmit}>
-                <section className={styles.signupForm}>
-                    <h1>Registro de usuario</h1>
-                    <TextInput
-                        id="name"
-                        label=""
-                        placeholder="Nombre"
-                        minLength={2}
-                        maxLength={175}
-                        value={signupData.name}
-                        onChange={handleInputChange}
-                    />
-                    {nameError && <p className={styles.error}>{nameError}</p>}
-                    <TextInput
-                        id="surname"
-                        label=""
-                        placeholder="Apellidos"
-                        minLength={2}
-                        maxLength={175}
-                        value={signupData.surname}
-                        onChange={handleInputChange}
-                    />
-                    {surnameError && <p className={styles.error}>{surnameError}</p>}
-                    <TextInput
-                        id="email"
-                        label=""
-                        placeholder="Email"
-                        minLength={3}
-                        maxLength={175}
-                        value={signupData.email}
-                        onChange={handleInputChange}
-                    />
-                    {emailError && <p className={styles.error}>{emailError}</p>}
-                    <TextInput
-                        id="password"
-                        label=""
-                        placeholder="Contraseña"
-                        minLength={3}
-                        maxLength={175}
-                        value={signupData.password}
-                        onChange={handleInputChange}
-                        isPassword={true}
-                    />
-                    {passwordError && <p className={styles.error}>{passwordError}</p>}
-                    <TextInput
-                        id="passwordConfirmed"
-                        label=""
-                        placeholder="Confirma tu contraseña"
-                        minLength={3}
-                        maxLength={175}
-                        value={signupData.password}
-                        onChange={handleInputChange}
-                        isPassword={true}
-                    />
-                    {passwordError && <p className={styles.error}>{passwordError}</p>}
-                </section>
-                <div className={styles.buttonSection}>
-                    <ButtonSubmit label="Registrarse" />
-                </div>
-            </form>
+            <div className={styles.form}>
+                <form onSubmit={handleSubmit}>
+                    <section className={styles.optionTitle}>
+                        <h2>¿Ya tienes cuenta?</h2>
+                        <Link to="/login" className={styles.registerLink}>
+                            Inicia sesión
+                        </Link>
+                    </section>
+                    <section>
+                        <h1>Registro de usuario</h1>
+                        <TextInputSmall
+                            id="name"
+                            label=""
+                            placeholder="Nombre"
+                            minLength={2}
+                            maxLength={175}
+                            value={signupData.name}
+                            onChange={handleInputChange}
+                        />
+                        {nameError && <p className={styles.error}>{nameError}</p>}
+                        <TextInputSmall
+                            id="surname"
+                            label=""
+                            placeholder="Apellidos"
+                            minLength={2}
+                            maxLength={175}
+                            value={signupData.surname}
+                            onChange={handleInputChange}
+                        />
+                        {surnameError && <p className={styles.error}>{surnameError}</p>}
+                        <TextInputSmall
+                            id="email"
+                            label=""
+                            placeholder="Email"
+                            minLength={3}
+                            maxLength={175}
+                            value={signupData.email}
+                            onChange={handleInputChange}
+                        />
+                        {emailError && <p className={styles.error}>{emailError}</p>}
+                        <TextInputSmall
+                            id="password"
+                            label=""
+                            placeholder="Contraseña"
+                            minLength={3}
+                            maxLength={175}
+                            value={signupData.password}
+                            onChange={handleInputChange}
+                            isPassword={true}
+                        />
+                        {passwordError && <p className={styles.error}>{passwordError}</p>}
+                        <ConfirmPasswordInput
+                            id="passwordConfirmed"
+                            label=""
+                            placeholder="Confirma tu contraseña"
+                            minLength={3}
+                            maxLength={175}
+                            value={passwordConfirmed}
+                            onChange={handleConfirmPassword}
+                            isPassword={true}
+                        />
+                        {notPasswordMatchError && <p className={styles.error}>{notPasswordMatchError}</p>}
+                    </section>
+                    <div className={styles.buttonSection}>
+                        <ButtonSubmit label="Registrarse" />
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };

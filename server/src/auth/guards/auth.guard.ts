@@ -24,7 +24,7 @@ import {
             secret: process.env.SECRET
           }
         );
-        request['user'] = payload;
+        request.user = payload;
       } catch {
         throw new UnauthorizedException();
       }
