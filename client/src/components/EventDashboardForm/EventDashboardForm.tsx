@@ -635,7 +635,7 @@ END Modal
                     title="1 INFORMACIÓN BÁSICA"
                     isVisible={isSection1Visible}
                     toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
-                    <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
+                    {/* <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p> */}
 
                     <FormField>
                         <SelectCategories
