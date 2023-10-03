@@ -38,6 +38,11 @@ export class EventsController {
   	return this.eventsService.findAll();
   }
 
+  @Get('/user/:id')
+  findUserEvents(@Param('id') id: ObjectId) {
+    return this.eventsService.findUserEvents(id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: ObjectId) {
   	return this.eventsService.findOne(id);

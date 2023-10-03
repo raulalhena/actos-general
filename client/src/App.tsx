@@ -15,7 +15,6 @@ import NotFound from './pages/NotFound/NotFound';
 import Logout from './components/Logout/Logout';
 import AllEvents from './pages/AllEvents/AllEvents';
 import ScrollTopButton from './components/ScrollTopButton/ScrollTopButton';
-import { useAuth } from './hooks/useAuth';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MyEvents from './pages/MyEvents/MyEvents';
 

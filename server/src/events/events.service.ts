@@ -36,6 +36,16 @@ export class EventsService {
     return await this.eventModel.findById(id);
   }
 
+  async findUserEvents(id: ObjectId) {
+    try{
+      const userEvents = await this.eventModel.find({ submitted: id });
+    
+      return userEvents;
+    } catch(error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   async update(id: ObjectId, updateEventDto: UpdateEventDto) {
     return await this.eventModel.findByIdAndUpdate(id, updateEventDto, {new: true});
   }
