@@ -5,6 +5,8 @@ import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import TextInputSmall from '../TextInputSmall/TextInputSmall';
 import { Link, useNavigate } from 'react-router-dom';
 import ConfirmPasswordInput from '../ConfirmPasswordInput/ConfirmPasswordInput';
+import { BsPatchCheckFill } from 'react-icons/bs';
+import ModalDisplay from '../Modal/ModalDisplay';
 
 const SignupForm = () => {
     const [ signupData, setSignupData ] = useState<SignupProps>({
@@ -14,14 +16,22 @@ const SignupForm = () => {
         password: '',
     });
 
-    const navigate = useNavigate();
-
     const [ nameError, setNameError ] = useState<string | null>(null);
     const [ surnameError, setSurnameError ] = useState<string | null>(null);
     const [ passwordError, setPasswordError ] = useState<string | null>(null);
     const [ emailError, setEmailError ] = useState<string | null>(null);
     const [ notPasswordMatchError, setNotPasswordMatchError ] = useState<string | null>(null);
     const [ passwordConfirmed, setPasswordConfirmed ] = useState<string>('');
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+
+    const navigate = useNavigate();
+    const handleLoginPage = ()  =>{
+        navigate('/login');
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = event.target;
@@ -106,7 +116,9 @@ const SignupForm = () => {
                 body: JSON.stringify(signupData)
             });
 
-            if(resp.ok) navigate('/login');
+            if(resp.ok) {
+                setIsModalOpen(true);
+            }
         }
 
     };
@@ -208,6 +220,22 @@ const SignupForm = () => {
                     </section>
                     <div className={styles.buttonSection}>
                         <ButtonSubmit label="Registrarse" />
+                    </div>
+                    <div>
+                        {isModalOpen && (
+                            <ModalDisplay
+                                icon={<BsPatchCheckFill className={styles.checkIcon} />}
+                                title={'Registrado con éxito'}
+                                subtitle={'Ya puedes iniciar sesión'}
+                                button1Text={'Iniciar Sesión'}
+                                button2Text={''}
+                                onClose={closeModal}
+                                isOpen={true}
+                                onButton1Click={handleLoginPage}
+                                onButton2Click={() => {}}
+                                showCloseButton={true}
+                            />
+                        )}
                     </div>
                 </form>
             </div>
