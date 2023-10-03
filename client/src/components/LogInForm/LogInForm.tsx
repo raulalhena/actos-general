@@ -103,6 +103,7 @@ const LogInForm = () => {
                         <h1>Iniciar sesión</h1>
                         <TextInputSmall
                             id="email"
+                            type='email'
                             label=""
                             placeholder="Email"
                             minLength={3}
