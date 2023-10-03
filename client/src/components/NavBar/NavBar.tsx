@@ -42,7 +42,7 @@ function Navbar() {
                             FAQ
                         </Link>
                     </li>
-                    {isLogged && user.role === 'admin' (
+                    {isLogged && user.role === 'admin' && (
                         <li onClick={removeActive}>
                             <Link to="/eventslist" className={styles.navLink}>
                                 Eventos Activos
