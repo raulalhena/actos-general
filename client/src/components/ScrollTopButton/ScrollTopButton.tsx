@@ -1,5 +1,6 @@
 import  { useState, useEffect } from 'react';
 import styles from './ScrollTopButton.module.css';
+import { IoChevronUpOutline } from  'react-icons/io5';
 
 const ScrollTopButton = () => {
     const [ isVisible, setIsVisible ] = useState(false);
@@ -34,7 +35,7 @@ const ScrollTopButton = () => {
             }`}
             onClick={scrollToTop}
         >
-            ↑
+            <IoChevronUpOutline />
         </div>
     );
 };
