@@ -20,7 +20,7 @@ export const DashboardImageUploader = ({ image, previewURL, imgVisibility, remov
             <label className={styles.label}>Imagen</label>
             <br />
             <div className={styles.dragDropZone}>
-                {image ? null : ( // Ocultar el icono y el texto si previewURL existe
+                {(image || previewURL) ? null : ( // Ocultar el icono y el texto si previewURL existe
                     <div>
                         <RiFolderUploadFill className={styles.icon} />
                         <br />
@@ -35,7 +35,7 @@ export const DashboardImageUploader = ({ image, previewURL, imgVisibility, remov
                     alt="uploaded"
                 />
                 <div className={styles.buttons} >
-                    {image && ( // Mostrar el botón "Eliminar" solo si previewURL existe
+                    {(image || previewURL) && ( // Mostrar el botón "Eliminar" solo si previewURL existe
                         <button className={styles.remove} onClick={removeImage}>Eliminar</button>
                     )}
                 </div>

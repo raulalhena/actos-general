@@ -316,11 +316,10 @@ const EventForm = () => {
 
     console.log('img a', formData);
 
-    // Send Image
+    // Convert Image to Base64 to send in JSON
     const convertToBase64 = () => {
 
         if(imageFile) {
-            console.log('eventImage is');
             const fileReader = new FileReader();
             fileReader.readAsDataURL(imageFile);
             fileReader.onloadend = () => {
@@ -331,19 +330,6 @@ const EventForm = () => {
                 console.log('base64', fileReader.result);
             };
         }
-
-        //     toast.success('Imagen guardada correctamente', {
-        //         position: toast.POSITION.TOP_RIGHT,
-        //         closeOnClick: true,
-        //         pauseOnHover: true,
-        //     });
-        // } else {
-        //     toast.error('Ha habido un error al procesar la imagen', {
-        //         position: toast.POSITION.TOP_RIGHT,
-        //         closeOnClick: true,
-        //         pauseOnHover: true,
-        //     });
-        // }
         return;
     };
 
@@ -403,11 +389,14 @@ const EventForm = () => {
     const [ imgVisibility, setImgVisibility ] = useState<string>('none');
     const [ imageFile, setImageFile ] = useState<Blob>(null);
 
+    useEffect(() => {
+        convertToBase64();
+    }, [ imageFile ]);
+
     // File Handler
     const handleFile = (file: any) => {
         setImageFile(() => file);
         setPreviewURL(URL.createObjectURL(file));
-        convertToBase64();
         setImgVisibility('block');
     };
 

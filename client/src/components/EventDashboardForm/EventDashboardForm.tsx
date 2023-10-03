@@ -374,19 +374,40 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     ******************/
 
     //  States
-    const [ previewURL, setPreviewURL ] = useState<string>(formData.image);
+    const [ previewURL, setPreviewURL ] = useState<string>('');
     const [ imgVisibility, setImgVisibility ] = useState<string>('block');
-    const [ image, setImage ] = useState<Blob | string | undefined>(formData.image);
+    const [ image, setImage ] = useState<string | undefined>(formData.image);
+    const [ imageFile, setImageFile ] = useState<Blob>('');
+
+    // Convert Image to Base64 to send in JSON
+    const convertToBase64 = () => {
+
+        if(imageFile) {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(imageFile);
+            fileReader.onloadend = () => {
+                setFormData({
+                    ...formData,
+                    image: fileReader.result
+                });
+                console.log('base64', fileReader.result);
+            };
+        }
+        return;
+    };
 
     useEffect(() => {
-        setPreviewURL(formData.image);
+        convertToBase64();
+    }, [ imageFile ]);
+
+    useEffect(() => {
         setImgVisibility('block');
         setImage(formData.image);
     }, []);
 
     // File Handler
     const handleFile = (file: any) => {
-        setImage(() => file);
+        setImageFile(() => file);
         setPreviewURL(URL.createObjectURL(file));
         setImgVisibility('block');
 
@@ -409,7 +430,13 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // Image remover
     const removeImage = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        setImageFile('');
         setImage('');
+        setPreviewURL('');
+        setFormData({
+            ...formData,
+            image: ''
+        });
         setImgVisibility('none');
     };
 
