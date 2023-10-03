@@ -579,6 +579,8 @@ END Modal
                     onChange: () => handleModeChange(mode.value),
                 }));
                 setMode(modeData);
+
+                console.log('aqui', formData.mode);
     
                 if (formData.mode === 'Presencial') {
                 
@@ -594,7 +596,7 @@ END Modal
                     }));
                 }
             } catch (error) {
-                console.error('Error al obtener las horas:', error);
+                console.error('Error al obtener el modo:', error);
             }
         };
         getMode();
@@ -605,7 +607,7 @@ END Modal
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
 
         const { value } = event.target;
-       
+    
         let categoryName = '';   
         categories.forEach(category => {
     
