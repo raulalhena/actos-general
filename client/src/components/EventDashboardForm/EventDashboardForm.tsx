@@ -498,13 +498,11 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     // Get Subcategories
     const getSubcategories = async (selectedCategory: string) => {
-
-        const resp = await fetch(`http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`);
-        
-        const subcategoriesDb = await resp.json();
-
-        setSubcategories(Array.from(subcategoriesDb.subcategories));
-        
+        if(selectedCategory) {
+            const resp = await fetch(`http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`);
+            const subcategoriesDb = await resp.json();
+            setSubcategories(Array.from(subcategoriesDb.subcategories));
+        }
     };
 
     // get types
