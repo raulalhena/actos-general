@@ -1,6 +1,6 @@
 import styles from './InscriptionsRecap.module.css';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
-// import qrImg from '../../../../server/qr_events/65157a98fe5f547d2bf205c5.png';
+import qrImg from '../../../../server/qr_events/65157a98fe5f547d2bf205c5.png';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { BiSolidDownload } from 'react-icons/bi';
 import { FaUserCheck } from 'react-icons/fa';

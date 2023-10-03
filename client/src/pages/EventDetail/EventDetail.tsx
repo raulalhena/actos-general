@@ -183,18 +183,54 @@ const EventDetailPage = () => {
             <hr />
 
             {/* ADDRESS */}
-            <section className={styles.section}>
+            <div>
+                {eventData.mode === 'Presencial' && (
+                    <section className={styles.section}>
+                        <h1 className={styles.sectionTitle}>Ubicación</h1>
+                        <p className={styles.address}>{eventData.address}</p>
+                    </section>
+                )}
+
+                {eventData.mode === 'En línea' && (
+                    <section className={styles.section}>
+                        <h1 className={styles.sectionTitle}>Web </h1>
+                        <p className={styles.address}>
+                            <a href={eventData.webLink} target="_blank" className={styles.webLink}>
+                                {eventData.webLink}
+                            </a>
+                        </p>
+                        
+                    </section>
+                )}
+
+                {eventData.mode === 'Híbrido' && (
+                    <section className={styles.section}>
+                        <h1 className={styles.sectionTitle}>Ubicación</h1>
+                        <p className={styles.address}>{eventData.address}</p>
+                        <br />
+                        <h1 className={styles.sectionTitle}>Web</h1>
+                        <p className={styles.address}>
+                            <a href={eventData.webLink} target="_blank" className={styles.webLink}>
+                                {eventData.webLink}
+                            </a>
+                        </p>
+                    </section>
+                )}
+
+                <hr />
+            </div>
+            {/* <section className={styles.section}>
                 <h1 className={styles.sectionTitle}>Ubicación</h1>
                 <p className={styles.address}>{eventData.address}</p>
             </section>
-            <hr />
+            <hr /> */}
 
             {/* DESCRIPTION, WEBLINK */}
             <section className={styles.section}>
                 <h1 className={styles.sectionTitle}>Acerca de este evento</h1>
                 <p className={styles.description}>{renderFormattedDescription()}</p>
-                <a href={eventData.webLink} className={styles.webLink}>
-                    {eventData.webLink}
+                <a href={eventData.web} className={styles.webLink}>
+                    {eventData.web}
                 </a>
             </section>
             <hr />

@@ -562,32 +562,52 @@ END Modal
         setVisibility(formData.visibility ?? false); //cuando es null(??) es false
     }, []); //no tocar la dependencia, dejar vacio*
 
+    //get MODE (online, hibrido, presencial)
     useEffect(() => {
         const getMode = async () => {
             try {
                 const response = await fetch('http://localhost:8000/api/misc/modes');
-
                 const data = await response.json();
-                const modeData = data.map((mode: { _id : string; name: string; text: string;  value: string; }) => ({
+                const modeData = data.map((mode: {
+                        _id : string; 
+                        name: string; 
+                        text: string;  
+                        value: string; 
+                }) => ({
                     ...mode,
                     checked: formData.mode === mode.value,
                     onChange: () => handleModeChange(mode.value),
                 }));
                 setMode(modeData);
+
+                console.log('aqui', formData.mode);
+    
+                if (formData.mode === 'Presencial') {
                 
+                    setFormData((prevData) => ({
+                        ...prevData,
+                        webLink: '',
+                    }));
+                } else if (formData.mode === 'En línea') {
+
+                    setFormData((prevData) => ({
+                        ...prevData,
+                        address: '',
+                    }));
+                }
             } catch (error) {
-                console.error('Error al obtener las horas:', error);
+                console.error('Error al obtener el modo:', error);
             }
         };
         getMode();
     }, [ selectedMode ]);
-
+    
     // Categories Handle Change
 
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
 
         const { value } = event.target;
-       
+    
         let categoryName = '';   
         categories.forEach(category => {
     
