@@ -9,7 +9,7 @@
 @media screen and (min-width: 768px) {
   .categoriesSection {
     flex-direction: row;
-    gap: 4rem;
+    gap: 2rem;
   }
 }
 
@@ -25,7 +25,7 @@
 @media screen and (min-width: 1200px) {
   .categoriesSection  {
     flex-direction: row;
-    gap: 4rem;
+    gap: 2rem;
   }
 }
 

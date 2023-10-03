@@ -9,6 +9,10 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.active {
+  background-color: #333; 
+}
+
 .logo {
   width: 150px;
 }
@@ -28,7 +32,11 @@
   font-size: 18px;
 }
 
-
+.navLink:hover {
+  color: #e15a40;
+  transition: 0.1s;
+}
+  
 @media screen and (max-width: 768px) {
   .hamburger {
     display: block;

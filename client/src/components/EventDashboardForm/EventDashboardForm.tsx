@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, useEffect } from 'react';
 import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
-import ButtonSubmit from '../Button/ButtonSubmit';
+import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import RadioGroupContainer from '../Button/ButtonContainer/RadioCardContainer';
 import DateInput from '../DateInput/DateInput';
 import FormField from '../FormField/FormField';
@@ -12,7 +12,6 @@ import  TextArea  from '../TextArea/TextArea';
 import TextInput from '../TextInput/TextInput';
 import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
-import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventDashboardForm.module.css';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { ToastContainer, toast } from 'react-toastify';
@@ -186,6 +185,30 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     //SUBMIT
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+
+        type EventFormPropsKey = keyof EventDashboardFormProps;
+        const requiredFields: EventFormPropsKey[] = [
+            'name',
+            'description',
+            'date',
+            'category',
+            'subcategory',
+            'type',
+            'mode',
+            'startTime',
+            'endTime'
+        ];
+
+        const missingFields = requiredFields.filter((field) => !formData[field]);
+        if (missingFields.length > 0) {
+            const errorMessage = `Por favor, complete los siguientes campos obligatorios: ${missingFields.join(', ')}.`;
+            toast.error(errorMessage, {
+                position: toast.POSITION.TOP_RIGHT,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+            return;
+        }
     
         if (visibility !== formData.visibility) {
             openModal(
@@ -244,22 +267,44 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                     } 
                 }
             );
+
         } else {
-            setFormData({
-                ...formData
-            });
-            openModal(
-                <BsPatchCheckFill className={styles.checkIcon} />,
-                'Cambio Guardado',
-                'Tus cambios han sido guardados con éxito',
-                'Cerrar ventana',
-                '',
-                closeModal,
-                true,
-                closeModal,
-                () => {}
+            const res = await fetch(
+                `http://localhost:8000/api/events/${formData._id}`,
+                {
+                    method: 'PUT',
+                    headers: { 'Content-type': 'application/json' },
+                    body: JSON.stringify(formData),
+                }
             );
-            
+
+            if (res.ok) {
+                const res = await fetch(
+                    `http://localhost:8000/api/events/${formData._id}`,
+                    {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' },
+                    }
+                );
+
+                if (res.ok) {
+                    const result = await res.json();
+                    setFormData(result);
+                    setVisibility(result.visibility);
+    
+                    openModal(
+                        <BsPatchCheckFill className={styles.checkIcon} />,
+                        'Cambio Guardado',
+                        'Tus cambios han sido guardados con éxito',
+                        'Cerrar ventana',
+                        '',
+                        closeModal,
+                        true,
+                        closeModal,
+                        () => {}
+                    );
+                } 
+            } 
         }
     };
     
@@ -325,7 +370,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     ************** */
 
     // Button Radio
-    const [ selectedMode, setSelectedMode ] = useState<string>('');
+    const [ selectedMode, setSelectedMode ] = useState<string>(formData.mode);
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
@@ -339,11 +384,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // Capacity Radio Groug handler
 
     // Mode Radio Group
-    const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
-        ...container,
-        checked: selectedMode === container.value,
-        onChange: () => handleModeChange(container.value),
-    }));
 
     // Capacity Radio Group
 
@@ -433,18 +473,39 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
     const [ time, setTime ] = useState<Array<string>>([]);
     const [ visibility, setVisibility ] = useState<boolean>(false);
+    const [ selectedCategory, setSelectedCategory ] = useState(formData.category);
+    const [ mode, setMode ] = useState<ButtonCardRadioProps[]>([]);
 
     // Get all data to fill fields
+    // Get Categories
     useEffect(() => {
+        
         const getCategories = async () => {
+            let categoryId = '';
             const resp = await fetch('http://localhost:8000/api/misc/categories');
             const categoriesDb = await resp.json();
 
             setCategories(categoriesDb);
-        };
+            categories.forEach(category => {
+                if(category.name === formData.category) categoryId=category._id;
 
+            });
+            setSelectedCategory(categoryId);
+            getSubcategories(categoryId);
+        };
         getCategories();
-    }, []);
+    }, [ formData.category ]);
+
+    // Get Subcategories
+    const getSubcategories = async (selectedCategory: string) => {
+
+        const resp = await fetch(`http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`);
+        
+        const subcategoriesDb = await resp.json();
+
+        setSubcategories(Array.from(subcategoriesDb.subcategories));
+        
+    };
 
     // get types
     useEffect(() => {
@@ -517,31 +578,48 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     }, [ formData ]);
 
     console.log('img fda', formData.image);
-
-    const [ selectedCategory, setSelectedCategory ] = useState(eventData.category);
+    useEffect(() => {
+        
+        const getMode = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/modes');
+                const data = await response.json();
+                const modeData = data.map((mode: { _id : string; name: string; text: string;  value: string }) => ({
+                    id: mode._id,
+                    name: mode.name,
+                    text: mode.text, 
+                    value: mode.value,
+                }));
+                setMode(modeData);
+                    
+            } catch (error) {
+                console.error('Error al obtener las horas:', error);
+            }
+        };
+        getMode();
+    }, []);
 
     // Categories Handle Change
+
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        console.log(selectedCategory);
+
         const { value } = event.target;
-        const selected = event.target.selectedOptions[0].text;
-        console.log(value);
-        setSelectedCategory(selectedCategory);
+       
+        let categoryName = '';   
+        categories.forEach(category => {
+    
+            if(category._id === value) 
+                categoryName = category.name;
+        });
 
         setFormData({
             ...formData,
-            category: selected,
+            category: categoryName,
         });
+        setSelectedCategory(value);
 
         await getSubcategories(value);
-    };
-
-    // Get Subcategories
-    const getSubcategories = async (categoryId: string) => {
-        const resp = await fetch(`http://localhost:8000/api/misc/categories/${categoryId}/subcategories`);
-        const categoriesDb = await resp.json();
         
-        setSubcategories(categoriesDb.subcategories);
     };
 
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
@@ -666,13 +744,14 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                     </FormField>
                     <FormField>
                         <RadioGroupContainer
-                            radioButtons={modeRadioButtons}
-                            selectedValue={formData.mode}
-                            label="Modalidad"
+                            radioButtons={mode}
+                            selectedValue={selectedMode}
+                            
+                            label="Modalidad *"
                             onChange={handleModeChange}
                             isRequired={true}
                         />
-                        {formData.mode === 'option1' && (
+                        {formData.mode === 'Presencial' && (
                             <TextInput
                                 id="address"
                                 label="Añade una dirección"
@@ -683,8 +762,9 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                 onChange={handleInputChange}
                                 isRequired={true}
                             />
+                            
                         )}
-                        {formData.mode === 'option2' && (
+                        {formData.mode === 'En línea' && (
                             <TextInput
                                 isRequired={true}
                                 id="webLink"
@@ -697,7 +777,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                 type="url"
                             />
                         )}
-                        {formData.mode === 'option3' && (
+                        {formData.mode === 'Híbrido' && (
                             <>
                                 <TextInput
                                     id="address"
@@ -709,6 +789,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                     onChange={handleInputChange}
                                     isRequired={true}
                                 />
+                                <br />
                                 <TextInput
                                     id="webLink"
                                     label="Añade un link de acceso"
@@ -720,7 +801,9 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                     isRequired={true}
                                     type="url"
                                 />
+                                <br />
                             </>
+                            
                         )}
                     </FormField>
                 </SectionForm>
@@ -821,9 +904,9 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             label={'El evento tiene limite de entrada'}
                             subtitle={'Activa el botón para definir número de entradas.'}
                             onChange={handleToggleCapacityChange}
-                            isChecked={selectedCapacity}
+                            isChecked={formData.isLimited}
                         />
-                        {selectedCapacity ? (
+                        {formData.isLimited ? (
                             <TextInputNumber
                                 id="capacity"
                                 label="Límite de entradas"

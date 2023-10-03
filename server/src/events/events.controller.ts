@@ -5,6 +5,8 @@ import { UpdateEventDto } from './dto/update-event.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ObjectId } from 'mongoose';
 import { Header } from '@nestjs/common';
+import { EventInscriptionDto } from './dto/event-inscription.dto';
+import { EventUnsubscriptionDto } from './dto/event-unsubscription.dto';
 
 @Controller('events')
 export class EventsController {
@@ -30,9 +32,24 @@ export class EventsController {
       return this.eventsService.attendanceRecord(eventId, userId);
     }
 
+  @Put('inscription')
+  eventInscription(@Body() eventInscriptionDto: EventInscriptionDto) {
+    return this.eventsService.eventInscription(eventInscriptionDto)
+  }
+
+  @Put('unsubscription')
+  eventUnsubscription(@Body() eventUnsubscriptionDto: EventUnsubscriptionDto ) {
+    return this.eventsService.eventUnsubscription(eventUnsubscriptionDto);
+  }
+
   @Get()
   findAll() {
   	return this.eventsService.findAll();
+  }
+
+  @Get('/user/:id')
+  findUserEvents(@Param('id') id: ObjectId) {
+    return this.eventsService.findUserEvents(id);
   }
 
   @Get(':id')

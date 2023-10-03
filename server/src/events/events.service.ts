@@ -4,6 +4,8 @@ import { UpdateEventDto } from './dto/update-event.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types, ObjectId } from 'mongoose';
 import { generateEventQR } from '../utils/qr.generator';
+import { EventInscriptionDto } from './dto/event-inscription.dto';
+import { EventUnsubscriptionDto } from './dto/event-unsubscription.dto';
 
 
 @Injectable()
@@ -43,6 +45,16 @@ export class EventsService {
     return await this.eventModel.findById(id);
   }
 
+  async findUserEvents(id: ObjectId) {
+    try{
+      const userEvents = await this.eventModel.find({ submitted: id });
+    
+      return userEvents;
+    } catch(error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   async update(id: ObjectId, updateEventDto: UpdateEventDto) {
     return await this.eventModel.findByIdAndUpdate(id, updateEventDto, {new: true});
   }
@@ -70,6 +82,31 @@ export class EventsService {
       return Buffer.from(event['image'], 'base64');
     } catch (error) {
       throw new HttpException(error.messge, HttpStatus.BAD_REQUEST);
+    }
+  }
+  
+  async eventInscription(eventInscriptionDto: EventInscriptionDto) {
+    try {
+      const updateData = {
+        $push: { submitted: eventInscriptionDto.userId }
+      }
+      const updateEventSubmitted = await this.eventModel.findOneAndUpdate({_id: eventInscriptionDto.eventId}, updateData, {new: true})
+
+      return updateEventSubmitted
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async eventUnsubscription(eventUnsubscriptionDto: EventUnsubscriptionDto) {
+    try {
+      const unsuscribedEvent = { 
+        $pull: { submitted: eventUnsubscriptionDto.userId }
+      };
+
+      const updatedUnsuscribedEvent = await this.eventModel.findByIdAndUpdate({ _id: eventUnsubscriptionDto.eventId }, unsuscribedEvent, { new: true });
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 }

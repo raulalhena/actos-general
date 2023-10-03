@@ -1,6 +1,6 @@
 import styles from './InscriptionsRecap.module.css';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
-import qrImg from '../../../../server/qr_events/65157c68a98cad7b39aa8f0c.png';
+import qrImg from '../../../../server/qr_events/65157a98fe5f547d2bf205c5.png';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { BiSolidDownload } from 'react-icons/bi';
 import { FaUserCheck } from 'react-icons/fa';
@@ -21,10 +21,9 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                     <div className={styles.containerSection}>
                         <FaUserCheck className={styles.icon} />
                         <p>
-              0/{eventData.capacity === undefined ? '-' : eventData.capacity}{' '}
-              Usuarios Inscritos
+
                 0/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
-Usuarios Inscritos
+                Usuarios Inscritos
                         </p>
                     </div>
                 </a>

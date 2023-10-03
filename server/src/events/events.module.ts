@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { EventSchema, Event } from './schemas/event.schema';
 import { MulterModule } from '@nestjs/platform-express';
 import { UsersModule } from 'src/users/users.module';
-import { UsersService } from 'src/users/users.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
     imports: [
@@ -21,6 +21,6 @@ import { UsersService } from 'src/users/users.service';
         })
     ],
     controllers: [ EventsController ],
-    providers: [ EventsService ],
+    providers: [ EventsService, JwtService ],
 })
 export class EventsModule {}

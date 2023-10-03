@@ -6,6 +6,17 @@ import { Link } from 'react-router-dom';
 
 const CardEvent = ({ eventData }: CardEventProps) => {
 
+    function formatDate(originalDate: string) {
+        const date = new Date(originalDate);
+        const day = date.getDate();
+        const month = date.toLocaleString('default', { month: 'long' });
+        const year = date.getFullYear();
+        
+        return `${day} de ${month} de ${year}`;
+    }
+    
+    const formattedDate = formatDate(eventData.date);
+
     return (
         <Link to={`/event/${eventData._id}`} state={eventData._id}>
             <div className={styles.card}>
@@ -22,7 +33,7 @@ const CardEvent = ({ eventData }: CardEventProps) => {
                 </section>
                 <h2 className={styles.cardTitle}>{eventData.name}</h2>
                 {/* DATE, MODE, TYPE */}
-                <p className={styles.cardDate}>{eventData.date}</p>
+                <p className={styles.cardDate}>{formattedDate}</p>
                 <section className={styles.bottomSection}>
                     <div className={styles.cardMode}>{eventData.mode}</div>
                     <div className={styles.cardType}>{eventData.type}</div>

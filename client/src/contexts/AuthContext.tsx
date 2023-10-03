@@ -3,11 +3,15 @@ import { User } from '../interfaces/User';
   
 const initialContext = {
     user: null,
-    setUser: () => undefined
+    setUser: () => undefined,
+    isLogged: false,
+    setIsLogged: () => undefined
 };
   
-export const AuthContext = createContext<{ 
+export const AuthContext = createContext<{
         user: User | null, 
         setUser: Dispatch<SetStateAction<User>>
+        isLogged: boolean,
+        setIsLogged: Dispatch<SetStateAction<boolean>>
     }>
     (initialContext);

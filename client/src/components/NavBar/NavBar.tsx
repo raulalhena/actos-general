@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import styles from './Navbar.module.css';
 import Logo from '../../assets/logo.png';
+import { Link } from 'react-router-dom'; // Importa Link desde react-router-dom
+import { useAuth } from '../../hooks/useAuth';
 
 function Navbar() {
     const [ isActive, setIsActive ] = useState(false);
-    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+    const { user, isLogged } = useAuth();
+
+    console.log('user role ', user.role);
 
     const toggleActiveClass = () => {
         setIsActive(!isActive);
@@ -17,51 +21,66 @@ function Navbar() {
     return (
         <>
             <nav className={styles.navbar}>
-                <a className={styles.navbarLink} href="/" onClick={removeActive}>
+                <Link to="/" className={styles.navbarLink} onClick={removeActive}>
                     <img src={Logo} className={styles.logo} alt="Logo" />
-                </a>
+                </Link>
                 <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>
                     <li onClick={removeActive}>
-                        <a href="/myevents" className={styles.navLink}>
-              Agenda
-                        </a>
+                        <Link to="/allevents" className={styles.navLink}>
+                            Agenda
+                        </Link>
                     </li>
+                    {isLogged && user.role === 'user' && (
+                        <li onClick={removeActive}>
+                            <Link to="/myevents" className={styles.navLink}>
+                                Mis eventos
+                            </Link>
+                        </li>
+                    )}
                     <li onClick={removeActive}>
-                        <a href="/myevents" className={styles.navLink}>
-              Mis eventos
-                        </a>
+                        <Link to="/faq" className={styles.navLink}>
+                            FAQ
+                        </Link>
                     </li>
-                    <li onClick={removeActive}>
-                        <a href="/faq" className={styles.navLink}>
-              FAQ
-                        </a>
-                    </li>
-                    <li onClick={removeActive}>
-                        <a href="/eventslist" className={styles.navLink}>
-              Eventos Activos
-                        </a>
-                    </li>
-                    <li onClick={removeActive}>
-                        <a href="/event" className={styles.navLink}>
-              Crear Evento
-                        </a>
-                    </li>
+                    {isLogged && user.role === 'admin' && (
+                        <li onClick={removeActive}>
+                            <Link to="/eventslist" className={styles.navLink}>
+                                Eventos Activos
+                            </Link>
+                        </li>
+                    )}
+                    {isLogged && user.role === 'admin' && (
+                        <li onClick={removeActive}>
+                            <Link to="/createevent" className={styles.navLink}>
+                            Crear Evento
+                            </Link>
+                        </li>
+                    )}
                 </ul>
 
-                {!isLoggedIn && (
+                {!isLogged ? (
                     <>
                         <li onClick={removeActive}>
-                            <a href="/login" className={styles.navLink}>
-                Iniciar sesión
-                            </a>
+                            <Link to="/login" className={styles.navLink}>
+                                Iniciar sesión {user.name}
+                            </Link>
                         </li>
                         <li onClick={removeActive}>
-                            <a href="/signup" className={styles.navLink}>
-                Registrarse
-                            </a>
+                            <Link to="/signup" className={styles.navLink}>
+                                Registrarse
+                            </Link>
                         </li>
                     </>
-                )}
+                )
+                    :
+                    <>
+                        <li onClick={removeActive}>
+                            <Link to="/logout" className={styles.navLink}>
+                                Cerrar sesión
+                            </Link>
+                        </li>
+                    </>
+                }
 
                 <div
                     className={`${styles.hamburger} ${isActive ? styles.active : ''}`}

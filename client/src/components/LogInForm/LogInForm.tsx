@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import styles from './LogInForm.module.css';
 import { LogInProps } from '../../interfaces/logInProps';
-import ButtonSubmit from '../Button/ButtonSubmit';
+import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import { useAuth } from '../../hooks/useAuth';
 import TextInputSmall from '../TextInputSmall/TextInputSmall';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const LogInForm = () => {
     const { login } = useAuth();
+    const navigate = useNavigate();
 
     const [ logInData, setLogInData ] = useState<LogInProps>({
         email: '',
@@ -55,11 +58,20 @@ const LogInForm = () => {
             },
             body: JSON.stringify(logInData),
         });
-        const user = await resp.json();
+        if(resp.ok) {
+            const { accessToken, ...user } = await resp.json();
+            console.log(user);
+            console.log('acc tok', accessToken);
+            user.user.token = accessToken;
+            console.log('user', user);
 
-        console.log('user', user);
+            login(user.user);
+            navigate('/');
+        } else {
+            toast.error('Error al validar al usuario', {
 
-        login(user);
+            });
+        }
     };
 
     // Function to validate password
@@ -81,9 +93,9 @@ const LogInForm = () => {
                 <form onSubmit={handleSubmit}>
                     <section className={styles.optionTitle}>
                         <h2>¿No tienes cuenta?</h2>
-                        <a href="./signup" className={styles.registerLink}>
+                        <Link to="/signup" className={styles.registerLink}>
               Regístrate
-                        </a>
+                        </Link>
                     </section>
                     <section>
                         <h1>Iniciar sesión</h1>

@@ -10,8 +10,9 @@ export class UsersService {
 
   constructor(@InjectModel(User.name) private userModel: Model<User>) { }
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CreateUserDto) {
+    const newUser = await this.userModel.create(createUserDto)
+    return newUser;
   }
 
   findAll() {
@@ -20,7 +21,7 @@ export class UsersService {
 
   async findByEmail(email: string) {
     try {
-      const user = await this.userModel.findOne({ email });
+      const user = await this.userModel.findOne({ email }).lean();
       if(!user) throw new HttpException('No se ha podido encontrar el usuario.', HttpStatus.BAD_REQUEST);
       
       return user;

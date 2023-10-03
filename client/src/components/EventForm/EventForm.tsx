@@ -1,7 +1,6 @@
 import { useState, ChangeEvent, useEffect } from 'react';
-import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 import { EventFormProps } from '../../interfaces/eventFormProps';
-import ButtonSubmit from '../Button/ButtonSubmit';
+import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import RadioGroupContainer from '../Button/ButtonContainer/RadioCardContainer';
 import DateInput from '../DateInput/DateInput';
 import FormField from '../FormField/FormField';
@@ -13,7 +12,6 @@ import  TextArea  from '../TextArea/TextArea';
 import TextInput from '../TextInput/TextInput';
 import TextInputWithSubtitle from '../TextInputWithSubtitle/TextInputWithSubtitle';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
-import modeRadioButtonsContainer from '../../data/modeRadioButtons.json';
 import styles from './EventForm.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,6 +22,7 @@ import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
 import { Buffer } from 'buffer';
+import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
 
 // Form
 const EventForm = () => {
@@ -73,6 +72,7 @@ const EventForm = () => {
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
     const [ time, setTime ] = useState<Array<string>>([]);
+    const [ mode, setMode ] = useState<ButtonCardRadioProps[]>([]);
 
     // Get all data to fill fields
     useEffect(() => {
@@ -87,14 +87,12 @@ const EventForm = () => {
     }, []);
 
     // get types
-
     useEffect(() => {
         const getTypes = async () => {
             try {
                 const response = await fetch('http://localhost:8000/api/misc/types');
                 const data = await response.json();
                 const typeNames = data.map((type: { name: string; }) => type.name);
-                console.log(typeNames);
                 setTypes(typeNames);
             } catch (error) {
                 console.error('Error al obtener los tipos:', error);
@@ -104,7 +102,6 @@ const EventForm = () => {
     }, []);
 
     // get languages
-
     useEffect(() => {
         const getLanguages = async () => {
             try {
@@ -121,14 +118,12 @@ const EventForm = () => {
     }, []);
 
     // get time zone
-
     useEffect(() => {
         const getTimeZone = async () => {
             try {
                 const response = await fetch('http://localhost:8000/api/misc/timezones');
                 const data = await response.json();
                 const timeZone = data.map((timeZone: { name: string; }) => timeZone.name);
-                console.log(timeZone);
                 setTimeZone(timeZone);
             } catch (error) {
                 console.error('Error al obtener las zonas horarias:', error);
@@ -138,7 +133,6 @@ const EventForm = () => {
     }, []);
 
     // get time
-
     useEffect(() => {
         const getTime = async () => {
             try {
@@ -151,6 +145,27 @@ const EventForm = () => {
             }
         };
         getTime();
+    }, []);
+    
+    //get Modes
+    useEffect(() => {
+        const getMode = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/modes');
+                const data = await response.json();
+                const modeData = data.map((mode: { name: string; text: string;  value: string }) => ({
+                    name: mode.name,
+                    text: mode.text, 
+                    value: mode.value,
+                    checked: false, 
+                }));
+                setMode(modeData);
+                
+            } catch (error) {
+                console.error('Error al obtener las horas:', error);
+            }
+        };
+        getMode();
     }, []);
 
     // Visibility
@@ -240,14 +255,20 @@ const EventForm = () => {
         }
     };
     
-    // Select
+    // Select TIME
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = event.target;
 
         //EventTime: Start and End Time
         if (id === 'endTime' && value < formData.startTime) {
-            
             toast.error('La hora de finalización no puede ser anterior a la hora de inicio.', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+
+        } else if  (id === 'startTime' && formData.endTime !== '' && value > formData.endTime){
+            toast.error('La hora de inicio no puede ser posterior a la hora de finalización.', {
                 position: 'top-right',
                 autoClose: 2500,
                 pauseOnHover: true,
@@ -341,7 +362,6 @@ const EventForm = () => {
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log(formData);
 
         type EventFormPropsKey = keyof EventFormProps;
 
@@ -358,7 +378,6 @@ const EventForm = () => {
             return;
         }
     
-        console.log('formData aqui: ' + JSON.stringify(formData));
         const resp = await fetch('http://localhost:8000/api/events', {
             method: 'POST',
             headers: {
@@ -377,19 +396,13 @@ const EventForm = () => {
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
+
         setSelectedMode(value);
         setFormData({
             ...formData,
             mode: value,
         });
     };
-
-    // Mode Radio Group
-    const modeRadioButtons: ButtonCardRadioProps[] = modeRadioButtonsContainer.map((container) => ({
-        ...container,
-        checked: selectedMode === container.value,
-        onChange: () => handleModeChange(container.value),
-    }));
 
     /**************************************************
     ** Image Uploader
@@ -590,13 +603,13 @@ const EventForm = () => {
                         </FormField>
                         <FormField>
                             <RadioGroupContainer
-                                radioButtons={modeRadioButtons}
+                                radioButtons={mode}
                                 selectedValue={selectedMode}
                                 label="Modalidad *"
                                 onChange={handleModeChange}
                                 isRequired={true}
                             />
-                            {selectedMode === 'option1' && (
+                            {selectedMode === 'Presencial' && (
                                 <TextInput
                                     id="address"
                                     label="Añade una dirección *"
@@ -608,7 +621,7 @@ const EventForm = () => {
                                     isRequired={true}
                                 />
                             )}
-                            {selectedMode === 'option2' && (
+                            {selectedMode === 'En línea' && (
                                 <TextInput
                                     isRequired={true}
                                     id="webLink"
@@ -621,7 +634,7 @@ const EventForm = () => {
                                     type="url"
                                 />
                             )}
-                            {selectedMode === 'option3' && (
+                            {selectedMode === 'Híbrido' && (
                                 <>
                                     <TextInput
                                         id="address"
@@ -746,8 +759,7 @@ const EventForm = () => {
                                 label={'El evento tiene limite de entrada'}
                                 subtitle={'Activa el botón para definir número de entradas.'}
                                 onChange={handleToggleCapacityChange}
-                                isChecked={selectedCapacity}
-                                // className={styles}
+                                isChecked={formData.isLimited}
                             />
                             {selectedCapacity ? (
                                 <TextInputNumber

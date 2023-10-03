@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styles from './SignupForm.module.css';
 import { SignupProps } from '../../interfaces/signupProps';
-import ButtonSubmit from '../Button/ButtonSubmit';
+import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import TextInputSmall from '../TextInputSmall/TextInputSmall';
+import { Link, useNavigate } from 'react-router-dom';
+import ConfirmPasswordInput from '../ConfirmPasswordInput/ConfirmPasswordInput';
 
 const SignupForm = () => {
     const [ signupData, setSignupData ] = useState<SignupProps>({
@@ -11,20 +13,33 @@ const SignupForm = () => {
         email: '',
         password: '',
     });
+
+    const navigate = useNavigate();
+
     const [ nameError, setNameError ] = useState<string | null>(null);
     const [ surnameError, setSurnameError ] = useState<string | null>(null);
     const [ passwordError, setPasswordError ] = useState<string | null>(null);
     const [ emailError, setEmailError ] = useState<string | null>(null);
+    const [ notPasswordMatchError, setNotPasswordMatchError ] = useState<string | null>(null);
+
+    const [ passwordConfirmed, setPasswordConfirmed ] = useState<string>(null);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = event.target;
+
         setSignupData({
             ...signupData,
             [id]: value,
         });
     };
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleConfirmPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+       
+        setPasswordConfirmed(value);
+    };
+
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
         // Validate name
@@ -65,6 +80,36 @@ const SignupForm = () => {
             setEmailError(null);
             console.log(signupData);
         }
+
+        // Validate match password
+        const isMatchPassword = matchPassword(signupData.password, passwordConfirmed);
+        if (!isMatchPassword) {
+            setNotPasswordMatchError('Las contraseñas no coinciden.');
+        } else {
+            setNotPasswordMatchError(null);
+        }
+
+        console.log('sign up ', signupData);
+
+        if(
+            validateEmail(signupData.email) &&
+            validateName(signupData.name) &&
+            validateSurname(signupData.surname) &&
+            validatePassword(signupData.password) &&
+            matchPassword(signupData.password, passwordConfirmed)
+        ){
+
+            const resp = await fetch('http://localhost:8000/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(signupData)
+            });
+
+            if(resp.ok) navigate('/login');
+        }
+
     };
 
     // Function to validate name
@@ -92,15 +137,20 @@ const SignupForm = () => {
         return emailRegex.test(email);
     };
 
+    // Function to validate match password
+    const matchPassword = (password: strign, confirmedPassword: string) => {
+        return password === confirmedPassword;
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.form}>
                 <form onSubmit={handleSubmit}>
                     <section className={styles.optionTitle}>
                         <h2>¿Ya tienes cuenta?</h2>
-                        <a href="./login" className={styles.registerLink}>
-              Inicia sesión
-                        </a>
+                        <Link to="/login" className={styles.registerLink}>
+                            Inicia sesión
+                        </Link>
                     </section>
                     <section>
                         <h1>Registro de usuario</h1>
@@ -145,17 +195,17 @@ const SignupForm = () => {
                             isPassword={true}
                         />
                         {passwordError && <p className={styles.error}>{passwordError}</p>}
-                        <TextInputSmall
+                        <ConfirmPasswordInput
                             id="passwordConfirmed"
                             label=""
                             placeholder="Confirma tu contraseña"
                             minLength={3}
                             maxLength={175}
-                            value={signupData.password}
-                            onChange={handleInputChange}
+                            value={passwordConfirmed}
+                            onChange={handleConfirmPassword}
                             isPassword={true}
                         />
-                        {passwordError && <p className={styles.error}>{passwordError}</p>}
+                        {notPasswordMatchError && <p className={styles.error}>{notPasswordMatchError}</p>}
                     </section>
                     <div className={styles.buttonSection}>
                         <ButtonSubmit label="Registrarse" />
