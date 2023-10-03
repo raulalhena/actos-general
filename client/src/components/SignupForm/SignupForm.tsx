@@ -21,8 +21,7 @@ const SignupForm = () => {
     const [ passwordError, setPasswordError ] = useState<string | null>(null);
     const [ emailError, setEmailError ] = useState<string | null>(null);
     const [ notPasswordMatchError, setNotPasswordMatchError ] = useState<string | null>(null);
-
-    const [ passwordConfirmed, setPasswordConfirmed ] = useState<string>(null);
+    const [ passwordConfirmed, setPasswordConfirmed ] = useState<string>('');
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = event.target;
@@ -35,7 +34,7 @@ const SignupForm = () => {
 
     const handleConfirmPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
-       
+    
         setPasswordConfirmed(value);
     };
 
@@ -138,7 +137,7 @@ const SignupForm = () => {
     };
 
     // Function to validate match password
-    const matchPassword = (password: strign, confirmedPassword: string) => {
+    const matchPassword = (password: string, confirmedPassword: string) => {
         return password === confirmedPassword;
     };
 
