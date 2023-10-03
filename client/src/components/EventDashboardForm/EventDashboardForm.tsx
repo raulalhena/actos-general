@@ -384,10 +384,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         setImage(formData.image);
     }, []);
 
-    console.log('preview url ', previewURL);
-
-    // setImage(formData.image);
-
     // File Handler
     const handleFile = (file: any) => {
         setImage(() => file);
@@ -413,7 +409,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // Image remover
     const removeImage = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        setPreviewURL('');
+        setImage('');
         setImgVisibility('none');
     };
 
@@ -563,7 +559,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         setImage(formData.image);
     }, [ formData ]);
 
-    console.log('img fda', formData.image);
     useEffect(() => {
         
         const getMode = async () => {

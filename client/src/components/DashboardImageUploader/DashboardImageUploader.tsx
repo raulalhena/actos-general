@@ -13,14 +13,14 @@ interface ImageUploaderProps {
 
 export const DashboardImageUploader = ({ image, previewURL, imgVisibility, removeImage, onDrop, onDragOver }: ImageUploaderProps) => {
 
-    console.log('preview ', previewURL);
+    console.log('img instead preview ', image);
 
     return (
         <div className={styles.uploadImgContainer} onDrop={onDrop} onDragOver={onDragOver}>
             <label className={styles.label}>Imagen</label>
             <br />
             <div className={styles.dragDropZone}>
-                {previewURL ? null : ( // Ocultar el icono y el texto si previewURL existe
+                {image ? null : ( // Ocultar el icono y el texto si previewURL existe
                     <div>
                         <RiFolderUploadFill className={styles.icon} />
                         <br />
@@ -35,7 +35,7 @@ export const DashboardImageUploader = ({ image, previewURL, imgVisibility, remov
                     alt="uploaded"
                 />
                 <div className={styles.buttons} >
-                    {previewURL && ( // Mostrar el botón "Eliminar" solo si previewURL existe
+                    {image && ( // Mostrar el botón "Eliminar" solo si previewURL existe
                         <button className={styles.remove} onClick={removeImage}>Eliminar</button>
                     )}
                 </div>
