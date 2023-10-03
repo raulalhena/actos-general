@@ -326,38 +326,34 @@ const EventForm = () => {
     console.log('img a', formData);
 
     // Send Image
-    const convertToBase64 = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
+    const convertToBase64 = () => {
 
         const fileReader = new FileReader();
-        await fileReader.readAsDataURL(eventImage);
-        const imgBase64 = await fileReader.result;
-        console.log('base64', imgBase64);
-        setFormData({
-            ...formData,
-            image: await eventImage.text()
-        });
-
-        if(imgBase64){
+        fileReader.readAsDataURL(eventImage);
+        fileReader.onloadend = () => {
             setFormData({
                 ...formData,
-                image: eventImage.text()
+                image: fileReader.result
             });
+            console.log('base64', fileReader.result);
+        };
 
-            toast.success('Imagen guardada correctamente', {
-                position: toast.POSITION.TOP_RIGHT,
-                closeOnClick: true,
-                pauseOnHover: true,
-            });
-        } else {
-            toast.error('Ha habido un error al procesar la imagen', {
-                position: toast.POSITION.TOP_RIGHT,
-                closeOnClick: true,
-                pauseOnHover: true,
-            });
-        }
+        //     toast.success('Imagen guardada correctamente', {
+        //         position: toast.POSITION.TOP_RIGHT,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //     });
+        // } else {
+        //     toast.error('Ha habido un error al procesar la imagen', {
+        //         position: toast.POSITION.TOP_RIGHT,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //     });
+        // }
         return;
     };
+
+    console.log('image form data', formData.image);
 
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
@@ -411,12 +407,13 @@ const EventForm = () => {
     //  States
     const [ previewURL, setPreviewURL ] = useState<string>('');
     const [ imgVisibility, setImgVisibility ] = useState<string>('none');
-    const [ eventImage, setEventImage ] = useState<any>('');
+    const [ eventImage, setEventImage ] = useState<Blob>(null);
 
     // File Handler
     const handleFile = (file: any) => {
         setEventImage(() => file);
         setPreviewURL(URL.createObjectURL(file));
+        convertToBase64();
         setImgVisibility('block');
     };
 
@@ -425,6 +422,7 @@ const EventForm = () => {
         e.preventDefault();
         e.stopPropagation();
         const file = e.dataTransfer.files[0];
+        console.log('type file on drop', typeof file);
         if(file.size > 2000000) {
             toast.error(`El tamaño supera el máximo de 2MB. Imagen usada: ${(file.size/1000000).toFixed(2)}MB.`, {
                 position: 'top-right',
@@ -492,6 +490,8 @@ const EventForm = () => {
     };
     
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
+
+    console.log('event image', eventImage);
 
     return (
         <div data-testid='event-form-component' className={styles.formEvent}>

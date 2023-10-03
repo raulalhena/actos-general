@@ -29,7 +29,6 @@ type Props = { eventData: EventDashboardFormProps };
 
 // Form
 const EventDashboardForm = ( { eventData }: Props ) => {
-    // const navigate = useNavigate();
 
     const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
 
