@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './FAQ.module.css';
+import faq from '../../assets/faq.png';
 
 const FAQ = () => {
     const faqData = [
@@ -37,33 +38,35 @@ const FAQ = () => {
     };
 
     return (
-        <div data-testid='faq-page' className={styles.faqPage}>
-            <div className={styles.title}>
-                <h1 className={styles.dash}>—</h1>
-                <h1>Preguntas frecuentes</h1>
-            </div>
-            <div className={styles.faqContainer}>
-                {faqData.map((item, index) => (
-                    <div
-                        key={index}
-                        className={`${styles.faqItem} ${
-                            expandedIndex === index ? styles.expanded : ''
-                        }`}
-                        onClick={() => handleToggleFAQ(index)}
-                    >
-                        <div className={styles.faqQuestion}>
-                            <h2>{item.pregunta}</h2>
-                            <span className={styles.toggleIcon}>
-                                {expandedIndex === index ? '-' : '+'}
-                            </span>
-                        </div>
-                        {expandedIndex === index && (
-                            <div className={styles.faqAnswer}>
-                                {item.respuesta}
+        <div className={styles.container}>
+            <img src={faq} className={styles.faqImg} alt="faq" />
+
+            <div className={styles.faqPage}>
+                <div className={styles.title}>
+                    <h1 className={styles.dash}>—</h1>
+                    <h1>Preguntas frecuentes</h1>
+                </div>
+                <div className={styles.faqContainer}>
+                    {faqData.map((item, index) => (
+                        <div
+                            key={index}
+                            className={`${styles.faqItem} ${
+                                expandedIndex === index ? styles.expanded : ''
+                            }`}
+                            onClick={() => handleToggleFAQ(index)}
+                        >
+                            <div className={styles.faqQuestion}>
+                                <h2>{item.pregunta}</h2>
+                                <span className={styles.toggleIcon}>
+                                    {expandedIndex === index ? '-' : '+'}
+                                </span>
                             </div>
-                        )}
-                    </div>
-                ))}
+                            {expandedIndex === index && (
+                                <div className={styles.faqAnswer}>{item.respuesta}</div>
+                            )}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );

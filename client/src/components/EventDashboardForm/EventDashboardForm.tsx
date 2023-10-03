@@ -352,7 +352,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     ************** */
 
     // Button Radio
-    const [ selectedMode, setSelectedMode ] = useState<string>(formData.mode);
+    const [ selectedMode, setSelectedMode ] = useState<string>('');
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
@@ -362,12 +362,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             mode: value,
         });
     };
-
-    // Capacity Radio Groug handler
-
-    // Mode Radio Group
-
-    // Capacity Radio Group
 
     /**************************************************
     ** Image Uploader
@@ -582,6 +576,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         setVisibility(formData.visibility ?? false); //cuando es null(??) es false
     }, []); //no tocar la dependencia, dejar vacio*
 
+    //get MODE (online, hibrido, presencial)
     useEffect(() => {
         setImage(formData.image);
     }, [ formData ]);
@@ -592,27 +587,46 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             try {
                 const response = await fetch('http://localhost:8000/api/misc/modes');
                 const data = await response.json();
-                const modeData = data.map((mode: { _id : string; name: string; text: string;  value: string }) => ({
-                    id: mode._id,
-                    name: mode.name,
-                    text: mode.text, 
-                    value: mode.value,
+                const modeData = data.map((mode: {
+                        _id : string; 
+                        name: string; 
+                        text: string;  
+                        value: string; 
+                }) => ({
+                    ...mode,
+                    checked: formData.mode === mode.value,
+                    onChange: () => handleModeChange(mode.value),
                 }));
                 setMode(modeData);
-                    
+
+                console.log('aqui', formData.mode);
+    
+                if (formData.mode === 'Presencial') {
+                
+                    setFormData((prevData) => ({
+                        ...prevData,
+                        webLink: '',
+                    }));
+                } else if (formData.mode === 'En línea') {
+
+                    setFormData((prevData) => ({
+                        ...prevData,
+                        address: '',
+                    }));
+                }
             } catch (error) {
-                console.error('Error al obtener las horas:', error);
+                console.error('Error al obtener el modo:', error);
             }
         };
         getMode();
-    }, []);
-
+    }, [ selectedMode ]);
+    
     // Categories Handle Change
 
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
 
         const { value } = event.target;
-       
+    
         let categoryName = '';   
         categories.forEach(category => {
     
@@ -652,7 +666,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                     title="1 INFORMACIÓN BÁSICA"
                     isVisible={isSection1Visible}
                     toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
-                    <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
+                    {/* <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p> */}
 
                     <FormField>
                         <SelectCategories
@@ -753,8 +767,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                     <FormField>
                         <RadioGroupContainer
                             radioButtons={mode}
-                            selectedValue={selectedMode}
-                            
+                            selectedValue={formData.mode}
                             label="Modalidad *"
                             onChange={handleModeChange}
                             isRequired={true}

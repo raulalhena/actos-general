@@ -5,6 +5,9 @@ import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import TextInputSmall from '../TextInputSmall/TextInputSmall';
 import { Link, useNavigate } from 'react-router-dom';
 import ConfirmPasswordInput from '../ConfirmPasswordInput/ConfirmPasswordInput';
+import { BsPatchCheckFill } from 'react-icons/bs';
+import ModalDisplay from '../Modal/ModalDisplay';
+import { ToastContainer, toast } from 'react-toastify';
 
 const SignupForm = () => {
     const [ signupData, setSignupData ] = useState<SignupProps>({
@@ -14,15 +17,22 @@ const SignupForm = () => {
         password: '',
     });
 
+    const nameError = null;
+    const surnameError = null;
+    const emailError = null;
+    const passwordError = null;
+    const notPasswordMatchError = null;
+    const [ passwordConfirmed, setPasswordConfirmed ] = useState<string>('');
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+
     const navigate = useNavigate();
+    const handleLoginPage = ()  =>{
+        navigate('/login');
+    };
 
-    const [ nameError, setNameError ] = useState<string | null>(null);
-    const [ surnameError, setSurnameError ] = useState<string | null>(null);
-    const [ passwordError, setPasswordError ] = useState<string | null>(null);
-    const [ emailError, setEmailError ] = useState<string | null>(null);
-    const [ notPasswordMatchError, setNotPasswordMatchError ] = useState<string | null>(null);
-
-    const [ passwordConfirmed, setPasswordConfirmed ] = useState<string>(null);
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = event.target;
@@ -35,70 +45,25 @@ const SignupForm = () => {
 
     const handleConfirmPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
-       
+    
         setPasswordConfirmed(value);
     };
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        // Validate name
-        const isValidName = validateName(signupData.name);
-        if (!isValidName) {
-            setNameError(
-                'El nombre no puede estar en blanco, contener números o espacios en blanco o ser menor de 2 carácteres'
-            );
+        let errorMessage = '';
+        if (!validateEmail(signupData.email)) {
+            errorMessage = 'Error: Por favor, introduce una dirección de correo electrónico válida.';
+        } else if (!validateName(signupData.name)) {
+            errorMessage = 'Error: Nombre no válido. Asegúrate de que tenga al menos 2 caracteres y no contenga números ni espacios.';
+        } else if (!validateSurname(signupData.surname)) {
+            errorMessage ='Error: Apellido no válido. Asegúrate de que tenga al menos 2 caracteres y no contenga números.';
+        } else if (!validatePassword(signupData.password)) {
+            errorMessage = 'Error: La contraseña debe tener al menos una letra mayúscula, un número y un carácter especial.';
+        } else if (!matchPassword(signupData.password, passwordConfirmed)) {
+            errorMessage = 'Error: Las contraseñas no coinciden.';
         } else {
-            setNameError(null);
-        }
-
-        // Validate surname
-        const isValidSurname = validateSurname(signupData.surname);
-        if (!isValidSurname) {
-            setSurnameError(
-                'El apellido no puede estar en blanco, contener números o ser menor de 2 carácteres'
-            );
-        } else {
-            setSurnameError(null);
-        }
-
-        // Validate password
-        const isValidPassword = validatePassword(signupData.password);
-        if (!isValidPassword) {
-            setPasswordError(
-                'La contraseña debe tener al menos una mayúscula, un número y un carácter especial.'
-            );
-        } else {
-            setPasswordError(null);
-        }
-
-        // Validate email
-        const isValidEmail = validateEmail(signupData.email);
-        if (!isValidEmail) {
-            setEmailError('El email no tiene un formato válido.');
-        } else {
-            setEmailError(null);
-            console.log(signupData);
-        }
-
-        // Validate match password
-        const isMatchPassword = matchPassword(signupData.password, passwordConfirmed);
-        if (!isMatchPassword) {
-            setNotPasswordMatchError('Las contraseñas no coinciden.');
-        } else {
-            setNotPasswordMatchError(null);
-        }
-
-        console.log('sign up ', signupData);
-
-        if(
-            validateEmail(signupData.email) &&
-            validateName(signupData.name) &&
-            validateSurname(signupData.surname) &&
-            validatePassword(signupData.password) &&
-            matchPassword(signupData.password, passwordConfirmed)
-        ){
-
             const resp = await fetch('http://localhost:8000/api/auth/register', {
                 method: 'POST',
                 headers: {
@@ -107,9 +72,18 @@ const SignupForm = () => {
                 body: JSON.stringify(signupData)
             });
 
-            if(resp.ok) navigate('/login');
+            if (resp.ok) {
+                setIsModalOpen(true);
+            }
         }
 
+        if (errorMessage.trim() !== '') { 
+            toast.error(errorMessage, {
+                position: toast.POSITION.TOP_RIGHT,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }
     };
 
     // Function to validate name
@@ -127,7 +101,7 @@ const SignupForm = () => {
     // Function to validate password
     const validatePassword = (password: string) => {
         const passwordRegex =
-      /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
         return passwordRegex.test(password);
     };
 
@@ -138,7 +112,7 @@ const SignupForm = () => {
     };
 
     // Function to validate match password
-    const matchPassword = (password: strign, confirmedPassword: string) => {
+    const matchPassword = (password: string, confirmedPassword: string) => {
         return password === confirmedPassword;
     };
 
@@ -146,6 +120,7 @@ const SignupForm = () => {
         <div className={styles.container}>
             <div className={styles.form}>
                 <form onSubmit={handleSubmit}>
+                    <ToastContainer position="top-right" autoClose={3000} />
                     <section className={styles.optionTitle}>
                         <h2>¿Ya tienes cuenta?</h2>
                         <Link to="/login" className={styles.registerLink}>
@@ -209,6 +184,22 @@ const SignupForm = () => {
                     </section>
                     <div className={styles.buttonSection}>
                         <ButtonSubmit label="Registrarse" />
+                    </div>
+                    <div>
+                        {isModalOpen && (
+                            <ModalDisplay
+                                icon={<BsPatchCheckFill className={styles.checkIcon} />}
+                                title={'Registrado con éxito'}
+                                subtitle={'Ya puedes iniciar sesión'}
+                                button1Text={'Iniciar Sesión'}
+                                button2Text={''}
+                                onClose={closeModal}
+                                isOpen={true}
+                                onButton1Click={handleLoginPage}
+                                onButton2Click={() => {}}
+                                showCloseButton={true}
+                            />
+                        )}
                     </div>
                 </form>
             </div>

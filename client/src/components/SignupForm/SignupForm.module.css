@@ -26,6 +26,12 @@
   justify-content: center;
 }
 
+.checkIcon {
+  width: 60px;
+  height: 60px;
+  color: #cacaca;
+}
+
 /* Para pantallas más grandes o iguales a 900px (xl) */
 @media screen and (min-width: 900px) {
   .form {
