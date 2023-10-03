@@ -6,12 +6,23 @@
 
 .title {
   display: flex;
-  gap: 1rem;
-  margin: 2rem;
+  gap: 0.2rem;
 }
 
 .dash {
-  color: #e15a40;
+  display: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.faqImg {
+  display: none;
 }
 
 .faqContainer {
@@ -63,4 +74,26 @@
 
 .expanded .faqAnswer {
   display: block;
+}
+
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
+  
+.faqImg {
+  display: unset;
+  width: 30%;
+}
+
+.title {
+  gap: 1rem;
+}
+
+.dash {
+  display: unset;
+  color: #e15a40;
+}
 }

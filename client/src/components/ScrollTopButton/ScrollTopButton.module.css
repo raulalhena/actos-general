@@ -1,25 +1,26 @@
-/* ScrollToTopButton.module.css */
 .scrolltotopbutton {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 24px;
-    border-radius: 50%;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-  }
-  
-  .scrolltotopbutton.visible {
-    display: block;
-  }
-  
-  .scrolltotopbutton:hover {
-    background-color: #0056b3;
-  }
-  
+  display: none;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 40px;
+  height: 40px;
+  background: #1c2e48;
+  color: #ffffff;
+  font-size: 24px;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  line-height: 40px; /* Centrar verticalmente el ícono */
+}
+
+.scrolltotopbutton.visible {
+  display: block;
+}
+
+.scrolltotopbutton:hover {
+  background-color: #879fc2;
+  transform: scale(1.3);
+}

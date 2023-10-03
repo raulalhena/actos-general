@@ -20,7 +20,6 @@ import SelectStatus from '../SelectStatus/SelectStatus';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { VscCircleFilled } from 'react-icons/vsc';
 import ModalDisplay from '../Modal/ModalDisplay';
-// import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
@@ -29,7 +28,6 @@ type Props = { eventData: EventDashboardFormProps };
 
 // Form
 const EventDashboardForm = ( { eventData }: Props ) => {
-    // const navigate = useNavigate();
 
     const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
 
@@ -370,7 +368,7 @@ END Modal
 ************** */
 
     // Button Radio
-    const [ selectedMode, setSelectedMode ] = useState<string>(formData.mode);
+    const [ selectedMode, setSelectedMode ] = useState<string>('');
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
@@ -380,12 +378,6 @@ END Modal
             mode: value,
         });
     };
-
-    // Capacity Radio Groug handler
-
-    // Mode Radio Group
-
-    // Capacity Radio Group
 
     /**************************************************
     ** Image Uploader
@@ -496,11 +488,11 @@ END Modal
     // Get Subcategories
     const getSubcategories = async (selectedCategory: string) => {
 
-        const resp = await fetch(`http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`);
-        
-        const subcategoriesDb = await resp.json();
-
-        setSubcategories(Array.from(subcategoriesDb.subcategories));
+        if(selectedCategory) {
+            const resp = await fetch(`http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`);
+            const subcategoriesDb = await resp.json();
+            setSubcategories(Array.from(subcategoriesDb.subcategories));
+        }
         
     };
 
@@ -570,26 +562,44 @@ END Modal
         setVisibility(formData.visibility ?? false); //cuando es null(??) es false
     }, []); //no tocar la dependencia, dejar vacio*
 
+    //get MODE (online, hibrido, presencial)
     useEffect(() => {
         const getMode = async () => {
             try {
                 const response = await fetch('http://localhost:8000/api/misc/modes');
                 const data = await response.json();
-                const modeData = data.map((mode: { _id : string; name: string; text: string;  value: string }) => ({
-                    id: mode._id,
-                    name: mode.name,
-                    text: mode.text, 
-                    value: mode.value,
+                const modeData = data.map((mode: {
+                        _id : string; 
+                        name: string; 
+                        text: string;  
+                        value: string; 
+                }) => ({
+                    ...mode,
+                    checked: formData.mode === mode.value,
+                    onChange: () => handleModeChange(mode.value),
                 }));
                 setMode(modeData);
+    
+                if (formData.mode === 'Presencial') {
                 
+                    setFormData((prevData) => ({
+                        ...prevData,
+                        webLink: '',
+                    }));
+                } else if (formData.mode === 'En línea') {
+
+                    setFormData((prevData) => ({
+                        ...prevData,
+                        address: '',
+                    }));
+                }
             } catch (error) {
                 console.error('Error al obtener las horas:', error);
             }
         };
         getMode();
-    }, []);
-
+    }, [ selectedMode ]);
+    
     // Categories Handle Change
 
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -635,7 +645,7 @@ END Modal
                     title="1 INFORMACIÓN BÁSICA"
                     isVisible={isSection1Visible}
                     toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
-                    <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
+                    {/* <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p> */}
 
                     <FormField>
                         <SelectCategories
@@ -736,8 +746,7 @@ END Modal
                     <FormField>
                         <RadioGroupContainer
                             radioButtons={mode}
-                            selectedValue={selectedMode}
-                            
+                            selectedValue={formData.mode}
                             label="Modalidad *"
                             onChange={handleModeChange}
                             isRequired={true}
