@@ -65,6 +65,22 @@ const EventDetailPage = () => {
         checkInscription();
     }, [ eventData ]);
 
+    useEffect(() => {
+        const checkInscriptionOnline = async () => {
+            const res = await fetch(`http://localhost:8000/api/events/user/${user._id}`);
+            const inscriptionEvents = await res.json();
+
+            const insEvents = Array.from(inscriptionEvents); 
+
+            insEvents.forEach(sEvent => {
+                if(sEvent._id === _id) setOnline(true);
+            });
+            
+        };
+
+        checkInscriptionOnline();
+    }, [ eventData ]);
+
     const renderFormattedDescription = () => {
         return (
             <div
@@ -84,6 +100,8 @@ const EventDetailPage = () => {
             })
         });
 
+        if(res.ok) console.log('modal'); //modal
+
         return;
     };
 
@@ -96,6 +114,8 @@ const EventDetailPage = () => {
                 eventId: _id
             })
         });
+
+        if(res.ok) console.log('modal'); //modal
 
         return;
     };
@@ -110,6 +130,8 @@ const EventDetailPage = () => {
             })
         });
 
+        if(res.ok) console.log('modal'); //modal
+
         return;
     };
 
@@ -122,6 +144,8 @@ const EventDetailPage = () => {
                 eventId: _id
             })
         });
+
+        if(res.ok) console.log('modal'); //modal
 
         return;
     };
