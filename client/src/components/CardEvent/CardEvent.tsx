@@ -22,7 +22,7 @@ const CardEvent = ({ eventData }: CardEventProps) => {
                 {/* IMAGE */}
                 <div className={styles.imageSection}>
                     <div className={styles.logoContainer}>
-                        <img src={logo} className={styles.logoImage} alt="Logo" />
+                        <img src={eventData.subcategoryLogo} className={styles.logoImage} alt="Logo" />
                     </div>
                     <img src={eventData.image} className={styles.eventImage} />
                 </div>

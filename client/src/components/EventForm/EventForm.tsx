@@ -187,9 +187,6 @@ const EventForm = () => {
     const getSubcategories = async (categoryId: string) => {
         const resp = await fetch(`http://localhost:8000/api/misc/categories/${categoryId}/subcategories`);
         const categoriesDb = await resp.json();
-
-        console.log('categories db ', categoriesDb.subcategories[0].image);
-
         setSubcategories(categoriesDb.subcategories);
     };
 

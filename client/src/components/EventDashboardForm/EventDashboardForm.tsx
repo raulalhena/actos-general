@@ -107,6 +107,18 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                 autoClose: 2500,
                 pauseOnHover: true,
             });
+        } else  if(id === 'subcategory') {
+            subcategories.forEach(subc => {
+                console.log('map loop', subc.name, value, subc.image);
+                if(subc.name === value){
+                    console.log('eq');
+                    setFormData({
+                        ...formData,
+                        [id]: value,
+                        subcategoryLogo: subc.image
+                    });
+                }
+            });
         } else {
             setFormData({
                 ...formData,

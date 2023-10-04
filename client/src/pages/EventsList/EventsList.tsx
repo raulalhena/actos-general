@@ -24,9 +24,12 @@ const EventsList = () => {
 
     const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        const _id = e.target.value;
-        navigate('/eventdashboard', { state: { id: _id } });
+        const { id } = e.target;
+        console.log('target value ', id);
+        navigate('/eventdashboard', { state: { id: id } });
     };
+
+    console.log('data ', events);
 
     return (
         <>
@@ -41,17 +44,10 @@ const EventsList = () => {
                     </div>
                     <div data-testid="eventsList-page">
                         {events.map((event: EventDashboardFormProps, index: number) => (
-                            <div
-                                key={index}
-                                style={{ display: 'flex', justifyContent: 'space-between' }}
-                            >
-                                <button
-                                    className={styles.eventItem}
-                                    value={event._id}
-                                    onClick={handleClick}
-                                >
+                            <div key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <button>
                                     <section className={styles.eventInfo}>
-                                        <h2 className={styles.eventTitle}>{event.name}</h2>
+                                        <h2 className={styles.eventTitle}  id={event._id} onClick={handleClick}>{event.name}</h2>
                                         <div className={styles.eventChips}>
                                             <span className={styles.cardCategory}>
                                                 {event.category}

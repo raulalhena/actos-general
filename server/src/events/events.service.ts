@@ -42,7 +42,13 @@ export class EventsService {
   }
 
   async findOne(id: ObjectId) {
-    return await this.eventModel.findById(id);
+    try {
+      console.log( id)
+
+      return await this.eventModel.findById({ _id: id });
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   async findUserEvents(id: ObjectId) {
