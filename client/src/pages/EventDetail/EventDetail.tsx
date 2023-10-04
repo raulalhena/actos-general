@@ -262,9 +262,11 @@ const EventDetailPage = () => {
                                 </span>
                             ))}
                         </div>
-                        <a href={'mailto:' + eventData.contactEmail}>
-                            <ButtonRed label="contactar" />
-                        </a>
+                        { eventData.contactEmail && (
+                            <a href={'mailto:' + eventData.contactEmail}>
+                                <ButtonRed label="contactar" />
+                            </a>
+                        )}
                     </div>
                 </section>
             )}
