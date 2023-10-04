@@ -17,6 +17,7 @@ import AllEvents from './pages/AllEvents/AllEvents';
 import ScrollTopButton from './components/ScrollTopButton/ScrollTopButton';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import MyEvents from './pages/MyEvents/MyEvents';
+import { Subcategory } from './pages/Subcategory/Subcategory';
 
 function Layout({ children }: any) {
     return (
@@ -63,6 +64,12 @@ function App() {
                                 <MyEvents />
                             </ProtectedRoute>
                         } />
+                        {/* <Route path='/createsubcategory' element={
+                            <ProtectedRoute role={ [ 'admin' ] }>
+                                <Subcategory />
+                            </ProtectedRoute>
+                        } /> */}
+                        <Route path="/createsubcategory" element={<Subcategory />} />
                         <Route path="/faq" element={<FAQ />} />
                         <Route path="/eventslist" element={<EventsList />} />
                         <Route path="/event/:_id" element={<EventDetail />} />

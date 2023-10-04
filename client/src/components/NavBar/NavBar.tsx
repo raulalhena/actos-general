@@ -43,7 +43,7 @@ function Navbar() {
                     {isLogged && user && user.role === 'admin' && (
                         <li onClick={removeActive}>
                             <Link to="/eventslist" className={styles.navLink}>
-            Eventos Activos
+                                Eventos Activos
                             </Link>
                         </li>
                     )}
@@ -51,6 +51,13 @@ function Navbar() {
                         <li onClick={removeActive}>
                             <Link to="/createevent" className={styles.navLink}>
                             Crear Evento
+                            </Link>
+                        </li>
+                    )}
+                    {isLogged && user && user.role === 'admin' && (
+                        <li onClick={removeActive}>
+                            <Link to="/createsubcategory" className={styles.navLink}>
+                                Crear Subcategoría
                             </Link>
                         </li>
                     )}
