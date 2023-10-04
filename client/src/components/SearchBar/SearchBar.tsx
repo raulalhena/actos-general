@@ -4,7 +4,7 @@ import styles from './SearchBar.module.css';
 import { FaSearch } from 'react-icons/fa';
 import DropdownFilter from '../DropDownFilter/DropdownFilter';
 
-const translations: Record<string, string> = {
+const filterOptions: Record<string, string> = {
     name: 'Titulo',
     category: 'Categoria',
     subcategory: 'Subcategoria',
@@ -21,14 +21,31 @@ function SearchBar() {
         setSearchValue(event.target.value);
     };
 
-    const handleSearchClick = () => {
-        const filters = filter.length === 0 ? Object.keys(translations) : filter;
-        const filtersString = filters.join(',');
+    const translateFilter = (filter: string): string => {
+        const invertedTranslations: Record<string, string> = {};
+        Object.entries(filterOptions).forEach(([ key, value ]) => {
+            invertedTranslations[value] = key;
+        });
+    
+        return invertedTranslations[filter] || filter;
+    };
+
+    const handleSearch = () => {
+        const filters = filter.length === 0 ? Object.keys(filterOptions) : filter;
+        const filtersString = filters.map(translateFilter).join(',');
+    
         navigate(`/allevents?keywords=${searchValue}&filters=${filtersString}`);
     };
 
     const handleFilterChange = (selectedFilters: Array<string>) => {
         setFilter(selectedFilters);
+    };
+
+    // Search with 'enter'
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            handleSearch();
+        }
     };
 
     return (
@@ -37,7 +54,7 @@ function SearchBar() {
                 <DropdownFilter
                     id="search"
                     label={'Buscar por filtro'}
-                    options={Object.keys(translations)}
+                    options={Object.values(filterOptions)}
                     values={filter}
                     onChange={handleFilterChange}
                 />
@@ -46,11 +63,13 @@ function SearchBar() {
                 <input
                     type="text"
                     className={styles.searchInput}
-                    placeholder="Escribe para buscar"
+                    placeholder="Buscar eventos"
                     value={searchValue}
                     onChange={handleInputChange}
+                    aria-label="Buscar eventos"
+                    onKeyPress={handleKeyPress}
                 />
-                <button className={styles.searchIcon} onClick={handleSearchClick}>
+                <button className={styles.searchIcon} onClick={handleSearch}>
                     <FaSearch />
                 </button>
             </div>

@@ -57,6 +57,10 @@
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.filterField {
+  z-index: 0;
+}
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
 
