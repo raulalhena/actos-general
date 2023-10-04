@@ -53,7 +53,8 @@ const EventForm = () => {
         image: '', 
         video: '', 
         capacity: '',
-        isLimited: false
+        isLimited: false,
+        subcategoryLogo: ''
     });
 
     // Form fields auto filled state
@@ -165,6 +166,7 @@ const EventForm = () => {
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
 
     const [ selectedCategory, setSelectedCategory ] = useState('');
+    const [ subcategoryLogo, setSubcategoryLogo ] = useState('');
 
     // Categories Handle Change
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -187,6 +189,11 @@ const EventForm = () => {
         const categoriesDb = await resp.json();
         
         setSubcategories(categoriesDb.subcategories);
+        setSubcategoryLogo(categoriesDb.subcategories.image);
+        setFormData({
+            ...formData,
+            subcategoryLogo: categoriesDb.subcategories.image
+        });
     };
 
     // Text area
