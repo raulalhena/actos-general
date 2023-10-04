@@ -8,4 +8,7 @@ export class CreateSubcategoryDto {
 
     @IsString()
     description: string;
+
+    @IsString()
+    image: string;
 }
