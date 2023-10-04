@@ -51,6 +51,7 @@ const EventDetailPage = () => {
         setModalBtn1Text('Cancelar');
         setModalBtn2Text(type === 'inscription' ? 'Inscribirme' : 'Eliminar');
         setModalTitle(type === 'inscription' ? 'Estás a punto de inscribirte al evento.' : 'Estás a punto de eliminar la inscripción.');
+        setInscription(type === 'inscription');
     };
 
     const closeModal = () => {
