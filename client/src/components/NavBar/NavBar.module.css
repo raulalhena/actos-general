@@ -7,6 +7,7 @@
   gap: 2rem;
   min-height: 70px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index:10;
 }
 
 .active {
@@ -41,6 +42,7 @@
   .hamburger {
     display: block;
     cursor: pointer;
+    background-color: rgb(255, 255, 255);
   }
 
   .bar {
@@ -92,5 +94,7 @@
     padding: 2rem;
     border-bottom: 1px solid #e2e2e2;
     width: 100vw;
+    background-color: #fff;
+    z-index: 10;
   }
 }
