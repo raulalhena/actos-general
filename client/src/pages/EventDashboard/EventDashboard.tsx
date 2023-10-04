@@ -70,7 +70,7 @@ const EventDashboard = () => {
                             <div>
                                 <section className={styles.title}>
                                     <h1 className={styles.dash}>—</h1>
-                                    <h1>Resumen de tu evento: <Link target="_blank" to={`/event/${eventData._id}`}>{eventData.name}</Link></h1>
+                                    <h1>Resumen de tu evento: <Link className={styles.eventTitle} target="_blank" to={`/event/${eventData._id}`}>{eventData.name}</Link></h1>
                                 </section>
                             </div>
                         </section>

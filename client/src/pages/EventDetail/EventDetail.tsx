@@ -218,11 +218,6 @@ const EventDetailPage = () => {
 
                 <hr />
             </div>
-            {/* <section className={styles.section}>
-                <h1 className={styles.sectionTitle}>Ubicación</h1>
-                <p className={styles.address}>{eventData.address}</p>
-            </section>
-            <hr /> */}
 
             {/* DESCRIPTION, WEBLINK */}
             <section className={styles.section}>
