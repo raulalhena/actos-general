@@ -28,6 +28,7 @@
   align-items: center;
   justify-content: flex-end;
   width: 80vw;
+  margin-bottom: 1rem;
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */
@@ -43,6 +44,11 @@
   .section {
     gap: 3rem;
     padding: 5rem;
+  }
+
+  .buttonSection {
+  margin-bottom: 0;
+
   }
 }
 

@@ -1,10 +1,25 @@
-
-
 .editButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
     color: #333;
-    background: #fff; 
-    border: 0px; 
-    display: flex; 
-    justify-content: space-between; 
-    width: 100%
-}
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    text-align: left;
+  }
+  
+  .editButton:hover {
+    background-color: #e15a40;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .icon {
+    color: #1c2e48;
+    font-size: 20px;
+  }
+  

@@ -14,7 +14,6 @@
   transition: background-color 0.3s, transform 0.3s;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   line-height: 32px; 
-  z-index: 10;
 }
 
 .scrolltotopbutton.visible {
@@ -26,7 +25,7 @@
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 508px) {
   .scrolltotopbutton {
   bottom: 50px;
   right: 50px;
