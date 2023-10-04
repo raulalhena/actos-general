@@ -115,7 +115,7 @@ const EventDetailPage = () => {
         <div data-testid='event-detail' className={styles.page}>
             {/* IMAGE */}
             <div className={styles.imageSection}>
-                <img src={prueba} className={styles.eventImage} />
+                <img src={eventData.image} className={styles.eventImage} />
                 <div className={styles.logoContainer}>
                     <img src={logo} className={styles.logoImage} alt="Logo" />
                 </div>

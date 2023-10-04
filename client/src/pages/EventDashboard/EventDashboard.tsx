@@ -3,6 +3,7 @@ import EventDashboardForm from '../../components/EventDashboardForm/EventDashboa
 import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRecap';
 import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { PDFViewer } from '@react-pdf/renderer';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
@@ -38,15 +39,7 @@ const EventDashboard = () => {
         image: '',
         video: '',
         capacity: '',
-        isLimited: false,
-    // qrEvent: '',
-    // qrAttendees: [],
-    // attendees: [],
-    // submitted: [],
-    // price: 0,
-    // payment: '',
-    // visibility: false,
-    // status: false
+        isLimited: false
     });
 
     useEffect(() => {
@@ -77,7 +70,7 @@ const EventDashboard = () => {
                             <div>
                                 <section className={styles.title}>
                                     <h1 className={styles.dash}>—</h1>
-                                    <h1>Resumen de tu evento: {eventData.name}</h1>
+                                    <h1>Resumen de tu evento: <Link target="_blank" to={`/event/${eventData._id}`}>{eventData.name}</Link></h1>
                                 </section>
                             </div>
                         </section>
