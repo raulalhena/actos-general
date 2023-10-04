@@ -17,7 +17,7 @@ const EventsList = () => {
         };
 
         getAllEvents();
-    });
+    }, []);
 
     const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
