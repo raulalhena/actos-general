@@ -26,8 +26,8 @@ const EventsList = () => {
     };
 
     return (
-        <div className={styles.eventListPage}>
-            <div className={styles.eventListContainer}>
+        <div className={styles.page}>
+            <div className={styles.pageContainer}>
                 <div className={styles.title}>
                     <h1 className={styles.dash}>—</h1>
                     <h1>Lista de eventos activos</h1>

@@ -1,29 +1,43 @@
 .page {
+  width: 100vw;
+  margin: 1rem 0 2rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  padding: 0 2rem;
 }
 
 .containerSection {
   display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   max-width: 780px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 3rem;
 }
 
 .title {
   display: flex;
-  gap: 1rem;
-  max-width: 780px;
+  gap: 0.5rem;
 }
 
 .eventTitle {
   color: #1c2e48;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 600;
+  text-decoration: underline;
+  width: 375px;
+}
+
+.eventTitle:hover {
+  color: #e15a40;
 }
 
 .dash {
@@ -39,56 +53,24 @@
   margin-bottom: 6rem;
 }
 
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 3rem;
-  gap: 2rem;
-  margin-top: 3rem;
-}
-
-/* .infoPanel {
-  display: flex;
-  width: 100px;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid red;
-} */
-
-.container {
-  width: fit-content;
-  /* border-radius: 12px; */
-  border: 1.5px solid rgba(28, 46, 72, 1);
-  /* box-shadow: 4px 4px 0 0 #cacaca; */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 1rem;
-}
-
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
+  .header {
+    flex-direction: row;
+    width: 800px;
+    max-width: 780px;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
   .containerSection {
     width: 720px;
   }
-}
 
-/* Para pantallas más grandes o iguales a 992px (lg) */
-@media screen and (min-width: 992px) {
-  
-}
-
-/* Para pantallas más grandes o iguales a 1200px (xl) */
-@media screen and (min-width: 1200px) {
-  
-}
-
-/* Para pantallas más grandes o iguales a 1400px (xxl) */
-@media screen and (min-width: 1400px) {
-  .header {
-    flex-direction: row;
-    gap: 5rem;
+  .pageContainer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 }

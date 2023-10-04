@@ -8,7 +8,7 @@
 .containerSection {
   border: 1px solid #cacaca;
   border-radius: 20px;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
