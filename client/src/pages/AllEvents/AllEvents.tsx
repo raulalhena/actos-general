@@ -5,17 +5,18 @@ import { CardEventProps } from '../../interfaces/cardEventProps';
 import Preloader from '../../components/Preloader/Preloader';
 import { useLocation } from 'react-router-dom';
 
+// ... (importações existentes)
+
 const AllEvents = () => {
+    const location = useLocation();
     const [ eventData, setEventData ] = useState<CardEventProps['eventData'][]>([]);
     const [ isLoading, setIsLoading ] = useState(true);
-    const location = useLocation();
+    const [ noResults, setNoResults ] = useState(false);
+
+    const searchParams = new URLSearchParams(location.search);
+    const keywords = searchParams.get('keywords');
 
     useEffect(() => {
-        console.log('Current Location:', location);
-        const searchParams = new URLSearchParams(location.search);
-        const keywords = searchParams.get('keywords');
-        console.log('Keywords:', keywords);
-
         // Modify the API endpoint to include the search query
         const apiUrl = keywords
             ? `http://localhost:8000/api/events/search?filters=name,category,tags,mode,language&keywords=${keywords}`
@@ -26,29 +27,17 @@ const AllEvents = () => {
         fetch(apiUrl)
             .then((response) => response.json())
             .then((res) => {
-                if (Array.isArray(res.data)) {
+                if (Array.isArray(res.data) && res.data.length > 0) {
                     setEventData(res.data);
-                    setIsLoading(false);
                 } else {
-                    console.error('API response is not an array:', res);
+                    setNoResults(true);
                 }
-            })            
+                setIsLoading(false);
+            })
             .catch((error) => {
                 console.error('Error al obtener datos:', error);
             });
     }, [ location.search ]);
-
-    // useEffect(() => {
-    //     fetch('http://localhost:8000/api/events')
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             setEventData(data);
-    //             setIsLoading(false);
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error al obtener datos:', error);
-    //         });
-    // }, []);
 
     return (
         <>
@@ -58,7 +47,15 @@ const AllEvents = () => {
                         <h1 className={styles.dash}>—</h1>
                         <h1>Todos los eventos</h1>
                     </div>
-                    <div>{isLoading && <Preloader />}</div>
+                    <div>
+                        {isLoading && <Preloader />}
+                        {noResults && (
+                            <div className={styles.textBox}>
+                                <p className={styles.textStyle}> No se encontraron resultados. </p>
+                                <button className={styles.backBtn} onClick={() => window.location.href = '/'}>Volver</button>
+                            </div>
+                        )}
+                    </div>
                     <div data-testid="allEvents-page">
                         <div className={styles.cardGrid}>
                             {eventData.map((event, index) => (
@@ -73,3 +70,4 @@ const AllEvents = () => {
 };
 
 export default AllEvents;
+

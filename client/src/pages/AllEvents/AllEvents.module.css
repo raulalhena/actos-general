@@ -33,6 +33,43 @@
   align-items: center;
 }
 
+.backBtn {
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  border-style: none;
+  background-color: #e15a40;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  width: 80px;
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.backBtn:hover {
+  color: #e15a40;
+  border: 1px solid #e15a40;
+  background-color: white;
+  transition: 0.1s;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.textStyle {
+    color: #1c2e48;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.textBox {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  gap: 1rem;
+
+}
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
   .pageContainer {

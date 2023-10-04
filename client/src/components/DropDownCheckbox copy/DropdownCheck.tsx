@@ -13,14 +13,13 @@ const Option = (props: any) => {
                     checked={props.isSelected}
                     onChange={() => null}
                 />{' '}
-                <label>{props.label}</label>
             </components.Option>
         </div>
     );
 };
 
 function DropdownCheck(props: DropDownCheckProps) {
-    const { options, id, label, values, onChange} = props;
+    const { options, id, label, values, onChange } = props;
 
     const toJsonObject = (element: string): object => {
         return { 

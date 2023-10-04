@@ -20,7 +20,7 @@ const Option = (props: any) => {
 };
 
 function DropdownCheck(props: DropDownCheckProps) {
-    const { options, id, label, values, onChange} = props;
+    const { options, id, label, values, onChange } = props;
 
     const toJsonObject = (element: string): object => {
         return { 

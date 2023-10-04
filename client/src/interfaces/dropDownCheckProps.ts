@@ -1,8 +1,7 @@
 export interface DropDownCheckProps {
     id: string;
-    label: string;
+    label?: string;
     options : string[];
     values : string[];
-    onChange: (values: string[]) => void
-    
+    onChange: (values: string[]) => void;
 }
