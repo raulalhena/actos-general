@@ -55,9 +55,6 @@ const EventsList = () => {
                                             </span>
                                         </div>
                                     </section>
-                                    <div className={styles.editButton}>
-                                        <FaRegEdit />
-                                    </div>
                                 </button>
                             </div>
                         ))}
