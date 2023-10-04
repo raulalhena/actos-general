@@ -18,7 +18,6 @@ const AllEvents = () => {
 
     useEffect(() => {
         if (keywords && filters) {
-            console.log('os filtrosa sao', filters);
             const apiUrl = `http://localhost:8000/api/events/search?filters=${filters}&keywords=${keywords}`;
     
             fetch(apiUrl)
@@ -35,7 +34,7 @@ const AllEvents = () => {
                     console.error('Error al obtener datos:', error);
                 });
         } else if (keywords && !filters) {
-            console.log('os filtrosa sao 1 ', filters);
+
             const allFilters = 'name,category,subcategory,language,tags';
             const apiUrl = `http://localhost:8000/api/events/search?filters=${allFilters}&keywords=${keywords}`;
     
