@@ -145,10 +145,8 @@ const EventForm = () => {
             try {
                 const response = await fetch('http://localhost:8000/api/misc/modes');
                 const data = await response.json();
-                const modeData = data.map((mode: { name: string; text: string;  value: string }) => ({
+                const modeData = data.map((mode: { name: string; }) => ({
                     name: mode.name,
-                    text: mode.text, 
-                    value: mode.value,
                     checked: false, 
                 }));
                 setMode(modeData);
@@ -172,9 +170,9 @@ const EventForm = () => {
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = event.target;
         const selected = event.target.selectedOptions[0].text;
-
+        console.log(formData);
         setSelectedCategory(value);
-
+        console.log(selected);
         setFormData({
             ...formData,
             category: selected,
@@ -613,7 +611,7 @@ const EventForm = () => {
                                     isRequired={true}
                                 />
                             )}
-                            {selectedMode === 'En línea' && (
+                            {selectedMode === 'En Línea' && (
                                 <TextInput
                                     isRequired={true}
                                     id="webLink"

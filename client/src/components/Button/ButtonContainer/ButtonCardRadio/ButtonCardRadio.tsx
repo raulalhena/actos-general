@@ -10,7 +10,7 @@ const ButtonCardRadio = (props: ButtonCardRadioProps) => {
                 <input
                     type="radio"
                     name={props.name}
-                    value={props.value}
+                    value={props.name}
                     checked={props.checked}
                     onChange={props.onChange}
                 />
@@ -20,7 +20,7 @@ const ButtonCardRadio = (props: ButtonCardRadioProps) => {
                         // color="green"
                     />
                 ) : null}
-                <span className={styles.text}>{props.text}</span>
+                <span className={styles.text}>{props.name}</span>
             </label>
         </div>
     );
