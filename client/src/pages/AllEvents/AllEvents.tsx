@@ -1,36 +1,39 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CardEvent from '../../components/CardEvent/CardEvent';
 import styles from './AllEvents.module.css';
 import { CardEventProps } from '../../interfaces/cardEventProps';
+import Preloader from '../../components/Preloader/Preloader';
 
 const AllEvents = () => {
     const [ eventData, setEventData ] = useState<CardEventProps['eventData'][]>([]);
-    
+    const [ isLoading, setIsLoading ] = useState(true);
+
     useEffect(() => {
         fetch('http://localhost:8000/api/events')
             .then((response) => response.json())
             .then((data) => {
                 setEventData(data);
+                setIsLoading(false);
             })
             .catch((error) => {
                 console.error('Error al obtener datos:', error);
             });
-    }, []); 
+    }, []);
 
     return (
         <>
-            <section data-testid='allEvents-page' className={styles.section}>
+            <section data-testid="allEvents-page" className={styles.section}>
                 <div className={styles.title}>
                     <h1 className={styles.dash}>—</h1>
                     <h1>Todos los eventos de Nous Cims</h1>
                 </div>
+                <div>{isLoading && <Preloader />}</div>
                 <div className={styles.cardGrid}>
                     {eventData.map((event, index) => (
                         <CardEvent key={index} eventData={event} />
                     ))}
                 </div>
             </section>
-
         </>
     );
 };
