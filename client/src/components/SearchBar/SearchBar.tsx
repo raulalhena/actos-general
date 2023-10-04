@@ -21,7 +21,7 @@ function SearchBar() {
         setSearchValue(event.target.value);
     };
 
-    const handleSearchClick = () => {
+    const handleSearch = () => {
         const filters = filter.length === 0 ? Object.keys(translations) : filter;
         const filtersString = filters.join(',');
         navigate(`/allevents?keywords=${searchValue}&filters=${filtersString}`);
@@ -29,6 +29,13 @@ function SearchBar() {
 
     const handleFilterChange = (selectedFilters: Array<string>) => {
         setFilter(selectedFilters);
+    };
+
+    // Search with 'enter'
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            handleSearch();
+        }
     };
 
     return (
@@ -46,11 +53,13 @@ function SearchBar() {
                 <input
                     type="text"
                     className={styles.searchInput}
-                    placeholder="Escribe para buscar"
+                    placeholder="Buscar eventos"
                     value={searchValue}
                     onChange={handleInputChange}
+                    aria-label="Buscar eventos"
+                    onKeyPress={handleKeyPress}
                 />
-                <button className={styles.searchIcon} onClick={handleSearchClick}>
+                <button className={styles.searchIcon} onClick={handleSearch}>
                     <FaSearch />
                 </button>
             </div>
