@@ -15,6 +15,14 @@ export class EventsService {
   ) {}
   
 
+  async saveImage(id: ObjectId, file: Express.Multer.File) {
+    try {
+      this.eventModel.findOneAndUpdate({ _id: id }, { image: file})
+    } catch (error) {
+      
+    }
+  }
+
   async create(createEventDto: CreateEventDto) {
     try {
       const newEvent = await this.eventModel.create(createEventDto);
@@ -67,6 +75,16 @@ export class EventsService {
     }
   }
 
+  async getImage(id: ObjectId) {
+    try {
+      const event = await this.eventModel.findById({ _id: id });
+      
+      return Buffer.from(event['image'], 'base64');
+    } catch (error) {
+      throw new HttpException(error.messge, HttpStatus.BAD_REQUEST);
+    }
+  }
+  
   async eventInscription(eventInscriptionDto: EventInscriptionDto) {
     try {
       const updateData = {
@@ -77,6 +95,31 @@ export class EventsService {
       return updateEventSubmitted
     } catch (error) {
       throw error
+    }
+  }
+
+  async eventInscriptionOnline(eventInscriptionDto: EventInscriptionDto) {
+    try {
+      const updateData = {
+        $push: { submittedOnline: eventInscriptionDto.userId }
+      }
+      const updateEventSubmitted = await this.eventModel.findOneAndUpdate({_id: eventInscriptionDto.eventId}, updateData, {new: true})
+
+      return updateEventSubmitted
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async eventUnsubscriptionOnline(eventUnsubscriptionDto: EventUnsubscriptionDto) {
+    try {
+      const unsuscribedEvent = { 
+        $pull: { submittedOnline: eventUnsubscriptionDto.userId }
+      };
+
+      const updatedUnsuscribedEvent = await this.eventModel.findByIdAndUpdate({ _id: eventUnsubscriptionDto.eventId }, unsuscribedEvent, { new: true });
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 

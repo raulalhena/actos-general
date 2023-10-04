@@ -1,3 +1,10 @@
+.container {
+  position: sticky;
+  height: 100px;
+  top: calc( 100vh - 100px );
+  width: 100%;
+}
+
 .footer {
   display: flex;
   flex-direction: column;
@@ -8,6 +15,7 @@
   height: fit-content;
   padding-left: 10rem;
   border-top: 1px solid #cacaca;
+  background-color: white;
 }
 
 .sectionFooter {
@@ -30,7 +38,8 @@
   font-weight: 300;
 }
 
-.copyright, .copyrightLink {
+.copyright,
+.copyrightLink {
   font-weight: 300;
   font-size: 12px;
   color: white;
@@ -40,7 +49,8 @@
   font-weight: 600;
 }
 
-.brandSection, .contactSection {
+.brandSection,
+.contactSection {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -119,10 +129,11 @@
     font-size: 24px;
   }
 
-  .brandSection, .contactSection {
+  .brandSection,
+  .contactSection {
     width: 15vw;
   }
-  
+
   .logo {
     width: 145px;
   }
@@ -143,8 +154,10 @@
     background-color: #e15a40;
   }
 
-  .brandName, .contactInfo, .contactAddress, .copyright {
+  .brandName,
+  .contactInfo,
+  .contactAddress,
+  .copyright {
     font-size: 14px;
   }
-
 }

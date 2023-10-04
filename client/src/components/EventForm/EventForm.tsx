@@ -53,15 +53,7 @@ const EventForm = () => {
         image: '', 
         video: '', 
         capacity: '',
-        isLimited: false,
-        // qrEvent: '',
-        // qrAttendees: [],
-        // attendees: [],
-        // submitted: [],
-        // price: 0, 
-        // payment: '', 
-        // visibility: false,
-        // status: false
+        isLimited: false
     });
 
     // Form fields auto filled state
@@ -322,26 +314,26 @@ const EventForm = () => {
         }
     };
 
-    // Send Image
-    const sendImage = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        const imageData = new FormData();
-        imageData.append('file', eventImage);
-        const resp = await fetch('http://localhost:8000/api/events/upload', {
-            method: 'POST',
-            body: imageData
-        });
-        const imageResp = await resp.json();
-        setFormData((prevData) => ({ 
-            ...prevData,
-            image: imageResp.imageUrl 
-        }));
-        toast.success('Imagen enviada correctamente', {
-            position: toast.POSITION.TOP_RIGHT,
-            closeOnClick: true,
-            pauseOnHover: true,
-        });
+    console.log('img a', formData);
+
+    // Convert Image to Base64 to send in JSON
+    const convertToBase64 = () => {
+
+        if(imageFile) {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(imageFile);
+            fileReader.onloadend = () => {
+                setFormData({
+                    ...formData,
+                    image: fileReader.result
+                });
+                console.log('base64', fileReader.result);
+            };
+        }
+        return;
     };
+
+    console.log('image form data', formData.image);
 
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
@@ -395,11 +387,15 @@ const EventForm = () => {
     //  States
     const [ previewURL, setPreviewURL ] = useState<string>('');
     const [ imgVisibility, setImgVisibility ] = useState<string>('none');
-    const [ eventImage, setEventImage ] = useState<any>('');
+    const [ imageFile, setImageFile ] = useState<Blob>(null);
+
+    useEffect(() => {
+        convertToBase64();
+    }, [ imageFile ]);
 
     // File Handler
     const handleFile = (file: any) => {
-        setEventImage(() => file);
+        setImageFile(() => file);
         setPreviewURL(URL.createObjectURL(file));
         setImgVisibility('block');
     };
@@ -419,7 +415,6 @@ const EventForm = () => {
             return;
         }
         e.dataTransfer.clearData();
-        // setEventImage(file);
         handleFile(file);
     };
 
@@ -433,7 +428,7 @@ const EventForm = () => {
         e.preventDefault();
         setPreviewURL('');
         setImgVisibility('none');
-        setEventImage(() => '');
+        setImageFile(() => null);
         setFormData({ 
             ...formData,
             image: ''
@@ -713,7 +708,6 @@ const EventForm = () => {
                             <ImageUploader 
                                 id="image"
                                 removeImage={removeImage}
-                                sendImage={sendImage}
                                 previewURL={previewURL}
                                 imgVisibility={imgVisibility}
                                 onDrop={handleDrop}

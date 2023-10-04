@@ -6,12 +6,11 @@ interface ImageUploaderProps {
     previewURL: string;
     imgVisibility: string;
     removeImage: (e: React.MouseEvent<HTMLButtonElement>) => void;
-    sendImage: (e: React.MouseEvent<HTMLButtonElement>) => void;
     onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
     onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
 }
 
-export const ImageUploader = ({ previewURL, imgVisibility, sendImage, removeImage, onDrop, onDragOver }: ImageUploaderProps) => {
+export const ImageUploader = ({ previewURL, imgVisibility, removeImage, onDrop, onDragOver }: ImageUploaderProps) => {
 
     return (
         <div className={styles.uploadImgContainer} onDrop={onDrop} onDragOver={onDragOver}>
@@ -35,9 +34,6 @@ export const ImageUploader = ({ previewURL, imgVisibility, sendImage, removeImag
                 <div className={styles.buttons} >
                     {previewURL && ( // Mostrar el botón "Eliminar" solo si previewURL existe
                         <button className={styles.remove} onClick={removeImage}>Eliminar</button>
-                    )}
-                    {previewURL && ( // Mostrar el botón "Guardar" solo si previewURL existe
-                        <button className={styles.save} onClick={sendImage}>Guardar</button>
                     )}
                 </div>
             </div>

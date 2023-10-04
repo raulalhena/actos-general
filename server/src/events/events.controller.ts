@@ -4,6 +4,7 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ObjectId } from 'mongoose';
+import { Header } from '@nestjs/common';
 import { EventInscriptionDto } from './dto/event-inscription.dto';
 import { EventUnsubscriptionDto } from './dto/event-unsubscription.dto';
 
@@ -13,12 +14,14 @@ export class EventsController {
 
   @Post()
     create(@Body() createEventDto: CreateEventDto) {
+        console.log(createEventDto.image);
         return this.eventsService.create(createEventDto);
     }
 
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
+  @Post(':id/upload')
+  @UseInterceptors(FileInterceptor('image'))
+  uploadFile(@Param('id') id: ObjectId, @UploadedFile() file: Express.Multer.File) {
+      this.eventsService.saveImage(id, file);
       return { 
           imageUrl: file.path
       };
@@ -32,6 +35,16 @@ export class EventsController {
   @Put('inscription')
   eventInscription(@Body() eventInscriptionDto: EventInscriptionDto) {
     return this.eventsService.eventInscription(eventInscriptionDto)
+  }
+
+  @Put('online')
+  eventInscriptionOnline(@Body() eventInscriptionDto: EventInscriptionDto) {
+    return this.eventsService.eventInscriptionOnline(eventInscriptionDto)
+  }
+
+  @Put('unsubscribe-online')
+  eventUnsubscriptionOnline(@Body() eventInscriptionDto: EventInscriptionDto) {
+    return this.eventsService.eventUnsubscriptionOnline(eventInscriptionDto)
   }
 
   @Put('unsubscription')
@@ -62,5 +75,11 @@ export class EventsController {
   @Delete(':id')
   delete(@Param('id') id: ObjectId) {
   	return this.eventsService.delete(id);
+  }
+
+  @Get('/:id/image')
+  @Header('Content-Type', 'image/*')
+  async getImage(@Param('id') id: ObjectId) {
+    return await this.eventsService.getImage(id);
   }
 }

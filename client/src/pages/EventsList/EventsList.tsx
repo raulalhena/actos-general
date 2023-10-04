@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
+import { SlNote } from 'react-icons/sl';
+import styles from './EventsList.module.css';
 
 const EventsList = () => {
 
+    const navigate = useNavigate();
     const [ events, setEvents ] = useState<Array<EventDashboardFormProps>>();
 
     useEffect(() => {
@@ -17,15 +20,27 @@ const EventsList = () => {
         getAllEvents();
     });
 
+    const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        const _id = e.target.value;
+        navigate('/eventdashboard', { state: { id: _id } });
+    };
+
     return (
-        <div data-testid='eventsList-page'>
-            {events && events.map((event: EventDashboardFormProps, index: number) => {
-                return (
-                    <div key={index}>
-                        <Link style={{ color: '#333' }}to={`/event/${event._id}`}>{event.name}</Link>
-                    </div>
-                );
-            })}
+        <div style={{ display: 'flex', flexDirection: 'column', padding: '20px 30%',  }}>
+            <h1 style={{ marginBottom: '10px' }}>Lista de eventos activos</h1>
+            <div data-testid='eventsList-page' style={{ boxShadow: 'revert', display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                {events && events.map((event: EventDashboardFormProps, index: number) => {
+                    return (
+                        <div key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <button className={styles.editButton} value={event._id} onClick={handleClick}>
+                                {event.name}
+                                <SlNote />
+                            </button>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 };

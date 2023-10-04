@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import styles from './EventDetail.module.css';
-import prueba from '../../assets/prueba.jpg';
 import logo from '../../assets/logo.png';
 import { EventDetailProps } from '../../interfaces/eventDetailProps';
 import { IoLocationSharp } from 'react-icons/io5';
@@ -38,6 +37,7 @@ const EventDetailPage = () => {
     });
 
     const [ inscription, setInscription ] = useState<boolean>(false);
+    const [ online, setOnline ] = useState<boolean>(false);
  
     useEffect(() => {
         const getEvent = async () => {
@@ -65,6 +65,22 @@ const EventDetailPage = () => {
         checkInscription();
     }, [ eventData ]);
 
+    useEffect(() => {
+        const checkInscriptionOnline = async () => {
+            const res = await fetch(`http://localhost:8000/api/events/user/${user._id}`);
+            const inscriptionEvents = await res.json();
+
+            const insEvents = Array.from(inscriptionEvents); 
+
+            insEvents.forEach(sEvent => {
+                if(sEvent._id === _id) setOnline(true);
+            });
+            
+        };
+
+        checkInscriptionOnline();
+    }, [ eventData ]);
+
     const renderFormattedDescription = () => {
         return (
             <div
@@ -84,6 +100,8 @@ const EventDetailPage = () => {
             })
         });
 
+        if(res.ok) console.log('modal'); //modal
+
         return;
     };
 
@@ -96,6 +114,38 @@ const EventDetailPage = () => {
                 eventId: _id
             })
         });
+
+        if(res.ok) console.log('modal'); //modal
+
+        return;
+    };
+
+    const handleEventInscriptionOnline = async () => {
+        const res = await fetch('http://localhost:8000/api/events/online', {
+            method: 'PUT',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+                userId: user._id,
+                eventId: _id
+            })
+        });
+
+        if(res.ok) console.log('modal'); //modal
+
+        return;
+    };
+
+    const handleEventUnsubscriptionOnline = async () => {
+        const res = await fetch('http://localhost:8000/api/events/unsubscription-online', {
+            method: 'PUT',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+                userId: user._id,
+                eventId: _id
+            })
+        });
+
+        if(res.ok) console.log('modal'); //modal
 
         return;
     };
@@ -115,7 +165,7 @@ const EventDetailPage = () => {
         <div data-testid='event-detail' className={styles.page}>
             {/* IMAGE */}
             <div className={styles.imageSection}>
-                <img src={prueba} className={styles.eventImage} />
+                <img src={eventData.image} className={styles.eventImage} />
                 <div className={styles.logoContainer}>
                     <img src={logo} className={styles.logoImage} alt="Logo" />
                 </div>
@@ -130,13 +180,23 @@ const EventDetailPage = () => {
                 </div>
 
                 {/*INSCRIPTION */}
-                <div className={styles.categorySubcategorySection}>
-                    {!inscription ?
-                        <ButtonInscription label="Inscribirse al evento" onClick={handleEventInscription}/>
-                        :
-                        <ButtonInscription label="Eliminar inscripción" onClick={handleEventUnsubscription}/>
-                    }
-                </div>
+                {eventData.mode === 'Híbrido' ? 
+                    <div className={styles.categorySubcategorySection}>
+                        {online ?
+                            <ButtonInscription label="Inscribirse en línea" onClick={handleEventInscriptionOnline}/>
+                            :
+                            <ButtonInscription label="Eliminar inscripción online" onClick={handleEventUnsubscriptionOnline}/>
+                        }
+                    </div>
+                    :
+                    <div className={styles.categorySubcategorySection}>
+                        {!inscription ?
+                            <ButtonInscription label="Inscribirse al evento" onClick={handleEventInscription}/>
+                            :
+                            <ButtonInscription label="Eliminar inscripción" onClick={handleEventUnsubscription}/>
+                        }
+                    </div>
+                }
             </section>
             <hr />
 
@@ -183,18 +243,49 @@ const EventDetailPage = () => {
             <hr />
 
             {/* ADDRESS */}
-            <section className={styles.section}>
-                <h1 className={styles.sectionTitle}>Ubicación</h1>
-                <p className={styles.address}>{eventData.address}</p>
-            </section>
-            <hr />
+            <div>
+                {eventData.mode === 'Presencial' && (
+                    <section className={styles.section}>
+                        <h1 className={styles.sectionTitle}>Ubicación</h1>
+                        <p className={styles.address}>{eventData.address}</p>
+                    </section>
+                )}
+
+                {eventData.mode === 'En línea' && (
+                    <section className={styles.section}>
+                        <h1 className={styles.sectionTitle}>Web </h1>
+                        <p className={styles.address}>
+                            <a href={eventData.webLink} target="_blank" className={styles.webLink}>
+                                {eventData.webLink}
+                            </a>
+                        </p>
+                        
+                    </section>
+                )}
+
+                {eventData.mode === 'Híbrido' && (
+                    <section className={styles.section}>
+                        <h1 className={styles.sectionTitle}>Ubicación</h1>
+                        <p className={styles.address}>{eventData.address}</p>
+                        <br />
+                        <h1 className={styles.sectionTitle}>Web</h1>
+                        <p className={styles.address}>
+                            <a href={eventData.webLink} target="_blank" className={styles.webLink}>
+                                {eventData.webLink}
+                            </a>
+                        </p>
+                    </section>
+                )}
+
+                <hr />
+            </div>
 
             {/* DESCRIPTION, WEBLINK */}
             <section className={styles.section}>
                 <h1 className={styles.sectionTitle}>Acerca de este evento</h1>
                 <p className={styles.description}>{renderFormattedDescription()}</p>
-                <a href={eventData.webLink} className={styles.webLink}>
-                    {eventData.webLink}
+                <a href={eventData.web} className={styles.webLink}>
+                    {eventData.web}
                 </a>
             </section>
             <hr />
@@ -226,9 +317,11 @@ const EventDetailPage = () => {
                                 </span>
                             ))}
                         </div>
-                        <a href={'mailto:' + eventData.contactEmail}>
-                            <ButtonRed label="contactar" />
-                        </a>
+                        { eventData.contactEmail && (
+                            <a href={'mailto:' + eventData.contactEmail}>
+                                <ButtonRed label="contactar" />
+                            </a>
+                        )}
                     </div>
                 </section>
             )}

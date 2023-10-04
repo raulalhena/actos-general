@@ -4,7 +4,7 @@ import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import RadioGroupContainer from '../Button/ButtonContainer/RadioCardContainer';
 import DateInput from '../DateInput/DateInput';
 import FormField from '../FormField/FormField';
-import { ImageUploader } from '../ImageUploader/ImageUploader';
+import { DashboardImageUploader } from '../DashboardImageUploader/DashboardImageUploader';
 import SectionForm from '../SectionForm/SectionForm';
 import Select from '../Select/Select';
 import TagsInputComponent from '../TagsInput/TagsInput';
@@ -20,7 +20,6 @@ import SelectStatus from '../SelectStatus/SelectStatus';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { VscCircleFilled } from 'react-icons/vsc';
 import ModalDisplay from '../Modal/ModalDisplay';
-// import { useNavigate } from 'react-router-dom';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
@@ -29,7 +28,6 @@ type Props = { eventData: EventDashboardFormProps };
 
 // Form
 const EventDashboardForm = ( { eventData }: Props ) => {
-    // const navigate = useNavigate();
 
     const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
 
@@ -166,22 +164,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         });
     };
 
-    // Send Image
-    const sendImage = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        const imageData = new FormData();
-        imageData.append('file', eventImage);
-        const resp = await fetch('http://localhost:8000/api/events/upload', {
-            method: 'POST',
-            body: imageData
-        });
-        const imageResp = await resp.json();
-        setFormData((prevData) => ({ 
-            ...prevData,
-            image: imageResp.imageUrl 
-        }));
-    };
-
     //SUBMIT
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -309,8 +291,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     };
     
     /* **************
-START Modal
-************** */
+    START Modal
+    ************** */
     
     const [ isModalOpen, setIsModalOpen ] = useState(false);
 
@@ -366,11 +348,11 @@ START Modal
     };
 
     /* **************
-END Modal
-************** */
+    END Modal
+    ************** */
 
     // Button Radio
-    const [ selectedMode, setSelectedMode ] = useState<string>(formData.mode);
+    const [ selectedMode, setSelectedMode ] = useState<string>('');
 
     // Mode Radio Groug handler
     const handleModeChange = (value: string) => {
@@ -381,26 +363,48 @@ END Modal
         });
     };
 
-    // Capacity Radio Groug handler
-
-    // Mode Radio Group
-
-    // Capacity Radio Group
-
     /**************************************************
     ** Image Uploader
     ******************/
 
     //  States
     const [ previewURL, setPreviewURL ] = useState<string>('');
-    const [ imgVisibility, setImgVisibility ] = useState<string>('none');
-    const [ eventImage, setEventImage ] = useState<any>('');
+    const [ imgVisibility, setImgVisibility ] = useState<string>('block');
+    const [ image, setImage ] = useState<string | undefined>(formData.image);
+    const [ imageFile, setImageFile ] = useState<Blob>('');
+
+    // Convert Image to Base64 to send in JSON
+    const convertToBase64 = () => {
+
+        if(imageFile) {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(imageFile);
+            fileReader.onloadend = () => {
+                setFormData({
+                    ...formData,
+                    image: fileReader.result
+                });
+                console.log('base64', fileReader.result);
+            };
+        }
+        return;
+    };
+
+    useEffect(() => {
+        convertToBase64();
+    }, [ imageFile ]);
+
+    useEffect(() => {
+        setImgVisibility('block');
+        setImage(formData.image);
+    }, []);
 
     // File Handler
     const handleFile = (file: any) => {
-        setEventImage(() => file);
+        setImageFile(() => file);
         setPreviewURL(URL.createObjectURL(file));
         setImgVisibility('block');
+
     };
 
     // Drop handler
@@ -409,7 +413,6 @@ END Modal
         e.stopPropagation();
         const file = e.dataTransfer.files[0];
         e.dataTransfer.clearData();
-        // setEventImage(file);
         handleFile(file);
     };
 
@@ -421,9 +424,14 @@ END Modal
     // Image remover
     const removeImage = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        setImageFile('');
+        setImage('');
         setPreviewURL('');
+        setFormData({
+            ...formData,
+            image: ''
+        });
         setImgVisibility('none');
-        setEventImage(() => '');
     };
 
     /******************
@@ -495,13 +503,11 @@ END Modal
 
     // Get Subcategories
     const getSubcategories = async (selectedCategory: string) => {
-
-        const resp = await fetch(`http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`);
-        
-        const subcategoriesDb = await resp.json();
-
-        setSubcategories(Array.from(subcategoriesDb.subcategories));
-        
+        if(selectedCategory) {
+            const resp = await fetch(`http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`);
+            const subcategoriesDb = await resp.json();
+            setSubcategories(Array.from(subcategoriesDb.subcategories));
+        }
     };
 
     // get types
@@ -570,32 +576,57 @@ END Modal
         setVisibility(formData.visibility ?? false); //cuando es null(??) es false
     }, []); //no tocar la dependencia, dejar vacio*
 
+    //get MODE (online, hibrido, presencial)
     useEffect(() => {
+        setImage(formData.image);
+    }, [ formData ]);
+
+    useEffect(() => {
+        
         const getMode = async () => {
             try {
                 const response = await fetch('http://localhost:8000/api/misc/modes');
                 const data = await response.json();
-                const modeData = data.map((mode: { _id : string; name: string; text: string;  value: string }) => ({
-                    id: mode._id,
-                    name: mode.name,
-                    text: mode.text, 
-                    value: mode.value,
+                const modeData = data.map((mode: {
+                        _id : string; 
+                        name: string; 
+                        text: string;  
+                        value: string; 
+                }) => ({
+                    ...mode,
+                    checked: formData.mode === mode.value,
+                    onChange: () => handleModeChange(mode.value),
                 }));
                 setMode(modeData);
+
+                console.log('aqui', formData.mode);
+    
+                if (formData.mode === 'Presencial') {
                 
+                    setFormData((prevData) => ({
+                        ...prevData,
+                        webLink: '',
+                    }));
+                } else if (formData.mode === 'En línea') {
+
+                    setFormData((prevData) => ({
+                        ...prevData,
+                        address: '',
+                    }));
+                }
             } catch (error) {
-                console.error('Error al obtener las horas:', error);
+                console.error('Error al obtener el modo:', error);
             }
         };
         getMode();
-    }, []);
-
+    }, [ selectedMode ]);
+    
     // Categories Handle Change
 
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
 
         const { value } = event.target;
-       
+    
         let categoryName = '';   
         categories.forEach(category => {
     
@@ -635,7 +666,7 @@ END Modal
                     title="1 INFORMACIÓN BÁSICA"
                     isVisible={isSection1Visible}
                     toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
-                    <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
+                    {/* <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p> */}
 
                     <FormField>
                         <SelectCategories
@@ -736,8 +767,7 @@ END Modal
                     <FormField>
                         <RadioGroupContainer
                             radioButtons={mode}
-                            selectedValue={selectedMode}
-                            
+                            selectedValue={formData.mode}
                             label="Modalidad *"
                             onChange={handleModeChange}
                             isRequired={true}
@@ -862,14 +892,15 @@ END Modal
                         />
                     </FormField>
                     <FormField>
-                        <ImageUploader 
+                        <DashboardImageUploader 
                             id="image"
                             removeImage={removeImage}
-                            sendImage={sendImage}
+                            image={image}
                             previewURL={previewURL}
                             imgVisibility={imgVisibility}
                             onDrop={handleDrop}
                             onDragOver={handleDragOver}
+                            value={image}
                         />
                     </FormField>
 

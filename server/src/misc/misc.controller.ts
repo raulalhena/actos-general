@@ -59,7 +59,7 @@ export class MiscController {
     return this.miscService.createVisibility(createVisibilityDto);
   }
 
-  @Post('mode')
+  @Post('mode/load')
   createMode(@Body() createModeDto: CreateModeDto) {
     return this.miscService.createMode(createModeDto);
   }
@@ -169,6 +169,11 @@ export class MiscController {
     /*
     * End Find All
     ****/
+
+  // @Put(':id')
+  // addImageToSubcategory(@Body() updateSubcategory: UpdateSubcategoryDto) {
+  //   return 'not working yet';
+  // }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMiscDto: string) {
