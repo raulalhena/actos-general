@@ -18,6 +18,12 @@
   gap: 1rem;
 }
 
+.eventTitle {
+  color: #1c2e48;
+  font-size: 30px;
+  font-weight: 600;
+}
+
 .dash {
   color: #e15a40;
 }
