@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import styles from './EventDetail.module.css';
-import prueba from '../../assets/prueba.jpg';
 import logo from '../../assets/logo.png';
 import { EventDetailProps } from '../../interfaces/eventDetailProps';
 import { IoLocationSharp } from 'react-icons/io5';

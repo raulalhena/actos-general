@@ -10,6 +10,9 @@ export class Subcategory {
 
   @Prop()
       description: string;
+
+  @Prop()
+      image: string;
 }
 
 export const SubcategorySchema = SchemaFactory.createForClass(Subcategory);
