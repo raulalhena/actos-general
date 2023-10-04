@@ -37,6 +37,7 @@ const EventDetailPage = () => {
     });
 
     const [ inscription, setInscription ] = useState<boolean>(false);
+    const [ online, setOnline ] = useState<boolean>(false);
  
     useEffect(() => {
         const getEvent = async () => {
@@ -64,6 +65,22 @@ const EventDetailPage = () => {
         checkInscription();
     }, [ eventData ]);
 
+    useEffect(() => {
+        const checkInscriptionOnline = async () => {
+            const res = await fetch(`http://localhost:8000/api/events/user/${user._id}`);
+            const inscriptionEvents = await res.json();
+
+            const insEvents = Array.from(inscriptionEvents); 
+
+            insEvents.forEach(sEvent => {
+                if(sEvent._id === _id) setOnline(true);
+            });
+            
+        };
+
+        checkInscriptionOnline();
+    }, [ eventData ]);
+
     const renderFormattedDescription = () => {
         return (
             <div
@@ -83,6 +100,8 @@ const EventDetailPage = () => {
             })
         });
 
+        if(res.ok) console.log('modal'); //modal
+
         return;
     };
 
@@ -95,6 +114,38 @@ const EventDetailPage = () => {
                 eventId: _id
             })
         });
+
+        if(res.ok) console.log('modal'); //modal
+
+        return;
+    };
+
+    const handleEventInscriptionOnline = async () => {
+        const res = await fetch('http://localhost:8000/api/events/online', {
+            method: 'PUT',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+                userId: user._id,
+                eventId: _id
+            })
+        });
+
+        if(res.ok) console.log('modal'); //modal
+
+        return;
+    };
+
+    const handleEventUnsubscriptionOnline = async () => {
+        const res = await fetch('http://localhost:8000/api/events/unsubscription-online', {
+            method: 'PUT',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+                userId: user._id,
+                eventId: _id
+            })
+        });
+
+        if(res.ok) console.log('modal'); //modal
 
         return;
     };
@@ -129,13 +180,23 @@ const EventDetailPage = () => {
                 </div>
 
                 {/*INSCRIPTION */}
-                <div className={styles.categorySubcategorySection}>
-                    {!inscription ?
-                        <ButtonInscription label="Inscribirse al evento" onClick={handleEventInscription}/>
-                        :
-                        <ButtonInscription label="Eliminar inscripción" onClick={handleEventUnsubscription}/>
-                    }
-                </div>
+                {eventData.mode === 'Híbrido' ? 
+                    <div className={styles.categorySubcategorySection}>
+                        {online ?
+                            <ButtonInscription label="Inscribirse en línea" onClick={handleEventInscriptionOnline}/>
+                            :
+                            <ButtonInscription label="Eliminar inscripción online" onClick={handleEventUnsubscriptionOnline}/>
+                        }
+                    </div>
+                    :
+                    <div className={styles.categorySubcategorySection}>
+                        {!inscription ?
+                            <ButtonInscription label="Inscribirse al evento" onClick={handleEventInscription}/>
+                            :
+                            <ButtonInscription label="Eliminar inscripción" onClick={handleEventUnsubscription}/>
+                        }
+                    </div>
+                }
             </section>
             <hr />
 
@@ -218,11 +279,6 @@ const EventDetailPage = () => {
 
                 <hr />
             </div>
-            {/* <section className={styles.section}>
-                <h1 className={styles.sectionTitle}>Ubicación</h1>
-                <p className={styles.address}>{eventData.address}</p>
-            </section>
-            <hr /> */}
 
             {/* DESCRIPTION, WEBLINK */}
             <section className={styles.section}>

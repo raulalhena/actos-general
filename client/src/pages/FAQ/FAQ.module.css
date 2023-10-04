@@ -76,24 +76,23 @@
   display: block;
 }
 
-
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
   .container {
     flex-direction: row;
   }
-  
-.faqImg {
-  display: unset;
-  width: 30%;
-}
 
-.title {
-  gap: 1rem;
-}
+  .faqImg {
+    display: unset;
+    width: 30%;
+  }
 
-.dash {
-  display: unset;
-  color: #e15a40;
-}
+  .title {
+    gap: 1rem;
+  }
+
+  .dash {
+    display: unset;
+    color: #e15a40;
+  }
 }

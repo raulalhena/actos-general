@@ -63,6 +63,9 @@ export class Event {
   @Prop({ type: [ { type: mongoose.Schema.Types.ObjectId, ref: User.name } ], default: [] })
       submitted: mongoose.Types.ObjectId[];
 
+  @Prop({ type: [ { type: mongoose.Schema.Types.ObjectId, ref: User.name } ], default: [] })
+      submittedOnline: mongoose.Types.ObjectId[];
+
   @Prop()
       capacity: number;
 

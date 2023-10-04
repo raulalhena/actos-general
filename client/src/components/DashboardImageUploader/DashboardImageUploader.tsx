@@ -13,8 +13,6 @@ interface ImageUploaderProps {
 
 export const DashboardImageUploader = ({ image, previewURL, imgVisibility, removeImage, onDrop, onDragOver }: ImageUploaderProps) => {
 
-    console.log('img instead preview ', image);
-
     return (
         <div className={styles.uploadImgContainer} onDrop={onDrop} onDragOver={onDragOver}>
             <label className={styles.label}>Imagen</label>
