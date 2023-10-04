@@ -32,4 +32,5 @@ export interface EventDashboardFormProps {
     payment?: string;
     visibility?: boolean;
     isLimited: boolean;
+    subcategoryLogo: string;
 }

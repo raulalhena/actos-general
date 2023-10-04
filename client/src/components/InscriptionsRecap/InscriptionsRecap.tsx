@@ -11,7 +11,6 @@ interface InscriptionsRecapProps {
 }
 
 const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
-    console.log('capacity', eventData);
 
     return (
         <>

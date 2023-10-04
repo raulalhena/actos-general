@@ -145,10 +145,8 @@ const EventForm = () => {
             try {
                 const response = await fetch('http://localhost:8000/api/misc/modes');
                 const data = await response.json();
-                const modeData = data.map((mode: { name: string; text: string;  value: string }) => ({
+                const modeData = data.map((mode: { name: string; }) => ({
                     name: mode.name,
-                    text: mode.text, 
-                    value: mode.value,
                     checked: false, 
                 }));
                 setMode(modeData);
@@ -172,9 +170,9 @@ const EventForm = () => {
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = event.target;
         const selected = event.target.selectedOptions[0].text;
-
+        console.log(formData);
         setSelectedCategory(value);
-
+        console.log(selected);
         setFormData({
             ...formData,
             category: selected,
@@ -187,13 +185,7 @@ const EventForm = () => {
     const getSubcategories = async (categoryId: string) => {
         const resp = await fetch(`http://localhost:8000/api/misc/categories/${categoryId}/subcategories`);
         const categoriesDb = await resp.json();
-        
         setSubcategories(categoriesDb.subcategories);
-        setSubcategoryLogo(categoriesDb.subcategories.image);
-        setFormData({
-            ...formData,
-            subcategoryLogo: categoriesDb.subcategories.image
-        });
     };
 
     // Text area
@@ -272,6 +264,18 @@ const EventForm = () => {
                 pauseOnHover: true,
             });
 
+        } else  if(id === 'subcategory') {
+            subcategories.forEach(subc => {
+                console.log('map loop', subc.name, value, subc.image);
+                if(subc.name === value){
+                    console.log('eq');
+                    setFormData({
+                        ...formData,
+                        [id]: value,
+                        subcategoryLogo: subc.image
+                    });
+                }
+            });
         } else {
             setFormData({
                 ...formData,
@@ -340,7 +344,7 @@ const EventForm = () => {
         return;
     };
 
-    console.log('image form data', formData.image);
+    // console.log('image form data', formData.image);
 
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
@@ -607,7 +611,7 @@ const EventForm = () => {
                                     isRequired={true}
                                 />
                             )}
-                            {selectedMode === 'En línea' && (
+                            {selectedMode === 'En Línea' && (
                                 <TextInput
                                     isRequired={true}
                                     id="webLink"

@@ -40,6 +40,7 @@ const EventDashboard = () => {
         video: '',
         capacity: '',
         isLimited: false,
+        subcategoryLogo: ''
     });
 
     useEffect(() => {

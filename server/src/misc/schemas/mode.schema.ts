@@ -9,10 +9,7 @@ export class Mode {
         name: string;
 
     @Prop()
-        text: string;
-
-    @Prop()
-        value: string;
+        description: string;
 }
 
 export const ModeSchema = SchemaFactory.createForClass(Mode);

@@ -14,18 +14,8 @@ export class EventsController {
 
   @Post()
     create(@Body() createEventDto: CreateEventDto) {
-        console.log(createEventDto.image);
         return this.eventsService.create(createEventDto);
     }
-
-  @Post(':id/upload')
-  @UseInterceptors(FileInterceptor('image'))
-  uploadFile(@Param('id') id: ObjectId, @UploadedFile() file: Express.Multer.File) {
-      this.eventsService.saveImage(id, file);
-      return { 
-          imageUrl: file.path
-      };
-  }
 
   @Put('attendance/:eventId/:userId')
     attendanceRecord(@Param('eventId') eventId: ObjectId, @Param('userId') userId: ObjectId) {
@@ -62,14 +52,14 @@ export class EventsController {
   	return this.eventsService.search(query.filters, query.keywords);
   }
 
-  @Get('/user/:id')
-  findUserEvents(@Param('id') id: ObjectId) {
-    return this.eventsService.findUserEvents(id);
-  }
-
   @Get(':id')
   findOne(@Param('id') id: ObjectId) {
   	return this.eventsService.findOne(id);
+  }
+
+  @Get('/user/:id')
+  findUserEvents(@Param('id') id: ObjectId) {
+    return this.eventsService.findUserEvents(id);
   }
 
   @Put(':id')
@@ -80,12 +70,6 @@ export class EventsController {
   @Delete(':id')
   delete(@Param('id') id: ObjectId) {
   	return this.eventsService.delete(id);
-  }
-
-  @Get('/:id/image')
-  @Header('Content-Type', 'image/*')
-  async getImage(@Param('id') id: ObjectId) {
-    return await this.eventsService.getImage(id);
   }
 
 }

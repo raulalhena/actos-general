@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { MiscService } from './misc.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { CreateSubcategoryDto } from './dto/create-subcategory.dto';
@@ -24,9 +24,10 @@ export class MiscController {
     return this.miscService.createCategory(createCategoryDto);
   }
 
-  @Post('subcategories')
-  createSubcategory(@Body() createSubcategoryDto: CreateSubcategoryDto) {
-    return this.miscService.createSubcategory(createSubcategoryDto);
+  @Put('categories/:id/subcategories')
+  createSubcategory(@Param('id') id: ObjectId, @Body() createSubcategoryDto: CreateSubcategoryDto) {
+    console.log('id, dto', id, createSubcategoryDto);
+    return this.miscService.createSubcategory(id, createSubcategoryDto);
   }
 
   @Post('languages')
@@ -77,9 +78,9 @@ export class MiscController {
     return this.miscService.bulkCreateCategory(createCategoryDto);
   }
 
-  @Post('subcategories/load')
-  bulkCreateSubcategory(@Body() createSubcategoryDto: CreateSubcategoryDto[]) {
-    return this.miscService.bulkCreateSubcategory(createSubcategoryDto);
+  @Post('/:id/subcategories/load')
+  bulkCreateSubcategory(@Param('id') id: ObjectId, @Body() createSubcategoryDto: CreateSubcategoryDto[]) {
+    return this.miscService.bulkCreateSubcategory(id, createSubcategoryDto);
   }
 
   @Post('languages/load')

@@ -44,9 +44,9 @@ export class MiscService {
    return this.categoryModel.create(createCategoryDto);
  }
 
- createSubcategory(createSubcategoryDto: CreateSubcategoryDto) {
-   return this.subcategoryModel.create(createSubcategoryDto);
- }
+ createSubcategory(id: ObjectId, createSubcategoryDto: CreateSubcategoryDto) {
+  return this.categoryModel.findOneAndUpdate({ _id: id }, { $push: { subcategories: createSubcategoryDto } });
+}
 
  createLanguage( createLanguageDto: CreateLanguageDto) {
    return this.languageModel.create(createLanguageDto);
@@ -88,8 +88,8 @@ export class MiscService {
    return this.categoryModel.create(createCategoryDto, { ordered: true });
  }
 
- bulkCreateSubcategory( createSubcategoryDto: CreateSubcategoryDto[]) {
-   return this.subcategoryModel.create(createSubcategoryDto);
+ bulkCreateSubcategory(id: ObjectId, createSubcategoryDto: CreateSubcategoryDto[]) {
+   return this.categoryModel.findOneAndUpdate({_id: id}, { $push: { subcategories: createSubcategoryDto } });
  }
 
  bulkCreateLanguage( createLanguageDto: CreateLanguageDto[]) {

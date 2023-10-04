@@ -8,6 +8,7 @@ export interface CardEventProps {
         category: string;
         subcategory: string;
         _id: number;
+        subcategoryLogo: string;
     };
     
 }
