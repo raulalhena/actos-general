@@ -113,6 +113,9 @@ export class Event {
 
     @Prop()
         confirmed: boolean;
+
+    @Prop()
+        subcategoryLogo: string;
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);
