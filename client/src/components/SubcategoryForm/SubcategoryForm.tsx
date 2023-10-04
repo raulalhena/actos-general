@@ -170,7 +170,6 @@ export const SubcategoryForm = () => {
                             maxLength={175}
                             value={subcategoryData.description}
                             onChange={handleInputChange}
-                            isRequired={true}
                         />
                         <ImageUploader
                             id="image"
