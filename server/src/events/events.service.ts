@@ -134,4 +134,35 @@ export class EventsService {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
+
+  async search(filters: string, keywords: string) {
+		try {
+			let allevents = [];
+			let regex;
+			const arrFilters =  filters.split(',');
+
+			for await (const filter of arrFilters) {
+					regex = new RegExp(keywords, 'i');
+           if(!isNaN(+keywords)) {
+					regex = +keywords;
+				}
+				allevents.push(...await this.eventModel.find({ [filter] : regex }));
+			}
+
+			allevents = allevents.flat(Infinity);
+
+			const hash = {};
+			const filteredEvents = allevents.filter((event) => {
+				return hash[event._id] ? false : (hash[event._id] = true);
+			});
+
+			return {
+				message: 'Retrieved filtered events successfully',
+				status: HttpStatus.OK,
+				data: filteredEvents,
+			};
+		} catch (error) {
+			throw error;
+		}
+	}
 }
