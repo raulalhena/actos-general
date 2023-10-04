@@ -4,6 +4,7 @@ import styles from './SubcategoryForm.module.css';
 import { ToastContainer } from 'react-toastify';
 import TextInputSmall from '../TextInputSmall/TextInputSmall';
 import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
+import SelectCategories from '../SelectCategories/SelectCategories';
 
 interface CategoryData {
     name: string;
@@ -17,11 +18,24 @@ export const SubcategoryForm = () => {
     const [ previewURL, setPreviewURL ] = useState<string>('');
     const [ imgVisibility, setImgVisibility ] = useState<string>('none');
     const [ imageFile, setImageFile ] = useState<Blob>(null);
-    const [ categoryData, setCategoryData ] = useState<CategoryData>({
+    const [ categories, setCategories ] = useState<Array<EventDashboardFormProps>>([]);
+    const [ selectedCategory, setSelectedCategory ] = useState('');
+    const [ subcategoryData, setSubcategoryData ] = useState<CategoryData>({
         name: '',
         description: '',
         image: ''
     });
+
+    useEffect(() => {
+        const getCategories = async () => {
+            const resp = await fetch('http://localhost:8000/api/misc/categories');
+            const categoriesDb = await resp.json();
+
+            setCategories(categoriesDb);
+        };
+
+        getCategories();
+    }, []);
  
     useEffect(() => {
         convertToBase64();
@@ -30,24 +44,37 @@ export const SubcategoryForm = () => {
     const handleSubmit = (e: SubmitEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        const res = fetch('http://localhost:8000/api/misc/subcategory', {
+        const res = fetch(`http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(SubcategoryForm)
+            body: JSON.stringify(subcategoryData)
         });
 
         if(res.ok) console.log('modal');
         return;
     };
 
+    // Categories Handle Change
+    const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = event.target;
+        const selected = event.target.selectedOptions[0].text;
+
+        setSelectedCategory(value);
+
+        setSubcategoryData({
+            ...subcategoryData,
+            category: selected,
+        });
+    };
+
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
 
         const { value, id } = e.target;
-        setCategoryData({
-            ...categoryData,
+        setSubcategoryData({
+            ...subcategoryData,
             [id]: value
         });
     };
@@ -88,8 +115,8 @@ export const SubcategoryForm = () => {
         setPreviewURL('');
         setImgVisibility('none');
         setImageFile(() => null);
-        setFormData({ 
-            ...formData,
+        setSubcategoryData({ 
+            ...subcategoryData,
             image: ''
         });
     };
@@ -99,8 +126,8 @@ export const SubcategoryForm = () => {
             const fileReader = new FileReader();
             fileReader.readAsDataURL(imageFile);
             fileReader.onloadend = () => {
-                setFormData({
-                    ...formData,
+                setSubcategoryData({
+                    ...subcategoryData,
                     image: fileReader.result
                 });
                 console.log('base64', fileReader.result);
@@ -115,7 +142,14 @@ export const SubcategoryForm = () => {
             <div className={styles.form}>
                 <form onSubmit={handleSubmit}>
                     <section>
-                        <h1>Nombre de la subcategoría</h1>
+                        <h1>Crear una subcategoría</h1>
+                        <SelectCategories
+                            id="category"
+                            label="Categoría *"
+                            options={categories}
+                            value={selectedCategory}
+                            onChange={handleCategoryChange}
+                        />
                         <TextInputSmall
                             id="name"
                             type='text'
@@ -123,7 +157,7 @@ export const SubcategoryForm = () => {
                             placeholder="Nombre"
                             minLength={3}
                             maxLength={175}
-                            value={categoryData.name}
+                            value={subcategoryData.name}
                             onChange={handleInputChange}
                             isRequired={true}
                         />
@@ -131,12 +165,11 @@ export const SubcategoryForm = () => {
                             id="description"
                             type='text'
                             label=""
-                            placeholder="Nombre"
+                            placeholder="Description"
                             minLength={3}
                             maxLength={175}
-                            value={categoryData.description}
+                            value={subcategoryData.description}
                             onChange={handleInputChange}
-                            isRequired={true}
                         />
                         <ImageUploader
                             id="image"
