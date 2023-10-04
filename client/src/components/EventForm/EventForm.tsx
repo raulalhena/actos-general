@@ -145,16 +145,13 @@ const EventForm = () => {
             try {
                 const response = await fetch('http://localhost:8000/api/misc/modes');
                 const data = await response.json();
-                const modeData = data.map((mode: { name: string; text: string;  value: string }) => ({
+                const modeData = data.map((mode: { name: string; }) => ({
                     name: mode.name,
-                    text: mode.text, 
-                    value: mode.value,
-                    checked: false, 
+                    checked: false,
                 }));
                 setMode(modeData);
-                
             } catch (error) {
-                console.error('Error al obtener las horas:', error);
+                throw new Error(error.message);
             }
         };
         getMode();
