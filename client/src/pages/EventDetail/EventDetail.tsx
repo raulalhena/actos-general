@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import ButtonRed from '../../components/Button/ButtonRed/ButtonRed';
 import ButtonInscription from '../../components/Button/ButtonInscription/ButtonInscription';
 import { useAuth } from '../../hooks/useAuth';
+import ModalDisplay from '../../components/Modal/ModalDisplay';
 
 const EventDetailPage = () => {
     const { _id } = useParams();
@@ -38,6 +39,24 @@ const EventDetailPage = () => {
 
     const [ inscription, setInscription ] = useState<boolean>(false);
     const [ online, setOnline ] = useState<boolean>(false);
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [ modalTitle, setModalTitle ] = useState('Estás a punto de inscribirte al evento.');
+    const [ modalBtn1Text, setModalBtn1Text ] = useState('Cancelar');
+    const [ modalBtn2Text, setModalBtn2Text ] = useState('Inscribirme');
+    const [ actionType, setActionType ] = useState('inscription');
+
+    const openModal = (type: any) => {
+        setIsModalOpen(true);
+        setActionType(type);
+        setModalBtn1Text('Cancelar');
+        setModalBtn2Text(type === 'inscription' ? 'Inscribirme' : 'Eliminar');
+        setModalTitle(type === 'inscription' ? 'Estás a punto de inscribirte al evento.' : 'Estás a punto de eliminar la inscripción.');
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setActionType('inscription');
+    };
  
     useEffect(() => {
         const getEvent = async () => {
@@ -90,8 +109,12 @@ const EventDetailPage = () => {
         );
     };
 
-    const handleEventUnsubscription = async () => {
-        const res = await fetch('http://localhost:8000/api/events/unsubscription', {
+    const handleEventAction = async () => {
+        const endpoint = actionType === 'inscription'
+            ? 'http://localhost:8000/api/events/inscription'
+            : 'http://localhost:8000/api/events/unsubscription';
+    
+        const res = await fetch(endpoint, {
             method: 'PUT',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({
@@ -99,25 +122,16 @@ const EventDetailPage = () => {
                 eventId: _id
             })
         });
-
-        if(res.ok) console.log('modal'); //modal
-
-        return;
-    };
-
-    const handleEventInscription = async () => {
-        const res = await fetch('http://localhost:8000/api/events/inscription', {
-            method: 'PUT',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({
-                userId: user._id,
-                eventId: _id
-            })
-        });
-
-        if(res.ok) console.log('modal'); //modal
-
-        return;
+    
+        if (res.ok) {
+            setModalTitle(`Te has ${actionType === 'inscription' ? 'inscrito' : 'desuscrito'} correctamente.`);
+            setModalBtn1Text('');
+            setModalBtn2Text('');
+        } else {
+            setModalTitle(`Error al ${actionType === 'inscription' ? 'inscribirse' : 'desinscribirse'}.`);
+        }
+    
+        return res;
     };
 
     const handleEventInscriptionOnline = async () => {
@@ -190,11 +204,11 @@ const EventDetailPage = () => {
                     </div>
                     :
                     <div className={styles.categorySubcategorySection}>
-                        {!inscription ?
-                            <ButtonInscription label="Inscribirse al evento" onClick={handleEventInscription}/>
-                            :
-                            <ButtonInscription label="Eliminar inscripción" onClick={handleEventUnsubscription}/>
-                        }
+                        {!inscription ? (
+                            <ButtonInscription label="Inscribirse al evento" onClick={() => openModal('inscription')} />
+                        ) : (
+                            <ButtonInscription label="Eliminar inscripción" onClick={() => openModal('cancellation')} />
+                        )}
                     </div>
                 }
             </section>
@@ -326,6 +340,20 @@ const EventDetailPage = () => {
                 </section>
             )}
             {/* <hr /> */}
+            <div>
+                {isModalOpen && (
+                    <ModalDisplay
+                        title={modalTitle}
+                        button1Text={modalBtn1Text}
+                        button2Text={modalBtn2Text}
+                        onClose={closeModal}
+                        isOpen={true}
+                        onButton1Click={closeModal}
+                        onButton2Click={handleEventAction}
+                        showCloseButton={true}
+                    />
+                )}
+            </div>
         </div>
     );
 };
