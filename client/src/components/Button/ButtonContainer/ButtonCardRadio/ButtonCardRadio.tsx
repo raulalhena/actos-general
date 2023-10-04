@@ -17,7 +17,6 @@ const ButtonCardRadio = (props: ButtonCardRadioProps) => {
                 {props.checked ? (
                     <IoCheckmarkCircleSharp
                         className={styles.icon}
-                        // color="green"
                     />
                 ) : null}
                 <span className={styles.text}>{props.text}</span>

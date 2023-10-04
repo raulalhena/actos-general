@@ -8,6 +8,8 @@ function RadioCardContainer({
     label,
     onChange,
 }: RadioGroupContainerProps) {
+
+    console.log('radio buttons', radioButtons);
     return (
         <div>
             <label className={styles.label}>{label}</label>

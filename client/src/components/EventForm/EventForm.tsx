@@ -150,6 +150,7 @@ const EventForm = () => {
                     checked: false,
                 }));
                 setMode(modeData);
+                console.log('mode', modeData);
             } catch (error) {
                 throw new Error(error.message);
             }
@@ -189,7 +190,6 @@ const EventForm = () => {
 
     // Text area
     const handleTextChange = (text: string ) => {
-        // console.log(text)
         setFormData({
             ...formData,
             description: text,
@@ -265,9 +265,7 @@ const EventForm = () => {
 
         } else  if(id === 'subcategory') {
             subcategories.forEach(subc => {
-                console.log('map loop', subc.name, value, subc.image);
                 if(subc.name === value){
-                    console.log('eq');
                     setFormData({
                         ...formData,
                         [id]: value,
@@ -324,8 +322,6 @@ const EventForm = () => {
         }
     };
 
-    console.log('img a', formData);
-
     // Convert Image to Base64 to send in JSON
     const convertToBase64 = () => {
 
@@ -337,13 +333,10 @@ const EventForm = () => {
                     ...formData,
                     image: fileReader.result
                 });
-                console.log('base64', fileReader.result);
             };
         }
         return;
     };
-
-    // console.log('image form data', formData.image);
 
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
