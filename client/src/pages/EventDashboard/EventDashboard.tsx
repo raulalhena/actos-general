@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { PDFViewer } from '@react-pdf/renderer';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
+import { HiCursorClick } from 'react-icons/hi';
 
 const EventDashboard = () => {
     const location = useLocation();
@@ -38,7 +39,7 @@ const EventDashboard = () => {
         image: '',
         video: '',
         capacity: '',
-        isLimited: false
+        isLimited: false,
     });
 
     useEffect(() => {
@@ -47,12 +48,11 @@ const EventDashboard = () => {
             const data = await resp.json();
             setEventData(data);
         };
-    
+
         fetchEvent();
     }, [ eventId ]);
 
-    useEffect(() => {
-    }, [ eventData ]);
+    useEffect(() => {}, [ eventData ]);
 
     const [ showPDF, setShowPDF ] = useState(false);
 
@@ -62,32 +62,34 @@ const EventDashboard = () => {
 
     return (
         <>
-            { !showPDF ?
+            {!showPDF ? (
                 <div className={styles.page}>
-                    <section className={styles.top}>
-                        <section className={styles.header}>
-                            <div>
-                                <section className={styles.title}>
+                    <div className={styles.pageContainer}>
+                        <section className={styles.top}>
+                            <section className={styles.header}>
+                                <div className={styles.title}>
                                     <h1 className={styles.dash}>—</h1>
-                                    <h1>Resumen de tu evento: <Link className={styles.eventTitle} target="_blank" to={`/event/${eventData._id}`}>{eventData.name}</Link></h1>
-                                </section>
-                            </div>
+                                    <h1>Resumen de tu evento:</h1>
+                                </div>
+                                <Link target="_blank" to={`/event/${eventData._id}`}>
+                                    <div className={styles.eventTitle}>{eventData.name}</div>
+                                </Link>
+                            </section>
+                            {process.env.NODE_ENV !== 'test' ? ( //ignora esta parte en test
+                                <InscriptionsRecap
+                                    eventData={eventData}
+                                    createPDF={createPDF}
+                                />
+                            ) : null}
                         </section>
-                        
-                        <div className={styles.containerSection}>
-                            { process.env.NODE_ENV !== 'test' ? //ignora esta parte en test
-                                <InscriptionsRecap eventData={ eventData } createPDF={createPDF}/>
-                                : null}
-                        </div>
-                        
-                    </section>
-                    <EventDashboardForm eventData={eventData} />
+                        <EventDashboardForm eventData={eventData} />
+                    </div>
                 </div>
-                :
-                <PDFViewer style={{ width: '100%', height: '90vh' }}>                 
-                    <QRtoPDFDocument eventData={eventData}  qrImg={eventData.qrEvent}/>
+            ) : (
+                <PDFViewer style={{ width: '100%', height: '90vh' }}>
+                    <QRtoPDFDocument eventData={eventData} qrImg={eventData.qrEvent} />
                 </PDFViewer>
-            }
+            )}
         </>
     );
 };
