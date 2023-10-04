@@ -37,6 +37,16 @@ export class EventsController {
     return this.eventsService.eventInscription(eventInscriptionDto)
   }
 
+  @Put('online')
+  eventInscriptionOnline(@Body() eventInscriptionDto: EventInscriptionDto) {
+    return this.eventsService.eventInscriptionOnline(eventInscriptionDto)
+  }
+
+  @Put('unsubscribe-online')
+  eventUnsubscriptionOnline(@Body() eventInscriptionDto: EventInscriptionDto) {
+    return this.eventsService.eventUnsubscriptionOnline(eventInscriptionDto)
+  }
+
   @Put('unsubscription')
   eventUnsubscription(@Body() eventUnsubscriptionDto: EventUnsubscriptionDto ) {
     return this.eventsService.eventUnsubscription(eventUnsubscriptionDto);

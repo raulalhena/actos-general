@@ -98,6 +98,31 @@ export class EventsService {
     }
   }
 
+  async eventInscriptionOnline(eventInscriptionDto: EventInscriptionDto) {
+    try {
+      const updateData = {
+        $push: { submittedOnline: eventInscriptionDto.userId }
+      }
+      const updateEventSubmitted = await this.eventModel.findOneAndUpdate({_id: eventInscriptionDto.eventId}, updateData, {new: true})
+
+      return updateEventSubmitted
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async eventUnsubscriptionOnline(eventUnsubscriptionDto: EventUnsubscriptionDto) {
+    try {
+      const unsuscribedEvent = { 
+        $pull: { submittedOnline: eventUnsubscriptionDto.userId }
+      };
+
+      const updatedUnsuscribedEvent = await this.eventModel.findByIdAndUpdate({ _id: eventUnsubscriptionDto.eventId }, unsuscribedEvent, { new: true });
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   async eventUnsubscription(eventUnsubscriptionDto: EventUnsubscriptionDto) {
     try {
       const unsuscribedEvent = { 

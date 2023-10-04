@@ -37,6 +37,7 @@ const EventDetailPage = () => {
     });
 
     const [ inscription, setInscription ] = useState<boolean>(false);
+    const [ online, setOnline ] = useState<boolean>(false);
  
     useEffect(() => {
         const getEvent = async () => {
@@ -98,6 +99,32 @@ const EventDetailPage = () => {
 
         return;
     };
+
+    const handleEventInscriptionOnline = async () => {
+        const res = await fetch('http://localhost:8000/api/events/online', {
+            method: 'PUT',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+                userId: user._id,
+                eventId: _id
+            })
+        });
+
+        return;
+    };
+
+    const handleEventUnsubscriptionOnline = async () => {
+        const res = await fetch('http://localhost:8000/api/events/unsubscription-online', {
+            method: 'PUT',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+                userId: user._id,
+                eventId: _id
+            })
+        });
+
+        return;
+    };
     
     function formatDate(originalDate: string) {
         const date = new Date(originalDate);
@@ -129,13 +156,23 @@ const EventDetailPage = () => {
                 </div>
 
                 {/*INSCRIPTION */}
-                <div className={styles.categorySubcategorySection}>
-                    {!inscription ?
-                        <ButtonInscription label="Inscribirse al evento" onClick={handleEventInscription}/>
-                        :
-                        <ButtonInscription label="Eliminar inscripción" onClick={handleEventUnsubscription}/>
-                    }
-                </div>
+                {eventData.mode === 'Híbrido' ? 
+                    <div className={styles.categorySubcategorySection}>
+                        {online ?
+                            <ButtonInscription label="Inscribirse en línea" onClick={handleEventInscriptionOnline}/>
+                            :
+                            <ButtonInscription label="Eliminar inscripción online" onClick={handleEventUnsubscriptionOnline}/>
+                        }
+                    </div>
+                    :
+                    <div className={styles.categorySubcategorySection}>
+                        {!inscription ?
+                            <ButtonInscription label="Inscribirse al evento" onClick={handleEventInscription}/>
+                            :
+                            <ButtonInscription label="Eliminar inscripción" onClick={handleEventUnsubscription}/>
+                        }
+                    </div>
+                }
             </section>
             <hr />
 
