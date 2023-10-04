@@ -46,4 +46,5 @@ export class CreateEventDto {
     attendees: ObjectId[];
     submitted: ObjectId[];
     status: boolean;
+    subcategoryLogo: string;
 }

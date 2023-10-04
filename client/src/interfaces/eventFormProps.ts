@@ -31,4 +31,5 @@ export interface EventFormProps  {
     payment?: string;
     visibility?: boolean;
     isLimited: boolean;
+    subcategoryLogo: string;
 }

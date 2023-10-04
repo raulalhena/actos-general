@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, UseInterceptors, UploadedFile, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseInterceptors, UploadedFile, Put, Query } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
@@ -57,6 +57,11 @@ export class EventsController {
   	return this.eventsService.findAll();
   }
 
+  @Get('search')
+  search(@Query() query) {
+  	return this.eventsService.search(query.filters, query.keywords);
+  }
+
   @Get('/user/:id')
   findUserEvents(@Param('id') id: ObjectId) {
     return this.eventsService.findUserEvents(id);
@@ -82,4 +87,5 @@ export class EventsController {
   async getImage(@Param('id') id: ObjectId) {
     return await this.eventsService.getImage(id);
   }
+
 }
