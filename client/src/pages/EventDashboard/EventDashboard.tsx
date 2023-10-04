@@ -86,7 +86,7 @@ const EventDashboard = () => {
                 </div>
                 :
                 <PDFViewer style={{ width: '100%', height: '90vh' }}>                 
-                    <QRtoPDFDocument eventData={eventData}  qrImg={qrImg}/>
+                    <QRtoPDFDocument eventData={eventData}  qrImg={eventData.qrEvent}/>
                 </PDFViewer>
             }
         </>

@@ -1,6 +1,5 @@
 import styles from './InscriptionsRecap.module.css';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
-// import qrImg from '../../../../server/qr_events/65157a98fe5f547d2bf205c5.png';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { BiSolidDownload } from 'react-icons/bi';
 import { FaUserCheck } from 'react-icons/fa';
@@ -31,7 +30,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                 <div className={styles.containerSection}>
                     <BiSolidDownload className={styles.icon} />
                     <PDFDownloadLink
-                        document={<QRtoPDFDocument eventData={eventData} qrImg={qrImg} />}
+                        document={<QRtoPDFDocument eventData={eventData} qrImg={eventData.qrEvent} />}
                         fileName={eventData.name}
                     >
                         <button className={styles.pdfButton}>
@@ -39,7 +38,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                         </button>
                     </PDFDownloadLink>
                     <p>|</p>
-                    <a href={qrImg} download>
+                    <a href={eventData.qrEvent} download>
                         <p>Descargar QR del evento (.PNG)</p>
                     </a>
                 </div>
@@ -47,7 +46,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                 <div className={styles.containerSection}>
                     {/* <IoLogoWhatsapp className={styles.icon} /> */}
                     <a
-                        href={`http://web.whatsapp.com/send?text=${encodeURIComponent(qrImg)}`}
+                        href={`http://web.whatsapp.com/send?text=${encodeURIComponent(eventData.qrEvent)}`}
                         data-action="share/whatsapp/share"
                         target="_blank"
                     >Comparte el QR por Whatsapp</a>
