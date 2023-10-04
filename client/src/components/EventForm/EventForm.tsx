@@ -187,13 +187,10 @@ const EventForm = () => {
     const getSubcategories = async (categoryId: string) => {
         const resp = await fetch(`http://localhost:8000/api/misc/categories/${categoryId}/subcategories`);
         const categoriesDb = await resp.json();
-        
+
+        console.log('categories db ', categoriesDb.subcategories[0].image);
+
         setSubcategories(categoriesDb.subcategories);
-        setSubcategoryLogo(categoriesDb.subcategories.image);
-        setFormData({
-            ...formData,
-            subcategoryLogo: categoriesDb.subcategories.image
-        });
     };
 
     // Text area
@@ -272,6 +269,18 @@ const EventForm = () => {
                 pauseOnHover: true,
             });
 
+        } else  if(id === 'subcategory') {
+            subcategories.forEach(subc => {
+                console.log('map loop', subc.name, value, subc.image);
+                if(subc.name === value){
+                    console.log('eq');
+                    setFormData({
+                        ...formData,
+                        [id]: value,
+                        subcategoryLogo: subc.image
+                    });
+                }
+            });
         } else {
             setFormData({
                 ...formData,
@@ -340,7 +349,7 @@ const EventForm = () => {
         return;
     };
 
-    console.log('image form data', formData.image);
+    // console.log('image form data', formData.image);
 
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {

@@ -14,7 +14,6 @@ export class EventsController {
 
   @Post()
     create(@Body() createEventDto: CreateEventDto) {
-        console.log(createEventDto.image);
         return this.eventsService.create(createEventDto);
     }
 
@@ -62,14 +61,14 @@ export class EventsController {
   	return this.eventsService.search(query.filters, query.keywords);
   }
 
-  @Get('/user/:id')
-  findUserEvents(@Param('id') id: ObjectId) {
-    return this.eventsService.findUserEvents(id);
-  }
-
   @Get(':id')
   findOne(@Param('id') id: ObjectId) {
   	return this.eventsService.findOne(id);
+  }
+
+  @Get('/user/:id')
+  findUserEvents(@Param('id') id: ObjectId) {
+    return this.eventsService.findUserEvents(id);
   }
 
   @Put(':id')

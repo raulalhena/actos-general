@@ -18,4 +18,5 @@ export interface EventDetailProps {
   timeZone: string;
   tags?: string[];
   webLink?: string;
+  subcategoryLogo?: string;
 }

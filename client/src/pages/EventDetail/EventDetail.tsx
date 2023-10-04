@@ -35,6 +35,7 @@ const EventDetailPage = () => {
         timeZone: '',
         tags: [],
         webLink: '',
+        subcategoryLogo: ''
     });
 
     const [ inscription, setInscription ] = useState<boolean>(false);
@@ -175,13 +176,15 @@ const EventDetailPage = () => {
     
     const formattedDate = formatDate(eventData.date);
 
+    console.log('logo', eventData.subcategoryLogo);
+
     return (
         <div data-testid='event-detail' className={styles.page}>
             {/* IMAGE */}
             <div className={styles.imageSection}>
                 <img src={eventData.image} className={styles.eventImage} />
                 <div className={styles.logoContainer}>
-                    <img src={logo} className={styles.logoImage} alt="Logo" />
+                    <img src={eventData.subcategoryLogo} className={styles.logoImage} alt="Logo" />
                 </div>
             </div>
 
