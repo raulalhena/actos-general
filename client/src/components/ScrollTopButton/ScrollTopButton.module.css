@@ -1,19 +1,19 @@
 .scrolltotopbutton {
   display: none;
   position: fixed;
-  bottom: 50px;
-  right: 50px;
-  width: 40px;
-  height: 40px;
+  bottom: 430px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
   background: #1c2e48;
   color: #ffffff;
-  font-size: 24px;
+  font-size: 15px;
   border-radius: 50%;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  line-height: 40px; /* Centrar verticalmente el ícono */
+  line-height: 32px; 
   z-index: 10;
 }
 
@@ -23,5 +23,19 @@
 
 .scrolltotopbutton:hover {
   background-color: #879fc2;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (min-width: 768px) {
+  .scrolltotopbutton {
+  bottom: 50px;
+  right: 50px;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  line-height: 40px; 
+}
+.scrolltotopbutton:hover {
   transform: scale(1.3);
+}
 }
