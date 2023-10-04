@@ -499,7 +499,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             getSubcategories(categoryId);
         };
         getCategories();
-    }, [ formData.category ]);
+    }, []);
 
     // Get Subcategories
     const getSubcategories = async (selectedCategory: string) => {
@@ -590,12 +590,10 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                 const modeData = data.map((mode: {
                         _id : string; 
                         name: string; 
-                        text: string;  
-                        value: string; 
                 }) => ({
                     ...mode,
-                    checked: formData.mode === mode.value,
-                    onChange: () => handleModeChange(mode.value),
+                    checked: formData.mode === mode.name,
+                    onChange: () => handleModeChange(mode.name),
                 }));
                 setMode(modeData);
 

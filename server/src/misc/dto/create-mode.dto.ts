@@ -6,8 +6,5 @@ export class CreateModeDto {
     name: string;
 
     @IsString()
-    text: string;
-
-    @IsString()
-    value: string;
+    description: string;
 }
