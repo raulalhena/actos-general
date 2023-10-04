@@ -34,11 +34,9 @@ const EventsList = () => {
                 <div className={styles.pageContainer}>
                     <div className={styles.title}>
                         <h1 className={styles.dash}>—</h1>
-                        <h1>Lista de eventos activos</h1>
+                        <h1>Eventos activos</h1>
                     </div>
-                    <div>
-                        {isLoading && <Preloader />}
-                    </div>
+                    <div>{isLoading && <Preloader />}</div>
                     <div data-testid="eventsList-page">
                         {events.map((event: EventDashboardFormProps, index: number) => (
                             <div

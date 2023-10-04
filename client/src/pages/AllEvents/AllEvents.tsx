@@ -22,18 +22,22 @@ const AllEvents = () => {
 
     return (
         <>
-            <section data-testid="allEvents-page" className={styles.section}>
-                <div className={styles.title}>
-                    <h1 className={styles.dash}>—</h1>
-                    <h1>Todos los eventos de Nous Cims</h1>
+            <div className={styles.page}>
+                <div className={styles.pageContainer}>
+                    <div className={styles.title}>
+                        <h1 className={styles.dash}>—</h1>
+                        <h1>Todos los eventos</h1>
+                    </div>
+                    <div>{isLoading && <Preloader />}</div>
+                    <div data-testid="allEvents-page">
+                        <div className={styles.cardGrid}>
+                            {eventData.map((event, index) => (
+                                <CardEvent key={index} eventData={event} />
+                            ))}
+                        </div>
+                    </div>
                 </div>
-                <div>{isLoading && <Preloader />}</div>
-                <div className={styles.cardGrid}>
-                    {eventData.map((event, index) => (
-                        <CardEvent key={index} eventData={event} />
-                    ))}
-                </div>
-            </section>
+            </div>
         </>
     );
 };
