@@ -11,11 +11,13 @@
   display: flex;
   justify-content: center;
   align-items:center;
+  max-width: 780px;
 }
 
 .title {
   display: flex;
   gap: 1rem;
+  max-width: 780px;
 }
 
 .eventTitle {
@@ -31,6 +33,8 @@
 .top {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 3rem;
   margin-bottom: 6rem;
 }
@@ -66,14 +70,19 @@
 
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
+  .containerSection {
+    width: 720px;
+  }
 }
 
 /* Para pantallas más grandes o iguales a 992px (lg) */
 @media screen and (min-width: 992px) {
+  
 }
 
 /* Para pantallas más grandes o iguales a 1200px (xl) */
 @media screen and (min-width: 1200px) {
+  
 }
 
 /* Para pantallas más grandes o iguales a 1400px (xxl) */
