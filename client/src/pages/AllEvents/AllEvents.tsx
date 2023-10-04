@@ -15,11 +15,11 @@ const AllEvents = () => {
 
     const searchParams = new URLSearchParams(location.search);
     const keywords = searchParams.get('keywords');
-
+    const filters = searchParams.get('filters');
     useEffect(() => {
         // Modify the API endpoint to include the search query
         const apiUrl = keywords
-            ? `http://localhost:8000/api/events/search?filters=name,category,tags,mode,language&keywords=${keywords}`
+            ? `http://localhost:8000/api/events/search?filters=${filters}&keywords=${keywords}`
             : 'http://localhost:8000/api/events';
 
         console.log('API URL:', apiUrl);
