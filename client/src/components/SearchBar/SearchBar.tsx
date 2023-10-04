@@ -4,7 +4,7 @@ import styles from './SearchBar.module.css';
 import { FaSearch } from 'react-icons/fa';
 import DropdownFilter from '../DropDownFilter/DropdownFilter';
 
-const translations: Record<string, string> = {
+const filterOptions: Record<string, string> = {
     name: 'Titulo',
     category: 'Categoria',
     subcategory: 'Subcategoria',
@@ -21,9 +21,19 @@ function SearchBar() {
         setSearchValue(event.target.value);
     };
 
+    const translateFilter = (filter: string): string => {
+        const invertedTranslations: Record<string, string> = {};
+        Object.entries(filterOptions).forEach(([ key, value ]) => {
+            invertedTranslations[value] = key;
+        });
+    
+        return invertedTranslations[filter] || filter;
+    };
+
     const handleSearch = () => {
-        const filters = filter.length === 0 ? Object.keys(translations) : filter;
-        const filtersString = filters.join(',');
+        const filters = filter.length === 0 ? Object.keys(filterOptions) : filter;
+        const filtersString = filters.map(translateFilter).join(',');
+    
         navigate(`/allevents?keywords=${searchValue}&filters=${filtersString}`);
     };
 
@@ -44,7 +54,7 @@ function SearchBar() {
                 <DropdownFilter
                     id="search"
                     label={'Buscar por filtro'}
-                    options={Object.keys(translations)}
+                    options={Object.values(filterOptions)}
                     values={filter}
                     onChange={handleFilterChange}
                 />
