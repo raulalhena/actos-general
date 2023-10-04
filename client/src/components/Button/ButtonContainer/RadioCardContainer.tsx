@@ -8,8 +8,6 @@ function RadioCardContainer({
     label,
     onChange,
 }: RadioGroupContainerProps) {
-
-    console.log('radio buttons', radioButtons);
     return (
         <div>
             <label className={styles.label}>{label}</label>
@@ -19,8 +17,8 @@ function RadioCardContainer({
                     <ButtonCardRadio
                         key={index}
                         {...radioButton}
-                        checked={selectedValue === radioButton.value}
-                        onChange={() => onChange(radioButton.value)}
+                        checked={selectedValue === radioButton.name}
+                        onChange={() => onChange(radioButton.name)}
                     />
                 ))}
             </div>
