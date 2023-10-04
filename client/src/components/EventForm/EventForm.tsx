@@ -414,10 +414,10 @@ const EventForm = () => {
                 autoClose: 2500,
                 pauseOnHover: true,
             });
-            e.dataTransfer.clearData();
+            // e.dataTransfer.clearData();
             return;
         }
-        e.dataTransfer.clearData();
+        // e.dataTransfer.clearData();
         handleFile(file);
     };
 
