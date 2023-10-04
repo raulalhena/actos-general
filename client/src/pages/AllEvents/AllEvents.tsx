@@ -5,8 +5,6 @@ import { CardEventProps } from '../../interfaces/cardEventProps';
 import Preloader from '../../components/Preloader/Preloader';
 import { useLocation } from 'react-router-dom';
 
-// ... (importações existentes)
-
 const AllEvents = () => {
     const location = useLocation();
     const [ eventData, setEventData ] = useState<CardEventProps['eventData'][]>([]);
@@ -15,30 +13,61 @@ const AllEvents = () => {
 
     const searchParams = new URLSearchParams(location.search);
     const keywords = searchParams.get('keywords');
-    const filters = searchParams.get('filters');
+    const filtersString = searchParams.get('filters');
+    const filters = filtersString ? filtersString.split(',') : null;
+
     useEffect(() => {
-        // Modify the API endpoint to include the search query
-        const apiUrl = keywords
-            ? `http://localhost:8000/api/events/search?filters=${filters}&keywords=${keywords}`
-            : 'http://localhost:8000/api/events';
+        if (keywords && filters) {
+            const apiUrl = `http://localhost:8000/api/events/search?filters=${filters}&keywords=${keywords}`;
+    
+            fetch(apiUrl)
+                .then((response) => response.json())
+                .then((res) => {
+                    if (Array.isArray(res.data) && res.data.length > 0) {
+                        setEventData(res.data);
+                    } else {
+                        setNoResults(true);
+                    }
+                    setIsLoading(false);
+                })
+                .catch((error) => {
+                    console.error('Error al obtener datos:', error);
+                });
+        } else if (keywords && !filters) {
 
-        console.log('API URL:', apiUrl);
-
-        fetch(apiUrl)
-            .then((response) => response.json())
-            .then((res) => {
-                if (Array.isArray(res.data) && res.data.length > 0) {
-                    setEventData(res.data);
-                } else {
-                    setNoResults(true);
-                }
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                console.error('Error al obtener datos:', error);
-            });
-    }, [ location.search ]);
-
+            const allFilters = 'name,category,subcategory,language,tags';
+            const apiUrl = `http://localhost:8000/api/events/search?filters=${allFilters}&keywords=${keywords}`;
+    
+            fetch(apiUrl)
+                .then((response) => response.json())
+                .then((res) => {
+                    if (Array.isArray(res.data) && res.data.length > 0) {
+                        setEventData(res.data);
+                    } else {
+                        setNoResults(true);
+                    }
+                    setIsLoading(false);
+                })
+                .catch((error) => {
+                    console.error('Error al obtener datos:', error);
+                });
+        } else {
+            fetch('http://localhost:8000/api/events')
+                .then((response) => response.json())
+                .then((res) => {
+                    if (Array.isArray(res) && res.length > 0) {
+                        setEventData(res);
+                    } else {
+                        setNoResults(true);
+                    }
+                    setIsLoading(false);
+                })
+                .catch((error) => {
+                    console.error('Error al obtener datos:', error);
+                });
+        }
+    }, [ location.search, filters ]);
+    
     return (
         <>
             <div className={styles.page}>
@@ -49,9 +78,9 @@ const AllEvents = () => {
                     </div>
                     <div>
                         {isLoading && <Preloader />}
-                        {noResults && (
+                        {!isLoading && noResults && (
                             <div className={styles.textBox}>
-                                <p className={styles.textStyle}> No se encontraron resultados. </p>
+                                <p className={styles.textStyle}> No se encontraron resultados para "{keywords}". </p>
                                 <button className={styles.backBtn} onClick={() => window.location.href = '/'}>Volver</button>
                             </div>
                         )}
