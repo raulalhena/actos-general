@@ -9,6 +9,7 @@ function TextInput(props: TextInputProps) {
         <div >
             <label className={styles.label} htmlFor={id}>
                 {label}
+                <br />
             </label>
             <br />
             <input
