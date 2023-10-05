@@ -12,7 +12,7 @@ interface CategoryData {
     image: string;
 }
 
-export const SubcategoryForm = () => {
+const SubcategoryForm = () => {
 
     //  States
     const [ previewURL, setPreviewURL ] = useState<string>('');
@@ -188,3 +188,5 @@ export const SubcategoryForm = () => {
         </div>
     );
 };
+
+export default SubcategoryForm;

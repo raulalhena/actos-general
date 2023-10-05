@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import './styles/globals.css';
-import NavBar from './components/NavBar/NavBar';
+import Preloader from './components/Preloader/Preloader';
+const NavBar = React.lazy(() => import('./components/NavBar/NavBar'));
 const CreateEvent = React.lazy(() => import('./pages/CreateEvent/CreateEvent'));
 const EventDashboard = React.lazy(() => import('./pages/EventDashboard/EventDashboard'));
 const Login = React.lazy(() => import('./pages/Login/Login'));
@@ -14,12 +15,11 @@ const Logout =  React.lazy(() => import('./components/Logout/Logout'));
 const AllEvents =  React.lazy(() => import('./pages/AllEvents/AllEvents'));
 const MyEvents =  React.lazy(() => import('./pages/MyEvents/MyEvents'));
 const FAQ = React.lazy(() => import('./pages/FAQ/FAQ'));
+const Subcategory = React.lazy(() => import('./pages/Subcategory/Subcategory'));
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AuthProvider } from './providers/AuthProvider';
 import ScrollTopButton from './components/ScrollTopButton/ScrollTopButton';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import { Subcategory } from './pages/Subcategory/Subcategory';
-import Preloader from './components/Preloader/Preloader';
 
 function Layout({ children }: any) {
     return (
@@ -67,12 +67,11 @@ function App() {
                                     <MyEvents />
                                 </ProtectedRoute>
                             } />
-                            {/* <Route path='/createsubcategory' element={
-                            <ProtectedRoute role={ [ 'admin' ] }>
-                                <Subcategory />
-                            </ProtectedRoute>
-                        } /> */}
-                            <Route path="/createsubcategory" element={<Subcategory />} />
+                            <Route path='/createsubcategory' element={
+                                <ProtectedRoute role={ [ 'admin' ] }>
+                                    <Subcategory />
+                                </ProtectedRoute>
+                            } />
                             <Route path="/faq" element={<FAQ />} />
                             <Route path="/eventslist" element={<EventsList />} />
                             <Route path="/event/:_id" element={<EventDetail />} />
