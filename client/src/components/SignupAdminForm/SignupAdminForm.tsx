@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import styles from './SignupForm.module.css';
+import styles from './SignupAdminForm.module.css';
 import { SignupProps } from '../../interfaces/signupProps';
 import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import TextInputSmall from '../TextInputSmall/TextInputSmall';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ConfirmPasswordInput from '../ConfirmPasswordInput/ConfirmPasswordInput';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import ModalDisplay from '../Modal/ModalDisplay';
 import { ToastContainer, toast } from 'react-toastify';
 
-const SignupForm = () => {
+const SignupAdminForm = () => {
     const [ signupData, setSignupData ] = useState<SignupProps>({
         name: '',
         surname: '',
@@ -121,6 +121,12 @@ const SignupForm = () => {
             <div className={styles.form}>
                 <form onSubmit={handleSubmit}>
                     <ToastContainer position="top-right" autoClose={3000} />
+                    <section className={styles.optionTitle}>
+                        <h2>¿Ya tienes cuenta?</h2>
+                        <Link to="/login" className={styles.registerLink}>
+                            Inicia sesión
+                        </Link>
+                    </section>
                     <section>
                         <h1>Registro de usuario</h1>
                         <TextInputSmall
@@ -177,7 +183,7 @@ const SignupForm = () => {
                         {notPasswordMatchError && <p className={styles.error}>{notPasswordMatchError}</p>}
                     </section>
                     <div className={styles.buttonSection}>
-                        <ButtonSubmit label="Crear usuario" />
+                        <ButtonSubmit label="Registrarse" />
                     </div>
                     <div>
                         {isModalOpen && (
@@ -201,4 +207,4 @@ const SignupForm = () => {
     );
 };
 
-export default SignupForm;
+export default SignupAdminForm;
