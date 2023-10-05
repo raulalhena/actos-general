@@ -520,6 +520,7 @@ const EventForm = () => {
                                 value={formData.name}
                                 onChange={handleInputChange}
                             />
+                            <hr />
                             <TextArea
                                 id="description"
                                 label="Descripción del evento *"
