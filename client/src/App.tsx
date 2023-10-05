@@ -42,11 +42,13 @@ function App() {
     return (
         <>
             {nonNavbar ? (
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
-                    <Route path="/404" element={<NotFound />} />
-                </Routes>
+                <Suspense fallback={ <Preloader /> }>
+                    <Routes>
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/signup" element={<Signup />} />
+                        <Route path="/404" element={<NotFound />} />
+                    </Routes>
+                </Suspense>
             ) : (
                 <Layout>
                     <Suspense fallback={ <Preloader /> }>
