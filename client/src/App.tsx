@@ -73,7 +73,11 @@ function App() {
                                     <ConfigForm />
                                 </ProtectedRoute>
                             } />
-                            <Route path="/configboard" element={<ConfigBoard />} />
+                            <Route path='/configboard' element={
+                                <ProtectedRoute role={ [ 'admin' ] }>
+                                    <ConfigBoard />
+                                </ProtectedRoute>
+                            } />
                             <Route path="/createadmin" element={<SignupAdmin />} />
                             <Route path="/faq" element={<FAQ />} />
                             <Route path="/eventslist" element={<EventsList />} />
