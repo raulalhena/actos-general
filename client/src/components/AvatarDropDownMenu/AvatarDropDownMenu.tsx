@@ -6,6 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { FaUserCircle } from 'react-icons/fa';
 import styles from './AvatarDropDownMenu.module.css';
 import { Link } from 'react-router-dom';
+import { IoMdSettings } from 'react-icons/io';
+import { HiLogout } from 'react-icons/hi';
 
 const StyledMenu = styled((props: MenuProps) => (
     <Menu
@@ -81,11 +83,12 @@ export default function AvatarDropDownMenu() {
             >
                 <MenuItem onClick={handleClose} disableRipple>
                     <Link to="/createsubcategory" className={styles.dropdownLink}>
+                        <IoMdSettings />
             Configuración
                     </Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose} disableRipple>
-                    <Link to="/logout" className={styles.dropdownLink}> Cerrar sesión</Link>
+                    <Link to="/logout" className={styles.dropdownLink}> <HiLogout /> Cerrar sesión</Link>
                 </MenuItem>
             </StyledMenu>
         </div>

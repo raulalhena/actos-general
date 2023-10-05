@@ -8,5 +8,12 @@
 }
 
 .dropdownLink {
+    text-transform: uppercase;
+    font-weight: 600;
     color: #1c2e48;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
