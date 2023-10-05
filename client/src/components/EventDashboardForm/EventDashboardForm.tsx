@@ -511,7 +511,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             getSubcategories(categoryId);
         };
         getCategories();
-    }, []);
+    }, [ formData.category ]);
 
     // Get Subcategories
     const getSubcategories = async (selectedCategory: string) => {
