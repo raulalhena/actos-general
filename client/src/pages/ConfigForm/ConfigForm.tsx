@@ -1,7 +1,11 @@
 import SubcategoryForm from '../../components/Configuration/Forms/SubcategoryForm/SubcategoryForm';
 import CategoryForm from '../../components/Configuration/Forms/CategoryForm/CategoryForm';
-import LanguageForm from '../../components/Configuration/Forms/LanguageForm/CategoryForm';
+import LanguageForm from '../../components/Configuration/Forms/LanguageForm/LanguageForm';
 import ModeForm from '../../components/Configuration/Forms/ModeForm/ModeForm';
+import TypeForm from '../../components/Configuration/Forms/TypeForm/TypeForm';
+import TimeForm from '../../components/Configuration/Forms/TimeForm/TimeForm';
+import TimeZoneForm from '../../components/Configuration/Forms/TimeZoneForm/TimeZoneForm';
+import VisibilityForm from '../../components/Configuration/Forms/VisibilityForm/VisibilityForm';
 import { useLocation } from 'react-router-dom';
 
 const ConfigForm = () => {
@@ -27,6 +31,8 @@ const ConfigForm = () => {
             return <TimeZoneForm />;
         case 'languages':
             return <LanguageForm />;
+        case 'visibilities':
+            return <VisibilityForm />;
         }
     };
 

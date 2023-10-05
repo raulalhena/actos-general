@@ -1,17 +1,17 @@
 import { useState, ChangeEvent } from 'react';
-import styles from './CategoryForm.module.css';
+import styles from './TypeForm.module.css';
 import TextInput from '../../../TextInput/TextInput';
 import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
 
-interface CategoryData {
+interface TypeData {
   name: string;
   description: string;
 }
 
-const CategoryForm = () => {
+const TypeForm = () => {
 
     //  States
-    const [ categoryData, setCategoryData ] = useState<CategoryData>({
+    const [ typeData, setTypeData ] = useState<TypeData>({
         name: '',
         description: '',
     });
@@ -20,8 +20,8 @@ const CategoryForm = () => {
         e.preventDefault();
 
         const { value, id } = e.target;
-        setCategoryData({
-            ...categoryData,
+        setTypeData({
+            ...typeData,
             [id]: value,
         });
     };
@@ -30,13 +30,13 @@ const CategoryForm = () => {
         e.preventDefault();
 
         const res = fetch(
-            `http://localhost:8000/api/misc/categories/`,
+            `http://localhost:8000/api/misc/types`,
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(categoryData),
+                body: JSON.stringify(typeData),
             }
         );
 
@@ -52,17 +52,17 @@ const CategoryForm = () => {
                         <section>
                             <div className={styles.title}>
                                 <h1 className={styles.dash}>—</h1>
-                                <h1>Crea una categoría</h1>
+                                <h1>Crea un tipo de evento</h1>
                             </div>
                             <div className={styles.inputsSection}>
                                 <TextInput
                                     id="name"
                                     type="text"
                                     label=""
-                                    placeholder="Nombre de la categoría"
+                                    placeholder="Nombre del tipo de evento"
                                     minLength={3}
                                     maxLength={175}
-                                    value={categoryData.name}
+                                    value={typeData.name}
                                     onChange={handleInputChange}
                                     isRequired={true}
                                 />
@@ -70,10 +70,10 @@ const CategoryForm = () => {
                                     id="description"
                                     type="text"
                                     label=""
-                                    placeholder="Descripción de la categoría"
+                                    placeholder="Descripción del tipo de evento"
                                     minLength={3}
                                     maxLength={175}
-                                    value={categoryData.description}
+                                    value={typeData.description}
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -88,4 +88,4 @@ const CategoryForm = () => {
     );
 };
 
-export default CategoryForm;
+export default TypeForm;

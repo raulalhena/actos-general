@@ -5,7 +5,7 @@ const TimeConfigCard = () => {
     
     return (
         <div>
-            <Link to={`/config/configform`} state={'timess'}>
+            <Link to={`/config/configform`} state={'times'}>
                 <div className={styles.card}>
                     <h2>RANGO HORARIO</h2>
                 </div>

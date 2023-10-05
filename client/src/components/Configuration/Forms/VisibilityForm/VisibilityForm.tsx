@@ -1,17 +1,17 @@
 import { useState, ChangeEvent } from 'react';
-import styles from './CategoryForm.module.css';
+import styles from './VisibilityForm.module.css';
 import TextInput from '../../../TextInput/TextInput';
 import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
 
-interface CategoryData {
+interface VisibilityData {
   name: string;
   description: string;
 }
 
-const CategoryForm = () => {
+const VisibilityForm = () => {
 
     //  States
-    const [ categoryData, setCategoryData ] = useState<CategoryData>({
+    const [ visibilityData, setVisibilityData ] = useState<VisibilityData>({
         name: '',
         description: '',
     });
@@ -20,8 +20,8 @@ const CategoryForm = () => {
         e.preventDefault();
 
         const { value, id } = e.target;
-        setCategoryData({
-            ...categoryData,
+        setVisibilityData({
+            ...visibilityData,
             [id]: value,
         });
     };
@@ -30,13 +30,13 @@ const CategoryForm = () => {
         e.preventDefault();
 
         const res = fetch(
-            `http://localhost:8000/api/misc/categories/`,
+            `http://localhost:8000/api/misc/visibilities`,
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(categoryData),
+                body: JSON.stringify(visibilityData),
             }
         );
 
@@ -52,28 +52,28 @@ const CategoryForm = () => {
                         <section>
                             <div className={styles.title}>
                                 <h1 className={styles.dash}>—</h1>
-                                <h1>Crea una categoría</h1>
+                                <h1>Crea una visibilidad del evento</h1>
                             </div>
                             <div className={styles.inputsSection}>
                                 <TextInput
                                     id="name"
-                                    type="text"
+                                    visibility="text"
                                     label=""
-                                    placeholder="Nombre de la categoría"
+                                    placeholder="Nombre de la visibilidad del evento"
                                     minLength={3}
                                     maxLength={175}
-                                    value={categoryData.name}
+                                    value={visibilityData.name}
                                     onChange={handleInputChange}
                                     isRequired={true}
                                 />
                                 <TextInput
                                     id="description"
-                                    type="text"
+                                    visibility="text"
                                     label=""
-                                    placeholder="Descripción de la categoría"
+                                    placeholder="Descripción de la visibilidad del evento"
                                     minLength={3}
                                     maxLength={175}
-                                    value={categoryData.description}
+                                    value={visibilityData.description}
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -88,4 +88,4 @@ const CategoryForm = () => {
     );
 };
 
-export default CategoryForm;
+export default VisibilityForm;

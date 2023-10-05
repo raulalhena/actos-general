@@ -60,7 +60,7 @@ export class MiscController {
     return this.miscService.createVisibility(createVisibilityDto);
   }
 
-  @Post('mode/load')
+  @Post('modes')
   createMode(@Body() createModeDto: CreateModeDto) {
     return this.miscService.createMode(createModeDto);
   }

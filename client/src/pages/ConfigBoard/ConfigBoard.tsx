@@ -5,6 +5,7 @@ import TypeConfigCard from '../../components/Configuration/Cards/TypeConfigCard/
 import TimeConfigCard from '../../components/Configuration/Cards/TimeConfigCard/TimeConfigCard';
 import TimeZoneConfigCard from '../../components/Configuration/Cards/TimeZoneConfigCard/TimeZoneConfigCard';
 import LanguageConfigCard from '../../components/Configuration/Cards/LanguageConfigCard/LanguageConfigCard';
+import VisibilityConfigCard from '../../components/Configuration/Cards/VisibilityConfigCard/VisibilityConfigCard';
 
 const ConfigBoard = () => {
     return (
@@ -16,6 +17,7 @@ const ConfigBoard = () => {
             <TimeConfigCard />
             <TimeZoneConfigCard />
             <LanguageConfigCard />
+            <VisibilityConfigCard />
         </div>
     );
 };

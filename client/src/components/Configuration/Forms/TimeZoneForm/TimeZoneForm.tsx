@@ -1,17 +1,17 @@
 import { useState, ChangeEvent } from 'react';
-import styles from './ModeForm.module.css';
+import styles from './TimeZoneForm.module.css';
 import TextInput from '../../../TextInput/TextInput';
 import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
 
-interface ModeData {
+interface TimeZoneData {
   name: string;
   description: string;
 }
 
-const ModeForm = () => {
+const TimeZoneForm = () => {
 
     //  States
-    const [ modeData, setModeData ] = useState<ModeData>({
+    const [ timezoneData, setTimeZoneData ] = useState<TimeZoneData>({
         name: '',
         description: '',
     });
@@ -20,8 +20,8 @@ const ModeForm = () => {
         e.preventDefault();
 
         const { value, id } = e.target;
-        setModeData({
-            ...modeData,
+        setTimeZoneData({
+            ...timezoneData,
             [id]: value,
         });
     };
@@ -30,13 +30,13 @@ const ModeForm = () => {
         e.preventDefault();
 
         const res = fetch(
-            `http://localhost:8000/api/misc/modes`,
+            `http://localhost:8000/api/misc/timezones`,
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(modeData),
+                body: JSON.stringify(timezoneData),
             }
         );
 
@@ -52,17 +52,17 @@ const ModeForm = () => {
                         <section>
                             <div className={styles.title}>
                                 <h1 className={styles.dash}>—</h1>
-                                <h1>Crea un modo de asistencia</h1>
+                                <h1>Crea una zona horaria</h1>
                             </div>
                             <div className={styles.inputsSection}>
                                 <TextInput
                                     id="name"
                                     type="text"
                                     label=""
-                                    placeholder="Nombre del modo de asistencia"
+                                    placeholder="Nombre de la zona horaria"
                                     minLength={3}
                                     maxLength={175}
-                                    value={modeData.name}
+                                    value={timezoneData.name}
                                     onChange={handleInputChange}
                                     isRequired={true}
                                 />
@@ -70,10 +70,10 @@ const ModeForm = () => {
                                     id="description"
                                     type="text"
                                     label=""
-                                    placeholder="Descripción del modo de asistencia"
+                                    placeholder="Descripción de la zona horaria"
                                     minLength={3}
                                     maxLength={175}
-                                    value={modeData.description}
+                                    value={timezoneData.description}
                                     onChange={handleInputChange}
                                 />
                             </div>
@@ -88,4 +88,4 @@ const ModeForm = () => {
     );
 };
 
-export default ModeForm;
+export default TimeZoneForm;
