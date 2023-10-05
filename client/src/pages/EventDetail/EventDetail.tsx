@@ -50,9 +50,8 @@ const EventDetailPage = () => {
     };
 
     useEffect(() => {
-        const storedActionType = localStorage.getItem('actionType');
-        const defaultActionType = 'inscription';
-        setActionType(storedActionType || defaultActionType);
+        const storedActionType = localStorage.getItem('actionType') || 'inscription';
+        setActionType(storedActionType);
     }, []);
 
     const openModal = (type: any) => {
@@ -119,39 +118,34 @@ const EventDetailPage = () => {
     };
 
     const handleEventAction = async () => {
-        let endpoint: any;
-
-        if (actionType === 'inscription') {
-            endpoint = 'http://localhost:8000/api/events/inscription';
-        } else if (actionType === 'unsubscription') {
-            endpoint = 'http://localhost:8000/api/events/unsubscription';
-        } else if (actionType === 'online') {
-            endpoint = 'http://localhost:8000/api/events/online';
-        } else if (actionType === 'unsubscribe-online') {
-            endpoint = 'http://localhost:8000/api/events/unsubscribe-online';
-        } else {
-            endpoint = undefined;
+        const endpointMapping = {
+            'inscription': 'http://localhost:8000/api/events/inscription',
+            'unsubscription': 'http://localhost:8000/api/events/unsubscription',
+            'online': 'http://localhost:8000/api/events/online',
+            'unsubscribe-online': 'http://localhost:8000/api/events/unsubscribe-online',
+        };
+        
+        const endpoint = endpointMapping[actionType as keyof typeof endpointMapping] || undefined;
+    
+        if (endpoint) {
+            const res = await fetch(endpoint, {
+                method: 'PUT',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify({
+                    userId: user._id,
+                    eventId: _id
+                })
+            });
+        
+            if (res.ok) {
+                setModalTitle(`Te has ${actionType === 'inscription' || actionType === 'online' ? 'inscrito' : 'desuscrito'} correctamente.`);
+                setModalBtn1Text('');
+                setModalBtn2Text('');
+                setInscription(actionType === 'inscription' || actionType === 'online');
+            } else {
+                setModalTitle(`Error al ${actionType === 'inscription' ? 'inscribirse' : 'desinscribirse'}.`);
+            }
         }
-    
-        const res = await fetch(endpoint, {
-            method: 'PUT',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({
-                userId: user._id,
-                eventId: _id
-            })
-        });
-    
-        if (res.ok) {
-            setModalTitle(`Te has ${actionType === 'inscription' || actionType === 'online' ? 'inscrito' : 'desuscrito'} correctamente.`);
-            setModalBtn1Text('');
-            setModalBtn2Text('');
-            setInscription(actionType === 'inscription' || actionType === 'online');
-        } else {
-            setModalTitle(`Error al ${actionType === 'inscription' ? 'inscribirse' : 'desinscribirse'}.`);
-        }
-    
-        return res;
     };
 
     function formatDate(originalDate: string) {
