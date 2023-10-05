@@ -45,6 +45,16 @@ const EventDetailPage = () => {
     const [ modalBtn2Text, setModalBtn2Text ] = useState('Inscribirme');
     const [ actionType, setActionType ] = useState('inscription');
 
+    const storeActionType = (type: any) => {
+        localStorage.setItem('actionType', type);
+    };
+
+    useEffect(() => {
+        const storedActionType = localStorage.getItem('actionType');
+        const defaultActionType = 'inscription';
+        setActionType(storedActionType || defaultActionType);
+    }, []);
+
     const openModal = (type: any) => {
         setIsModalOpen(true);
         setActionType(type);
@@ -179,8 +189,15 @@ const EventDetailPage = () => {
                         <div className={styles.categorySubcategorySection}>
                             {!inscription ? (
                                 <>
-                                    <ButtonInscription label="Inscribirse en línea" onClick={() => openModal('online')} />
-                                    <ButtonInscription label="Inscribirse en presencial" onClick={() => openModal('inscription')} />
+                                    <ButtonInscription label="Inscribirse en línea" onClick={ () => {
+                                        openModal('online');
+                                        storeActionType('online');
+                                    }
+                                    } />
+                                    <ButtonInscription label="Inscribirse en presencial" onClick={() => {
+                                        openModal('inscription');
+                                        storeActionType('inscription');
+                                    }} />
                                 </>
                             ) : (
                                 <ButtonInscription label="Eliminar inscripción." onClick={() => openModal(actionType === 'inscription' ? 'unsubscription' : 'unsubscribe-online')} />

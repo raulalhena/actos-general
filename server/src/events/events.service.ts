@@ -51,7 +51,7 @@ export class EventsService {
 
   async findUserEvents(id: ObjectId) {
     try{
-      const userEvents = await this.eventModel.find({ submitted: id });
+      const userEvents = await this.eventModel.find({ $or: [{submitted: id}, {submittedOnline: id}] });
     
       return userEvents;
     } catch(error) {
