@@ -109,9 +109,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             });
         } else  if(id === 'subcategory') {
             subcategories.forEach(subc => {
-                console.log('map loop', subc.name, value, subc.image);
+
                 if(subc.name === value){
-                    console.log('eq');
                     setFormData({
                         ...formData,
                         [id]: value,
@@ -396,7 +395,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                     ...formData,
                     image: fileReader.result
                 });
-                console.log('base64', fileReader.result);
             };
         }
         return;
@@ -608,8 +606,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                     onChange: () => handleModeChange(mode.name),
                 }));
                 setMode(modeData);
-
-                console.log('aqui', formData.mode);
     
                 if (formData.mode === 'Presencial') {
                 
@@ -656,7 +652,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
-    console.log('category ', formData.category);
 
     return (
         <div data-testid='dashboard-component' className={styles.formDash}>

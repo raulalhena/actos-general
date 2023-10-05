@@ -9,8 +9,6 @@ const MyEvents = () => {
     const [ myEvents, setMyEvents ] = useState<CardEventProps>(null);
     const { user } = useAuth();
 
-    console.log('user id ', user._id);
-
     useEffect(()=> {
         const getMyEvents = async () => {
             const url = `http://localhost:8000/api/events/user/${user._id}`;
@@ -23,7 +21,6 @@ const MyEvents = () => {
         getMyEvents();
     }, []);
 
-    console.log('my eve', myEvents);
     return (
         <section className={styles.section}>
             <div className={styles.title}>
