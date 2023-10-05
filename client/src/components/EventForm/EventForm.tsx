@@ -150,7 +150,6 @@ const EventForm = () => {
                     checked: false,
                 }));
                 setMode(modeData);
-                console.log('mode', modeData);
             } catch (error) {
                 throw new Error(error.message);
             }
