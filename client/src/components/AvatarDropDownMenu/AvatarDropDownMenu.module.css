@@ -1,0 +1,12 @@
+.userIcon {
+    font-size: 35px;
+    color: #1c2e48;
+}
+
+.userIcon:hover {
+    color: #1c2e48;
+}
+
+.dropdownLink {
+    color: #1c2e48;
+}
