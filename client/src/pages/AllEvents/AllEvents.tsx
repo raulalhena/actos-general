@@ -4,6 +4,7 @@ import styles from './AllEvents.module.css';
 import { CardEventProps } from '../../interfaces/cardEventProps';
 import Preloader from '../../components/Preloader/Preloader';
 import { useLocation } from 'react-router-dom';
+import SearchBar from '../../components/SearchBar/SearchBar';
 
 const AllEvents = () => {
     const location = useLocation();
@@ -25,8 +26,10 @@ const AllEvents = () => {
                 .then((res) => {
                     if (Array.isArray(res.data) && res.data.length > 0) {
                         setEventData(res.data);
+                        setNoResults(false);
                     } else {
                         setNoResults(true);
+                        setEventData([]);
                     }
                     setIsLoading(false);
                 })
@@ -43,8 +46,10 @@ const AllEvents = () => {
                 .then((res) => {
                     if (Array.isArray(res.data) && res.data.length > 0) {
                         setEventData(res.data);
+                        setNoResults(false);
                     } else {
                         setNoResults(true);
+                        setEventData([]);
                     }
                     setIsLoading(false);
                 })
@@ -76,16 +81,21 @@ const AllEvents = () => {
                         <h1 className={styles.dash}>—</h1>
                         <h1>Todos los eventos</h1>
                     </div>
+                    <div className={styles.searchBar}>
+                        <SearchBar/>
+                        <br />
+                    </div>
+                    <br />
                     <div>
                         {isLoading && <Preloader />}
                         {!isLoading && noResults && (
                             <div className={styles.textBox}>
-                                <p className={styles.textStyle}> No se encontraron resultados para "{keywords}". </p>
+                                <p className={styles.textStyle}> No se encontraron resultados. </p>
                                 <button className={styles.backBtn} onClick={() => window.location.href = '/'}>Volver</button>
                             </div>
                         )}
                     </div>
-                    <div data-testid="allEvents-page">
+                    <div data-testid="allEvents-page"> 
                         <div className={styles.cardGrid}>
                             {eventData.map((event, index) => (
                                 <CardEvent key={index} eventData={event} />

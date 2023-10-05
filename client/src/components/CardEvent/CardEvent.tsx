@@ -1,7 +1,7 @@
 import styles from './CardEvent.module.css';
 import { CardEventProps } from '../../interfaces/cardEventProps';
-import logo from '../../assets/zing.png';
 import { Link } from 'react-router-dom';
+import eventImg from '../../assets/logonc.svg';
 
 const CardEvent = ({ eventData }: CardEventProps) => {
 
@@ -21,10 +21,18 @@ const CardEvent = ({ eventData }: CardEventProps) => {
             <div className={styles.card}>
                 {/* IMAGE */}
                 <div className={styles.imageSection}>
+                    
                     <div className={styles.logoContainer}>
-                        <img src={eventData.subcategoryLogo} className={styles.logoImage} alt="Logo" />
+                        { eventData.subcategoryLogo ? (
+                            <img src={eventData.subcategoryLogo} className={styles.logoImage} alt="Logo" />) :
+                            <img  className={styles.logoImage}/>
+                        }
+                        
                     </div>
-                    <img src={eventData.image} className={styles.eventImage} />
+                    {eventData.image ? (
+                        <img src={eventData.image} className={styles.eventImage} />) :
+                        <img src={eventImg} className={styles.eventImage} />
+                    }
                 </div>
                 <section className={styles.spanContainer}>
                     <span className={styles.cardCategory}>{eventData.category}</span> 
