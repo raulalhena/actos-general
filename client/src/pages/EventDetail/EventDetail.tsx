@@ -50,13 +50,12 @@ const EventDetailPage = () => {
         setIsModalOpen(true);
         setActionType(type);
         setModalBtn1Text('Cancelar');
-        setModalBtn2Text(type === 'inscription' ? 'Inscribirme' : 'Eliminar');
-        setModalTitle(type === 'inscription' ? 'Estás a punto de inscribirte al evento.' : 'Estás a punto de eliminar la inscripción.');
+        setModalBtn2Text(type === 'inscription' ? 'Inscribirme' : type === 'online' ? 'Inscribirme online' : 'Eliminar');
+        setModalTitle(type === 'inscription' || type === 'online' ? 'Estás a punto de inscribirte al evento.' : 'Estás a punto de eliminar la inscripción.');
     };
 
     const closeModal = () => {
         setIsModalOpen(false);
-        setActionType('inscription');
     };
  
     useEffect(() => {
@@ -111,9 +110,19 @@ const EventDetailPage = () => {
     };
 
     const handleEventAction = async () => {
-        const endpoint = actionType === 'inscription'
-            ? 'http://localhost:8000/api/events/inscription'
-            : 'http://localhost:8000/api/events/unsubscription';
+        let endpoint: any;
+
+        if (actionType === 'inscription') {
+            endpoint = 'http://localhost:8000/api/events/inscription';
+        } else if (actionType === 'unsubscription') {
+            endpoint = 'http://localhost:8000/api/events/unsubscription';
+        } else if (actionType === 'online') {
+            endpoint = 'http://localhost:8000/api/events/online';
+        } else if (actionType === 'unsubscribe-online') {
+            endpoint = 'http://localhost:8000/api/events/unsubscribe-online';
+        } else {
+            endpoint = undefined;
+        }
     
         const res = await fetch(endpoint, {
             method: 'PUT',
@@ -125,11 +134,10 @@ const EventDetailPage = () => {
         });
     
         if (res.ok) {
-            setModalTitle(`Te has ${actionType === 'inscription' ? 'inscrito' : 'desuscrito'} correctamente.`);
+            setModalTitle(`Te has ${actionType === 'inscription' || actionType === 'online' ? 'inscrito' : 'desuscrito'} correctamente.`);
             setModalBtn1Text('');
             setModalBtn2Text('');
-            setInscription(actionType === 'inscription');
-
+            setInscription(actionType === 'inscription' || actionType === 'online');
         } else {
             setModalTitle(`Error al ${actionType === 'inscription' ? 'inscribirse' : 'desinscribirse'}.`);
         }
@@ -137,36 +145,6 @@ const EventDetailPage = () => {
         return res;
     };
 
-    const handleEventInscriptionOnline = async () => {
-        const res = await fetch('http://localhost:8000/api/events/online', {
-            method: 'PUT',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({
-                userId: user._id,
-                eventId: _id
-            })
-        });
-
-        if(res.ok) console.log('modal'); //modal
-
-        return;
-    };
-
-    const handleEventUnsubscriptionOnline = async () => {
-        const res = await fetch('http://localhost:8000/api/events/unsubscription-online', {
-            method: 'PUT',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({
-                userId: user._id,
-                eventId: _id
-            })
-        });
-
-        if(res.ok) console.log('modal'); //modal
-
-        return;
-    };
-    
     function formatDate(originalDate: string) {
         const date = new Date(originalDate);
         const day = date.getDate();
@@ -177,8 +155,6 @@ const EventDetailPage = () => {
     }
     
     const formattedDate = formatDate(eventData.date);
-
-    console.log('logo', eventData.subcategoryLogo);
 
     return (
         <div data-testid='event-detail' className={styles.page}>
@@ -203,11 +179,19 @@ const EventDetailPage = () => {
                     <div className={styles.categorySubcategorySection}>
                         {!inscription ?
                             <>
-                                <ButtonInscription label="Inscribirse en línea" onClick={handleEventInscriptionOnline} />
+                                <ButtonInscription label="Inscribirse en línea" onClick={() => openModal('online')} />
                                 <ButtonInscription label="Inscribirse en presencial" onClick={() => openModal('inscription')} />
                             </>
                             :
-                            <ButtonInscription label="Eliminar inscripción." onClick={() => openModal('cancellation')}/>
+                            <ButtonInscription label="Eliminar inscripción. hibrido"
+                                onClick={
+                                    actionType === 'inscription' ?
+                                        () => openModal('unsubscription') :
+                                        () => {
+                                            openModal('unsubscribe-online');
+                                        }
+                                }
+                            />
                         }
                     </div>
                     :
@@ -215,7 +199,7 @@ const EventDetailPage = () => {
                         {!inscription ? (
                             <ButtonInscription label="Inscribirse al evento" onClick={() => openModal('inscription')} />
                         ) : (
-                            <ButtonInscription label="Eliminar inscripción" onClick={() => openModal('cancellation')} />
+                            <ButtonInscription label="Eliminar inscripción" onClick={() => openModal('unsubscription')} />
                         )}
                     </div>
                 }
