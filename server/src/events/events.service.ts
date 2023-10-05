@@ -43,8 +43,6 @@ export class EventsService {
 
   async findOne(id: ObjectId) {
     try {
-      console.log( id)
-
       return await this.eventModel.findById({ _id: id });
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -72,8 +70,6 @@ export class EventsService {
   async attendanceRecord(eventId: ObjectId, userId: ObjectId) {
     try{
       const userAttendee = await this.eventModel.find({ _id: eventId }).select('attendees').populate('attendees').exec();
-      console.log('user', JSON.stringify(userAttendee, null, 4));
-      // if(!userAttendee) throw new HttpException('El usuario no está inscrito en el evento', HttpStatus.BAD_REQUEST);
       
       return 'El registro de usuario se ha realizado con éxito';
     } catch(error) {

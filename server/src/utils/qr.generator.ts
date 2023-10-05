@@ -9,7 +9,7 @@ const generateEventQR = async (eventId: Types.ObjectId) => {
         const eventQR = qr.imageSync(`http://localhost:8000/api/events/${eventId.toString()}`, { type: 'png' });
         return eventQR;
     } catch(error){ 
-        console.log(error);
+        throw error;
     }
 }
 
@@ -20,7 +20,7 @@ const generateUserQR = async (eventId: mongoose.Schema.Types.ObjectId, userId: m
         const eventQR = qr.imageSync(`http://localhost:8000/api/events/attendance/${eventId.toString()}/${userId.toString()}`, { type: 'svg' });
         return eventQR;
     } catch(error){ 
-        console.log(error);
+        throw error;
     }
 }
 

@@ -59,8 +59,7 @@ const SubcategoryForm = () => {
                 body: JSON.stringify(subcategoryData),
             }
         );
-
-        if (res.ok) console.log('modal');
+        
         return;
     };
 
@@ -145,7 +144,6 @@ const SubcategoryForm = () => {
                     ...subcategoryData,
                     image: fileReader.result,
                 });
-                console.log('base64', fileReader.result);
             };
         }
         return;
