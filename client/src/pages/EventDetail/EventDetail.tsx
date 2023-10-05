@@ -182,7 +182,7 @@ const EventDetailPage = () => {
                                 <ButtonInscription label="Inscribirse en presencial" onClick={() => openModal('inscription')} />
                             </>
                             :
-                            <ButtonInscription label="Eliminar inscripción. hibrido"
+                            <ButtonInscription label="Eliminar inscripción."
                                 onClick={
                                     actionType === 'inscription' ?
                                         () => openModal('unsubscription') :
