@@ -58,7 +58,7 @@ function DropdownFilter(props: DropDownCheckProps) {
                         }}
                         onChange={handleChange}
                         value={selected}
-                        placeholder="Filtro"
+                        placeholder="Filtrar por"
                         styles={{
                             control: (baseStyles, state) => ({
                                 ...baseStyles,
