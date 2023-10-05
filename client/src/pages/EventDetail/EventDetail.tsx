@@ -14,7 +14,7 @@ const EventDetailPage = () => {
     const { _id } = useParams();
     const { user } = useAuth();
 
-    const [ eventData, setEventData ] = useState<EventDetailProps>({
+    const [eventData, setEventData] = useState<EventDetailProps>({
         _id: '',
         name: '',
         date: '',
@@ -34,29 +34,41 @@ const EventDetailPage = () => {
         timeZone: '',
         tags: [],
         webLink: '',
-        subcategoryLogo: ''
+        subcategoryLogo: '',
     });
 
-    const [ inscription, setInscription ] = useState<boolean>(false);
-    const [ online, setOnline ] = useState<boolean>(false);
-    const [ isModalOpen, setIsModalOpen ] = useState(false);
-    const [ modalTitle, setModalTitle ] = useState('Estás a punto de inscribirte al evento.');
-    const [ modalBtn1Text, setModalBtn1Text ] = useState('Cancelar');
-    const [ modalBtn2Text, setModalBtn2Text ] = useState('Inscribirme');
-    const [ actionType, setActionType ] = useState('inscription');
+    const [inscription, setInscription] = useState<boolean>(false);
+    const [online, setOnline] = useState<boolean>(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalTitle, setModalTitle] = useState(
+        'Estás a punto de inscribirte al evento.'
+    );
+    const [modalBtn1Text, setModalBtn1Text] = useState('Cancelar');
+    const [modalBtn2Text, setModalBtn2Text] = useState('Inscribirme');
+    const [actionType, setActionType] = useState('inscription');
 
     const openModal = (type: any) => {
         setIsModalOpen(true);
         setActionType(type);
         setModalBtn1Text('Cancelar');
-        setModalBtn2Text(type === 'inscription' ? 'Inscribirme' : type === 'online' ? 'Inscribirme online' : 'Eliminar');
-        setModalTitle(type === 'inscription' || type === 'online' ? 'Estás a punto de inscribirte al evento.' : 'Estás a punto de eliminar la inscripción.');
+        setModalBtn2Text(
+            type === 'inscription'
+                ? 'Inscribirme'
+                : type === 'online'
+                    ? 'Inscribirme online'
+                    : 'Eliminar'
+        );
+        setModalTitle(
+            type === 'inscription' || type === 'online'
+                ? 'Estás a punto de inscribirte al evento.'
+                : 'Estás a punto de eliminar la inscripción.'
+        );
     };
 
     const closeModal = () => {
         setIsModalOpen(false);
     };
- 
+
     useEffect(() => {
         const getEvent = async () => {
             const response = await fetch(`http://localhost:8000/api/events/${_id}`);
@@ -65,39 +77,41 @@ const EventDetailPage = () => {
         };
 
         getEvent();
-    }, [ _id ]);
+    }, [_id]);
 
     useEffect(() => {
         const checkInscription = async () => {
-            const res = await fetch(`http://localhost:8000/api/events/user/${user._id}`);
+            const res = await fetch(
+                `http://localhost:8000/api/events/user/${user._id}`
+            );
             const inscriptionEvents = await res.json();
 
-            const insEvents = Array.from(inscriptionEvents); 
+            const insEvents = Array.from(inscriptionEvents);
 
-            insEvents.forEach(sEvent => {
-                if(sEvent._id === _id) setInscription(true);
+            insEvents.forEach((sEvent) => {
+                if (sEvent._id === _id) setInscription(true);
             });
-            
         };
 
         checkInscription();
-    }, [ eventData ]);
+    }, [eventData]);
 
     useEffect(() => {
         const checkInscriptionOnline = async () => {
-            const res = await fetch(`http://localhost:8000/api/events/user/${user._id}`);
+            const res = await fetch(
+                `http://localhost:8000/api/events/user/${user._id}`
+            );
             const inscriptionEvents = await res.json();
 
-            const insEvents = Array.from(inscriptionEvents); 
+            const insEvents = Array.from(inscriptionEvents);
 
-            insEvents.forEach(sEvent => {
-                if(sEvent._id === _id) setOnline(true);
+            insEvents.forEach((sEvent) => {
+                if (sEvent._id === _id) setOnline(true);
             });
-            
         };
 
         checkInscriptionOnline();
-    }, [ eventData ]);
+    }, [eventData]);
 
     const renderFormattedDescription = () => {
         return (
@@ -122,25 +136,35 @@ const EventDetailPage = () => {
         } else {
             endpoint = undefined;
         }
-    
+
         const res = await fetch(endpoint, {
             method: 'PUT',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({
                 userId: user._id,
-                eventId: _id
-            })
+                eventId: _id,
+            }),
         });
-    
+
         if (res.ok) {
-            setModalTitle(`Te has ${actionType === 'inscription' || actionType === 'online' ? 'inscrito' : 'desuscrito'} correctamente.`);
+            setModalTitle(
+                `Te has ${
+                    actionType === 'inscription' || actionType === 'online'
+                        ? 'inscrito'
+                        : 'desuscrito'
+                } correctamente.`
+            );
             setModalBtn1Text('');
             setModalBtn2Text('');
             setInscription(actionType === 'inscription' || actionType === 'online');
         } else {
-            setModalTitle(`Error al ${actionType === 'inscription' ? 'inscribirse' : 'desinscribirse'}.`);
+            setModalTitle(
+                `Error al ${
+                    actionType === 'inscription' ? 'inscribirse' : 'desinscribirse'
+                }.`
+            );
         }
-    
+
         return res;
     };
 
@@ -149,62 +173,80 @@ const EventDetailPage = () => {
         const day = date.getDate();
         const month = date.toLocaleString('default', { month: 'long' });
         const year = date.getFullYear();
-        
+
         return `${day} de ${month} de ${year}`;
     }
-    
+
     const formattedDate = formatDate(eventData.date);
 
     return (
-        <div data-testid='event-detail' className={styles.page}>
+        <div data-testid="event-detail" className={styles.page}>
             {/* IMAGE */}
             <div className={styles.imageSection}>
                 <img src={eventData.image} className={styles.eventImage} />
                 <div className={styles.logoContainer}>
-                    <img src={eventData.subcategoryLogo} className={styles.logoImage} alt="Logo" />
+                    <img
+                        src={eventData.subcategoryLogo}
+                        className={styles.logoImage}
+                        alt="Logo"
+                    />
                 </div>
             </div>
 
             <h1 className={styles.eventTitle}>{eventData.name}</h1>
-            {/* CATEGORIES */}
-            <section className={styles.sectionTopButtons}>
-                <div className={styles.categorySubcategorySection}>
-                    <span className={styles.category}>{eventData.category}</span>
-                    <span className={styles.subcategory}>{eventData.subcategory}</span>
-                </div>
 
-                {/*INSCRIPTION */}
-                {eventData.mode === 'Híbrido' ? 
+            <section className={styles.section}>
+                {/* CATEGORIES */}
+                <section className={styles.sectionTopButtons}>
                     <div className={styles.categorySubcategorySection}>
-                        {!inscription ?
-                            <>
-                                <ButtonInscription label="Inscribirse en línea" onClick={() => openModal('online')} />
-                                <ButtonInscription label="Inscribirse en presencial" onClick={() => openModal('inscription')} />
-                            </>
-                            :
-                            <ButtonInscription label="Eliminar inscripción."
-                                onClick={
-                                    actionType === 'inscription' ?
-                                        () => openModal('unsubscription') :
-                                        () => {
-                                            openModal('unsubscribe-online');
-                                        }
-                                }
-                            />
-                        }
+                        <span className={styles.category}>{eventData.category}</span>
+                        <span className={styles.subcategory}>{eventData.subcategory}</span>
                     </div>
-                    :
-                    <div className={styles.categorySubcategorySection}>
-                        {!inscription ? (
-                            <ButtonInscription label="Inscribirse al evento" onClick={() => openModal('inscription')} />
-                        ) : (
-                            <ButtonInscription label="Eliminar inscripción" onClick={() => openModal('unsubscription')} />
-                        )}
-                    </div>
-                }
+
+                    {/*INSCRIPTION */}
+                    {eventData.mode === 'Híbrido' ? (
+                        <div className={styles.categorySubcategorySection}>
+                            {!inscription ? (
+                                <>
+                                    <ButtonInscription
+                                        label="Inscribirse en línea"
+                                        onClick={() => openModal('online')}
+                                    />
+                                    <ButtonInscription
+                                        label="Inscribirse en presencial"
+                                        onClick={() => openModal('inscription')}
+                                    />
+                                </>
+                            ) : (
+                                <ButtonInscription
+                                    label="Eliminar inscripción."
+                                    onClick={
+                                        actionType === 'inscription'
+                                            ? () => openModal('unsubscription')
+                                            : () => {
+                                                openModal('unsubscribe-online');
+                                            }
+                                    }
+                                />
+                            )}
+                        </div>
+                    ) : (
+                        <div className={styles.categorySubcategorySection}>
+                            {!inscription ? (
+                                <ButtonInscription
+                                    label="Inscribirse al evento"
+                                    onClick={() => openModal('inscription')}
+                                />
+                            ) : (
+                                <ButtonInscription
+                                    label="Eliminar inscripción"
+                                    onClick={() => openModal('unsubscription')}
+                                />
+                            )}
+                        </div>
+                    )}
+                </section>
             </section>
-            <hr />
-
             {/* MODE, TYPE, LANGUAGE */}
             <section className={styles.section}>
                 <div className={styles.detailsSection}>
@@ -232,7 +274,6 @@ const EventDetailPage = () => {
                     )}
                 </div>
             </section>
-            <hr />
 
             {/* DATE */}
             <section className={styles.section}>
@@ -242,12 +283,11 @@ const EventDetailPage = () => {
                     <p className={styles.date}>
             de {eventData.startTime} a {eventData.endTime}
                     </p>
-                    {eventData.timeZone && ( 
+                    {eventData.timeZone && (
                         <p className={styles.date}>({eventData.timeZone})</p>
                     )}
                 </div>
             </section>
-            <hr />
 
             {/* ADDRESS */}
             <div>
@@ -262,11 +302,14 @@ const EventDetailPage = () => {
                     <section className={styles.section}>
                         <h1 className={styles.sectionTitle}>Web </h1>
                         <p className={styles.address}>
-                            <a href={eventData.webLink} target="_blank" className={styles.webLink}>
+                            <a
+                                href={eventData.webLink}
+                                target="_blank"
+                                className={styles.webLink}
+                            >
                                 {eventData.webLink}
                             </a>
                         </p>
-                        
                     </section>
                 )}
 
@@ -277,14 +320,16 @@ const EventDetailPage = () => {
                         <br />
                         <h1 className={styles.sectionTitle}>Web</h1>
                         <p className={styles.address}>
-                            <a href={eventData.webLink} target="_blank" className={styles.webLink}>
+                            <a
+                                href={eventData.webLink}
+                                target="_blank"
+                                className={styles.webLink}
+                            >
                                 {eventData.webLink}
                             </a>
                         </p>
                     </section>
                 )}
-
-                <hr />
             </div>
 
             {/* DESCRIPTION, WEBLINK */}
@@ -295,7 +340,6 @@ const EventDetailPage = () => {
                     {eventData.web}
                 </a>
             </section>
-            <hr />
 
             {/* TAGS */}
             {eventData.tags && eventData.tags.length > 0 && (
@@ -310,7 +354,6 @@ const EventDetailPage = () => {
                     </div>
                 </section>
             )}
-            <hr />
 
             {/* ORGANIZED BY */}
             {eventData.organizedBy && eventData.organizedBy.length > 0 && (
@@ -324,7 +367,7 @@ const EventDetailPage = () => {
                                 </span>
                             ))}
                         </div>
-                        { eventData.contactEmail && (
+                        {eventData.contactEmail && (
                             <a href={'mailto:' + eventData.contactEmail}>
                                 <ButtonRed label="contactar" />
                             </a>
@@ -332,7 +375,6 @@ const EventDetailPage = () => {
                     </div>
                 </section>
             )}
-            {/* <hr /> */}
             <div>
                 {isModalOpen && (
                     <ModalDisplay
