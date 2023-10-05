@@ -16,7 +16,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         token: ''
     });
 
-    const [ isLogged, setIsLogged ] = useState<boolean>(false);
+    const [ isLogged, setIsLogged ] = useState<boolean>(() => {
+        const user = localStorage.getItem('user');
+        return !!user;
+    } );
 
     return (
         <AuthContext.Provider value={{ user, setUser, isLogged, setIsLogged }}>

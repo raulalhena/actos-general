@@ -15,8 +15,7 @@ const LogInForm = () => {
         email: '',
         password: '',
     });
-    // const [ passwordError, setPasswordError ] = useState<string | null>(null);
-    // const [ emailError, setEmailError ] = useState<string | null>(null);
+
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = event.target;
         setLogInData({
@@ -24,29 +23,9 @@ const LogInForm = () => {
             [id]: value,
         });
     };
-    // const [ loginError, setLoginError ] = useState('');
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-
-        // Validate password
-        /*         const isValidPassword = validatePassword(logInData.password);
-        if (!isValidPassword) {
-            setPasswordError(
-                'La contraseña debe tener al menos una mayúscula, un número y un carácter especial.'
-            );
-        } else {
-            setPasswordError(null);
-        } */
-
-        // Validate email
-        /*         const isValidEmail = validateEmail(logInData.email);
-        if (!isValidEmail) {
-            setEmailError('El email no tiene un formato válido.');
-        } else {
-            setEmailError(null);
-        } */
-
         requestLogin();
     };
 
@@ -63,8 +42,6 @@ const LogInForm = () => {
         
         if(resp.ok) {
             user.user.token = accessToken;
-            console.log('user', user);
-
             login(user.user);
             navigate('/');
         } else {
@@ -74,19 +51,6 @@ const LogInForm = () => {
             });
         }
     };
-
-    // Function to validate password
-    /*     const validatePassword = (password: string) => {
-        const passwordRegex =
-      /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
-        return passwordRegex.test(password);
-    }; */
-
-    // Function to validate email
-    /*     const validateEmail = (email: string) => {
-        const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-        return emailRegex.test(email);
-    }; */
 
     return (
         <div className={styles.container}>
@@ -112,7 +76,6 @@ const LogInForm = () => {
                             onChange={handleInputChange}
                             isRequired={true}
                         />
-                        {/* {emailError && <p className={styles.error}>{emailError}</p>} */}
                         <TextInputSmall
                             id="password"
                             label=""
@@ -124,7 +87,6 @@ const LogInForm = () => {
                             isPassword={true}
                             isRequired={true}
                         />
-                        {/* {passwordError && <p className={styles.error}>{passwordError}</p>} */}
                         <h3 className={styles.forgotPasswordLink}>
               ¿Has olvidado tu contraseña?
                         </h3>

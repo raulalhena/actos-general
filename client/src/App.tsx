@@ -25,12 +25,12 @@ import SignupAdmin from './pages/SignupAdmin/SignupAdmin';
 function Layout({ children }: any) {
     return (
         <>
-            <AuthProvider>
-                <NavBar />
-                {children}
-                <ScrollTopButton/>
-                <Footer />
-            </AuthProvider>
+          
+            <NavBar />
+            {children}
+            <ScrollTopButton/>
+            <Footer />
+          
         </>
     );
 }

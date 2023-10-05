@@ -9,6 +9,9 @@ interface Props {
 export const ProtectedRoute = ( { role, children }: Props ) => {
     const { isLogged, user } = useAuth();
 
+    console.log('context isLogged', isLogged);
+    console.log('context user', user);
+
     return (isLogged && role.includes(user.role)) ? children : <Navigate to='/login' />;
 };
 
