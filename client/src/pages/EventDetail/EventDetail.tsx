@@ -12,7 +12,7 @@ import ModalDisplay from '../../components/Modal/ModalDisplay';
 
 const EventDetailPage = () => {
     const { _id } = useParams();
-    const { user } = useAuth();
+    const { user, isLogged } = useAuth();
 
     const [ eventData, setEventData ] = useState<EventDetailProps>({
         _id: '',
@@ -174,34 +174,28 @@ const EventDetailPage = () => {
                 </div>
 
                 {/*INSCRIPTION */}
-                {eventData.mode === 'Híbrido' ? 
-                    <div className={styles.categorySubcategorySection}>
-                        {!inscription ?
-                            <>
-                                <ButtonInscription label="Inscribirse en línea" onClick={() => openModal('online')} />
-                                <ButtonInscription label="Inscribirse en presencial" onClick={() => openModal('inscription')} />
-                            </>
-                            :
-                            <ButtonInscription label="Eliminar inscripción."
-                                onClick={
-                                    actionType === 'inscription' ?
-                                        () => openModal('unsubscription') :
-                                        () => {
-                                            openModal('unsubscribe-online');
-                                        }
-                                }
-                            />
-                        }
-                    </div>
-                    :
-                    <div className={styles.categorySubcategorySection}>
-                        {!inscription ? (
-                            <ButtonInscription label="Inscribirse al evento" onClick={() => openModal('inscription')} />
-                        ) : (
-                            <ButtonInscription label="Eliminar inscripción" onClick={() => openModal('unsubscription')} />
-                        )}
-                    </div>
-                }
+                {isLogged && (
+                    eventData.mode === 'Híbrido' ? (
+                        <div className={styles.categorySubcategorySection}>
+                            {!inscription ? (
+                                <>
+                                    <ButtonInscription label="Inscribirse en línea" onClick={() => openModal('online')} />
+                                    <ButtonInscription label="Inscribirse en presencial" onClick={() => openModal('inscription')} />
+                                </>
+                            ) : (
+                                <ButtonInscription label="Eliminar inscripción." onClick={() => openModal(actionType === 'inscription' ? 'unsubscription' : 'unsubscribe-online')} />
+                            )}
+                        </div>
+                    ) : (
+                        <div className={styles.categorySubcategorySection}>
+                            {!inscription ? (
+                                <ButtonInscription label="Inscribirse al evento" onClick={() => openModal('inscription')} />
+                            ) : (
+                                <ButtonInscription label="Eliminar inscripción" onClick={() => openModal('unsubscription')} />
+                            )}
+                        </div>
+                    )
+                )}
             </section>
             <hr />
 
