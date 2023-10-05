@@ -5,9 +5,9 @@ import { FaSearch } from 'react-icons/fa';
 import DropdownFilter from '../DropDownFilter/DropdownFilter';
 
 const filterOptions: Record<string, string> = {
-    name: 'Titulo',
-    category: 'Categoria',
-    subcategory: 'Subcategoria',
+    name: 'Título',
+    category: 'Categoría',
+    subcategory: 'Subcategoría',
     language: 'Idioma',
     tags: 'Etiquetas',
 };

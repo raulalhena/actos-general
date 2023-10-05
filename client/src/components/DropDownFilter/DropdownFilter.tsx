@@ -58,26 +58,25 @@ function DropdownFilter(props: DropDownCheckProps) {
                         }}
                         onChange={handleChange}
                         value={selected}
-                        placeholder="Filtro"
+                        placeholder="Filtrar por"
                         styles={{
                             control: (baseStyles, state) => ({
                                 ...baseStyles,
                                 'background': 'rgba(255, 255, 255, 0.5)',
-                                'box-shadow': '0px 2px 4px rgba(0, 0, 0, 0.2)',
+                                'boxShadow': '0px 2px 4px rgba(0, 0, 0, 0.2)',
                                 'borderColor': state.isFocused ? '#e15a40' : 'none',
-                                'border-style': 'none',
-                                'boxShadow': state.isFocused
-                                    ? '0px 2px 4px rgba(0, 0, 0, 0.3)'
-                                    : 'none',
+                                'borderStyle': 'none',
                                 'outline': state.isFocused ? 'none' : '#cacaca',
                                 '&:hover': {
                                     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.3)',
                                 },
                                 'color': state.isFocused ? 'red' : 'grey',
+
                             }),
                             menu: (baseStyles) => ({
                                 ...baseStyles,
                                 textAlign: 'left',
+                                
                             }),
                             input: (baseStyles) => ({
                                 ...baseStyles,
@@ -89,10 +88,12 @@ function DropdownFilter(props: DropDownCheckProps) {
                                 fontSize: '16px',
                                 fontWeight: 400,
                                 paddingLeft: '1rem',
+
                             }),
                             dropdownIndicator: (base, state) => ({
                                 ...base,
                                 color: state.isFocused ? 'grey' : '#e15a40',
+                        
                             }),
                         }}
                     />

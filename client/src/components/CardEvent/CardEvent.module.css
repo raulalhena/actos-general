@@ -3,13 +3,15 @@
   border: 1px solid #ccc;
   padding: 16px;
   margin: 16px;
-  background-color: #fff;
+  /* background-color: #fff; */
   transition: transform 0.2s;
   width: 350px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  z-index: -10;
+
 }
 
 .card:hover {
@@ -19,10 +21,17 @@
 
 .imageSection {
   position: relative;
+  max-height: 150px;
+  overflow: hidden;
+  width: 317px;
+  border-radius: 0px 30px 0px 0px;
+  background-color: #cacaca;
+  z-index: -1;
 }
 
 .eventImage {
-  width: 317px;
+  height: auto;
+  width: 100%;
   border-radius: 0px 30px 0px 0px;
 }
 
@@ -30,10 +39,12 @@
   position: absolute;
   bottom: 0;
   right: 0;
+  width: 120px;
+  overflow: hidden;
 }
 
 .logoImage {
-  width: 120px;
+  width: 100%;
   height: auto;
 }
 
