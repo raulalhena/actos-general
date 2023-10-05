@@ -147,12 +147,12 @@ const EventForm = () => {
                 const data = await response.json();
                 const modeData = data.map((mode: { name: string; }) => ({
                     name: mode.name,
-                    checked: false, 
+                    checked: false,
                 }));
                 setMode(modeData);
-                
+                console.log('mode', modeData);
             } catch (error) {
-                console.error('Error al obtener las horas:', error);
+                throw new Error(error.message);
             }
         };
         getMode();
@@ -162,9 +162,8 @@ const EventForm = () => {
     const [ isSection1Visible, setIsSection1Visible ] = useState(true);
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
-
+    
     const [ selectedCategory, setSelectedCategory ] = useState('');
-    const [ subcategoryLogo, setSubcategoryLogo ] = useState('');
 
     // Categories Handle Change
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -190,7 +189,6 @@ const EventForm = () => {
 
     // Text area
     const handleTextChange = (text: string ) => {
-        // console.log(text)
         setFormData({
             ...formData,
             description: text,
@@ -266,9 +264,7 @@ const EventForm = () => {
 
         } else  if(id === 'subcategory') {
             subcategories.forEach(subc => {
-                console.log('map loop', subc.name, value, subc.image);
                 if(subc.name === value){
-                    console.log('eq');
                     setFormData({
                         ...formData,
                         [id]: value,
@@ -325,8 +321,6 @@ const EventForm = () => {
         }
     };
 
-    console.log('img a', formData);
-
     // Convert Image to Base64 to send in JSON
     const convertToBase64 = () => {
 
@@ -338,13 +332,10 @@ const EventForm = () => {
                     ...formData,
                     image: fileReader.result
                 });
-                console.log('base64', fileReader.result);
             };
         }
         return;
     };
-
-    // console.log('image form data', formData.image);
 
     // Submit Button
     const handleSubmit = async (event: React.FormEvent) => {
@@ -422,10 +413,10 @@ const EventForm = () => {
                 autoClose: 2500,
                 pauseOnHover: true,
             });
-            e.dataTransfer.clearData();
+            // e.dataTransfer.clearData();
             return;
         }
-        e.dataTransfer.clearData();
+        // e.dataTransfer.clearData();
         handleFile(file);
     };
 

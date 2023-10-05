@@ -656,6 +656,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
 
+    console.log('category ', formData.category);
+
     return (
         <div data-testid='dashboard-component' className={styles.formDash}>
             <p className={styles.status}>

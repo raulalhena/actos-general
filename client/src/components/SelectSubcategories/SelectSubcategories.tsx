@@ -4,8 +4,6 @@ import styles from './SelectSubcategories.module.css';
 function SelectSubcategories(props: SelectSubcategoriesProps) {
     const { label, options, id, value, onChange } = props;
 
-    console.log('option sub;', options);
-
     return (
         <div>
             <label className={styles.label} htmlFor={id}> 
