@@ -91,7 +91,6 @@ const AllEvents = () => {
                         {!isLoading && noResults && (
                             <div className={styles.textBox}>
                                 <p className={styles.textStyle}> No se encontraron resultados. </p>
-                                <button className={styles.backBtn} onClick={() => window.location.href = '/'}>Volver</button>
                             </div>
                         )}
                     </div>
