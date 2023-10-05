@@ -1,15 +1,17 @@
 import { useState, useEffect, ChangeEvent } from 'react';
 import { ImageUploader } from '../ImageUploader/ImageUploader';
 import styles from './SubcategoryForm.module.css';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import TextInput from '../TextInput/TextInput';
 import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import SelectCategories from '../SelectCategories/SelectCategories';
+import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 
 interface CategoryData {
   name: string;
   description: string;
   image: string;
+  category: string;
 }
 
 const SubcategoryForm = () => {
@@ -17,7 +19,7 @@ const SubcategoryForm = () => {
     //  States
     const [ previewURL, setPreviewURL ] = useState<string>('');
     const [ imgVisibility, setImgVisibility ] = useState<string>('none');
-    const [ imageFile, setImageFile ] = useState<Blob>(null);
+    const [ imageFile, setImageFile ] = useState<Blob | null>(null);
     const [ categories, setCategories ] = useState<Array<EventDashboardFormProps>>(
         []
     );
@@ -43,7 +45,7 @@ const SubcategoryForm = () => {
         convertToBase64();
     }, [ imageFile ]);
 
-    const handleSubmit = (e: SubmitEvent<HTMLButtonElement>) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const res = fetch(
