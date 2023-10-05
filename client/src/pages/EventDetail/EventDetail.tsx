@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import styles from './EventDetail.module.css';
-import logo from '../../assets/logo.png';
 import { EventDetailProps } from '../../interfaces/eventDetailProps';
 import { IoLocationSharp } from 'react-icons/io5';
 import { IoPeopleSharp } from 'react-icons/io5';
