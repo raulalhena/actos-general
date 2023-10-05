@@ -26,7 +26,6 @@ export class MiscController {
 
   @Put('categories/:id/subcategories')
   createSubcategory(@Param('id') id: ObjectId, @Body() createSubcategoryDto: CreateSubcategoryDto) {
-    console.log('id, dto', id, createSubcategoryDto);
     return this.miscService.createSubcategory(id, createSubcategoryDto);
   }
 

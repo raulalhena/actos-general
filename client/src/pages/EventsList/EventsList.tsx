@@ -24,11 +24,8 @@ const EventsList = () => {
     const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const { id } = e.target;
-        console.log('target value ', id);
         navigate('/eventdashboard', { state: { id: id } });
     };
-
-    console.log('data ', events);
 
     return (
         <>

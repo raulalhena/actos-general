@@ -132,7 +132,7 @@ export class MiscService {
     try {
       return this.categoryModel.findById({ _id: id }).select('-_id subcategories');
     } catch (error) {
-      console.log(error);
+      throw error
     }
      
    }

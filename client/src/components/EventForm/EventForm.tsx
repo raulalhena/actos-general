@@ -150,7 +150,6 @@ const EventForm = () => {
                     checked: false,
                 }));
                 setMode(modeData);
-                console.log('mode', modeData);
             } catch (error) {
                 throw new Error(error.message);
             }
@@ -518,7 +517,7 @@ const EventForm = () => {
                                 value={formData.name}
                                 onChange={handleInputChange}
                             />
-                            <hr />
+                            <br />
                             <TextArea
                                 id="description"
                                 label="Descripción del evento *"
