@@ -258,7 +258,9 @@ const EventDetailPage = () => {
                     <p className={styles.date}>
             de {eventData.startTime} a {eventData.endTime}
                     </p>
-                    <p className={styles.date}>({eventData.timeZone})</p>
+                    {eventData.timeZone && ( 
+                        <p className={styles.date}>({eventData.timeZone})</p>
+                    )}
                 </div>
             </section>
             <hr />

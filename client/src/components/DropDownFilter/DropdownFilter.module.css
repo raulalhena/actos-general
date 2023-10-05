@@ -3,6 +3,7 @@
     width: 300px;
     align-items: center;
     justify-content: center;
+    z-index: 999;
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */
