@@ -63,12 +63,9 @@ function DropdownFilter(props: DropDownCheckProps) {
                             control: (baseStyles, state) => ({
                                 ...baseStyles,
                                 'background': 'rgba(255, 255, 255, 0.5)',
-                                'box-shadow': '0px 2px 4px rgba(0, 0, 0, 0.2)',
+                                'boxShadow': '0px 2px 4px rgba(0, 0, 0, 0.2)',
                                 'borderColor': state.isFocused ? '#e15a40' : 'none',
-                                'border-style': 'none',
-                                'boxShadow': state.isFocused
-                                    ? '0px 2px 4px rgba(0, 0, 0, 0.3)'
-                                    : 'none',
+                                'borderStyle': 'none',
                                 'outline': state.isFocused ? 'none' : '#cacaca',
                                 '&:hover': {
                                     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.3)',
