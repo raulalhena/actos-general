@@ -1,5 +1,4 @@
 import SignupAdminForm from '../../components/SignupAdminForm/SignupAdminForm';
-import styles from './SignupAdmin.module.css';
 
 function SignupAdmin() {
     

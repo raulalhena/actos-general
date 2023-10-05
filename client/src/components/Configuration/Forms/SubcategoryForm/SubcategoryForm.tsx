@@ -1,11 +1,11 @@
 import { useState, useEffect, ChangeEvent } from 'react';
-import { ImageUploader } from '../ImageUploader/ImageUploader';
+import { ImageUploader } from '../../../ImageUploader/ImageUploader';
 import styles from './SubcategoryForm.module.css';
 import { ToastContainer, toast } from 'react-toastify';
-import TextInput from '../TextInput/TextInput';
-import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
-import SelectCategories from '../SelectCategories/SelectCategories';
-import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
+import TextInput from '../../../TextInput/TextInput';
+import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
+import SelectCategories from '../../../SelectCategories/SelectCategories';
+import { EventDashboardFormProps } from '../../../../interfaces/eventDashboardFormProps';
 
 interface CategoryData {
   name: string;

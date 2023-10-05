@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { PDFViewer } from '@react-pdf/renderer';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
-import { HiCursorClick } from 'react-icons/hi';
 import { useAuth } from '../../hooks/useAuth';
 
 const EventDashboard = () => {

@@ -15,22 +15,20 @@ const Logout =  React.lazy(() => import('./components/Logout/Logout'));
 const AllEvents =  React.lazy(() => import('./pages/AllEvents/AllEvents'));
 const MyEvents =  React.lazy(() => import('./pages/MyEvents/MyEvents'));
 const FAQ = React.lazy(() => import('./pages/FAQ/FAQ'));
-const Subcategory = React.lazy(() => import('./pages/Subcategory/Subcategory'));
+const ConfigBoard = React.lazy(() => import('./pages/ConfigBoard/ConfigBoard'));
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
-import { AuthProvider } from './providers/AuthProvider';
 import ScrollTopButton from './components/ScrollTopButton/ScrollTopButton';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import SignupAdmin from './pages/SignupAdmin/SignupAdmin';
+import ConfigForm from './pages/ConfigForm/ConfigForm';
 
 function Layout({ children }: any) {
     return (
         <>
-          
             <NavBar />
             {children}
             <ScrollTopButton/>
             <Footer />
-          
         </>
     );
 }
@@ -70,11 +68,12 @@ function App() {
                                     <MyEvents />
                                 </ProtectedRoute>
                             } />
-                            <Route path='/createsubcategory' element={
+                            <Route path='/config/configform' element={
                                 <ProtectedRoute role={ [ 'admin' ] }>
-                                    <Subcategory />
+                                    <ConfigForm />
                                 </ProtectedRoute>
                             } />
+                            <Route path="/configboard" element={<ConfigBoard />} />
                             <Route path="/createadmin" element={<SignupAdmin />} />
                             <Route path="/faq" element={<FAQ />} />
                             <Route path="/eventslist" element={<EventsList />} />

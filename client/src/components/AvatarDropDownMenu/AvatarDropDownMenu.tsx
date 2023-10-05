@@ -82,7 +82,7 @@ export default function AvatarDropDownMenu() {
                 onClose={handleClose}
             >
                 <MenuItem onClick={handleClose} disableRipple>
-                    <Link to="/createsubcategory" className={styles.dropdownLink}>
+                    <Link to="/configboard" className={styles.dropdownLink}>
                         <IoMdSettings />
             Configuración
                     </Link>
