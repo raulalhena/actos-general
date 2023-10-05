@@ -72,7 +72,7 @@ const SubcategoryForm = () => {
                 autoClose: 2500,
                 pauseOnHover: true,
             });
-            return;
+            setIsModalOpen(true);
         }
         setIsModalOpen(true);
         window.scrollTo(0, 0);
@@ -186,19 +186,6 @@ const SubcategoryForm = () => {
         });
     };
 
-    /*  const convertToBase64 = () => {
-        if (imageFile) {
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(imageFile);
-            fileReader.onloadend = () => {
-                setSubcategoryData({
-                    ...subcategoryData,
-                    image: fileReader.result,
-                });
-            };
-        }
-        return;
-    }; */
     const convertToBase64 = () => {
         if (imageFile) {
             const fileReader = new FileReader();
