@@ -71,10 +71,12 @@ function DropdownFilter(props: DropDownCheckProps) {
                                     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.3)',
                                 },
                                 'color': state.isFocused ? 'red' : 'grey',
+
                             }),
                             menu: (baseStyles) => ({
                                 ...baseStyles,
                                 textAlign: 'left',
+                                
                             }),
                             input: (baseStyles) => ({
                                 ...baseStyles,
@@ -86,10 +88,12 @@ function DropdownFilter(props: DropDownCheckProps) {
                                 fontSize: '16px',
                                 fontWeight: 400,
                                 paddingLeft: '1rem',
+
                             }),
                             dropdownIndicator: (base, state) => ({
                                 ...base,
                                 color: state.isFocused ? 'grey' : '#e15a40',
+                        
                             }),
                         }}
                     />
