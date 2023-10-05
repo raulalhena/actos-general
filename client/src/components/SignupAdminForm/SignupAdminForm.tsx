@@ -3,7 +3,6 @@ import styles from './SignupAdminForm.module.css';
 import { SignupProps } from '../../interfaces/signupProps';
 import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import TextInputSmall from '../TextInputSmall/TextInputSmall';
-import { Link, useNavigate } from 'react-router-dom';
 import ConfirmPasswordInput from '../ConfirmPasswordInput/ConfirmPasswordInput';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import ModalDisplay from '../Modal/ModalDisplay';
@@ -24,11 +23,6 @@ const SignupAdminForm = () => {
     const notPasswordMatchError = null;
     const [ passwordConfirmed, setPasswordConfirmed ] = useState<string>('');
     const [ isModalOpen, setIsModalOpen ] = useState(false);
-
-    const navigate = useNavigate();
-    const handleLoginPage = ()  =>{
-        navigate('/login');
-    };
 
     const closeModal = () => {
         setIsModalOpen(false);
@@ -121,14 +115,8 @@ const SignupAdminForm = () => {
             <div className={styles.form}>
                 <form onSubmit={handleSubmit}>
                     <ToastContainer position="top-right" autoClose={3000} />
-                    <section className={styles.optionTitle}>
-                        <h2>¿Ya tienes cuenta?</h2>
-                        <Link to="/login" className={styles.registerLink}>
-                            Inicia sesión
-                        </Link>
-                    </section>
                     <section>
-                        <h1>Registro de usuario</h1>
+                        <h1>Registro de usuario Administrador</h1>
                         <TextInputSmall
                             id="name"
                             label=""
@@ -183,7 +171,7 @@ const SignupAdminForm = () => {
                         {notPasswordMatchError && <p className={styles.error}>{notPasswordMatchError}</p>}
                     </section>
                     <div className={styles.buttonSection}>
-                        <ButtonSubmit label="Registrarse" />
+                        <ButtonSubmit label="Crear usuario" />
                     </div>
                     <div>
                         {isModalOpen && (

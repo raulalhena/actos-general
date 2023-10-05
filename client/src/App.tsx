@@ -75,7 +75,7 @@ function App() {
                                     <Subcategory />
                                 </ProtectedRoute>
                             } />
-                            <Route path="/signupadmin" element={<SignupAdmin />} />
+                            <Route path="/createadmin" element={<SignupAdmin />} />
                             <Route path="/faq" element={<FAQ />} />
                             <Route path="/eventslist" element={<EventsList />} />
                             <Route path="/event/:_id" element={<EventDetail />} />
