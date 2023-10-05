@@ -20,6 +20,7 @@ import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AuthProvider } from './providers/AuthProvider';
 import ScrollTopButton from './components/ScrollTopButton/ScrollTopButton';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import SignupAdmin from './pages/SignupAdmin/SignupAdmin';
 
 function Layout({ children }: any) {
     return (
@@ -74,6 +75,7 @@ function App() {
                                     <Subcategory />
                                 </ProtectedRoute>
                             } />
+                            <Route path="/signupadmin" element={<SignupAdmin />} />
                             <Route path="/faq" element={<FAQ />} />
                             <Route path="/eventslist" element={<EventsList />} />
                             <Route path="/event/:_id" element={<EventDetail />} />

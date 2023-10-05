@@ -63,7 +63,6 @@ const LogInForm = () => {
         
         if(resp.ok) {
             user.user.token = accessToken;
-            console.log('user', user);
 
             login(user.user);
             navigate('/');

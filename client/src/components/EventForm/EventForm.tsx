@@ -162,16 +162,14 @@ const EventForm = () => {
     const [ isSection1Visible, setIsSection1Visible ] = useState(true);
     const [ isSection2Visible, setIsSection2Visible ] = useState(false);
     const [ isSection3Visible, setIsSection3Visible ] = useState(false);
-    
     const [ selectedCategory, setSelectedCategory ] = useState('');
 
     // Categories Handle Change
     const handleCategoryChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = event.target;
         const selected = event.target.selectedOptions[0].text;
-        console.log(formData);
+
         setSelectedCategory(value);
-        console.log(selected);
         setFormData({
             ...formData,
             category: selected,
