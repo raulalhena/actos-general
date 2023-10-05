@@ -1,17 +1,14 @@
 .navbar {
   background-color: rgb(255, 255, 255);
-  padding: 2rem 3rem;
+  padding: 0.5rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
-  min-height: 70px;
+  justify-content: space-around;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index:10;
 }
 
 .active {
-  background-color: #333; 
+  background-color: #ffffff; 
 }
 
 .logo {
@@ -20,9 +17,9 @@
 
 .navMenu {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  gap: 60px;
+  gap: 4rem;
 }
 
 .navLink {
@@ -30,7 +27,7 @@
   font-weight: 600;
   color: #1c2e48;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .navLink:hover {
