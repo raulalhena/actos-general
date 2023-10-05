@@ -1,3 +1,9 @@
+.subcategoryPage {
+  text-align: center;
+  padding: 20px;
+  margin: 0 3rem;
+}
+
 .container {
   width: 100%;
   display: flex;
@@ -6,50 +12,49 @@
   align-items: center;
 }
 
+.title {
+  display: flex;
+  margin: 3rem 0;
+  gap: 0.5rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.dash {
+  color: #e15a40;
+}
+
 .form {
-    width: fit-content;
-    padding: 1rem 0rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-  
-  .optionTitle {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2rem;
-    color: #1c2e48;
-  }
-  
-  .registerLink {
-    color: #e15a40;
-    font-weight: 700;
-  }
-  
-  .forgotPasswordLink {
-    text-align: center;
-    margin: 2rem 0 2rem 0;
-    font-size: 12px;
-    color: #1c2e48;
-  }
-  
-  .buttonSection {
-    display: flex;
-    justify-content: center;
-  }
-  
-  
-  /* Para pantallas más grandes o iguales a 900px (xl) */
-  @media screen and (min-width: 900px) {
-  
-    .optionTitle {
-      margin-bottom: 3rem;
-    }  
-  
-    .forgotPasswordLink {
-      margin: 2rem 0 3rem 0;
-    }
-  }
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+
+.label {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.inputsSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.buttonSection {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+
+/* Para pantallas más grandes o iguales a 900px (xl) */
+@media screen and (min-width: 900px) {
+
+
+}

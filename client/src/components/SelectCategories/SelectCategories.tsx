@@ -5,7 +5,7 @@ function SelectCategories(props: SelectCategoriesProps) {
     const { label, options, id, value, onChange } = props;
 
     return (
-        <div>
+        <div className={styles.selectContainer}>
             <label className={styles.label} htmlFor={id}> 
                 {label} 
             </label>

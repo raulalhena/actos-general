@@ -201,10 +201,13 @@ const EventDetailPage = () => {
                 {/*INSCRIPTION */}
                 {eventData.mode === 'Híbrido' ? 
                     <div className={styles.categorySubcategorySection}>
-                        {online ?
-                            <ButtonInscription label="Inscribirse en línea" onClick={handleEventInscriptionOnline}/>
+                        {!inscription ?
+                            <>
+                                <ButtonInscription label="Inscribirse en línea" onClick={handleEventInscriptionOnline} />
+                                <ButtonInscription label="Inscribirse en presencial" onClick={() => openModal('inscription')} />
+                            </>
                             :
-                            <ButtonInscription label="Eliminar inscripción online" onClick={handleEventUnsubscriptionOnline}/>
+                            <ButtonInscription label="Eliminar inscripción." onClick={() => openModal('cancellation')}/>
                         }
                     </div>
                     :
