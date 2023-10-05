@@ -7,7 +7,7 @@ import AvatarDropDownMenu from '../AvatarDropDownMenu/AvatarDropDownMenu';
 import { useMediaQuery } from '@mui/material';
 
 function Navbar() {
-    const [isActive, setIsActive] = useState(false);
+    const [ isActive, setIsActive ] = useState(false);
     const { user, isLogged } = useAuth();
 
     const toggleActiveClass = () => {
@@ -23,83 +23,87 @@ function Navbar() {
     return (
         <>
             <nav className={styles.navbar}>
-                <Link to="/" className={styles.navbarLink} onClick={removeActive}>
-                    <img src={Logo} className={styles.logo} alt="Logo" />
-                </Link>
-                <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>
-                    <li onClick={removeActive}>
-                        <Link to="/allevents" className={styles.navLink}>
-                            Agenda
-                        </Link>
-                    </li>
-                    {isLogged && user && user.role === 'user' && (
+                <div>
+                    <Link to="/" onClick={removeActive}>
+                        <img src={Logo} className={styles.logo} alt="Logo" />
+                    </Link>
+                </div>
+                <div>
+                    <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>
                         <li onClick={removeActive}>
-                            <Link to="/myevents" className={styles.navLink}>
-                                Mis eventos
+                            <Link to="/allevents" className={styles.navLink}>
+                Agenda
                             </Link>
                         </li>
-                    )}
-                    <li onClick={removeActive}>
-                        <Link to="/faq" className={styles.navLink}>
-                            FAQ
-                        </Link>
-                    </li>
-                    {isLogged && user && user.role === 'admin' && (
-                        <li onClick={removeActive}>
-                            <Link to="/eventslist" className={styles.navLink}>
-                                Eventos Activos
-                            </Link>
-                        </li>
-                    )}
-                    {isLogged && user && user.role === 'admin' && (
-                        <li onClick={removeActive}>
-                            <Link to="/createevent" className={styles.navLink}>
-                                Crear Evento
-                            </Link>
-                        </li>
-                    )}
-                    {isLogged && user && user.role === 'admin' && (
-                        <li onClick={removeActive}>
-                            <Link to="/createsubcategory" className={styles.navLink}>
-                                Crear Subcategoría
-                            </Link>
-                        </li>
-                    )}
-
-                    {isLogged ? (
-                        isDesktop ? (
+                        {isLogged && user && user.role === 'user' && (
                             <li onClick={removeActive}>
-                                <AvatarDropDownMenu />
+                                <Link to="/myevents" className={styles.navLink}>
+                  Mis eventos
+                                </Link>
                             </li>
+                        )}
+                        <li onClick={removeActive}>
+                            <Link to="/faq" className={styles.navLink}>
+                FAQ
+                            </Link>
+                        </li>
+                        {isLogged && user && user.role === 'admin' && (
+                            <li onClick={removeActive}>
+                                <Link to="/eventslist" className={styles.navLink}>
+                  Eventos Activos
+                                </Link>
+                            </li>
+                        )}
+                        {isLogged && user && user.role === 'admin' && (
+                            <li onClick={removeActive}>
+                                <Link to="/createevent" className={styles.navLink}>
+                  Crear Evento
+                                </Link>
+                            </li>
+                        )}
+                        {isLogged && user && user.role === 'admin' && (
+                            <li onClick={removeActive}>
+                                <Link to="/createsubcategory" className={styles.navLink}>
+                  Crear Subcategoría
+                                </Link>
+                            </li>
+                        )}
+
+                        {isLogged ? (
+                            isDesktop ? (
+                                <li onClick={removeActive}>
+                                    <AvatarDropDownMenu />
+                                </li>
+                            ) : (
+                                <li onClick={removeActive} className={styles.bar}>
+                                    <Link to="/logout" className={styles.navLink}>
+                    Cerrar sesión
+                                    </Link>
+                                </li>
+                            )
                         ) : (
-                            <li onClick={removeActive} className={styles.bar}>
-                                <Link to="/logout"  className={styles.navLink}>Cerrar sesión</Link>
-                            </li>
-                            
-                        )
-                    ) : (
-                        <>
-                            <li onClick={removeActive}>
-                                <Link to="/login" className={styles.navLink}>
-                                    Iniciar sesión {user ? user.name : ''}
-                                </Link>
-                            </li>
-                            <li onClick={removeActive}>
-                                <Link to="/signup" className={styles.navLink}>
-                                    Registrarse
-                                </Link>
-                            </li>
-                        </>
-                    )}
-                </ul>
-
-                <div
-                    className={`${styles.hamburger} ${isActive ? styles.active : ''}`}
-                    onClick={toggleActiveClass}
-                >
-                    <span className={styles.bar}></span>
-                    <span className={styles.bar}></span>
-                    <span className={styles.bar}></span>
+                            <>
+                                <li onClick={removeActive}>
+                                    <Link to="/login" className={styles.navLink}>
+                    Iniciar sesión {user ? user.name : ''}
+                                    </Link>
+                                </li>
+                                <li onClick={removeActive}>
+                                    <Link to="/signup" className={styles.navLink}>
+                    Registrarse
+                                    </Link>
+                                </li>
+                            </>
+                        )}
+                    </ul>
+                    <div
+                        className={`${styles.hamburger} ${isActive ? styles.active : ''}`}
+                        onClick={toggleActiveClass}
+                    >
+                        <span className={styles.bar}></span>
+                        <span className={styles.bar}></span>
+                        <span className={styles.bar}></span>
+                    </div>
                 </div>
             </nav>
         </>
