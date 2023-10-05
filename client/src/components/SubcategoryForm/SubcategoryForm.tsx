@@ -2,16 +2,19 @@ import { useState, useEffect, ChangeEvent } from 'react';
 import { ImageUploader } from '../ImageUploader/ImageUploader';
 import styles from './SubcategoryForm.module.css';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import TextInput from '../TextInput/TextInput';
 import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
+import ModalDisplay from '../Modal/ModalDisplay';
+import { BsPatchCheckFill } from 'react-icons/bs';
 
 interface CategoryData {
-  name: string;
-  description: string;
-  image: string;
-  category: string;
+    name: string;
+    description: string;
+    image: string;
+    category: string;
 }
 
 const SubcategoryForm = () => {
@@ -30,6 +33,20 @@ const SubcategoryForm = () => {
         image: '',
         category: '',
     });
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+
+    const resetForm = () => {
+        setPreviewURL('');
+        setImgVisibility('none');
+        setImageFile(null);
+        setSelectedCategory('');
+        setSubcategoryData({
+            name: '',
+            description: '',
+            image: '',
+            category: '',
+        });
+    };
 
     useEffect(() => {
         const getCategories = async () => {
@@ -46,22 +63,55 @@ const SubcategoryForm = () => {
         convertToBase64();
     }, [ imageFile ]);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit =  (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const res = fetch(
-            `http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`,
-            {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(subcategoryData),
-            }
-        );
+        if (subcategoryData.image === '') {
+            toast.warning('No se ha seleccionado ninguna imagen', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+            return;
+        }
+        setIsModalOpen(true);
+        window.scrollTo(0, 0);
+    };
 
-        if (res.ok) console.log('modal');
-        return;
+    //Save
+    const handleSave = async () => {
+        const saveData = async () => {
+            const res = await fetch(
+                `http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(subcategoryData),
+                }
+            );
+        
+            if (res.ok) {
+                toast.success('Los cambios se han guardado con éxito', {
+                    position: 'top-right',
+                    autoClose: 2500,
+                    pauseOnHover: true,
+                });
+        
+                resetForm();
+                setIsModalOpen(false);
+                window.scrollTo(0, 0);
+            } else {
+                toast.error('Hubo un error al guardar los cambios', {
+                    position: 'top-right',
+                    autoClose: 2500,
+                    pauseOnHover: true,
+                });
+            }
+        };
+        saveData();
+        window.scrollTo(0, 0);
     };
 
     // Categories Handle Change
@@ -136,7 +186,7 @@ const SubcategoryForm = () => {
         });
     };
 
-    const convertToBase64 = () => {
+    /*  const convertToBase64 = () => {
         if (imageFile) {
             const fileReader = new FileReader();
             fileReader.readAsDataURL(imageFile);
@@ -145,18 +195,41 @@ const SubcategoryForm = () => {
                     ...subcategoryData,
                     image: fileReader.result,
                 });
-                console.log('base64', fileReader.result);
+            };
+        }
+        return;
+    }; */
+    const convertToBase64 = () => {
+        if (imageFile) {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(imageFile);
+            fileReader.onloadend = () => {
+                if (typeof fileReader.result === 'string') {
+                    setSubcategoryData({
+                        ...subcategoryData,
+                        image: fileReader.result,
+                    });
+                } else {
+                    // if fileReader.result is not a string (e.g., it's null ??)
+                }
             };
         }
         return;
     };
 
+    const closeModal = () => {
+        setIsModalOpen(false);
+        window.scrollTo(0, 0);
+    };
+
     return (
         <div className={styles.subcategoryPage}>
+            <ToastContainer  />
             <div className={styles.container}>
-                <ToastContainer />
+                
                 <div className={styles.form}>
                     <form onSubmit={handleSubmit}>
+    
                         <section>
                             <div className={styles.title}>
                                 <h1 className={styles.dash}>—</h1>
@@ -206,6 +279,22 @@ const SubcategoryForm = () => {
                             <ButtonSubmit label="Guardar" />
                         </div>
                     </form>
+                    <div>
+                        {isModalOpen && (
+                            <ModalDisplay
+                                icon={<BsPatchCheckFill className={styles.checkIcon} />}
+                                title={'Quieres guardar?'}
+                                subtitle={''}
+                                button1Text={'Cancelar'}
+                                button2Text={'Guardar'}
+                                onClose={closeModal}
+                                isOpen={true}
+                                onButton1Click={closeModal}
+                                onButton2Click={handleSave}
+                                showCloseButton={true}
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
