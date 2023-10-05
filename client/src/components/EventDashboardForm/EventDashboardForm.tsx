@@ -797,7 +797,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             />
                             
                         )}
-                        {formData.mode === 'En línea' && (
+                        {formData.mode === 'En Línea' && (
                             <TextInput
                                 isRequired={true}
                                 id="webLink"
