@@ -28,6 +28,7 @@ const SubcategoryForm = () => {
         name: '',
         description: '',
         image: '',
+        category: '',
     });
 
     useEffect(() => {
