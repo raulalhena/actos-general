@@ -7,7 +7,7 @@
 .searchBar{
   display: flex;
   gap: 0.5rem;
-  z-index: 999;
+  
 }
 
 .searchInput {
@@ -59,7 +59,7 @@
 }
 
 .filterField {
-  z-index: 0;
+  z-index: 1;
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */

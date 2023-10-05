@@ -1,5 +1,6 @@
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import { ReactNode, useEffect } from 'react';
 
 interface Props {
     children: ReactNode;
@@ -8,11 +9,22 @@ interface Props {
 
 export const ProtectedRoute = ( { role, children }: Props ) => {
     const { isLogged, user } = useAuth();
+    const navigate = useNavigate();
 
-    console.log('context isLogged', isLogged);
-    console.log('context user', user);
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (!storedUser) {
+            navigate('/login');
+            return;
+        }
 
-    return (isLogged && role.includes(user.role)) ? children : <Navigate to='/login' />;
+        const user = JSON.parse(storedUser);
+        if (!role.includes(user.role)) {
+            navigate('/login');
+        }
+    }, []);
+
+    return (isLogged && role.includes(user.role)) ? children : null;
 };
 
 export default ProtectedRoute;
