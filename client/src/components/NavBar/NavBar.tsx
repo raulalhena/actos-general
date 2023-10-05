@@ -69,9 +69,7 @@ function Navbar() {
                     {isLogged ? (
                         isDesktop ? (
                             <li onClick={removeActive}>
-                                <Link to={''}>
-                                    <AvatarDropDownMenu />
-                                </Link>
+                                <AvatarDropDownMenu />
                             </li>
                         ) : (
                             <li onClick={removeActive} className={styles.bar}>
