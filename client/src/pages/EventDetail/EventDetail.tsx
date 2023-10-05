@@ -52,7 +52,6 @@ const EventDetailPage = () => {
         setModalBtn1Text('Cancelar');
         setModalBtn2Text(type === 'inscription' ? 'Inscribirme' : 'Eliminar');
         setModalTitle(type === 'inscription' ? 'Estás a punto de inscribirte al evento.' : 'Estás a punto de eliminar la inscripción.');
-        setInscription(type === 'inscription');
     };
 
     const closeModal = () => {
@@ -129,6 +128,8 @@ const EventDetailPage = () => {
             setModalTitle(`Te has ${actionType === 'inscription' ? 'inscrito' : 'desuscrito'} correctamente.`);
             setModalBtn1Text('');
             setModalBtn2Text('');
+            setInscription(actionType === 'inscription');
+
         } else {
             setModalTitle(`Error al ${actionType === 'inscription' ? 'inscribirse' : 'desinscribirse'}.`);
         }
