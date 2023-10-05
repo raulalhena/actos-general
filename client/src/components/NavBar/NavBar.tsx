@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import styles from './Navbar.module.css';
 import Logo from '../../assets/logo.png';
-import { Link } from 'react-router-dom'; // Importa Link desde react-router-dom
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import AvatarDropDownMenu from '../AvatarDropDownMenu/AvatarDropDownMenu';
+import { useMediaQuery } from '@mui/material';
 
 function Navbar() {
-    const [ isActive, setIsActive ] = useState(false);
+    const [isActive, setIsActive] = useState(false);
     const { user, isLogged } = useAuth();
 
     const toggleActiveClass = () => {
@@ -15,6 +17,8 @@ function Navbar() {
     const removeActive = () => {
         setIsActive(false);
     };
+
+    const isDesktop = useMediaQuery('(min-width:600px)');
 
     return (
         <>
@@ -50,7 +54,7 @@ function Navbar() {
                     {isLogged && user && user.role === 'admin' && (
                         <li onClick={removeActive}>
                             <Link to="/createevent" className={styles.navLink}>
-                            Crear Evento
+                                Crear Evento
                             </Link>
                         </li>
                     )}
@@ -61,31 +65,35 @@ function Navbar() {
                             </Link>
                         </li>
                     )}
-                </ul>
 
-                {!isLogged ? (
-                    <>
-                        <li onClick={removeActive}>
-                            <Link to="/login" className={styles.navLink}>
-                                Iniciar sesión {user ? user.name : ''}
-                            </Link>
-                        </li>
-                        <li onClick={removeActive}>
-                            <Link to="/signup" className={styles.navLink}>
-                                Registrarse
-                            </Link>
-                        </li>
-                    </>
-                )
-                    :
-                    <>
-                        <li onClick={removeActive}>
-                            <Link to="/logout" className={styles.navLink}>
-                                Cerrar sesión
-                            </Link>
-                        </li>
-                    </>
-                }
+                    {isLogged ? (
+                        isDesktop ? (
+                            <li onClick={removeActive}>
+                                <Link to={''}>
+                                    <AvatarDropDownMenu />
+                                </Link>
+                            </li>
+                        ) : (
+                            <li onClick={removeActive} className={styles.bar}>
+                                <Link to="/logout"  className={styles.navLink}>Cerrar sesión</Link>
+                            </li>
+                            
+                        )
+                    ) : (
+                        <>
+                            <li onClick={removeActive}>
+                                <Link to="/login" className={styles.navLink}>
+                                    Iniciar sesión {user ? user.name : ''}
+                                </Link>
+                            </li>
+                            <li onClick={removeActive}>
+                                <Link to="/signup" className={styles.navLink}>
+                                    Registrarse
+                                </Link>
+                            </li>
+                        </>
+                    )}
+                </ul>
 
                 <div
                     className={`${styles.hamburger} ${isActive ? styles.active : ''}`}

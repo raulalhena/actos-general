@@ -511,7 +511,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             getSubcategories(categoryId);
         };
         getCategories();
-    }, []);
+    }, [ formData.category ]);
 
     // Get Subcategories
     const getSubcategories = async (selectedCategory: string) => {
@@ -797,7 +797,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             />
                             
                         )}
-                        {formData.mode === 'En línea' && (
+                        {formData.mode === 'En Línea' && (
                             <TextInput
                                 isRequired={true}
                                 id="webLink"

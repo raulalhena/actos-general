@@ -1,23 +1,25 @@
+import React, { Suspense } from 'react';
 import './styles/globals.css';
-import CreateEvent from './pages/CreateEvent/CreateEvent';
-import EventDashboard from './pages/EventDashboard/EventDashboard';
-import Login from './pages/Login/Login';
-import Signup from './pages/Signup/Signup';
-import Home from './pages/Home/Home';
+import Preloader from './components/Preloader/Preloader';
+const NavBar = React.lazy(() => import('./components/NavBar/NavBar'));
+const CreateEvent = React.lazy(() => import('./pages/CreateEvent/CreateEvent'));
+const EventDashboard = React.lazy(() => import('./pages/EventDashboard/EventDashboard'));
+const Login = React.lazy(() => import('./pages/Login/Login'));
+const Signup = React.lazy(() => import('./pages/Signup/Signup'));
+const Home = React.lazy(() => import('./pages/Home/Home'));
+const Footer =  React.lazy(() => import('./components/Footer/Footer'));
+const NotFound =  React.lazy(() => import('./pages/NotFound/NotFound'));
+const EventDetail =  React.lazy(() => import('./pages/EventDetail/EventDetail'));
+const EventsList =  React.lazy(() => import('./pages/EventsList/EventsList'));
+const Logout =  React.lazy(() => import('./components/Logout/Logout'));
+const AllEvents =  React.lazy(() => import('./pages/AllEvents/AllEvents'));
+const MyEvents =  React.lazy(() => import('./pages/MyEvents/MyEvents'));
+const FAQ = React.lazy(() => import('./pages/FAQ/FAQ'));
+const Subcategory = React.lazy(() => import('./pages/Subcategory/Subcategory'));
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
-import NavBar from './components/NavBar/NavBar';
-import EventDetail from './pages/EventDetail/EventDetail';
-import EventsList from './pages/EventsList/EventsList';
 import { AuthProvider } from './providers/AuthProvider';
-import Footer from './components/Footer/Footer';
-import FAQ from './pages/FAQ/FAQ';
-import NotFound from './pages/NotFound/NotFound';
-import Logout from './components/Logout/Logout';
-import AllEvents from './pages/AllEvents/AllEvents';
 import ScrollTopButton from './components/ScrollTopButton/ScrollTopButton';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import MyEvents from './pages/MyEvents/MyEvents';
-import { Subcategory } from './pages/Subcategory/Subcategory';
 
 function Layout({ children }: any) {
     return (
@@ -40,43 +42,46 @@ function App() {
     return (
         <>
             {nonNavbar ? (
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
-                    <Route path="/404" element={<NotFound />} />
-                </Routes>
+                <Suspense fallback={ <Preloader /> }>
+                    <Routes>
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/signup" element={<Signup />} />
+                        <Route path="/404" element={<NotFound />} />
+                    </Routes>
+                </Suspense>
             ) : (
                 <Layout>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path='/createevent' element={
-                            <ProtectedRoute role={ [ 'admin' ] }>
-                                <CreateEvent />
-                            </ProtectedRoute>
-                        } />
-                        <Route path='/eventdashboard' element={
-                            <ProtectedRoute role={ [ 'admin' ] }>
-                                <EventDashboard />
-                            </ProtectedRoute>
-                        } />
-                        <Route path='/myevents' element={
-                            <ProtectedRoute role={ [ 'user' ] }>
-                                <MyEvents />
-                            </ProtectedRoute>
-                        } />
-                        {/* <Route path='/createsubcategory' element={
-                            <ProtectedRoute role={ [ 'admin' ] }>
-                                <Subcategory />
-                            </ProtectedRoute>
-                        } /> */}
-                        <Route path="/createsubcategory" element={<Subcategory />} />
-                        <Route path="/faq" element={<FAQ />} />
-                        <Route path="/eventslist" element={<EventsList />} />
-                        <Route path="/event/:_id" element={<EventDetail />} />
-                        <Route path='/logout' element={<Logout />} />
-                        <Route path="/allevents" element={<AllEvents />} />
-                        <Route path="*" element={<Navigate to='/404' />} />
-                    </Routes>
+                    <Suspense fallback={ <Preloader /> }>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path='/createevent' element={
+                                <ProtectedRoute role={ [ 'admin' ] }>
+                                    <CreateEvent />
+                                </ProtectedRoute>
+                            } />
+                            <Route path='/eventdashboard' element={
+                                <ProtectedRoute role={ [ 'admin' ] }>
+                                    <EventDashboard />
+                                </ProtectedRoute>
+                            } />
+                            <Route path='/myevents' element={
+                                <ProtectedRoute role={ [ 'user' ] }>
+                                    <MyEvents />
+                                </ProtectedRoute>
+                            } />
+                            <Route path='/createsubcategory' element={
+                                <ProtectedRoute role={ [ 'admin' ] }>
+                                    <Subcategory />
+                                </ProtectedRoute>
+                            } />
+                            <Route path="/faq" element={<FAQ />} />
+                            <Route path="/eventslist" element={<EventsList />} />
+                            <Route path="/event/:_id" element={<EventDetail />} />
+                            <Route path='/logout' element={<Logout />} />
+                            <Route path="/allevents" element={<AllEvents />} />
+                            <Route path="*" element={<Navigate to='/404' />} />
+                        </Routes>
+                    </Suspense>
                 </Layout>
             )}
         </>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
-import { FaRegEdit } from 'react-icons/fa';
 import styles from './EventsList.module.css';
 import Preloader from '../../components/Preloader/Preloader';
 

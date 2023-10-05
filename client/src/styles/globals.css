@@ -48,7 +48,9 @@ li {
   list-style: none;
 }
 
-
+br {
+  margin: 1rem 0;
+}
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
 }

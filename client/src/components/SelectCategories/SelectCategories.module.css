@@ -1,3 +1,10 @@
+.selectContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
 .label {
   font-weight: 600;
   color: #1c2e48;
@@ -18,11 +25,10 @@
 
 .input:focus {
   border-radius: 0.3125rem;
-  border: 1.5px solid #1C2E48!important;
+  border: 1.5px solid #1c2e48 !important;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   outline: none;
 }
-
 
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
