@@ -2,20 +2,13 @@ import { useState, useEffect, ChangeEvent } from 'react';
 import { ImageUploader } from '../../../ImageUploader/ImageUploader';
 import styles from './SubcategoryForm.module.css';
 import { ToastContainer, toast } from 'react-toastify';
-<<<<<<< HEAD:client/src/components/Configuration/Forms/SubcategoryForm/SubcategoryForm.tsx
+import 'react-toastify/dist/ReactToastify.css';
 import TextInput from '../../../TextInput/TextInput';
 import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
 import SelectCategories from '../../../SelectCategories/SelectCategories';
 import { EventDashboardFormProps } from '../../../../interfaces/eventDashboardFormProps';
-=======
-import 'react-toastify/dist/ReactToastify.css';
-import TextInput from '../TextInput/TextInput';
-import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
-import SelectCategories from '../SelectCategories/SelectCategories';
-import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
-import ModalDisplay from '../Modal/ModalDisplay';
+import ModalDisplay from '../../../Modal/ModalDisplay';
 import { BsPatchCheckFill } from 'react-icons/bs';
->>>>>>> modalsubcategory/yumi:client/src/components/SubcategoryForm/SubcategoryForm.tsx
 
 interface CategoryData {
     name: string;
