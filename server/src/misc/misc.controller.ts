@@ -26,7 +26,6 @@ export class MiscController {
 
   @Put('categories/:id/subcategories')
   createSubcategory(@Param('id') id: ObjectId, @Body() createSubcategoryDto: CreateSubcategoryDto) {
-    console.log('id, dto', id, createSubcategoryDto);
     return this.miscService.createSubcategory(id, createSubcategoryDto);
   }
 
@@ -60,7 +59,7 @@ export class MiscController {
     return this.miscService.createVisibility(createVisibilityDto);
   }
 
-  @Post('mode/load')
+  @Post('modes')
   createMode(@Body() createModeDto: CreateModeDto) {
     return this.miscService.createMode(createModeDto);
   }

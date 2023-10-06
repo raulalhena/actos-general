@@ -7,11 +7,16 @@ import { Link } from 'react-router-dom';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { PDFViewer } from '@react-pdf/renderer';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
-import { HiCursorClick } from 'react-icons/hi';
+import { useAuth } from '../../hooks/useAuth';
 
 const EventDashboard = () => {
     const location = useLocation();
     const eventId = location.state?.id;
+
+    const { isLogged, user } = useAuth();
+
+    console.log('context isLogged', isLogged);
+    console.log('context user', user);
 
     const [ eventData, setEventData ] = useState<EventDashboardFormProps>({
         _id: '',

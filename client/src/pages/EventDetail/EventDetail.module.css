@@ -42,7 +42,6 @@ hr {
   gap: 1rem;
   color: #4f4f4f;
   line-height: 2rem;
-
 }
 
 .detailsSection {
@@ -181,7 +180,7 @@ hr {
   }
 
   .section {
-    padding: 2rem;
+    padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
     gap: 2rem;
