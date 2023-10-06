@@ -1,4 +1,5 @@
-import styles from './TypeConfigCard.module.css';
+import { IoPeopleSharp } from 'react-icons/io5';
+import styles from '../GlobalConfigCard.module.css';
 import { Link } from 'react-router-dom';
 
 const TypeConfigCard = () => {
@@ -6,7 +7,8 @@ const TypeConfigCard = () => {
     return (
         <div>
             <Link to={`/config/configlist`} state={'types'}>
-                <div className={styles.card}>
+                <div className={styles.configCard}>
+                    <IoPeopleSharp className={styles.configIcon}/>
                     <h2>TIPOS DE EVENTOS</h2>
                 </div>
             </Link>

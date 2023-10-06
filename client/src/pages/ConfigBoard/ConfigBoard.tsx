@@ -6,19 +6,30 @@ import TimeConfigCard from '../../components/Configuration/Cards/TimeConfigCard/
 import TimeZoneConfigCard from '../../components/Configuration/Cards/TimeZoneConfigCard/TimeZoneConfigCard';
 import LanguageConfigCard from '../../components/Configuration/Cards/LanguageConfigCard/LanguageConfigCard';
 import VisibilityConfigCard from '../../components/Configuration/Cards/VisibilityConfigCard/VisibilityConfigCard';
+import styles from './ConfigBoard.module.css';
 
 const ConfigBoard = () => {
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', height: '60vh' }}>
-            <CategoryConfigCard />
-            <SubcategoryConfigCard />
-            <TypeConfigCard />
-            <ModeConfigCard />
-            <TimeConfigCard />
-            <TimeZoneConfigCard />
-            <LanguageConfigCard />
-            <VisibilityConfigCard />
-        </div>
+        <>
+            <div className={styles.pageConfig}>
+                <div className={styles.pageContainer}>
+                    <div className={styles.titleConfig}>
+                        <h1 className={styles.dash}>—</h1>
+                        <h1>Personaliza tus formularios</h1>
+                    </div>
+                    <div className={styles.configGrid}>
+                        <CategoryConfigCard />
+                        <SubcategoryConfigCard />
+                        <TypeConfigCard />
+                        <ModeConfigCard />
+                        <TimeConfigCard />
+                        <TimeZoneConfigCard />
+                        <LanguageConfigCard />
+                        <VisibilityConfigCard />
+                    </div>
+                </div>
+            </div>
+        </>
     );
 };
 
