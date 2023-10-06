@@ -2,61 +2,74 @@ import ReactModal from 'react-modal';
 import styles from './ModalDisplay.module.css';
 import { ModalDisplayProps } from '../../interfaces/modalDisplayProps';
 import ModalButtonRed from './ModalButton/ModalButtonRed';
-import ModalButtonWhite from './ModalButton/ModalButtonWhite';
+import ModalButtonNoBorder from './ModalButton/ModalButtonNoBorder';
 
 const ModalDisplay = (props: ModalDisplayProps) => {
-
-    const { icon, title, subtitle, button1Text, button2Text, onClose, isOpen, showCloseButton, onButton1Click, onButton2Click } = props;
+    const {
+        icon,
+        title,
+        subtitle,
+        button1Text,
+        button2Text,
+        onClose,
+        isOpen,
+        showCloseButton,
+        onButton1Click,
+        onButton2Click,
+    } = props;
 
     return (
-        <ReactModal
-            isOpen={isOpen}
-            onRequestClose={onClose}
-            contentLabel="Modal"
-            shouldCloseOnOverlayClick={true}
-            style={{
-                overlay: {
-                    backgroundColor: 'rgba(200, 200, 200, 0.6)',
-                },
-                content: {
-                    border: 'none',
-                    borderRadius: '2rem', 
-                    padding: '2rem', 
-                    maxWidth: '100%',
-                    margin: 'auto',
-                    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                },
-            }}
-        >
-            <div className={styles.container}>
-                <div className={styles.modalContent}>
-
-                    {showCloseButton && <div className={styles.modalHeader}>
-                        <button className={styles.closeButton} onClick={onClose}>
-                            &times;
-                        </button>
-                    </div>}
-                    <div className={styles.modalBody}>
-                        <div className={styles.icon}>{icon}</div>
-                        <h2 className={styles.h2}><b>{title}</b></h2>
-                        <p className={styles.p}>{subtitle}</p>
-                        <div className={styles.modalFooter}>
-                            {button1Text && <ModalButtonWhite 
-                                label={button1Text} 
-                                onClick={onButton1Click} 
-                            />}
-                            {button2Text && <ModalButtonRed
-                                label={button2Text} 
-                                onClick={onButton2Click } 
-                            />}
+        <div className={styles.modalPage}>
+            <ReactModal
+                isOpen={isOpen}
+                onRequestClose={onClose}
+                contentLabel="Modal"
+                shouldCloseOnOverlayClick={true}
+                style={{
+                    overlay: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    },
+                    content: {
+                        border: 'none',
+                        background: 'none',
+                    },
+                }}
+            >
+                <div className={styles.container}>
+                    <div className={styles.modalContent}>
+                        {showCloseButton && (
+                            <div className={styles.modalHeader}>
+                                <button className={styles.closeButton} onClick={onClose}>
+                  &times;
+                                </button>
+                            </div>
+                        )}
+                        <div className={styles.modalBody}>
+                            <div className={styles.icon}>{icon}</div>
+                            <h2 className={styles.h2Modal}>
+                                <b>{title}</b>
+                            </h2>
+                            <p className={styles.pModal}>{subtitle}</p>
+                            <div className={styles.modalFooter}>
+                                {button1Text && (
+                                    <ModalButtonRed
+                                        label={button1Text}
+                                        onClick={onButton1Click}
+                                    />
+                                )}
+                                {button2Text && (
+                                    <ModalButtonNoBorder
+                                        label={button2Text}
+                                        onClick={onButton2Click}
+                                    />
+                                )}
+                            </div>
                         </div>
                     </div>
-                    
                 </div>
-            </div>
-        </ReactModal>
+            </ReactModal>
+        </div>
     );
-
 };
 
 export default ModalDisplay;

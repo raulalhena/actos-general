@@ -82,20 +82,29 @@ opacity: 0.9;
 }
 
 .cardCategory{
-  font-size: 14px;
   border-radius: 16px;
+  padding: 0.3rem 0.7rem;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 16px;
+  background-color: white;
+  color: #1C2E48;
   border: 1px solid #1C2E48;
-  background: #F5F5F5;
-  padding: 0.1rem 0.5rem;
+  height: fit-content;
 }
 
 .cardSubcategory{
-  color: #E15A40;
-  font-size: 14px;
   border-radius: 16px;
-  border: 1px solid #E15A40;
-  background: #F5F5F5;
-  padding: 0.1rem 0.5rem;
+  padding: 0.3rem 0.7rem;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 16px;
+  background-color: white;
+  color: #e15a40;
+  border: 1px solid #e15a40;
+  height: fit-content;
 }
 
 .spanContainer{

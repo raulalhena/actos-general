@@ -217,14 +217,14 @@ const EventDetailPage = () => {
                   {!inscription ? (
                       <>
                           <ButtonInscription
-                              label="Inscribirse en línea"
+                              label="Inscripción Evento Online"
                               onClick={() => {
                                   openModal('online');
                                   storeActionType('online');
                               }}
                           />
                           <ButtonInscription
-                              label="Inscribirse en presencial"
+                              label="Inscripción Evento Presencial"
                               onClick={() => {
                                   openModal('inscription');
                                   storeActionType('inscription');
@@ -262,7 +262,7 @@ const EventDetailPage = () => {
             </section>
 
             {/* MODE, TYPE, LANGUAGE */}
-            <section className={styles.section}>
+            <section className={styles.sectionEventDetail}>
                 <div className={styles.detailsSection}>
                     <div className={styles.iconModeContainer}>
                         <div className={styles.iconContainer}>
@@ -290,7 +290,7 @@ const EventDetailPage = () => {
             </section>
 
             {/* DATE */}
-            <section className={styles.section}>
+            <section className={styles.sectionEventDetail}>
                 <h1 className={styles.sectionTitle}>Fecha y hora</h1>
                 <div className={styles.dateSection}>
                     <p className={styles.date}>{formattedDate},</p>
@@ -306,14 +306,14 @@ const EventDetailPage = () => {
             {/* ADDRESS */}
             <div>
                 {eventData.mode === 'Presencial' && (
-                    <section className={styles.section}>
+                    <section className={styles.sectionEventDetail}>
                         <h1 className={styles.sectionTitle}>Ubicación</h1>
                         <p className={styles.address}>{eventData.address}</p>
                     </section>
                 )}
 
                 {eventData.mode === 'En línea' && (
-                    <section className={styles.section}>
+                    <section className={styles.sectionEventDetail}>
                         <h1 className={styles.sectionTitle}>Web </h1>
                         <p className={styles.address}>
                             <a
@@ -328,7 +328,7 @@ const EventDetailPage = () => {
                 )}
 
                 {eventData.mode === 'Híbrido' && (
-                    <section className={styles.section}>
+                    <section className={styles.sectionEventDetail}>
                         <h1 className={styles.sectionTitle}>Ubicación</h1>
                         <p className={styles.address}>{eventData.address}</p>
                         <br />
@@ -347,7 +347,7 @@ const EventDetailPage = () => {
             </div>
 
             {/* DESCRIPTION, WEBLINK */}
-            <section className={styles.section}>
+            <section className={styles.sectionEventDetail}>
                 <h1 className={styles.sectionTitle}>Acerca de este evento</h1>
                 <p className={styles.description}>{renderFormattedDescription()}</p>
                 <a href={eventData.web} className={styles.webLink}>
@@ -357,7 +357,7 @@ const EventDetailPage = () => {
 
             {/* TAGS */}
             {eventData.tags && eventData.tags.length > 0 && (
-                <section className={styles.section}>
+                <section className={styles.sectionEventDetail}>
                     <h1 className={styles.sectionTitle}>Etiquetas</h1>
                     <div className={styles.tags}>
                         {eventData.tags.map((tag, index) => (
@@ -371,7 +371,7 @@ const EventDetailPage = () => {
 
             {/* ORGANIZED BY */}
             {eventData.organizedBy && eventData.organizedBy.length > 0 && (
-                <section className={styles.section}>
+                <section className={styles.sectionEventDetail}>
                     <h1 className={styles.sectionTitle}>Organizadores</h1>
                     <div className={styles.organizedBySection}>
                         <div className={styles.tags}>

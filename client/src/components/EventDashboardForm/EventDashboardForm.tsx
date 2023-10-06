@@ -206,14 +206,14 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         if (visibility !== formData.visibility) {
             openModal(
                 null,
-                `Este evento estará en modo ${
-                    formData.visibility ? 'Público' : 'Borrador'
-                }`,
-                '',
-                'No, cancelar',
-                `Sí, cambiar para ${formData.visibility ? 'público' : 'Borrador'}`,
+                'Vas a modificar tu evento',
+                `Tu evento pasará a modo ${
+                    formData.visibility ? 'público' : 'borrador'
+                }.`,
+                'Confirmar',
+                'Cancelar',
                 closeModal,
-                true,
+                false,
                 () => {
                     setFormData({
                         ...formData,
@@ -247,10 +247,10 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         
                             openModal(
                                 <BsPatchCheckFill className={styles.checkIcon} />,
-                                'Cambio Guardado',
                                 'Tus cambios han sido guardados con éxito',
-                                'Cerrar ventana',
                                 '',
+                                '',
+                                'Cerrar ventana',
                                 closeModal,
                                 true,
                                 closeModal,
@@ -287,12 +287,12 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     
                     openModal(
                         <BsPatchCheckFill className={styles.checkIcon} />,
-                        'Cambio Guardado',
                         'Tus cambios han sido guardados con éxito',
+                        ' ',
                         'Cerrar ventana',
                         '',
                         closeModal,
-                        true,
+                        false,
                         closeModal,
                         () => {}
                     );
