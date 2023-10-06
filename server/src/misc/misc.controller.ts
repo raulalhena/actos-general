@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { MiscService } from './misc.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { CreateSubcategoryDto } from './dto/create-subcategory.dto';
+import { CreateCategoryDto } from '../categories/dto/create-category.dto';
+import { CreateSubcategoryDto } from '../categories/dto/create-subcategory.dto';
 import { CreateCapacityDto } from './dto/create-capacity.dto';
 import { CreateLanguageDto } from './dto/create-language.dto';
 import { CreateTypeDto } from './dto/create-type.dto';

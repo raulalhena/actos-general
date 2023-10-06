@@ -1,35 +1,95 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Category } from 'src/misc/schemas/category.schema';
+import { Model, ObjectId } from 'mongoose';
+import { Category } from 'src/categories/schema/category.schema';
+import { CreateSubcategoryDto } from './dto/create-subcategory.dto';
+import { Subcategory } from './schema/subcategory.schema';
 
 
 @Injectable()
 export class CategoriesService {
-  constructor(@InjectModel('Category') private readonly categoryModel: Model<Category>) {}
-  create(createCategoryDto: CreateCategoryDto) {
-    return 'This action adds a new category';
-  }
+  constructor(
+    @InjectModel(Category.name) private  categoryModel: Model<Category>,
+    @InjectModel(Subcategory.name) private subcategoryModel: Model<Subcategory>
+    ) {}
 
-  async findAll(): Promise<Category[]> {
-    return await this.categoryModel.find().exec();
+  // Create categories
+  createCategory(createCategoryDto: CreateCategoryDto) {
+    return this.categoryModel.create(createCategoryDto);
   }
+ 
+  createSubcategory(id: ObjectId, createSubcategoryDto: CreateSubcategoryDto) {
+   return this.categoryModel.findOneAndUpdate({ _id: id }, { $push: { subcategories: createSubcategoryDto } });
+ }
+// find categories
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+findAllCategories() {
+  return this.categoryModel.find();
+}
+
+async findCategoryById(_id: ObjectId): Promise<Category> {
+  try {
+    const category =  this.categoryModel.findById(_id)
+    if (!category) {
+      throw new HttpException('Category not found', HttpStatus.NOT_FOUND);
+    }
+    return category;
+  } catch (error) {
+    throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
   }
+}
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
-  }
 
-  async remove(id: string): Promise<void> {
+bulkCreateCategory( createCategoryDto: CreateCategoryDto[]) {
+  return this.categoryModel.create(createCategoryDto, { ordered: true });
+}
+
+bulkCreateSubcategory(id: ObjectId, createSubcategoryDto: CreateSubcategoryDto[]) {
+  return this.categoryModel.findOneAndUpdate({_id: id}, { $push: { subcategories: createSubcategoryDto } });
+}
+
+
+// async findAllSubcategories(): Promise<Subcategory[]> {
+//   const categories = await this.categoryModel.find();
+//   const allSubcategories: Subcategory[] = [];
+//   categories.forEach((category) => {
+//     allSubcategories.push(...category.subcategories);
+//   });
+//   return allSubcategories;
+// }
+
+  async deleteCategory(id: string): Promise<void> {
     const result = await this.categoryModel.deleteOne({ _id: id }).exec();
     if (result.deletedCount === 0) {
       throw new NotFoundException(`Category with ID ${id} not found`);
+    }
+  }
+
+  async deleteSubcategory(categoryId: string, subcategoryName: string): Promise<Category> {
+    try {
+      const category = await this.categoryModel.findById(categoryId);
+
+      if (!category) {
+        throw new Error('Category not found');
+      }
+
+      const subcategoryIndex = category.subcategories.findIndex(
+        (subcategory) => subcategory.name === subcategoryName
+      );
+
+      if (subcategoryIndex === -1) {
+        throw new Error('Subcategory not found in the category');
+      }
+
+      category.subcategories.splice(subcategoryIndex, 1);
+
+      const updatedCategory = await category.save();
+      return updatedCategory;
+    } catch (error) {
+      throw error;
     }
   }
 }

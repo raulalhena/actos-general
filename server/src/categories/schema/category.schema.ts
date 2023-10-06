@@ -15,6 +15,9 @@ export class Category {
   @Prop()
       description: string;
 
+    @Prop()
+        _id: string;
+
   
 }
 
