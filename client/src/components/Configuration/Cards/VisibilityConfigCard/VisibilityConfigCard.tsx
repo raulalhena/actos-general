@@ -1,4 +1,5 @@
-import styles from './VisibilityConfigCard.module.css';
+import { MdVisibility } from 'react-icons/Md';
+import styles from '../GlobalConfigCard.module.css';
 import { Link } from 'react-router-dom';
 
 const VisibilityConfigCard = () => {
@@ -6,8 +7,9 @@ const VisibilityConfigCard = () => {
     return (
         <div>
             <Link to={`/config/configform`} state={'visibilities'}>
-                <div className={styles.card}>
-                    <h2>VISIBILIDAD DEL EVENTO</h2>
+                <div className={styles.configCard}>
+                    <MdVisibility className={styles.configIcon}/>
+                    <h2>VISIBILIDAD</h2>
                 </div>
             </Link>
         </div>

@@ -10,12 +10,13 @@
   font-size: 12px;
   padding: 1rem 4rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 1px;
 }
 
 .button:hover, .button:active {
   cursor: pointer;
+  font-weight: 700;
   background: linear-gradient(to right, #d53d1e, #eb6a50);
   }
 
