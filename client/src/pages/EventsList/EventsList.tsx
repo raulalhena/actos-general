@@ -36,11 +36,10 @@ const EventsList = () => {
                         <h1>Eventos activos</h1>
                     </div>
                     <div>{isLoading && <Preloader />}</div>
-                    <div data-testid="eventsList-page">
+                    <div className={styles.eventList} data-testid="eventsList-page">
                         {events.map((event: EventDashboardFormProps, index: number) => (
-                            <div key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <button>
-                                    <section className={styles.eventInfo}>
+                            <div key={index}>
+                                <button  className={styles.eventItem}>
                                         <h2 className={styles.eventTitle}  id={event._id} onClick={handleClick}>{event.name}</h2>
                                         <div className={styles.eventChips}>
                                             <span className={styles.cardCategory}>
@@ -50,7 +49,6 @@ const EventsList = () => {
                                                 {event.subcategory}
                                             </span>
                                         </div>
-                                    </section>
                                 </button>
                             </div>
                         ))}
