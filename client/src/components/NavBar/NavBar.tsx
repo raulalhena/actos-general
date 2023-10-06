@@ -32,25 +32,20 @@ function Navbar() {
                     <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>
                         <li onClick={removeActive}>
                             <Link to="/allevents" className={styles.navLink}>
-                Agenda
+                Eventos
                             </Link>
                         </li>
-                        {isLogged && user && user.role === 'user' && (
+                        {isLogged && (
                             <li onClick={removeActive}>
                                 <Link to="/myevents" className={styles.navLink}>
                   Mis eventos
                                 </Link>
                             </li>
                         )}
-                        <li onClick={removeActive}>
-                            <Link to="/faq" className={styles.navLink}>
-                FAQ
-                            </Link>
-                        </li>
-                        {isLogged && user && user.role === 'admin' && (
+                        {!isLogged && user && user.role === 'user' && (
                             <li onClick={removeActive}>
-                                <Link to="/eventslist" className={styles.navLink}>
-                  Eventos Activos
+                                <Link to="/faq" className={styles.navLink}>
+                  FAQ
                                 </Link>
                             </li>
                         )}
@@ -58,6 +53,20 @@ function Navbar() {
                             <li onClick={removeActive}>
                                 <Link to="/createevent" className={styles.navLink}>
                   Crear Evento
+                                </Link>
+                            </li>
+                        )}
+                        {isLogged && user && user.role === 'admin' && (
+                            <li onClick={removeActive}>
+                                <Link to="/eventslist" className={styles.navLink}>
+                  Gestionar eventos
+                                </Link>
+                            </li>
+                        )}
+                        {isLogged && user && user.role === 'admin' && (
+                            <li onClick={removeActive}>
+                                <Link to="/configboard" className={styles.navLink}>
+                  Configurar formularios
                                 </Link>
                             </li>
                         )}
