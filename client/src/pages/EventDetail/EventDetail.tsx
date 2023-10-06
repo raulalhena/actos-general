@@ -212,53 +212,53 @@ const EventDetailPage = () => {
 
                 {/*INSCRIPTION */}
                 {isLogged &&
-          (eventData.mode === 'Híbrido' ? (
-              <div className={styles.categorySubcategorySection}>
-                  {!inscription ? (
-                      <>
-                          <ButtonInscription
-                              label="Inscripción Evento Online"
-                              onClick={() => {
-                                  openModal('online');
-                                  storeActionType('online');
-                              }}
-                          />
-                          <ButtonInscription
-                              label="Inscripción Evento Presencial"
-                              onClick={() => {
-                                  openModal('inscription');
-                                  storeActionType('inscription');
-                              }}
-                          />
-                      </>
-                  ) : (
-                      <ButtonInscription
-                          label="Eliminar inscripción."
-                          onClick={() =>
-                              openModal(
-                                  actionType === 'inscription'
-                                      ? 'unsubscription'
-                                      : 'unsubscribe-online'
-                              )
-                          }
-                      />
-                  )}
-              </div>
-          ) : (
-              <div className={styles.categorySubcategorySection}>
-                  {!inscription ? (
-                      <ButtonInscription
-                          label="Inscribirse al evento"
-                          onClick={() => openModal('inscription')}
-                      />
-                  ) : (
-                      <ButtonInscription
-                          label="Eliminar inscripción"
-                          onClick={() => openModal('unsubscription')}
-                      />
-                  )}
-              </div>
-          ))}
+                (eventData.mode === 'Híbrido' ? (
+                    <div className={styles.categorySubcategorySection}>
+                        {!inscription ? (
+                            <>
+                                <ButtonInscription
+                                    label="Inscripción Evento Online"
+                                    onClick={() => {
+                                        openModal('online');
+                                        storeActionType('online');
+                                    }}
+                                />
+                                <ButtonInscription
+                                    label="Inscripción Evento Presencial"
+                                    onClick={() => {
+                                        openModal('inscription');
+                                        storeActionType('inscription');
+                                    }}
+                                />
+                            </>
+                        ) : (
+                            <ButtonInscription
+                                label="Eliminar inscripción."
+                                onClick={() =>
+                                    openModal(
+                                        actionType === 'inscription'
+                                            ? 'unsubscription'
+                                            : 'unsubscribe-online'
+                                    )
+                                }
+                            />
+                        )}
+                    </div>
+                ) : (
+                    <div className={styles.categorySubcategorySection}>
+                        {!inscription ? (
+                            <ButtonInscription
+                                label="Inscribirse al evento"
+                                onClick={() => openModal('inscription')}
+                            />
+                        ) : (
+                            <ButtonInscription
+                                label="Eliminar inscripción"
+                                onClick={() => openModal('unsubscription')}
+                            />
+                        )}
+                    </div>
+                ))}
             </section>
 
             {/* MODE, TYPE, LANGUAGE */}
@@ -312,10 +312,9 @@ const EventDetailPage = () => {
                     </section>
                 )}
 
-                {eventData.mode === 'En línea' && (
+                {eventData.mode === 'En Línea' && inscription && (
                     <section className={styles.sectionEventDetail}>
-                        <h1 className={styles.sectionTitle}>Web </h1>
-                        <p className={styles.address}>
+                        <h1 className={styles.sectionTitle}>Web</h1><p className={styles.address}>
                             <a
                                 href={eventData.webLink}
                                 target="_blank"
@@ -331,17 +330,18 @@ const EventDetailPage = () => {
                     <section className={styles.sectionEventDetail}>
                         <h1 className={styles.sectionTitle}>Ubicación</h1>
                         <p className={styles.address}>{eventData.address}</p>
-                        <br />
-                        <h1 className={styles.sectionTitle}>Web</h1>
-                        <p className={styles.address}>
-                            <a
-                                href={eventData.webLink}
-                                target="_blank"
-                                className={styles.webLink}
-                            >
-                                {eventData.webLink}
-                            </a>
-                        </p>
+                        {inscription && <>
+                            <br />
+                            <h1 className={styles.sectionTitle}>Web</h1><p className={styles.address}>
+                                <a
+                                    href={eventData.webLink}
+                                    target="_blank"
+                                    className={styles.webLink}
+                                >
+                                    {eventData.webLink}
+                                </a>
+                            </p>
+                        </>}
                     </section>
                 )}
             </div>
