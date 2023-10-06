@@ -54,7 +54,8 @@ const EventForm = () => {
         video: '', 
         capacity: '',
         isLimited: false,
-        subcategoryLogo: ''
+        subcategoryLogo: '',
+        visibility: false,
     });
 
     // Form fields auto filled state

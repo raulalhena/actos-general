@@ -32,6 +32,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
 
     useEffect(() => {
+        console.log('form fata ', eventData);
         setFormData(eventData);
     }, [ eventData ]);
 
@@ -195,6 +196,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         }
     
         if (visibility !== formData.visibility) {
+
             openModal(
                 null,
                 'Vas a modificar tu evento',
@@ -205,14 +207,13 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                 'Cancelar',
                 closeModal,
                 false,
-                () => {
+                async () => {
                     setFormData({
                         ...formData,
                         visibility: !formData.visibility,
                     });
-                    closeModal();
-                },
-                async () => {
+                    // closeModal();
+
                     const res = await fetch(
                         `http://localhost:8000/api/events/${formData._id}`,
                         {
@@ -220,6 +221,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             headers: { 'Content-type': 'application/json' },
                             body: JSON.stringify(formData),
                         }
+                        
                     );
 
                     if (res.ok) {
@@ -244,12 +246,13 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                 'Cerrar ventana',
                                 closeModal,
                                 true,
-                                closeModal,
-                                () => {}
+                                () => {},
+                                closeModal
                             );
                         } 
                     } 
-                }
+                },
+                closeModal,
             );
 
         } else {
@@ -596,10 +599,19 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         getTime();
     }, []);
 
-    // get visibility
+    /*                          VISIBILITY                               */
     useEffect(() => {
-        setVisibility(formData.visibility ?? false);
-    }, [ formData.visibility ]);
+        // Recupere o valor de visibility do localStorage
+        const savedVisibility = localStorage.getItem('visibility');
+        if (savedVisibility !== null) {
+            setVisibility(JSON.parse(savedVisibility));
+        }
+    }, []);
+    
+    useEffect(() => {
+        localStorage.setItem('visibility', JSON.stringify(visibility));
+    }, [ visibility ]);
+    /*                                                                   */
 
     //get MODE (online, hibrido, presencial)
     useEffect(() => {
