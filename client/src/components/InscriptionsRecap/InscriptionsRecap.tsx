@@ -52,16 +52,13 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
 
                 <div className={styles.containerSection}>
                     <BiSolidDownload className={styles.icon} />
-                    <PDFDownloadLink
-                        document={<QRtoPDFDocument eventData={eventData} qrImg={eventData.qrEvent} />}
-                        fileName={eventData.name}
-                    >
+                    <PDFDownloadLink document={<QRtoPDFDocument eventData={eventData} qrImg={eventData.qrEvent} />} fileName={eventData.name}>
                         <button className={styles.pdfButton}>
-              Descargar QR del evento (.PDF)
+                            Descargar QR del evento (.PDF)
                         </button>
                     </PDFDownloadLink>
                     <p>|</p>
-                    <a href={qrURL} download>
+                    <a href={qrURL} download={eventData.name + '.png'}>
                         <p>Descargar QR del evento (.PNG)</p>
                     </a>
                 </div>
