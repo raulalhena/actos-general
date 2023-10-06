@@ -12,8 +12,6 @@ interface InscriptionsRecapProps {
 
 const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
 
-    console.log('type ', eventData.type)
-
     let totalSubmitted = 0;
     let totalSubmittedOnline = 0;
 
