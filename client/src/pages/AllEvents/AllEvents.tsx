@@ -38,7 +38,7 @@ const AllEvents = () => {
                 });
         } else if (keywords && !filters) {
 
-            const allFilters = 'name,category,subcategory,language,tags';
+            const allFilters = 'name,category,subcategory,language,tags,type,mode';
             const apiUrl = `http://localhost:8000/api/events/search?filters=${allFilters}&keywords=${keywords}`;
     
             fetch(apiUrl)
