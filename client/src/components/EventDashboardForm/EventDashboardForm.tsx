@@ -207,14 +207,14 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         if (visibility !== formData.visibility) {
             openModal(
                 null,
-                `Este evento estará en modo ${
-                    formData.visibility ? 'Público' : 'Borrador'
-                }`,
-                '',
-                'No, cancelar',
-                `Sí, cambiar para ${formData.visibility ? 'público' : 'Borrador'}`,
+                'Vas a modificar tu evento',
+                `Tu evento pasará a modo ${
+                    formData.visibility ? 'público' : 'borrador'
+                }.`,
+                'Confirmar',
+                'Cancelar',
                 closeModal,
-                true,
+                false,
                 () => {
                     setFormData({
                         ...formData,
@@ -248,10 +248,10 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         
                             openModal(
                                 <BsPatchCheckFill className={styles.checkIcon} />,
-                                'Cambio Guardado',
                                 'Tus cambios han sido guardados con éxito',
-                                'Cerrar ventana',
                                 '',
+                                '',
+                                'Cerrar ventana',
                                 closeModal,
                                 true,
                                 closeModal,
@@ -288,12 +288,12 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     
                     openModal(
                         <BsPatchCheckFill className={styles.checkIcon} />,
-                        'Cambio Guardado',
                         'Tus cambios han sido guardados con éxito',
+                        ' ',
                         'Cerrar ventana',
                         '',
                         closeModal,
-                        true,
+                        false,
                         closeModal,
                         () => {}
                     );
@@ -529,14 +529,13 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     // Get Categories
     useEffect(() => {
-        
         const getCategories = async () => {
             let categoryId = '';
             const resp = await fetch('http://localhost:8000/api/misc/categories');
             const categoriesDb = await resp.json();
 
             setCategories(categoriesDb);
-            categories.forEach(category => {
+            categoriesDb.forEach(category => {
                 if(category.name === formData.category) categoryId=category._id;
 
             });
@@ -618,8 +617,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     // get visibility
     useEffect(() => {
-        setVisibility(formData.visibility ?? false); //cuando es null(??) es false
-    }, []); //no tocar la dependencia, dejar vacio*
+        setVisibility(formData.visibility ?? false);
+    }, [ formData.visibility ]);
 
     //get MODE (online, hibrido, presencial)
     useEffect(() => {
@@ -648,7 +647,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                         ...prevData,
                         webLink: '',
                     }));
-                } else if (formData.mode === 'En línea') {
+                } else if (formData.mode === 'En Línea') {
 
                     setFormData((prevData) => ({
                         ...prevData,

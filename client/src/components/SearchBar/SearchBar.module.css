@@ -52,8 +52,7 @@
 }
 
 .searchIcon:hover {
-  color: #e15a40;
-  background-color: white;
+  background-color: #d53d1e;
   transition: 0.1s;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }

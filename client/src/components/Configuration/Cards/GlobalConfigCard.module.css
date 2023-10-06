@@ -1,0 +1,31 @@
+.configCard {
+  border: 1px solid rgb(177, 177, 177);
+  width: 200px;
+  height: auto;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  gap: 0.75rem;
+}
+
+.configIcon {
+  font-size: 32px;
+  color: rgb(121, 121, 121);
+}
+
+.configCard h2 {
+  color: rgb(121, 121, 121);
+}
+
+.configCard:hover {
+  color: #e15a40;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  border: 2px solid  #e15a40;
+}
+
+.configCard:hover .configIcon, .configCard:hover h2 {
+  color: #e15a40;
+}

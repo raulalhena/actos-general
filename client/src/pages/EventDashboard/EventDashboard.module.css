@@ -17,8 +17,6 @@
 .header {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
   gap: 1rem;
   margin-top: 3rem;
 }
@@ -47,22 +45,12 @@
 .top {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 3rem;
   margin-bottom: 6rem;
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
-  .header {
-    flex-direction: row;
-    width: 800px;
-    max-width: 780px;
-    align-items: center;
-    justify-content: flex-start;
-  }
-
   .containerSection {
     width: 720px;
   }

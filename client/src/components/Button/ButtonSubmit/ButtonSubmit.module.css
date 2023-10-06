@@ -2,25 +2,20 @@
   all: unset;
   width: fit-content;
   height: fit-content;
-  padding: 1rem 2rem;
   flex-shrink: 0;
-  border-radius: 0.625rem;
-  background: #e15a40;
+  border-radius: 5px;
+  background: linear-gradient(to right, #e15a40, #f4775e);
   color: #fff;
   text-align: center;
   font-size: 14px;
+  padding: 1rem 3rem;
   font-style: normal;
   font-weight: 600;
-  line-height: normal;
-  letter-spacing: 0.1rem;
-  text-transform: uppercase;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: 1px;
 }
 
 .buttonStyle:hover, .buttonStyle:active {
-    cursor: pointer;
-  background: #ffffff;
-  color: #e15a40;
-  border: 1.5px solid #e15a40;
-  transform: scale(0.98);
+  cursor: pointer;
+  background: linear-gradient(to right, #d53d1e, #eb6a50);
+  font-weight: 700;
 }

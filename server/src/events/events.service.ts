@@ -6,6 +6,7 @@ import { Model, Types, ObjectId } from 'mongoose';
 import { generateEventQR } from '../utils/qr.generator';
 import { EventInscriptionDto } from './dto/event-inscription.dto';
 import { EventUnsubscriptionDto } from './dto/event-unsubscription.dto';
+import { buffer } from 'stream/consumers';
 
 
 @Injectable()
@@ -19,7 +20,7 @@ export class EventsService {
     try {
       this.eventModel.findOneAndUpdate({ _id: id }, { image: file})
     } catch (error) {
-      
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -29,7 +30,9 @@ export class EventsService {
       if(!newEvent) throw new HttpException('Error al guardar el evento', HttpStatus.BAD_REQUEST);
 
       const eventQR = await generateEventQR(new Types.ObjectId(newEvent._id));
-      const updatedEvent = await this.eventModel.findOneAndUpdate({ _id: newEvent._id }, { qrEvent: eventQR }, { new: true });
+      const buff = Buffer.from(eventQR);
+      const base64qr = 'data:image/png;base64,' + buff.toString('base64');
+      const updatedEvent = await this.eventModel.findOneAndUpdate({ _id: newEvent._id }, { qrEvent: base64qr }, { new: true });
 
       return updatedEvent;
     } catch (error) {
@@ -39,6 +42,10 @@ export class EventsService {
 
   async findAll() {
     return await this.eventModel.find();
+  }
+
+  async homePageEvents() {
+    return await this.eventModel.find().sort({_id: -1}).limit(6);;
   }
 
   async findOne(id: ObjectId) {

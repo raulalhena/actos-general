@@ -7,7 +7,7 @@ import Preloader from '../../components/Preloader/Preloader';
 const EventsList = () => {
     const navigate = useNavigate();
     const [ events, setEvents ] = useState<Array<EventDashboardFormProps>>([]);
-    const [ isLoading, setIsLoading ] = useState(true); 
+    const [ isLoading, setIsLoading ] = useState(true);
 
     useEffect(() => {
         const getAllEvents = async () => {
@@ -15,11 +15,11 @@ const EventsList = () => {
             const eventsData = await respo.json();
 
             setEvents(eventsData);
-            setIsLoading(false); 
+            setIsLoading(false);
         };
 
         getAllEvents();
-    }, []); 
+    }, []);
 
     const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -39,16 +39,22 @@ const EventsList = () => {
                     <div className={styles.eventList} data-testid="eventsList-page">
                         {events.map((event: EventDashboardFormProps, index: number) => (
                             <div key={index}>
-                                <button  className={styles.eventItem}>
-                                        <h2 className={styles.eventTitle}  id={event._id} onClick={handleClick}>{event.name}</h2>
-                                        <div className={styles.eventChips}>
-                                            <span className={styles.cardCategory}>
-                                                {event.category}
-                                            </span>
-                                            <span className={styles.cardSubcategory}>
-                                                {event.subcategory}
-                                            </span>
-                                        </div>
+                                <button className={styles.eventItem}>
+                                    <h2
+                                        className={styles.eventTitle}
+                                        id={event._id}
+                                        onClick={handleClick}
+                                    >
+                                        {event.name}
+                                    </h2>
+                                    <div className={styles.eventChips}>
+                                        <span className={styles.cardCategory}>
+                                            {event.category}
+                                        </span>
+                                        <span className={styles.cardSubcategory}>
+                                            {event.subcategory}
+                                        </span>
+                                    </div>
                                 </button>
                             </div>
                         ))}

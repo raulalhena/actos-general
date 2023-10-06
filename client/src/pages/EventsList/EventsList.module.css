@@ -34,11 +34,11 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem;
   color: #1c2e48;
-  background-color: white;
-  border: 1px solid rgb(182, 182, 182);
-  border-radius: 15px;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  border-style: none;
   cursor: pointer;
   text-align: left;
   font-size: 14px;
@@ -46,7 +46,7 @@
 }
 
 .eventItem:hover {
-  background-color: #f3f3f3;
+  background-color: #dedede;
 }
 
 .eventTitle {
@@ -63,21 +63,28 @@
 }
 
 .cardCategory {
-  font-size: 14px;
   border-radius: 16px;
-  border: 1px solid #1c2e48;
-  background: #f5f5f5;
-  padding: 0.1rem 0.5rem;
+  padding: 0.3rem 0.7rem;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 16px;
+  background-color: white;
+  color: #1C2E48;
+  border: 1px solid #1C2E48;
   height: fit-content;
 }
 
 .cardSubcategory {
-  color: #e15a40;
-  font-size: 14px;
   border-radius: 16px;
+  padding: 0.3rem 0.7rem;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 16px;
+  background-color: white;
+  color: #e15a40;
   border: 1px solid #e15a40;
-  background: #f5f5f5;
-  padding: 0.1rem 0.5rem;
   height: fit-content;
 }
 
