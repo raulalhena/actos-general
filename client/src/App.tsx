@@ -23,6 +23,7 @@ import SignupAdmin from './pages/SignupAdmin/SignupAdmin';
 import ConfigForm from './pages/ConfigForm/ConfigForm';
 import SubmittedList from './pages/SubmittedList/SubmittedList';
 import ConfigList from './components/Configuration/List/ConfigList';
+import SignupAdminForm from './components/SignupAdminForm/SignupAdminForm';
 
 function Layout({ children }: any) {
     return (
@@ -90,7 +91,11 @@ function App() {
                                     <SubmittedList />
                                 </ProtectedRoute>
                             } />
-                            <Route path="/createadmin" element={<SignupAdmin />} />
+                            <Route path='/createadmin' element={
+                                <ProtectedRoute role={ [ 'super' ] }>
+                                    <SignupAdmin />
+                                </ProtectedRoute>
+                            } />
                             <Route path="/faq" element={<FAQ />} />
                             <Route path="/eventslist" element={<EventsList />} />
                             <Route path="/event/:_id" element={<EventDetail />} />
