@@ -41,6 +41,10 @@ export class EventsService {
     return await this.eventModel.find();
   }
 
+  async homePageEvents() {
+    return await this.eventModel.find().sort({_id: -1}).limit(6);;
+  }
+
   async findOne(id: ObjectId) {
     try {
       return await this.eventModel.findById({ _id: id });

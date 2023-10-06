@@ -47,6 +47,11 @@ export class EventsController {
   	return this.eventsService.findAll();
   }
 
+  @Get('home')
+  homePageEvents() {
+  	return this.eventsService.homePageEvents();
+  }
+
   @Get('search')
   search(@Query() query) {
   	return this.eventsService.search(query.filters, query.keywords);
