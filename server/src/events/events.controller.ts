@@ -62,6 +62,11 @@ export class EventsController {
   	return this.eventsService.findOne(id);
   }
 
+  @Get('/:id/submitted')
+  submitted(@Param('id') id: ObjectId, @Query() query) {
+    return this.eventsService.getSubmitted(id, query.mode);
+  }
+
   @Get('/user/:id')
   findUserEvents(@Param('id') id: ObjectId) {
     return this.eventsService.findUserEvents(id);

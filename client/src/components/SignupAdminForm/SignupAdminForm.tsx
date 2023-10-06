@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './SignupAdminForm.module.css';
-import { SignupProps } from '../../interfaces/signupProps';
+import { SignupAdminProps } from '../../interfaces/signupAdminProps';
 import ButtonSubmit from '../Button/ButtonSubmit/ButtonSubmit';
 import TextInputSmall from '../TextInputSmall/TextInputSmall';
 import ConfirmPasswordInput from '../ConfirmPasswordInput/ConfirmPasswordInput';
@@ -9,11 +9,12 @@ import ModalDisplay from '../Modal/ModalDisplay';
 import { ToastContainer, toast } from 'react-toastify';
 
 const SignupAdminForm = () => {
-    const [ signupData, setSignupData ] = useState<SignupProps>({
+    const [ signupData, setSignupData ] = useState<SignupAdminProps>({
         name: '',
         surname: '',
         email: '',
         password: '',
+        role: 'admin'
     });
 
     const nameError = null;
@@ -26,6 +27,14 @@ const SignupAdminForm = () => {
 
     const closeModal = () => {
         setIsModalOpen(false);
+        setSignupData({
+            name: '',
+            surname: '',
+            email: '',
+            password: '',
+            role: 'admin'
+        });
+        setPasswordConfirmed('');
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -178,12 +187,12 @@ const SignupAdminForm = () => {
                             <ModalDisplay
                                 icon={<BsPatchCheckFill className={styles.checkIcon} />}
                                 title={'Registrado con éxito'}
-                                subtitle={'Ya puedes iniciar sesión'}
-                                button1Text={'Iniciar Sesión'}
+                                subtitle={'El administrador ya puede iniciar sesión'}
+                                button1Text={'Cerrar'}
                                 button2Text={''}
                                 onClose={closeModal}
                                 isOpen={true}
-                                onButton1Click={handleLoginPage}
+                                onButton1Click={closeModal}
                                 onButton2Click={() => {}}
                                 showCloseButton={true}
                             />

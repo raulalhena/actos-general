@@ -148,6 +148,19 @@ export class EventsService {
     }
   }
 
+  async getSubmitted(id: ObjectId, mode: string) {
+    try {
+      let submittedList;
+      let submittedMode = '';
+      if(mode === 'En Línea') submittedMode = 'Online';
+      
+      submittedList = await this.eventModel.find({ _id: id }).select(`submitted${submittedMode}`).populate(`submitted${submittedMode}`).exec()
+      return submittedList;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   async search(filters: string, keywords: string) {
 		try {
 			let allevents = [];
