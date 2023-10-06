@@ -16,6 +16,12 @@
   color: #1c2e48;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .registerLink {
   color: #e15a40;
   font-weight: 700;

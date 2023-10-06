@@ -4,6 +4,7 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import { BiSolidDownload } from 'react-icons/bi';
 import { FaUserCheck } from 'react-icons/fa';
 import { EventFormProps } from '../../interfaces/eventFormProps';
+import { Link } from 'react-router-dom';
 
 interface InscriptionsRecapProps {
   eventData: EventFormProps;
@@ -11,6 +12,11 @@ interface InscriptionsRecapProps {
 }
 
 const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
+
+    const submittedProps = {
+        id: eventData._id,
+        mode: eventData.mode
+    };
 
     let totalSubmitted = 0;
     let totalSubmittedOnline = 0;
@@ -26,25 +32,24 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
     return (
         <>
             <div className={styles.container}>
-                <a href="">
+                <Link to={'/submittedlist'} state={submittedProps}>
                     <div className={styles.containerSection}>
                         <FaUserCheck className={styles.icon} />
                         <p>
                             {totalSubmitted}/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
-                Usuarios Inscritos Presencial
-                        </p>
-                        
+                            Usuarios Inscritos Presencial
+                        </p>  
                         {eventData.mode === 'Híbrido' && (
                             <>
                                 <p>|</p>
                                 <p>
                                     {totalSubmittedOnline}/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- '}
-                Usuarios Inscritos Online
+                                    Usuarios Inscritos Online
                                 </p>
                             </>
                         )}
                     </div>
-                </a>
+                </Link>
 
                 <div className={styles.containerSection}>
                     <BiSolidDownload className={styles.icon} />

@@ -1,0 +1,70 @@
+.sectionContainer {
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items:center;
+    gap: 2rem;
+    width: 780px;
+}
+
+.sectionContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.title {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 3px solid grey;
+    margin: 0;
+    margin: 2rem 0;
+    padding: 0 2.5rem ;
+}
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (max-width: 400px) {
+    .tracker {
+        display: none;
+    }
+    .sectionContainer {
+        width: 400px;
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+    .tracker {
+        display: none;
+    }
+    .sectionContainer {
+        width: 750px;
+    }
+
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1400px) {
+    .title {
+        width: 780px;  
+    }
+    .sectionContainer {
+        width: 780px;
+    }
+
+}
+
+/* Para pantallas más grandes o iguales a 1400px (xxl) */
+@media screen and (min-width: 1600px) {
+    
+    .title {
+        width: 1300px;
+    }
+    .sectionContainer {
+        width: 780px;
+    }
+}
