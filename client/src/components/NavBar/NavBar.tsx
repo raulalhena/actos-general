@@ -61,14 +61,6 @@ function Navbar() {
                                 </Link>
                             </li>
                         )}
-                        {isLogged && user && user.role === 'admin' && (
-                            <li onClick={removeActive}>
-                                <Link to="/createsubcategory" className={styles.navLink}>
-                  Crear Subcategoría
-                                </Link>
-                            </li>
-                        )}
-
                         {isLogged ? (
                             isDesktop ? (
                                 <li onClick={removeActive}>

@@ -30,11 +30,14 @@ export class AuthService {
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
-
   }
 
   async create(createAuthDto: CreateAuthDto) {
-    return this.userService.create(createAuthDto);
+    try {
+      return this.userService.create(createAuthDto);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   findAll() {
