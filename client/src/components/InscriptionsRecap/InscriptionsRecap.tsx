@@ -54,7 +54,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                         </button>
                     </PDFDownloadLink>
                     <p>|</p>
-                    <a href={qrURL} download={eventData.name + '.png'}>
+                    <a href={eventData.qrEvent} download={eventData.name + '.png'}>
                         <p>Descargar QR del evento (.PNG)</p>
                     </a>
                 </div>
