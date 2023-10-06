@@ -12,6 +12,12 @@ interface InscriptionsRecapProps {
 
 const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
 
+    let totalSubmitted = 0;
+
+    if(eventData.submitted) {
+        totalSubmitted = eventData.submitted.length;
+    }
+
     return (
         <>
             <div className={styles.container}>
@@ -19,8 +25,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                     <div className={styles.containerSection}>
                         <FaUserCheck className={styles.icon} />
                         <p>
-
-                0/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
+                            {totalSubmitted}/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
                 Usuarios Inscritos
                         </p>
                     </div>
