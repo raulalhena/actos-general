@@ -5,7 +5,7 @@ const VisibilityConfigCard = () => {
     
     return (
         <div>
-            <Link to={`/config/configform`} state={'visibilities'}>
+            <Link to={`/config/configlist`} state={'visibilities'}>
                 <div className={styles.card}>
                     <h2>VISIBILIDAD DEL EVENTO</h2>
                 </div>

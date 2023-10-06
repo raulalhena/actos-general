@@ -5,7 +5,7 @@ const TimeZoneConfigCard = () => {
     
     return (
         <div>
-            <Link to={`/config/configform`} state={'timezones'}>
+            <Link to={`/config/configlist`} state={'timezones'}>
                 <div className={styles.card}>
                     <h2>ZONAS HORARIAS</h2>
                 </div>

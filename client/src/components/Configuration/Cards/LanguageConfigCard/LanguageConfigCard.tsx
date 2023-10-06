@@ -5,7 +5,7 @@ const LanguageConfigCard = () => {
     
     return (
         <div>
-            <Link to={`/config/configform`} state={'languages'}>
+            <Link to={`/config/configlist`} state={'languages'}>
                 <div className={styles.card}>
                     <h2>IDIOMAS</h2>
                 </div>

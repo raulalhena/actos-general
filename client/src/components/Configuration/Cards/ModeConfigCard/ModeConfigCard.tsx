@@ -5,7 +5,7 @@ const ModeConfigCard = () => {
     
     return (
         <div>
-            <Link to={`/config/configform`} state={'modes'}>
+            <Link to={`/config/configlist`}state={'modes'}>
                 <div className={styles.card}>
                     <h2>MODOS DE ASISTENCIA</h2>
                 </div>
