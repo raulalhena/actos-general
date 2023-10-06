@@ -13,14 +13,11 @@ interface InscriptionsRecapProps {
 
 const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
 
-    console.log('event', eventData)
-
     const submittedProps = {
         id: eventData._id,
         mode: eventData.mode
     };
 
-    console.log(submittedProps);
     let totalSubmitted = 0;
     let totalSubmittedOnline = 0;
 
