@@ -58,9 +58,11 @@ export class EventsService {
 
   async findUserEvents(id: ObjectId) {
     try{
-      const userEvents = await this.eventModel.find({ $or: [{submitted: id}, {submittedOnline: id}] });
-    
-      return userEvents;
+      const userEvents = await this.eventModel.find().populate('submitted');
+
+      // const userEvents = await this.eventModel.find({ $or: [{ 'submitted.user': id }, { submittedOnline: id }] });
+      console.log(userEvents[0]['submitted'][0])
+      return userEvents[0]['submitted'];
     } catch(error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
@@ -96,12 +98,18 @@ export class EventsService {
   
   async eventInscription(eventInscriptionDto: EventInscriptionDto) {
     try {
-      const updateData = {
-        $push: { submitted: eventInscriptionDto.userId }
-      }
-      const updateEventSubmitted = await this.eventModel.findOneAndUpdate({_id: eventInscriptionDto.eventId}, updateData, {new: true})
+      // const updateData = {
+      //   $push: { 
+      //     submitted: { 
+      //       user: eventInscriptionDto.userId,  
+      //       qrUser: 'aaa'
+      //     }
+      //   }
+      // }
+      const updateData = { $push: { submitted: { user: eventInscriptionDto.userId }}};
+      const updateEventSubmitted = await this.eventModel.findOneAndUpdate({ _id: eventInscriptionDto.eventId }, updateData, { new: true })
 
-      return updateEventSubmitted
+      return updateEventSubmitted;
     } catch (error) {
       throw error
     }
@@ -150,12 +158,13 @@ export class EventsService {
 
   async getSubmitted(id: ObjectId, mode: string) {
     try {
-      let submittedList;
+      // let submittedList;
       let submittedMode = '';
       if(mode === 'En Línea') submittedMode = 'Online';
       
-      submittedList = await this.eventModel.find({ _id: id }).select(`submitted${submittedMode}`).populate(`submitted${submittedMode}`).exec()
-      return submittedList;
+      const submittedList = await this.eventModel.find({ _id: id }).select(`submitted${submittedMode}.userId`).populate(`submitted${submittedMode}.userId`);
+      console.log(submittedList[0]['submitted'])
+      return submittedList[0]['submitted'];
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

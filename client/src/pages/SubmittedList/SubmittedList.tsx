@@ -16,7 +16,8 @@ const SubmittedList = () => {
             const respo = await fetch(`http://localhost:8000/api/events/${submittedProps.id}/submitted/?mode=${submittedProps.mode}`);
             const eventsData = await respo.json();
 
-            setUsers(eventsData[0].submitted);
+            setUsers(eventsData);
+            console.log(eventsData);
             setIsLoading(false);
         };
 
