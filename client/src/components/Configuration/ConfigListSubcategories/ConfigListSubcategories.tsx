@@ -49,14 +49,20 @@ const ConfigListSubcategories = () => {
     };
 
     const handleSubcategoryDelete = async (categoryId: string, subcategory: SubcategoryProps) => {
+        console.log(subcategory.name);
         try {
-            const response = await fetch(`http://localhost:8000/api/categories/${categoryId}/${subcategory.name}`, {
+            const response = await fetch(`http://localhost:8000/api/categories/${categoryId}/subcategory`, {
                 method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ subcategoryName: subcategory.name }),
             });
+      
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-    
+      
             setSubcategories((prevSubcategories) =>
                 prevSubcategories.filter((sub) => sub.name !== subcategory.name)
             );
@@ -86,8 +92,8 @@ const ConfigListSubcategories = () => {
                         {subcategories.map((subcategory) => (
                             <li key={subcategory.name}>
                                 {subcategory.name}
-                                <button onClick={() => <button onClick={() => handleSubcategoryDelete(selectedCategory, subcategory)}>Eliminar</button>
-                                }>Eliminar</button>
+                                <button onClick={() =>handleSubcategoryDelete(selectedCategory,subcategory)}>Eliminar</button>
+                         
                             </li>
                         ))}
                     </ul>

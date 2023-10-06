@@ -30,12 +30,18 @@ findAllCategories() {
   return this.categoryModel.find();
 }
 
-async findCategoryById(_id: ObjectId): Promise<Category> {
+findAllSubcategories(id: ObjectId) {
   try {
-    const category =  this.categoryModel.findById(_id)
-    if (!category) {
-      throw new HttpException('Category not found', HttpStatus.NOT_FOUND);
-    }
+    return this.categoryModel.findById({ _id: id }).select('-_id subcategories');
+  } catch (error) {
+    throw error
+  }
+   
+ }
+
+async findCategoryById(id: ObjectId) {
+  try {
+    const category = await this.categoryModel.findById({ _id: id });
     return category;
   } catch (error) {
     throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -68,28 +74,29 @@ bulkCreateSubcategory(id: ObjectId, createSubcategoryDto: CreateSubcategoryDto[]
     }
   }
 
-  async deleteSubcategory(categoryId: string, subcategoryName: string): Promise<Category> {
+  async deleteSubcategory(categoryId: ObjectId, subcategoryName: string): Promise<Category> {
     try {
-      const category = await this.categoryModel.findById(categoryId);
-
+      const category = await this.categoryModel.findById({_id :categoryId})
+    
       if (!category) {
-        throw new Error('Category not found');
+        throw new NotFoundException('Category not found');
       }
-
+    
       const subcategoryIndex = category.subcategories.findIndex(
         (subcategory) => subcategory.name === subcategoryName
       );
-
+    
       if (subcategoryIndex === -1) {
-        throw new Error('Subcategory not found in the category');
+        throw new NotFoundException('Subcategory not found in the category');
       }
-
+    
       category.subcategories.splice(subcategoryIndex, 1);
-
+    
       const updatedCategory = await category.save();
       return updatedCategory;
     } catch (error) {
       throw error;
     }
   }
+  
 }

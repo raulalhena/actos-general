@@ -15,10 +15,6 @@ export class Category {
   @Prop()
       description: string;
 
-    @Prop()
-        _id: string;
-
-  
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

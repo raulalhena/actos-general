@@ -13,20 +13,30 @@ export class CategoriesController {
   // async findAllSubcategories() {
   //   return this.categoriesService.findAllSubcategories();
   // }
-  @Get('/:id')
-  findById(@Param ('id')_id: ObjectId) {
-    return this.categoriesService.findCategoryById(_id)
+
+  @Get()
+  findAllCategories() {
+    return this.categoriesService.findAllCategories();
+  }
+  @Get(':id')
+  findByIdCategory(@Param ('id') id: ObjectId) {
+    return this.categoriesService.findCategoryById(id)
   }
 
   @Post()
   createCategory(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.createCategory(createCategoryDto);
   }
+  @Delete(':id/subcategory')
+  removeSubcategory(@Param('id') id: ObjectId, @Body() body: { subcategoryName: string }) {
+    return this.categoriesService.deleteSubcategory(id, body.subcategoryName);
+  }
 
   @Put(':id/subcategories')
   createSubcategory(@Param('id') id: ObjectId, @Body() createSubcategoryDto: CreateSubcategoryDto) {
     return this.categoriesService.createSubcategory(id, createSubcategoryDto);
   }
+ 
 
   @Post('categories/load')
   bulkCreateCategory(@Body() createCategoryDto: CreateCategoryDto[]) {
@@ -38,17 +48,11 @@ export class CategoriesController {
     return this.categoriesService.bulkCreateSubcategory(id, createSubcategoryDto);
   }
 
-  @Get()
-  findAllCategories() {
-    return this.categoriesService.findAllCategories();
-  }
+ 
 
  
 
-  @Delete(':id/:subcategoryname')
-  removeSubcategory(@Param('id') id: string , @Param('subcategoryname') subcategoryName: string) {
-    return this.categoriesService.deleteSubcategory(id, subcategoryName);
-  }
+ 
 
 
   @Delete(':id')
