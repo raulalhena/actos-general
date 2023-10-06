@@ -91,7 +91,7 @@ function App() {
                                     <SubmittedList />
                                 </ProtectedRoute>
                             } />
-                            <Route path='/createadmin' element={
+                            <Route path='/signupadmin' element={
                                 <ProtectedRoute role={ [ 'super' ] }>
                                     <SignupAdmin />
                                 </ProtectedRoute>
