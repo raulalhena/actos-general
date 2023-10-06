@@ -60,8 +60,7 @@ const EventDetailPage = () => {
     const openModal = (type: any) => {
         setIsModalOpen(true);
         setActionType(type);
-        setModalBtn1Text('Cancelar');
-        setModalBtn2Text(
+        setModalBtn1Text(
             type === 'inscription'
                 ? 'Inscribirme'
                 : type === 'online'
@@ -73,6 +72,7 @@ const EventDetailPage = () => {
                 ? 'Estás a punto de inscribirte al evento.'
                 : 'Estás a punto de eliminar la inscripción.'
         );
+        setModalBtn2Text('Cancelar');
     };
 
     const closeModal = () => {
@@ -397,8 +397,8 @@ const EventDetailPage = () => {
                         button2Text={modalBtn2Text}
                         onClose={closeModal}
                         isOpen={true}
-                        onButton1Click={closeModal}
-                        onButton2Click={handleEventAction}
+                        onButton1Click={handleEventAction}
+                        onButton2Click={closeModal}
                         showCloseButton={true}
                     />
                 )}

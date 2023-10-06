@@ -9,7 +9,7 @@ import { useMediaQuery } from '@mui/material';
 function Navbar() {
     const [ isActive, setIsActive ] = useState(false);
     const { user, isLogged } = useAuth();
-
+console.log(isLogged || (isLogged && user && user.role !== 'admin'));
     const toggleActiveClass = () => {
         setIsActive(!isActive);
     };
@@ -42,7 +42,7 @@ function Navbar() {
                                 </Link>
                             </li>
                         )}
-                        {!isLogged && user && user.role === 'user' && (
+                        {!isLogged || (isLogged && user && user.role !== 'admin') && (
                             <li onClick={removeActive}>
                                 <Link to="/faq" className={styles.navLink}>
                   FAQ
