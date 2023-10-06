@@ -583,8 +583,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     // get visibility
     useEffect(() => {
-        setVisibility(formData.visibility ?? false); //cuando es null(??) es false
-    }, []); //no tocar la dependencia, dejar vacio*
+        setVisibility(formData.visibility ?? false);
+    }, [ formData.visibility ]);
 
     //get MODE (online, hibrido, presencial)
     useEffect(() => {
@@ -613,7 +613,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                         ...prevData,
                         webLink: '',
                     }));
-                } else if (formData.mode === 'En línea') {
+                } else if (formData.mode === 'En Línea') {
 
                     setFormData((prevData) => ({
                         ...prevData,
