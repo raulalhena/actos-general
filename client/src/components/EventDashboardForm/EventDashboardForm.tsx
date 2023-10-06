@@ -23,6 +23,7 @@ import ModalDisplay from '../Modal/ModalDisplay';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
+import SectionFormWithoutToggle from '../SectionFormWithoutToggle/SectionForm';
 
 type Props = { eventData: EventDashboardFormProps };
 
@@ -480,18 +481,52 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         setSelectedCapacity(!selectedCapacity);
     };
 
+    const handleSelectStatus = (event: React.ChangeEvent<HTMLSelectElement>) => {
+
+        const { value } = event.target;
+
+        if (value === 'Inactivo') {
+            setFormData({
+                ...formData,
+                status: false,
+            });
+        
+        } else if (value === 'Activo') {
+            setFormData({
+                ...formData,
+                status: true,
+            });
+        } 
+    };
+
     // Form fields auto filled state
+    const [ status, setStatus ] = useState<Array<string>>([]);
     const [ categories, setCategories ] = useState<Array<EventDashboardFormProps>>([]);
+    const [ selectedCategory, setSelectedCategory ] = useState(formData.category);
     const [ subcategories, setSubcategories ] = useState<Array<string>>([]);
     const [ types, setTypes ] = useState<Array<string>>([]);
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
     const [ time, setTime ] = useState<Array<string>>([]);
     const [ visibility, setVisibility ] = useState<boolean>(false);
-    const [ selectedCategory, setSelectedCategory ] = useState(formData.category);
     const [ mode, setMode ] = useState<ButtonCardRadioProps[]>([]);
 
     // Get all data to fill fields
+
+    // get status
+    useEffect(() => {
+        const getStatus = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/misc/status');
+                const data = await response.json();
+                setStatus(data.map((status: { name: string; }) => status.name));
+            } catch (error) {
+                console.error('Error al obtener los status:', error);
+            }
+        };
+        getStatus();
+    }, []);
+
     // Get Categories
     useEffect(() => {
         
@@ -654,19 +689,41 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     return (
         <div data-testid='dashboard-component' className={styles.formDash}>
-            <p className={styles.status}>
-                <span>
-                    <b>
-                        <VscCircleFilled style={{ color: visibility ? 'green' : '#e15a40' }} />
-                    </b>
-                </span>
-                <span style={{ color: visibility ? 'green' : '#e15a40' }}>
-                    {visibility ? 'Público' : 'Borrador'}
-                </span>
-            </p>
         
             <form data-testid="event-form" onSubmit={handleSubmit}>
                 <ToastContainer position="top-right" autoClose={3000} />
+
+                <SectionFormWithoutToggle 
+                    title="ESTADO DEL EVENTO">
+                    <div>
+                        <Select
+                            id="status"
+                            label="Estado"
+                            options={status}
+                            value={formData.status ? 'Activo' : 'Inactivo'}
+                            onChange={handleSelectStatus}
+                        />
+                    </div>
+                    <div className=''>
+                        <SelectStatus
+                            id="visibility"
+                            label=""
+                            options={ [ 'Borrador', 'Público' ] }
+                            value={formData.visibility ? 'Público' : 'Borrador'}
+                            onChange={handleVisibilityChange}
+                        />
+                        <p className={styles.visibility}>
+                            <span>
+                                <b>
+                                    <VscCircleFilled style={{ color: visibility ? 'green' : '#e15a40' }} />
+                                </b>
+                            </span>
+                            <span style={{ color: visibility ? 'green' : '#e15a40' }}>
+                                {visibility ? 'Público' : 'Borrador'}
+                            </span>
+                        </p>
+                    </div>
+                </SectionFormWithoutToggle>
 
                 <SectionForm
                     title="1 INFORMACIÓN BÁSICA"
