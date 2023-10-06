@@ -10,7 +10,7 @@ import { CreateTimeZoneDto } from './dto/create-timezone.dto';
 import { CreateVisibilityDto } from './dto/create-visibility.dto';
 import { ObjectId } from 'mongoose';
 import { CreateModeDto } from './dto/create-mode.dto';
-import { CreateStatusDto } from './dto/create-status.dto';
+import { CreateActiveDto } from './dto/create-active.dto';
 
 @Controller('misc')
 export class MiscController {
@@ -40,9 +40,9 @@ export class MiscController {
     return this.miscService.createType(createTypeDto);
   }
 
-  @Post('status')
-  createStatus(@Body() createStatusDto: CreateStatusDto) {
-    return this.miscService.createStatus(createStatusDto);
+  @Post('active')
+  createStatus(@Body() createActiveDto: CreateActiveDto) {
+    return this.miscService.createActive(createActiveDto);
   }
 
   @Post('times')
@@ -147,9 +147,9 @@ export class MiscController {
       return this.miscService.findAllTypes();
     }
 
-    @Get('status')
+    @Get('active')
     findAllStatus() {
-      return this.miscService.findAllStatus();
+      return this.miscService.findAllActive();
     }
   
     @Get('times')

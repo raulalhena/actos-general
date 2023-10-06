@@ -1,10 +1,15 @@
+.visibilityContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+
 .visibility {
   text-align: right;
   padding-left:0;
   font-size: 16px;
-  margin-bottom: 1rem;
-  max-width: 780px;
-  min-width: 400px;
+ 
+
 }
 
 .warning {
@@ -27,9 +32,7 @@
   gap: 12px;
 }
 
-.selectTime select {
-  width: 360px;
-}
+
 
 .finalSectionContainer {
   display: flex;

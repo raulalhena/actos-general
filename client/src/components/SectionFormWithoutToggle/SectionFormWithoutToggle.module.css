@@ -1,17 +1,24 @@
 .sectionContainer {
     display: flex;
     cursor: pointer;
-    justify-content: space-between;
+    justify-content: center;
     align-items:center;
     gap: 2rem;
     width: 780px;
+}
+
+.sectionContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 .title {
     width: 100vw;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 1rem;
     border-bottom: 3px solid grey;
     margin: 0;

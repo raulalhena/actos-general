@@ -33,5 +33,5 @@ export interface EventDashboardFormProps {
     visibility?: boolean;
     isLimited: boolean;
     subcategoryLogo: string;
-    status?: boolean;
+    active?: boolean;
 }

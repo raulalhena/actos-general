@@ -16,14 +16,13 @@ import styles from './EventDashboardForm.module.css';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { ToastContainer, toast } from 'react-toastify';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
-import SelectStatus from '../SelectStatus/SelectStatus';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { VscCircleFilled } from 'react-icons/vsc';
 import ModalDisplay from '../Modal/ModalDisplay';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
-import SectionFormWithoutToggle from '../SectionFormWithoutToggle/SectionForm';
+import SectionFormWithoutToggle from '../SectionFormWithoutToggle/SectionFormWithoutToggle';
 
 type Props = { eventData: EventDashboardFormProps };
 
@@ -130,19 +129,10 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // SelectVisibility(draft and public status)
     const handleVisibilityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = event.target;
-    
-        if (value === 'Borrador') {
-            setFormData({
-                ...formData,
-                visibility: false,
-            });
-
-        } else if (value === 'Público') {
-            setFormData({
-                ...formData,
-                visibility: true,
-            });
-        } 
+        setFormData({
+            ...formData,
+            visibility: value === 'Público',
+        });
     };
     
     // Tags
@@ -481,26 +471,17 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         setSelectedCapacity(!selectedCapacity);
     };
 
-    const handleSelectStatus = (event: React.ChangeEvent<HTMLSelectElement>) => {
-
+    const handleSelectActive = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = event.target;
-
-        if (value === 'Inactivo') {
-            setFormData({
-                ...formData,
-                status: false,
-            });
-        
-        } else if (value === 'Activo') {
-            setFormData({
-                ...formData,
-                status: true,
-            });
-        } 
+        const isActive = value === 'Activo';
+        setFormData({
+            ...formData,
+            active: isActive,
+        });
     };
 
     // Form fields auto filled state
-    const [ status, setStatus ] = useState<Array<string>>([]);
+    const [ active, setActive ] = useState<Array<string>>([]);
     const [ categories, setCategories ] = useState<Array<EventDashboardFormProps>>([]);
     const [ selectedCategory, setSelectedCategory ] = useState(formData.category);
     const [ subcategories, setSubcategories ] = useState<Array<string>>([]);
@@ -513,18 +494,18 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     // Get all data to fill fields
 
-    // get status
+    // get Active
     useEffect(() => {
-        const getStatus = async () => {
+        const getActiveEvents = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/status');
+                const response = await fetch('http://localhost:8000/api/misc/active');
                 const data = await response.json();
-                setStatus(data.map((status: { name: string; }) => status.name));
+                setActive(data.map((active: { name: string; }) => active.name));
             } catch (error) {
-                console.error('Error al obtener los status:', error);
+                console.error('Error al obtener los active:', error);
             }
         };
-        getStatus();
+        getActiveEvents();
     }, []);
 
     // Get Categories
@@ -692,35 +673,41 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             <form data-testid="event-form" onSubmit={handleSubmit}>
                 <ToastContainer position="top-right" autoClose={3000} />
 
+                <p className={styles.visibility}>
+                    <span>
+                        <b>
+                            <VscCircleFilled style={{ color: visibility ? 'green' : '#e15a40' }} />
+                        </b>
+                    </span>
+                    <span style={{ color: visibility ? 'green' : '#e15a40' }}>
+                        {visibility ? 'Público' : 'Borrador'}
+                    </span>
+                </p>
+
                 <SectionFormWithoutToggle 
-                    title="ESTADO DEL EVENTO">
-                    <div>
+                    title="ESTADO DEL EVENTO"
+                >
+
+                    <div >
                         <Select
-                            id="status"
+                            id="active"
                             label="Estado"
-                            options={status}
-                            value={formData.status ? 'Activo' : 'Inactivo'}
-                            onChange={handleSelectStatus}
+                            options={active}
+                            value={formData.active ? 'Activo' : 'Inactivo'}
+                            onChange={handleSelectActive}
                         />
                     </div>
-                    <div className=''>
-                        <SelectStatus
-                            id="visibility"
-                            label=""
-                            options={ [ 'Borrador', 'Público' ] }
-                            value={formData.visibility ? 'Público' : 'Borrador'}
-                            onChange={handleVisibilityChange}
-                        />
-                        <p className={styles.visibility}>
-                            <span>
-                                <b>
-                                    <VscCircleFilled style={{ color: visibility ? 'green' : '#e15a40' }} />
-                                </b>
-                            </span>
-                            <span style={{ color: visibility ? 'green' : '#e15a40' }}>
-                                {visibility ? 'Público' : 'Borrador'}
-                            </span>
-                        </p>
+                    <div className={styles.visibilityContainer}>
+                        <div className={styles.visibilitySelectContainer}>
+                            <Select
+                                id="visibility"
+                                label="Visibilidad"
+                                options={ [ 'Borrador', 'Público' ] }
+                                value={formData.visibility ? 'Público' : 'Borrador'}
+                                onChange={handleVisibilityChange}
+                            />
+                        </div>
+
                     </div>
                 </SectionFormWithoutToggle>
 
@@ -764,6 +751,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             value={formData.name}
                             onChange={handleInputChange}
                         />
+                        <br />
                         <TextArea
                             id="description"
                             label="Descripción del evento *"
@@ -1005,20 +993,11 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                 </SectionForm>
                 
                 <div className={ styles.finalSectionContainer }>
-                    <div className={styles.finalSection}>
-                        <div className={styles.selectStatus}>
-                            <SelectStatus
-                                id="visibility"
-                                label=""
-                                options={ [ 'Borrador', 'Público' ] }
-                                value={formData.visibility ? 'Público' : 'Borrador'}
-                                onChange={handleVisibilityChange}
-                            />
-                        </div>
-                        <div className={styles.buttonSection}>
-                            <ButtonSubmit label="Guardar"/>
-                        </div>
+                        
+                    <div className={styles.buttonSection}>
+                        <ButtonSubmit label="Guardar"/>
                     </div>
+
                 </div>
                 
                 <div>
