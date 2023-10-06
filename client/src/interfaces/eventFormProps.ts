@@ -27,6 +27,7 @@ export interface EventFormProps  {
     qrAttendees?: string[];
     attendees?: string[];
     submitted?: string[];
+    submittedOnline?: string[];
     price?: number;
     payment?: string;
     visibility?: boolean;

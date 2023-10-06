@@ -16,6 +16,16 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
     const qrURL = eventData.qrEvent;
 
     console.log('qrurl ', qrURL);
+    let totalSubmitted = 0;
+    let totalSubmittedOnline = 0;
+
+    if(eventData.submitted) {
+        totalSubmitted = eventData.submitted.length;
+    }
+
+    if(eventData.submittedOnline) {
+        totalSubmittedOnline = eventData.submittedOnline.length;
+    }
 
     return (
         <>
@@ -24,10 +34,19 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                     <div className={styles.containerSection}>
                         <FaUserCheck className={styles.icon} />
                         <p>
-
-                0/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
-                Usuarios Inscritos
+                            {totalSubmitted}/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
+                Usuarios Inscritos Presencial
                         </p>
+                        
+                        {eventData.mode === 'Híbrido' && (
+                            <>
+                                <p>|</p>
+                                <p>
+                                    {totalSubmittedOnline}/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- '}
+                Usuarios Inscritos Online
+                                </p>
+                            </>
+                        )}
                     </div>
                 </a>
 
