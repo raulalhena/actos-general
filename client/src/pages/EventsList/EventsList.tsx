@@ -1,18 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
-import styles from './EventsList.module.css';
-import Preloader from '../../components/Preloader/Preloader';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { EventDashboardFormProps } from "../../interfaces/eventDashboardFormProps";
+import styles from "./EventsList.module.css";
+import Preloader from "../../components/Preloader/Preloader";
 
 const EventsList = () => {
     const navigate = useNavigate();
-    const [ events, setEvents ] = useState<Array<EventDashboardFormProps>>([]);
-    const [ isLoading, setIsLoading ] = useState(true);
-
+    const [events, setEvents] = useState<Array<EventDashboardFormProps>>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    
     useEffect(() => {
         const getAllEvents = async () => {
-            const respo = await fetch('http://localhost:8000/api/events');
+            const respo = await fetch("http://localhost:8000/api/events");
             const eventsData = await respo.json();
+
+            eventsData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
             setEvents(eventsData);
             setIsLoading(false);
@@ -24,7 +26,7 @@ const EventsList = () => {
     const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const { id } = e.target;
-        navigate('/eventdashboard', { state: { id: id } });
+        navigate("/eventdashboard", { state: { id: id } });
     };
 
     return (
@@ -40,20 +42,31 @@ const EventsList = () => {
                         {events.map((event: EventDashboardFormProps, index: number) => (
                             <div key={index}>
                                 <button className={styles.eventItem}>
-                                    <h2
-                                        className={styles.eventTitle}
-                                        id={event._id}
-                                        onClick={handleClick}
-                                    >
-                                        {event.name}
-                                    </h2>
-                                    <div className={styles.eventChips}>
-                                        <span className={styles.cardCategory}>
-                                            {event.category}
-                                        </span>
-                                        <span className={styles.cardSubcategory}>
-                                            {event.subcategory}
-                                        </span>
+                                    <div className={styles.eventListSection}>
+                                        <h2
+                                            className={styles.eventTitle}
+                                            id={event._id}
+                                            onClick={handleClick}
+                                        >
+                                            {event.name}
+                                        </h2>
+                                        <div className={styles.eventChips}>
+                                            <span className={styles.cardCategory}>
+                                                {event.category}
+                                            </span>
+                                            <span className={styles.cardSubcategory}>
+                                                {event.subcategory}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className={styles.eventListSection}>
+                                        <p
+                                            className={styles.eventDate}
+                                            id={event._id}
+                                            onClick={handleClick}
+                                        >
+                                            {event.date}
+                                        </p>
                                     </div>
                                 </button>
                             </div>

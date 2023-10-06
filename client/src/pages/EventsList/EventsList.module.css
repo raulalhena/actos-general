@@ -1,6 +1,6 @@
 .page {
   width: 100vw;
-  margin: 2rem 0 2rem 0;
+  margin: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,23 +30,31 @@
 }
 
 .eventItem {
-  max-width: 400px;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 1rem 1rem;
+  padding: 0.75rem 1rem;
   color: #1c2e48;
   background-color: #f3f3f3;
   border-radius: 5px;
   border-style: none;
   cursor: pointer;
-  text-align: left;
-  font-size: 14px;
-  gap: 1rem;
+  max-width: 350px;
+  gap: 0.5rem;
 }
 
 .eventItem:hover {
   background-color: #dedede;
+}
+
+.eventListSection {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.5rem;
 }
 
 .eventTitle {
@@ -70,8 +78,8 @@
   letter-spacing: 1px;
   border-radius: 16px;
   background-color: white;
-  color: #1C2E48;
-  border: 1px solid #1C2E48;
+  color: #1c2e48;
+  border: 1px solid #1c2e48;
   height: fit-content;
 }
 
@@ -88,15 +96,16 @@
   height: fit-content;
 }
 
+.eventDate {
+  font-size: 14px;
+  color: grey;
+}
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 800px) {
   .pageContainer {
     margin-top: 2rem;
     align-items: flex-start;
-  }
-
-  .eventItem {
-    max-width: 750px;
   }
 
   .title {
@@ -114,4 +123,21 @@
     justify-content: flex-start;
   }
 
+  .eventItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: #1c2e48;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    border-style: none;
+    cursor: pointer;
+    max-width: 800px;
+  }
+
+  .eventListSection {
+    flex-direction: row;
+  }
 }
