@@ -6,7 +6,7 @@ const VisibilityConfigCard = () => {
     
     return (
         <div>
-            <Link to={`/config/configform`} state={'visibilities'}>
+            <Link to={`/config/configlist`} state={'visibilities'}>
                 <div className={styles.configCard}>
                     <MdVisibility className={styles.configIcon}/>
                     <h2>VISIBILIDAD</h2>

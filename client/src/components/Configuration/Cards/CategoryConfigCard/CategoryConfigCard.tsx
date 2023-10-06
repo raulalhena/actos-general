@@ -6,7 +6,7 @@ const CategoryConfigCard = () => {
     
     return (
         <div>
-            <Link to={`/config/configform`} state={'categories'}>
+            <Link to={`/config/configlist`} state={'categories'}>
                 <div className={styles.configCard}>
                     <BiSolidCategoryAlt className={styles.configIcon}/>
                     <h2>CATEGORÍAS</h2>

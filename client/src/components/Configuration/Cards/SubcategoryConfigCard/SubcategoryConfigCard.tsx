@@ -6,7 +6,7 @@ const SubcategoryConfigCard = () => {
     
     return (
         <div>
-            <Link to={`/config/configform`} state={'subcategories'}>
+            <Link to={`/config/configlist`} state={'subcategories'}>
                 <div className={styles.configCard}>
                     <MdCategory className={styles.configIcon}/>
                     <h2>SUBCATEGORÍAS</h2>

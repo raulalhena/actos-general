@@ -6,7 +6,7 @@ const TypeConfigCard = () => {
     
     return (
         <div>
-            <Link to={`/config/configform`} state={'types'}>
+            <Link to={`/config/configlist`} state={'types'}>
                 <div className={styles.configCard}>
                     <IoPeopleSharp className={styles.configIcon}/>
                     <h2>TIPOS DE EVENTOS</h2>
