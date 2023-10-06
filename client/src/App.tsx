@@ -21,6 +21,7 @@ import ScrollTopButton from './components/ScrollTopButton/ScrollTopButton';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import SignupAdmin from './pages/SignupAdmin/SignupAdmin';
 import ConfigForm from './pages/ConfigForm/ConfigForm';
+import SubmittedList from './pages/SubmittedList/SubmittedList';
 
 function Layout({ children }: any) {
     return (
@@ -76,6 +77,11 @@ function App() {
                             <Route path='/configboard' element={
                                 <ProtectedRoute role={ [ 'admin' ] }>
                                     <ConfigBoard />
+                                </ProtectedRoute>
+                            } />
+                            <Route path='/submittedlist' element={
+                                <ProtectedRoute role={ [ 'admin' ] }>
+                                    <SubmittedList />
                                 </ProtectedRoute>
                             } />
                             <Route path="/createadmin" element={<SignupAdmin />} />

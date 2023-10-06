@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
-import { User } from '../../users/schemas/user.schema';
+import { User, UserSchema } from '../../users/schemas/user.schema';
 
 export type EventDocument = HydratedDocument<Event>;
 
@@ -63,8 +63,8 @@ export class Event {
   @Prop({ type: [ { type: mongoose.Schema.Types.ObjectId, ref: User.name } ], default: [] })
       submitted: mongoose.Types.ObjectId[];
 
-  @Prop({ type: [ { type: mongoose.Schema.Types.ObjectId, ref: User.name } ], default: [] })
-      submittedOnline: mongoose.Types.ObjectId[];
+  @Prop({ type: [ { userId: { type: mongoose.Schema.Types.ObjectId, ref: User.name }} ], default: [] })
+      submittedOnline: User;
 
   @Prop()
       capacity: number;
