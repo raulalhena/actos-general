@@ -657,11 +657,11 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             <p className={styles.status}>
                 <span>
                     <b>
-                        <VscCircleFilled style={{ color: formData.visibility ? 'green' : '#e15a40' }} />
+                        <VscCircleFilled style={{ color: visibility ? 'green' : '#e15a40' }} />
                     </b>
                 </span>
-                <span style={{ color: formData.visibility ? 'green' : '#e15a40' }}>
-                    {formData.visibility ? 'Público' : 'Borrador'}
+                <span style={{ color: visibility ? 'green' : '#e15a40' }}>
+                    {visibility ? 'Público' : 'Borrador'}
                 </span>
             </p>
         
