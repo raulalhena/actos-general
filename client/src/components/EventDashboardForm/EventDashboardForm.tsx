@@ -613,7 +613,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                         ...prevData,
                         webLink: '',
                     }));
-                } else if (formData.mode === 'En línea') {
+                } else if (formData.mode === 'En Línea') {
 
                     setFormData((prevData) => ({
                         ...prevData,
