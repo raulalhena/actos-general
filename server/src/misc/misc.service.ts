@@ -20,7 +20,9 @@ import { CreateTimeZoneDto } from './dto/create-timezone.dto';
 import { CreateVisibilityDto } from './dto/create-visibility.dto';
 import { Model, ObjectId } from 'mongoose';
 import { Mode } from './schemas/mode.schema';
+import { Status } from './schemas/status.schema';
 import { CreateModeDto } from './dto/create-mode.dto';
+import { CreateStatusDto } from './dto/create-status.dto';
 
 @Injectable()
 export class MiscService {
@@ -30,6 +32,7 @@ export class MiscService {
     @InjectModel(Language.name) private languageModel: Model<Language>,
     @InjectModel(Time.name) private timeModel: Model<Time>,
     @InjectModel(Type.name) private typeModel: Model<Type>,
+    @InjectModel(Status.name) private statusModel: Model<Status>,
     @InjectModel(TimeZone.name) private timeZoneModel: Model<TimeZone>,
     @InjectModel(Visibility.name) private visibilityModel: Model<Visibility>,
     @InjectModel(Capacity.name) private capacityModel: Model<Capacity>,
@@ -55,6 +58,10 @@ export class MiscService {
  createType( createTypeDto: CreateTypeDto) {
    return this.typeModel.create(createTypeDto);
  }
+
+ createStatus( createStatusDto: CreateStatusDto) {
+  return this.statusModel.create(createStatusDto);
+}
 
  createTime( createTimeDto: CreateTimeDto) {
    return this.timeModel.create(createTimeDto);
@@ -144,6 +151,10 @@ export class MiscService {
    findAllTypes() {
      return this.typeModel.find();
    }
+
+   findAllStatus() {
+    return this.statusModel.find();
+  }
 
    findAllTimes() {
      return this.timeModel.find();

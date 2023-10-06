@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CategorySchema, Category } from './schemas/category.schema';
 import { Subcategory, SubcategorySchema } from './schemas/subcategory.schema';
 import { Type, TypeSchema } from './schemas/type.schema';
+import { Status, StatusSchema } from './schemas/status.schema';
 import { Language, LanguageSchema } from './schemas/language.schema';
 import { Time, TimeSchema } from './schemas/time.schema';
 import { TimeZone, TimeZoneSchema } from './schemas/timezone.schema';
@@ -28,6 +29,10 @@ import { Mode, ModeSchema } from './schemas/mode.schema';
       {
         name: Type.name,
         schema: TypeSchema
+      },
+      {
+        name: Status.name,
+        schema: StatusSchema
       },
       {
         name: Language.name,
