@@ -583,8 +583,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     // get visibility
     useEffect(() => {
-        setVisibility(formData.visibility ?? false); //cuando es null(??) es false
-    }, []); //no tocar la dependencia, dejar vacio*
+        setVisibility(formData.visibility ?? false);
+    }, [ formData.visibility ]);
 
     //get MODE (online, hibrido, presencial)
     useEffect(() => {
