@@ -12,10 +12,6 @@ interface InscriptionsRecapProps {
 
 const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
 
-    console.log('qr', eventData.qrEvent);
-    const qrURL = eventData.qrEvent;
-
-    console.log('qrurl ', qrURL);
     let totalSubmitted = 0;
     let totalSubmittedOnline = 0;
 
