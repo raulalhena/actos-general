@@ -6,7 +6,7 @@ import { EventDetailProps } from '../../interfaces/eventDetailProps';
 import { IoLocationSharp } from 'react-icons/io5';
 import { IoPeopleSharp } from 'react-icons/io5';
 import { IoLanguageOutline } from 'react-icons/io5';
-import ButtonWhite from '../../components/ButtonWhite/ButtonWhite';
+import ButtonWhite from '../../components/Button/ButtonWhite/ButtonWhite';
 import { useParams } from 'react-router-dom';
 
 const EventDetailPage = () => {
@@ -54,20 +54,18 @@ const EventDetailPage = () => {
                     <img src={logo} className={styles.logoImage} alt="Logo" />
                 </div>
             </div>
+            
+            <h1 className={styles.eventTitle}>{eventData.name}</h1>
 
             {/* CATEGORIES */}
-
             <section className={styles.section}>
                 <div className={styles.categorySubcategorySection}>
                     <span className={styles.category}>{eventData.category}</span>
                     <span className={styles.subcategory}>{eventData.subcategory}</span>
                 </div>
             </section>
-            <h1 className={styles.eventTitle}>{eventData.name}</h1>
-            <hr />
 
             {/* MODE, TYPE, LANGUAGE */}
-            
             <section className={styles.section}>
                 <div className={styles.detailsSection}>
                     <div className={styles.iconModeContainer}>
@@ -92,21 +90,18 @@ const EventDetailPage = () => {
                     </div>
                 </div>
             </section>
-            <hr />
 
             {/* DATE */}
             <section className={styles.section}>
                 <h1 className={styles.sectionTitle}>Fecha y hora</h1>
                 <p className={styles.date}>{eventData.date}</p>
             </section>
-            <hr />
             
             {/* ADDRESS */}
             <section className={styles.section}>
                 <h1 className={styles.sectionTitle}>Ubicación</h1>
                 <p className={styles.address}>{eventData.address}</p>
             </section>
-            <hr />
             
             {/* DESCRIPTION, WEBLINK */}
             <section className={styles.section}>
@@ -116,7 +111,6 @@ const EventDetailPage = () => {
                     {eventData.webLink}
                 </a>
             </section>
-            <hr />
             
             {/* TAGS */}
             <section className={styles.section}>
@@ -133,7 +127,6 @@ const EventDetailPage = () => {
                     )}
                 </div>
             </section>
-            <hr />
             
             {/* ORGANIZED BY */}            
             <section className={styles.section}>
