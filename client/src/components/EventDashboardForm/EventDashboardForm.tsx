@@ -494,14 +494,13 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // Get all data to fill fields
     // Get Categories
     useEffect(() => {
-        
         const getCategories = async () => {
             let categoryId = '';
             const resp = await fetch('http://localhost:8000/api/misc/categories');
             const categoriesDb = await resp.json();
 
             setCategories(categoriesDb);
-            categories.forEach(category => {
+            categoriesDb.forEach(category => {
                 if(category.name === formData.category) categoryId=category._id;
 
             });
