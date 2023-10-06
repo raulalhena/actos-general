@@ -12,7 +12,7 @@
   text-transform: uppercase;
   font-weight: 700;
   font-size: 32px;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 .sectionTitle {
@@ -35,6 +35,8 @@
   gap: 1rem;
   line-height: 2rem;
   flex-direction: column;
+  padding: 1.5rem 0rem;
+  border-bottom: 2px solid rgb(201, 201, 201);
 }
 
 .detailsSection {
