@@ -12,6 +12,11 @@ interface InscriptionsRecapProps {
 
 const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
 
+    console.log('qr', eventData.qrEvent);
+    const qrURL = eventData.qrEvent;
+
+    console.log('qrurl ', qrURL);
+
     return (
         <>
             <div className={styles.container}>
@@ -37,7 +42,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                         </button>
                     </PDFDownloadLink>
                     <p>|</p>
-                    <a href={eventData.qrEvent} download>
+                    <a href={qrURL} download>
                         <p>Descargar QR del evento (.PNG)</p>
                     </a>
                 </div>

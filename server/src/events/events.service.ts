@@ -19,7 +19,7 @@ export class EventsService {
     try {
       this.eventModel.findOneAndUpdate({ _id: id }, { image: file})
     } catch (error) {
-      
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 
