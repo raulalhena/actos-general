@@ -12,6 +12,19 @@ interface InscriptionsRecapProps {
 
 const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
 
+    console.log('type ', eventData.type)
+
+    let totalSubmitted = 0;
+    let totalSubmittedOnline = 0;
+
+    if(eventData.submitted) {
+        totalSubmitted = eventData.submitted.length;
+    }
+
+    if(eventData.submittedOnline) {
+        totalSubmittedOnline = eventData.submittedOnline.length;
+    }
+
     return (
         <>
             <div className={styles.container}>
@@ -19,10 +32,19 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                     <div className={styles.containerSection}>
                         <FaUserCheck className={styles.icon} />
                         <p>
-
-                0/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
-                Usuarios Inscritos
+                            {totalSubmitted}/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
+                Usuarios Inscritos Presencial
                         </p>
+                        
+                        {eventData.mode === 'Híbrido' && (
+                            <>
+                                <p>|</p>
+                                <p>
+                                    {totalSubmittedOnline}/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- '}
+                Usuarios Inscritos Online
+                                </p>
+                            </>
+                        )}
                     </div>
                 </a>
 
