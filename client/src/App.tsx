@@ -22,6 +22,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import SignupAdmin from './pages/SignupAdmin/SignupAdmin';
 import ConfigForm from './pages/ConfigForm/ConfigForm';
 import SubmittedList from './pages/SubmittedList/SubmittedList';
+import ConfigList from './components/Configuration/List/ConfigList';
 
 function Layout({ children }: any) {
     return (
@@ -67,6 +68,11 @@ function App() {
                             <Route path='/myevents' element={
                                 <ProtectedRoute role={ [ 'user' ] }>
                                     <MyEvents />
+                                </ProtectedRoute>
+                            } />
+                            <Route path='/config/configlist' element={
+                                <ProtectedRoute role={ [ 'admin' ] }>
+                                    <ConfigList />
                                 </ProtectedRoute>
                             } />
                             <Route path='/config/configform' element={
