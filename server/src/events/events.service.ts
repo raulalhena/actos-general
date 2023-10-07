@@ -41,11 +41,11 @@ export class EventsService {
   }
 
   async findAll() {
-    return await this.eventModel.find();
+    return await this.eventModel.find({active: true, visibility: true});
   }
 
   async homePageEvents() {
-    return await this.eventModel.find().sort({_id: -1}).limit(6);;
+    return await this.eventModel.find({active: true, visibility: true}).sort({_id: -1}).limit(6);;
   }
 
   async findOne(id: ObjectId) {

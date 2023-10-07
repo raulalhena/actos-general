@@ -9,7 +9,7 @@ import { useMediaQuery } from '@mui/material';
 function Navbar() {
     const [ isActive, setIsActive ] = useState(false);
     const { user, isLogged } = useAuth();
-
+console.log(isLogged || (isLogged && user && user.role !== 'admin'));
     const toggleActiveClass = () => {
         setIsActive(!isActive);
     };
@@ -35,7 +35,7 @@ function Navbar() {
                                 Agenda
                             </Link>
                         </li>
-                        {isLogged && user && user.role === 'user' && (
+                        {isLogged && (
                             <li onClick={removeActive}>
                                 <Link to="/myevents" className={styles.navLink}>
                                     Mis eventos
@@ -49,13 +49,6 @@ function Navbar() {
                         </li>
                         {isLogged && user && user.role === 'admin' && (
                             <li onClick={removeActive}>
-                                <Link to="/eventslist" className={styles.navLink}>
-                                    Eventos Activos
-                                </Link>
-                            </li>
-                        )}
-                        {isLogged && user && user.role === 'admin' && (
-                            <li onClick={removeActive}>
                                 <Link to="/createevent" className={styles.navLink}>
                                     Crear Evento
                                 </Link>
@@ -65,6 +58,20 @@ function Navbar() {
                             <li onClick={removeActive}>
                                 <Link to="/signupadmin" className={styles.navLink}>
                                     Registro Usuario Administrador
+                                </Link>
+                            </li>
+                        )}
+                        {isLogged && user && user.role === 'admin' && (
+                            <li onClick={removeActive}>
+                                <Link to="/eventslist" className={styles.navLink}>
+                  Gestionar eventos
+                                </Link>
+                            </li>
+                        )}
+                        {isLogged && user && user.role === 'admin' && (
+                            <li onClick={removeActive}>
+                                <Link to="/configboard" className={styles.navLink}>
+                  Configurar formularios
                                 </Link>
                             </li>
                         )}

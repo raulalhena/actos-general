@@ -4,7 +4,7 @@ import { UpdateAuthDto } from './dto/update-auth.dto';
 import { UsersService } from '../users/users.service';
 import { GetUserLoginDto } from './dto/get-user-login.dto';
 import { JwtService } from '@nestjs/jwt';
-import { log } from 'console';
+import { hash, compare } from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -15,16 +15,28 @@ export class AuthService {
 
   async login(getUserLoginDto: GetUserLoginDto) {
     try {
-      const { password, ...user } = await this.userService.findByEmail(getUserLoginDto.email);
-      if (password !== getUserLoginDto.password) throw new UnauthorizedException('Credenciales inválidas.');
+      const { password, email } = getUserLoginDto;
+      const user = await this.userService.findByEmail(email);
+      if (!user) throw new HttpException('No se ha encontrado el usuario.', HttpStatus.NOT_FOUND);
+
+      const userPassword = user.password;
+
+      const checkPassword = await compare(password, userPassword);
+      if (!checkPassword) throw new HttpException('Contraseña incorrecta.', HttpStatus.FORBIDDEN);
+
 
       const payload = {
         sub: user._id,
         email: user.email
       }
 
+      const returnedUserData = {
+        _id: user._id,
+        role: user.role,
+      }
+
       return { 
-        user,
+        user: returnedUserData,
         accessToken: await this.jwtService.signAsync(payload)
       };
     } catch (error) {
@@ -34,7 +46,11 @@ export class AuthService {
 
   async create(createAuthDto: CreateAuthDto) {
     try {
-      return this.userService.create(createAuthDto);
+      const { password } = createAuthDto;
+      const hashPassword = await hash(password, 10);
+      return this.userService.create({
+        ...createAuthDto, password: hashPassword
+      });
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
