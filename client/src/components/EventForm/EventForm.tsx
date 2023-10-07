@@ -493,7 +493,7 @@ const EventForm = () => {
                 <div className={styles.formContent} >
                     <ToastContainer position="top-right" autoClose={2500} />
                     <SectionForm
-                        title="1 INFORMACIÓN BÁSICA"
+                        title="1. Información básica"
                         isVisible={isSection1Visible}
                         toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
                         <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p>
@@ -657,7 +657,7 @@ const EventForm = () => {
                     </SectionForm>
 
                     <SectionForm
-                        title="2 DETALLES"
+                        title="2. Detalles"
                         isVisible={isSection2Visible}
                         toggleVisibility={() => setIsSection2Visible(!isSection2Visible)}>
 
@@ -732,7 +732,7 @@ const EventForm = () => {
                     </SectionForm>
 
                     <SectionForm
-                        title="3 INSCRIPCIONES Y ENTRADAS"
+                        title="3. Inscripciones y entradas"
                         isVisible={isSection3Visible}
                         toggleVisibility={() => setIsSection3Visible(!isSection3Visible)}>
                         <FormField>

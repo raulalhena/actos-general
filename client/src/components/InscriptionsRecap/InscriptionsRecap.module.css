@@ -24,8 +24,8 @@
   font-size: 14px;
 }
 
-.containerSection:hover  {
-  border: 1.5px solid  #e15a40;;
+.containerSection:hover {
+  border: 1.5px solid #e15a40;
   cursor: inherit;
 }
 
@@ -77,15 +77,23 @@
   font-size: 20px;
 }
 
-/* Para pantallas más grandes o iguales a 768px (md) */
+/* Para pantallas más pequeña a 768px (md) */
 @media screen and (max-width: 768px) {
+  .container {
+    padding: 0;
+  }
+
   .containerSection {
     display: flex;
     flex-direction: column;
-    max-width: 300px;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 0;
+    max-width: 350px;
     gap: 0.5rem;
     font-size: 14px;
-  }  
+    padding: 1rem;
+  }
 
   .downloadOptions {
     flex-direction: column;
@@ -95,7 +103,6 @@
     display: none;
   }
 }
-
 
 /***** MODAL*********/
 

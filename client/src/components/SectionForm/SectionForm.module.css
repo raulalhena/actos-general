@@ -1,69 +1,68 @@
 .sectionContainer {
-    display: flex;
-    cursor: pointer;
-    justify-content: space-between;
-    align-items:center;
-    gap: 2rem;
-    width: 780px;
+  display: flex;
+  cursor: pointer;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  width: 780px;
 }
 
-/* .tracker {
-    width: 200px;;
-    justify-content: center;
-    align-items: center;
-} */
-
 .title {
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    border-bottom: 3px solid #1c2e48;
-    margin: 0;
-    margin-bottom: 2rem;
-    padding: 0 2.5rem ;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem ;
+  border-bottom: 2px solid grey;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+
+/* Para pantallas más pequeñas a 768px (md) */
+@media screen and (max-width: 768px) {
+  .title {
+    max-width: 350px;
+    padding: 0.5rem;
+    margin: 1rem 0 2rem 0;
+  }
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (max-width: 400px) {
-    .tracker {
-        display: none;
-    }
-    .sectionContainer {
-        width: 400px;
-    }
-
+  .tracker {
+    display: none;
+  }
+  .sectionContainer {
+    width: 400px;
+  }
 }
 
 @media screen and (min-width: 768px) {
-    .tracker {
-        display: none;
-    }
-    .sectionContainer {
-        width: 750px;
-    }
-
+  .tracker {
+    display: none;
+  }
+  .sectionContainer {
+    width: 750px;
+  }
 }
 
 /* Para pantallas más grandes o iguales a 1400px (xxl) */
 @media screen and (min-width: 1400px) {
-    .title {
-        width: 780px;  
-    }
-    .sectionContainer {
-        width: 780px;
-    }
-
+  .title {
+    width: 780px;
+  }
+  .sectionContainer {
+    width: 780px;
+  }
 }
 
 /* Para pantallas más grandes o iguales a 1400px (xxl) */
 @media screen and (min-width: 1600px) {
-    
-    .title {
-        width: 1300px;
-    }
-    .sectionContainer {
-        width: 780px;
-    }
+  .title {
+    width: 1300px;
+  }
+  .sectionContainer {
+    width: 780px;
+  }
 }

@@ -18,17 +18,15 @@
   transition: background-color 0.3s ease-in-out;
   position: relative;
   box-shadow: 4px 4px 0 0 #cacaca;
-  gap: 1rem;
-  padding: 1rem;
-  padding-left:2rem;
+  padding-left: 2rem;
 }
 
 .cardButton:focus-within .icon {
-  color: #e15a40; 
+  color: #e15a40;
 }
 
 .cardButton span {
-  font-size: 18px;
+  font-size: 14px;
   color: #1c2e48;
   font-weight: 500;
 }
@@ -45,14 +43,13 @@
 
 .icon {
   font-size: 20px;
-  color: #e15a40; 
+  color: #e15a40;
   position: absolute;
   left: 85%;
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */
-@media screen and (min-width: 768px) { 
-
+@media screen and (min-width: 768px) {
   .cardButton {
     border-radius: 12px;
     border: 1.5px solid #1c2e48;
@@ -73,7 +70,7 @@
     gap: 1.2rem;
     padding: 1rem;
   }
-  
+
   .cardButtonContainer {
     width: 150px;
     display: flex;
@@ -86,11 +83,10 @@
     font-weight: 500;
     margin-top: auto;
   }
-  .icon{
+  .icon {
     position: absolute;
-    color: #e15a40; 
+    color: #e15a40;
     left: 10%;
-    top: 15%
+    top: 15%;
   }
 }
-

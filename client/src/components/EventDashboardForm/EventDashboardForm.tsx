@@ -730,7 +730,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                 <h5>Detalles del formulario</h5>
                 <br />
                 <SectionForm
-                    title="1 INFORMACIÓN BÁSICA"
+                    title="1. Información básica"
                     isVisible={isSection1Visible}
                     toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
                     <FormField>
@@ -767,8 +767,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             value={formData.name}
                             onChange={handleInputChange}
                         />
-                        <br />
-                        <br />
+                        <div className={styles.gap}/>
                         <TextArea
                             id="description"
                             label="Descripción del evento *"
@@ -852,7 +851,9 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             />
                             
                         )}
+                        <div className={styles.gap}/>
                         {formData.mode === 'En Línea' && (
+                            
                             <TextInput
                                 isRequired={true}
                                 id="webLink"
@@ -877,7 +878,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                     onChange={handleInputChange}
                                     isRequired={true}
                                 />
-                                <br />
+                                <div className={styles.gap}/>
                                 <TextInput
                                     id="webLink"
                                     label="Añade un link de acceso"
@@ -889,7 +890,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                     isRequired={true}
                                     type="url"
                                 />
-                                <br />
+                                <div className={styles.gap}/>
                             </>
                             
                         )}
@@ -897,7 +898,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                 </SectionForm>
 
                 <SectionForm
-                    title="2 DETALLES"
+                    title="2. Detalles"
                     isVisible={isSection2Visible}
                     toggleVisibility={() => setIsSection2Visible(!isSection2Visible)}>
 
@@ -974,7 +975,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                 </SectionForm>
 
                 <SectionForm
-                    title="3 INSCRIPCIONES Y ENTRADAS"
+                    title="3. Inscripciones y entradas"
                     isVisible={isSection3Visible}
                     toggleVisibility={() => setIsSection3Visible(!isSection3Visible)}>
                     <FormField>

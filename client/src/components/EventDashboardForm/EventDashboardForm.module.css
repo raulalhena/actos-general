@@ -81,6 +81,10 @@
   align-items: center;
 }
 
+.gap {
+  height: 30px;
+}
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (max-width: 768px) {
   .eventStateContainer {
