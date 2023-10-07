@@ -5,14 +5,14 @@
 .warning {
   color: grey;
   text-align: left;
-  padding-left:0;
+  padding-left: 0;
   font-size: 14px;
   margin-bottom: 2rem;
 }
 
 .buttonSection {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .timeContainer {
@@ -32,25 +32,25 @@
   color: #cacaca;
 }
 
-.gap {
-  height: 30px;
+/* Para pantallas más pequeña a 768px (md) */
+@media screen and (max-width: 768px) {
+  .formContainer {
+    width: 350px;
+  }
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
-
   .formContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-  
 }
 
 /* Para pantallas más grandes o iguales a 992px (lg) */
 @media screen and (min-width: 992px) {
-
   .selectTime select {
     width: 248px;
   }
@@ -64,7 +64,6 @@
 
 /* Para pantallas más grandes o iguales a 1200px (xl) */
 @media screen and (min-width: 1200px) {
-  
   .selectTime select {
     width: 320px;
   }
@@ -78,7 +77,6 @@
 
 /* Para pantallas más grandes o iguales a 1400px (xxl) */
 @media screen and (min-width: 1400px) {
-
   .selectTime select {
     width: 370px;
   }
@@ -88,5 +86,4 @@
     justify-content: space-between;
     gap: 12px;
   }
-
 }

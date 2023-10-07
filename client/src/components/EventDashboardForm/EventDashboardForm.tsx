@@ -17,7 +17,6 @@ import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProp
 import { ToastContainer, toast } from 'react-toastify';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
 import { BsPatchCheckFill } from 'react-icons/bs';
-import { VscCircleFilled } from 'react-icons/vsc';
 import ModalDisplay from '../Modal/ModalDisplay';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
@@ -767,7 +766,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             value={formData.name}
                             onChange={handleInputChange}
                         />
-                        <div className={styles.gap}/>
                         <TextArea
                             id="description"
                             label="Descripción del evento *"
@@ -851,7 +849,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             />
                             
                         )}
-                        <div className={styles.gap}/>
                         {formData.mode === 'En Línea' && (
                             
                             <TextInput
@@ -877,8 +874,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                     value={formData.address}
                                     onChange={handleInputChange}
                                     isRequired={true}
-                                />
-                                <div className={styles.gap}/>
+                                />>
                                 <TextInput
                                     id="webLink"
                                     label="Añade un link de acceso"
@@ -890,7 +886,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                     isRequired={true}
                                     type="url"
                                 />
-                                <div className={styles.gap}/>
                             </>
                             
                         )}

@@ -531,7 +531,6 @@ const EventForm = () => {
                                 value={formData.name}
                                 onChange={handleInputChange}
                             />
-                            <div className={styles.gap}/>
                             <TextArea
                                 id="description"
                                 label="Descripción del evento *"
