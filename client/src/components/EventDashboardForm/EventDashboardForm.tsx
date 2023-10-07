@@ -78,7 +78,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         const id = event.target.id;
         const value: string = event.target.value;
 
-        if (id === 'capacity') {
+        if (id === 'capacity' || id === 'capacityOnline') {
             const numericValue = Number(value);
 
             if (!isNaN(numericValue) && numericValue >= 0) {
@@ -474,6 +474,14 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         setSelectedCapacity(!selectedCapacity);
     };
 
+    const handleToggleCapacityOnlineChange = (checked: boolean) => {
+        setFormData({
+            ...formData,
+            isLimitedOnline: checked,
+        });
+        setSelectedCapacityOnline(!selectedCapacityOnline);
+    };
+
     const handleSelectActive = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = event.target;
         const isActive = value === 'Activo';
@@ -678,6 +686,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     };
 
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
+    const [ selectedCapacityOnline, setSelectedCapacityOnline ] = useState<boolean>(false);
 
     return (
         <div data-testid='dashboard-component' className={styles.formDash}>
@@ -1001,7 +1010,27 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             />
                         ): null }
                     </FormField>
-                
+                    
+                    <FormField>
+                        <ToggleSwitch 
+                            id='capacityOnline'
+                            label={'El evento tiene limite de entrada en Línea'}
+                            subtitle={'Activa el botón para definir número de entradas en Línea.'}
+                            onChange={handleToggleCapacityOnlineChange}
+                            isChecked={formData.isLimitedOnline}
+                        />
+                        {formData.isLimitedOnline ? (
+                            <TextInputNumber
+                                id="capacityOnline"
+                                label="Límite de entradas en Línea"
+                                subtitle="Ingrese solamente caracteres numéricos mayores que 0."
+                                placeholder="ej.: 20"
+                                value={formData.capacityOnline} 
+                                onChange={handleInputNumberChange}
+                                isRequired={true}
+                            />
+                        ): null }
+                    </FormField>                
                 </SectionForm>
                 
                 <div className={ styles.finalSectionContainer }>

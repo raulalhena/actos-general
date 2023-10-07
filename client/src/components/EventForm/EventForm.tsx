@@ -53,7 +53,9 @@ const EventForm = () => {
         image: '', 
         video: '', 
         capacity: '',
+        capacityOnline: '',
         isLimited: false,
+        isLimitedOnline: false,
         subcategoryLogo: '',
         visibility: false,
     });
@@ -222,7 +224,7 @@ const EventForm = () => {
         const id = event.target.id;
         const value: string = event.target.value;
 
-        if (id === 'capacity') {
+        if (id === 'capacity' || id === 'capacityOnline') {
             const numericValue = Number(value);
 
             if (!isNaN(numericValue) && numericValue >= 0) {
@@ -462,15 +464,26 @@ const EventForm = () => {
         });
     };  
 
-    const handleToggleCapacityChange = (checked: boolean) => { 
+    const handleToggleCapacityChange = (checked: boolean) => {
         setFormData({
             ...formData,
             isLimited: checked,
         });
         setSelectedCapacity(!selectedCapacity);
     };
+
+    const handleToggleCapacityOnlineChange = (checked: boolean) => {
+        setFormData({
+            ...formData,
+            isLimitedOnline: checked,
+        });
+        setSelectedCapacityOnline(!selectedCapacityOnline);
+    };
     
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
+    const [ selectedCapacityOnline, setSelectedCapacityOnline ] = useState<boolean>(false);
+
+    console.log('selected mode', selectedMode);
 
     return (
         <div data-testid='event-form-component' className={styles.formEvent}>
@@ -731,28 +744,52 @@ const EventForm = () => {
                                 onChange={handleToggleIsPrivateChange} 
                             />
                         </FormField>
-    
-                        <FormField>
-                            <ToggleSwitch 
-                                id='capacity'
-                                label={'El evento tiene limite de entrada'}
-                                subtitle={'Activa el botón para definir número de entradas.'}
-                                onChange={handleToggleCapacityChange}
-                                isChecked={formData.isLimited}
-                            />
-                            {selectedCapacity ? (
-                                <TextInputNumber
-                                    id="capacity"
-                                    label="Límite de entradas"
-                                    subtitle="Ingrese solamente caracteres numéricos mayores que 0."
-                                    placeholder="ej.: 20"
-                                    value={formData.capacity} 
-                                    onChange={handleInputNumberChange}
-                                    isRequired={true}
+                        
+                        {selectedMode === 'Presencial' || selectedMode === 'Híbrido' ? (
+                            <FormField>
+                                <ToggleSwitch 
+                                    id='capacity'
+                                    label={'El evento tiene limite de entrada Presencial'}
+                                    subtitle={'Activa el botón para definir número de entradas en Presencial.'}
+                                    onChange={handleToggleCapacityChange}
+                                    isChecked={formData.isLimited}
                                 />
-                            ): null }
-                        </FormField>
-                    
+                                {selectedCapacity ? (
+                                    <TextInputNumber
+                                        id="capacity"
+                                        label="Límite de entradas Presencial"
+                                        subtitle="Ingrese solamente caracteres numéricos mayores que 0."
+                                        placeholder="ej.: 20"
+                                        value={formData.capacity} 
+                                        onChange={handleInputNumberChange}
+                                        isRequired={true}
+                                    />
+                                ): null }
+                            </FormField>
+                        ) : null}
+
+                        {selectedMode === 'En Línea' || selectedMode === 'Híbrido' ? (
+                            <FormField>
+                                <ToggleSwitch 
+                                    id='capacityOnline'
+                                    label={'El evento tiene limite de entrada en Línea'}
+                                    subtitle={'Activa el botón para definir número de entradas en Línea.'}
+                                    onChange={handleToggleCapacityOnlineChange}
+                                    isChecked={formData.isLimitedOnline}
+                                />
+                                {selectedCapacityOnline ? (
+                                    <TextInputNumber
+                                        id="capacityOnline"
+                                        label="Límite de entradas en Línea"
+                                        subtitle="Ingrese solamente caracteres numéricos mayores que 0."
+                                        placeholder="ej.: 20"
+                                        value={formData.capacityOnline} 
+                                        onChange={handleInputNumberChange}
+                                        isRequired={true}
+                                    />
+                                ): null }
+                            </FormField>
+                        ) : null}
                     </SectionForm>
                     
                     <div className={styles.buttonSection}>

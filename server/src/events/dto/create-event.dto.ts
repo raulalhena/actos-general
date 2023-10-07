@@ -27,6 +27,7 @@ export class CreateEventDto {
     image: string;
     video: string;
     capacity: number;
+    capacityOnline: number;
     price: number;
     payment: string;
     organizedBy: string[];
@@ -39,6 +40,7 @@ export class CreateEventDto {
     form: Object
     isPrivate: boolean;
     isLimited: boolean;
+    isLimitedOnline: boolean;
     webLink: string;
     confirmed: boolean;
     qrEvent: string;

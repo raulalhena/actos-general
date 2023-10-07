@@ -71,6 +71,8 @@ export class Event {
 
   @Prop()
       capacity: number;
+  @Prop()
+      capacityOnline: number;
 
   @Prop()
       price: number;
@@ -110,6 +112,9 @@ export class Event {
 
     @Prop({ default: false })
         isLimited: boolean;
+    
+    @Prop({ default: false })
+        isLimitedOnline: boolean;
     
     @Prop()
         webLink: string;

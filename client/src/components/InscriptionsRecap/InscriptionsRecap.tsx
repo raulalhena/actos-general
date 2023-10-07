@@ -20,13 +20,24 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
 
     let totalSubmitted = 0;
     let totalSubmittedOnline = 0;
+    const modeInfo = {};
 
-    if(eventData.submitted) {
-        totalSubmitted = eventData.submitted.length;
-    }
-
-    if(eventData.submittedOnline) {
-        totalSubmittedOnline = eventData.submittedOnline.length;
+    if(eventData.mode === 'Presencial') {
+        modeInfo.totalSubmitted = eventData.submitted.length;
+        modeInfo.capacity = eventData.capacity;
+        modeInfo.mode = eventData.mode;
+    } else if(eventData.mode === 'En Línea') {
+        modeInfo.totalSubmitted = eventData.submittedOnline.length;
+        modeInfo.capacity = eventData.capacityOnline;
+        modeInfo.mode = eventData.mode;
+    } else if(eventData.mode === 'Híbrido') {
+        if(eventData.submitted) {
+            totalSubmitted = eventData.submitted.length;
+        }
+    
+        if(eventData.submittedOnline) {
+            totalSubmittedOnline = eventData.submittedOnline.length;
+        }
     }
 
     return (
@@ -35,19 +46,26 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                 <Link to={'/submittedlist'} state={submittedProps}>
                     <div className={styles.containerSection}>
                         <FaUserCheck className={styles.icon} />
-                        <p>
-                            {totalSubmitted}/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
-                            Usuarios Inscritos Presencial
-                        </p>  
-                        {eventData.mode === 'Híbrido' && (
+                        {eventData.mode === 'Híbrido' ? (
                             <>
+                                <p>
+                                    {totalSubmitted}/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
+                                    Usuarios Inscritos Presencial
+                                </p>  
                                 <p>|</p>
                                 <p>
-                                    {totalSubmittedOnline}/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- '}
-                                    Usuarios Inscritos Online
+                                    {totalSubmittedOnline}/{eventData.capacityOnline || eventData.capacityOnline === '0' ? eventData.capacityOnline + ' ' : '- '}
+                                    Usuarios Inscritos En Línea
                                 </p>
                             </>
-                        )}
+                        )
+                            :
+                            <p>
+                                {modeInfo.totalSubmitted}/{modeInfo.capacity || modeInfo.capacity === '0' ? modeInfo.capacity + ' ' : '- ' } 
+                                Usuarios Inscritos {modeInfo.mode}
+                            </p>  
+                        }
+                       
                     </div>
                 </Link>
 
