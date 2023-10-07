@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SearchBar.module.css';
 import { FaSearch } from 'react-icons/fa';
@@ -10,6 +10,8 @@ const filterOptions: Record<string, string> = {
     subcategory: 'Subcategoría',
     language: 'Idioma',
     tags: 'Etiquetas',
+    mode: 'Formato del evento',
+    type: 'Tipo de evento'
 };
 
 function SearchBar() {
@@ -20,6 +22,18 @@ function SearchBar() {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(event.target.value);
     };
+
+    useEffect(() => {
+        const lastSearch = localStorage.getItem('lastSearch');
+        if (lastSearch) {
+            setSearchValue(lastSearch);
+        }
+
+        const lastFilters = localStorage.getItem('lastFilters');
+        if (lastFilters) {
+            setFilter(lastFilters.split(','));
+        }
+    }, []);
 
     const translateFilter = (filter: string): string => {
         const invertedTranslations: Record<string, string> = {};
@@ -33,6 +47,9 @@ function SearchBar() {
     const handleSearch = () => {
         const filters = filter.length === 0 ? Object.keys(filterOptions) : filter;
         const filtersString = filters.map(translateFilter).join(',');
+
+        localStorage.setItem('lastSearch', searchValue);
+        localStorage.setItem('lastFilters', filtersString);
     
         navigate(`/allevents?keywords=${searchValue}&filters=${filtersString}`);
     };
