@@ -57,7 +57,7 @@ const ConfigList = () => {
             <div className={styles.pageContainer}>
                 <div className={styles.title}>
                     <h1 className={styles.dash}>—</h1>
-                    <h1>Configuracion</h1>
+                    <h1>Configuración</h1>
                 </div>
                 <div>{ isLoading && <Preloader />}</div>
                 <div className={styles.eventList} data-testid="eventsList-page">

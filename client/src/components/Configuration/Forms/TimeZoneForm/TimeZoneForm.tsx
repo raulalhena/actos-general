@@ -21,7 +21,7 @@ const TimeZoneForm = () => {
     });
 
     const resetForm = () => {
-        setTypeData({
+        setTimeZoneData({
             name: '',
             description: '',
         });
