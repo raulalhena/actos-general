@@ -30,7 +30,7 @@ const VisibilityForm = () => {
         e.preventDefault();
 
         const res = fetch(
-            `http://localhost:8000/api/misc/visibilities`,
+            `http://localhost:8000/api/visibilities`,
             {
                 method: 'POST',
                 headers: {

@@ -70,7 +70,7 @@ const EventForm = () => {
     // Get all data to fill fields
     useEffect(() => {
         const getCategories = async () => {
-            const resp = await fetch('http://localhost:8000/api/misc/categories');
+            const resp = await fetch('http://localhost:8000/api/categories');
             const categoriesDb = await resp.json();
 
             setCategories(categoriesDb);
@@ -83,7 +83,7 @@ const EventForm = () => {
     useEffect(() => {
         const getTypes = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/types');
+                const response = await fetch('http://localhost:8000/api/types');
                 const data = await response.json();
                 const typeNames = data.map((type: { name: string; }) => type.name);
                 setTypes(typeNames);
@@ -98,7 +98,7 @@ const EventForm = () => {
     useEffect(() => {
         const getLanguages = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/languages');
+                const response = await fetch('http://localhost:8000/api/languages');
                 const data = await response.json();
                 const language = data.map((language: { name: string; }) => language.name);
                 setLanguages(language);
@@ -114,7 +114,7 @@ const EventForm = () => {
     useEffect(() => {
         const getTimeZone = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/timezones');
+                const response = await fetch('http://localhost:8000/api/timezones');
                 const data = await response.json();
                 const timeZone = data.map((timeZone: { name: string; }) => timeZone.name);
                 setTimeZone(timeZone);
@@ -129,7 +129,7 @@ const EventForm = () => {
     useEffect(() => {
         const getTime = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/times');
+                const response = await fetch('http://localhost:8000/api/times');
                 const data = await response.json();
                 const time = data.map((time: { name: string; }) => time.name);
                 setTime(time);
@@ -144,7 +144,7 @@ const EventForm = () => {
     useEffect(() => {
         const getMode = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/modes');
+                const response = await fetch('http://localhost:8000/api/modes');
                 const data = await response.json();
                 const modeData = data.map((mode: { name: string; }) => ({
                     name: mode.name,
@@ -180,7 +180,7 @@ const EventForm = () => {
 
     // Get Subcategories
     const getSubcategories = async (categoryId: string) => {
-        const resp = await fetch(`http://localhost:8000/api/misc/categories/${categoryId}/subcategories`);
+        const resp = await fetch(`http://localhost:8000/api/categories/${categoryId}/subcategories`);
         const categoriesDb = await resp.json();
         setSubcategories(categoriesDb.subcategories);
     };

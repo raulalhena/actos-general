@@ -50,7 +50,7 @@ const SubcategoryForm = () => {
 
     useEffect(() => {
         const getCategories = async () => {
-            const resp = await fetch('http://localhost:8000/api/misc/categories');
+            const resp = await fetch('http://localhost:8000/api/categories');
             const categoriesDb = await resp.json();
 
             setCategories(categoriesDb);
@@ -82,7 +82,7 @@ const SubcategoryForm = () => {
     const handleSave = async () => {
         const saveData = async () => {
             const res = await fetch(
-                `http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`,
+                `http://localhost:8000/api/categories/${selectedCategory}/subcategories`,
                 {
                     method: 'PUT',
                     headers: {

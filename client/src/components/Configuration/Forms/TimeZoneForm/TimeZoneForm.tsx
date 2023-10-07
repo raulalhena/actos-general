@@ -30,7 +30,7 @@ const TimeZoneForm = () => {
         e.preventDefault();
 
         const res = fetch(
-            `http://localhost:8000/api/misc/timezones`,
+            `http://localhost:8000/api/timezones`,
             {
                 method: 'POST',
                 headers: {

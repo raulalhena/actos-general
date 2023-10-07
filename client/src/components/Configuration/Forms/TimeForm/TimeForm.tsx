@@ -30,7 +30,7 @@ const TimeForm = () => {
         e.preventDefault();
 
         const res = fetch(
-            `http://localhost:8000/api/misc/times`,
+            `http://localhost:8000/api/times`,
             {
                 method: 'POST',
                 headers: {
