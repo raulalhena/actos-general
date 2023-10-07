@@ -6,7 +6,6 @@ import MenuItem from '@mui/material/MenuItem';
 import { FaUserCircle } from 'react-icons/fa';
 import styles from './AvatarDropDownMenu.module.css';
 import { Link } from 'react-router-dom';
-import { IoMdSettings } from 'react-icons/io';
 import { HiLogout } from 'react-icons/hi';
 
 const StyledMenu = styled((props: MenuProps) => (

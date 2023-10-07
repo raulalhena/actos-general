@@ -1,5 +1,8 @@
 .formEvent {
   margin-bottom: 6rem;
+  border-radius: 25px;
+  padding: 2rem;
+  background-color: white;
 }
 
 .warning {
@@ -36,6 +39,10 @@
 @media screen and (max-width: 768px) {
   .formContainer {
     width: 350px;
+  }
+
+  .formEvent {
+    padding: 1.5rem;
   }
 }
 

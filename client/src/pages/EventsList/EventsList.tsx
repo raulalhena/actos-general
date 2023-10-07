@@ -33,46 +33,46 @@ const EventsList = () => {
     return (
         <>
             <div className={styles.page}>
-                <div className={styles.pageContainer}>
-                    <div className={styles.title}>
+                <section className={styles.header}>
+                    <div className={styles.topTitle}>
                         <h1 className={styles.dash}>—</h1>
                         <h1>Eventos activos</h1>
                     </div>
-                    <div>{isLoading && <Preloader />}</div>
-                    <div className={styles.eventList} data-testid="eventsList-page">
-                        {events.map((event: EventDashboardFormProps, index: number) => (
-                            <div key={index}>
-                                <button className={styles.eventItem}>
-                                    <div className={styles.eventListSection}>
-                                        <h2
-                                            className={styles.eventTitle}
-                                            id={event._id}
-                                            onClick={handleClick}
-                                        >
-                                            {event.name}
-                                        </h2>
-                                        <div className={styles.eventChips}>
-                                            <span className={styles.cardCategory}>
-                                                {event.category}
-                                            </span>
-                                            <span className={styles.cardSubcategory}>
-                                                {event.subcategory}
-                                            </span>
-                                        </div>
+                </section>
+                <div>{isLoading && <Preloader />}</div>
+                <div className={styles.eventList} data-testid="eventsList-page">
+                    {events.map((event: EventDashboardFormProps, index: number) => (
+                        <div key={index}>
+                            <button className={styles.eventItem}>
+                                <div className={styles.eventListSection}>
+                                    <h2
+                                        className={styles.eventTitle}
+                                        id={event._id}
+                                        onClick={handleClick}
+                                    >
+                                        {event.name}
+                                    </h2>
+                                    <div className={styles.eventChips}>
+                                        <span className={styles.cardCategory}>
+                                            {event.category}
+                                        </span>
+                                        <span className={styles.cardSubcategory}>
+                                            {event.subcategory}
+                                        </span>
                                     </div>
-                                    <div className={styles.eventListSection}>
-                                        <p
-                                            className={styles.eventDate}
-                                            id={event._id}
-                                            onClick={handleClick}
-                                        >
-                                            {event.date}
-                                        </p>
-                                    </div>
-                                </button>
-                            </div>
-                        ))}
-                    </div>
+                                </div>
+                                <div className={styles.eventListSection}>
+                                    <p
+                                        className={styles.eventDate}
+                                        id={event._id}
+                                        onClick={handleClick}
+                                    >
+                                        {event.date}
+                                    </p>
+                                </div>
+                            </button>
+                        </div>
+                    ))}
                 </div>
             </div>
         </>

@@ -17,7 +17,7 @@ p {
 h1 {
   color: #1c2e48;
   font-size: 30px;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 h2 {
@@ -57,6 +57,17 @@ ul {
 
 li {
   list-style: none;
+}
+
+/* Para pantallas más pequeña a 768px (md) */
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */

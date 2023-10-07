@@ -1,22 +1,29 @@
 .page {
-  width: 100vw;
-  margin: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100vw;
+  padding: 0 2rem;
+  background-color: white
 }
 
-.pageContainer {
-  margin-top: 2rem;
-  align-items: flex-start;
-}
-
-.title {
+.header {
+  width: 100vw;
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-  max-width: 300px;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  padding: 3rem 0 0.5rem 0;
+}
+
+.topTitle {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem;
+  width: 800px;
+  padding: 1rem;
+  border-bottom: 1px solid #cacaca;
 }
 
 .dash {
@@ -27,6 +34,13 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 6rem;
+  border-radius: 25px;
+  padding: 2rem;
+  background-color: white;
+  width: 800px;
+  align-items: center;
+  justify-content: center;
 }
 
 .eventItem {
@@ -103,16 +117,6 @@
 
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 800px) {
-  .pageContainer {
-    margin-top: 2rem;
-    align-items: flex-start;
-  }
-
-  .title {
-    margin-bottom: 2rem;
-    gap: 1rem;
-    max-width: 800px;
-  }
 
   .eventTitle {
     max-width: 800px;

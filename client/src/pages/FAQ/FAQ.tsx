@@ -56,7 +56,7 @@ const FAQ = () => {
                             onClick={() => handleToggleFAQ(index)}
                         >
                             <div className={styles.faqQuestion}>
-                                <h2>{item.pregunta}</h2>
+                                <h4>{item.pregunta}</h4>
                                 <span className={styles.toggleIcon}>
                                     {expandedIndex === index ? '-' : '+'}
                                 </span>

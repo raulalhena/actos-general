@@ -23,7 +23,7 @@ const HomePage = () => {
     return (
         <>
             <HomePageHeader />
-            <section className={styles.section}>
+            <section className={styles.sectionHomePage}>
                 <div className={styles.title}>
                     <h1 className={styles.dash}>—</h1>
                     <h1>Eventos destacados</h1>

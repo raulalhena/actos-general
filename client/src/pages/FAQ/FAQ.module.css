@@ -47,13 +47,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.faqQuestion h2 {
-  margin: 0;
-  font-size: 18px;
-}
-
 .toggleIcon {
   font-size: 24px;
+  margin-left: 2rem;
   color: #333;
 }
 
@@ -84,7 +80,7 @@
 
   .faqImg {
     display: unset;
-    width: 30%;
+    width: 25%;
   }
 
   .title {
