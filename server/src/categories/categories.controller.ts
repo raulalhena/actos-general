@@ -23,6 +23,11 @@ export class CategoriesController {
     return this.categoriesService.findCategoryById(id)
   }
 
+  @Get(':id/subcategories')
+  findAllSubcategories(@Param('id') id: ObjectId) {
+    return this.categoriesService.findAllSubcategories(id);
+  }
+
   @Post()
   createCategory(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.createCategory(createCategoryDto);
@@ -47,12 +52,6 @@ export class CategoriesController {
   bulkCreateSubcategory(@Param('id') id: ObjectId, @Body() createSubcategoryDto: CreateSubcategoryDto[]) {
     return this.categoriesService.bulkCreateSubcategory(id, createSubcategoryDto);
   }
-
- 
-
- 
-
- 
 
 
   @Delete(':id')

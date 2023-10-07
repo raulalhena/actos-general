@@ -2,19 +2,19 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MiscController } from './misc.controller';
 import { MiscService } from './misc.service';
 import { getModelToken } from '@nestjs/mongoose';
-import { Capacity } from './schemas/capacity.schema';
+import { Capacity } from '../capacities/schema/capacity.schema';
 import { Category } from '../categories/schema/category.schema';
-import { Language } from './schemas/language.schema';
+import { Language } from '../languages/schema/language.schema';
 import { Subcategory } from '../categories/schema/subcategory.schema';
-import { Time } from './schemas/time.schema';
-import { TimeZone } from './schemas/timezone.schema';
-import { Type } from './schemas/type.schema';
-import { Visibility } from './schemas/visibility.schema';
+import { Time } from '../times/schema/time.schema';
+import { TimeZone } from '../timezones/schema/timezone.schema';
+import { Type } from '../types/schemas/type.schema';
+import { Visibility } from '../visibilities/schema/visibility.schema';
 import { CreateCategoryDto } from '../categories/dto/create-category.dto';
-import { CreateLanguageDto } from './dto/create-language.dto';
-import { CreateTypeDto } from './dto/create-type.dto';
-import { CreateTimeDto } from './dto/create-time.dto';
-import { CreateTimeZoneDto } from './dto/create-timezone.dto';
+import { CreateLanguageDto } from '../languages/dto/create-language.dto';
+import { CreateTypeDto } from '../types/dto/create-type.dto';
+import { CreateTimeDto } from '../times/dto/create-time.dto';
+import { CreateTimeZoneDto } from '../timezones/dto/create-timezone.dto';
 
 const category =  {
   "name": "Global",

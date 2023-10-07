@@ -31,7 +31,7 @@ const CategoryForm = () => {
         e.preventDefault();
 
         const res = fetch(
-            `http://localhost:8000/api/misc/categories/`,
+            `http://localhost:8000/api/categories/`,
             {
                 method: 'POST',
                 headers: {
