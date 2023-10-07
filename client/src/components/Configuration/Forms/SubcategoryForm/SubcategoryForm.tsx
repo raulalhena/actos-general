@@ -8,7 +8,6 @@ import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
 import SelectCategories from '../../../SelectCategories/SelectCategories';
 import { EventDashboardFormProps } from '../../../../interfaces/eventDashboardFormProps';
 import ModalDisplay from '../../../Modal/ModalDisplay';
-import { BsPatchCheckFill } from 'react-icons/bs';
 
 interface CategoryData {
     name: string;
@@ -23,6 +22,7 @@ const SubcategoryForm = () => {
     const [ previewURL, setPreviewURL ] = useState<string>('');
     const [ imgVisibility, setImgVisibility ] = useState<string>('none');
     const [ imageFile, setImageFile ] = useState<Blob | null>(null);
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
     const [ categories, setCategories ] = useState<Array<EventDashboardFormProps>>(
         []
     );
@@ -33,8 +33,7 @@ const SubcategoryForm = () => {
         image: '',
         category: '',
     });
-    const [ isModalOpen, setIsModalOpen ] = useState(false);
-
+    
     const resetForm = () => {
         setPreviewURL('');
         setImgVisibility('none');
@@ -269,15 +268,15 @@ const SubcategoryForm = () => {
                     <div>
                         {isModalOpen && (
                             <ModalDisplay
-                                icon={<BsPatchCheckFill className={styles.checkIcon} />}
+                                icon={''}
                                 title={'Quieres guardar?'}
                                 subtitle={''}
-                                button1Text={'Cancelar'}
-                                button2Text={'Guardar'}
+                                button1Text={'Guardar'}
+                                button2Text={'Cancelar'}
                                 onClose={closeModal}
                                 isOpen={true}
-                                onButton1Click={closeModal}
-                                onButton2Click={handleSave}
+                                onButton1Click={handleSave}
+                                onButton2Click={closeModal}
                                 showCloseButton={true}
                             />
                         )}
