@@ -21,6 +21,10 @@
   text-align: left;
 }
 
+.form {
+  min-height: 56vh;
+}
+
 .dash {
   color: #e15a40;
 }
