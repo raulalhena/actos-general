@@ -44,12 +44,15 @@
   color: #e15a40;
 }
 
-
 @media screen and (max-width: 768px) {
   .pageContainer {
     display: flex;
     flex-direction: column;
     max-width: 350px;
+  }
+
+  .eventLink {
+    width: 100%;
   }
 
   .eventTitleSection {
