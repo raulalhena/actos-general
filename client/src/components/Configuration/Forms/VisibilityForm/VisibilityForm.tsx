@@ -2,19 +2,30 @@ import { useState, ChangeEvent } from 'react';
 import styles from './VisibilityForm.module.css';
 import TextInput from '../../../TextInput/TextInput';
 import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ModalDisplay from '../../../Modal/ModalDisplay';
 
 interface VisibilityData {
-  name: string;
-  description: string;
+    name: string;
+    description: string;
 }
 
 const VisibilityForm = () => {
 
     //  States
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
     const [ visibilityData, setVisibilityData ] = useState<VisibilityData>({
         name: '',
         description: '',
     });
+
+    const resetForm = () => {
+        setVisibilityData({
+            name: '',
+            description: '',
+        });
+    };
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -26,10 +37,16 @@ const VisibilityForm = () => {
         });
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit =  (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsModalOpen(true);
+        window.scrollTo(0, 0);
+    };
 
-        const res = fetch(
+    //Save
+    const handleSave = async () => {
+
+        const res = await fetch(
             `http://localhost:8000/api/visibilities`,
             {
                 method: 'POST',
@@ -40,12 +57,33 @@ const VisibilityForm = () => {
             }
         );
 
-        if (res.ok) console.log('modal');
-        return;
+        if (res.ok) {
+            toast.success('Los cambios se han guardado con éxito', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+    
+            resetForm();
+            setIsModalOpen(false);
+            window.scrollTo(0, 0);
+        } else {
+            toast.error('Hubo un error al guardar los cambios', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+        }
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        window.scrollTo(0, 0);
     };
 
     return (
         <div className={styles.subcategoryPage}>
+            <ToastContainer />
             <div className={styles.container}>
                 <div className={styles.form}>
                     <form onSubmit={handleSubmit}>
@@ -57,7 +95,7 @@ const VisibilityForm = () => {
                             <div className={styles.inputsSection}>
                                 <TextInput
                                     id="name"
-                                    visibility="text"
+                                    type="text"
                                     label=""
                                     placeholder="Nombre de la visibilidad del evento"
                                     minLength={3}
@@ -68,7 +106,7 @@ const VisibilityForm = () => {
                                 />
                                 <TextInput
                                     id="description"
-                                    visibility="text"
+                                    type="text"
                                     label=""
                                     placeholder="Descripción de la visibilidad del evento"
                                     minLength={3}
@@ -82,6 +120,21 @@ const VisibilityForm = () => {
                             <ButtonSubmit label="Guardar" />
                         </div>
                     </form>
+                    <div>
+                        {isModalOpen && (
+                            <ModalDisplay
+                                title={'Quieres guardar?'}
+                                subtitle={''}
+                                button1Text={'Guardar'}
+                                button2Text={'Cancelar'}
+                                onClose={closeModal}
+                                isOpen={true}
+                                onButton1Click={handleSave}
+                                onButton2Click={closeModal}
+                                showCloseButton={true}
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

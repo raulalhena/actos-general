@@ -83,7 +83,7 @@ const TypeForm = () => {
 
     return (
         <div className={styles.subcategoryPage}>
-            
+            <ToastContainer />
             <div className={styles.container}>
                 <div className={styles.form}>
                     <form onSubmit={handleSubmit}>
