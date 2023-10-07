@@ -10,7 +10,6 @@ import { User } from '../../interfaces/User';
 import Preloader from '../Preloader/Preloader';
 import { useLocation, Link } from 'react-router-dom';
 
-
 interface InscriptionsRecapProps {
     eventData: EventFormProps;
     createPDF: () => void;
@@ -84,31 +83,30 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
     return (
         <>
             <div className={styles.container}>
-                <Link to={'/submittedlist'} state={submittedProps}>
-                    <div className={styles.containerSection}>
-                        <FaUserCheck className={styles.icon} />
-                        {eventData.mode === 'Híbrido' ? (
-                            <>
-                                <p>
-                                    {totalSubmitted}/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
+                
+                <div className={styles.containerSection}>
+                    <FaUserCheck className={styles.icon} />
+                    {eventData.mode === 'Híbrido' ? (
+                        <>
+                            <p onClick={() => openModal('Presencial')} className={styles.textLink}>
+                                {totalSubmitted}/{eventData.capacity || eventData.capacity === '0' ? eventData.capacity + ' ' : '- ' } 
                                     Usuarios Inscritos Presencial
-                                </p>  
-                                <p>|</p>
-                                <p>
-                                    {totalSubmittedOnline}/{eventData.capacityOnline || eventData.capacityOnline === '0' ? eventData.capacityOnline + ' ' : '- '}
-                                    Usuarios Inscritos En Línea
-                                </p>
-                            </>
-                        )
-                            :
-                            <p>
-                                {modeInfo.totalSubmitted}/{modeInfo.capacity || modeInfo.capacity === '0' ? modeInfo.capacity + ' ' : '- ' } 
-                                Usuarios Inscritos {modeInfo.mode}
                             </p>  
-                        }
-                       
-                    </div>
-                </Link>
+                            <p>|</p>
+                            <p onClick={() => openModal('Presencial')} className={styles.textLink}>
+                                {totalSubmittedOnline}/{eventData.capacityOnline || eventData.capacityOnline === '0' ? eventData.capacityOnline + ' ' : '- '}
+                                    Usuarios Inscritos En Línea
+                            </p>
+                        </>
+                    )
+                        :
+                        <p onClick={() => openModal('Presencial')} className={styles.textLink}>
+                            {modeInfo.totalSubmitted}/{modeInfo.capacity || modeInfo.capacity === '0' ? modeInfo.capacity + ' ' : '- ' } 
+                                Usuarios Inscritos {modeInfo.mode}
+                        </p>  
+                    }
+                    
+                </div>
 
                 <div className={styles.containerSection}>
                     <BiSolidDownload className={styles.icon} />
