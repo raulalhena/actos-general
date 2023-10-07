@@ -38,6 +38,12 @@ h4 {
   color: grey;
 }
 
+h5 {
+  font-weight: 600;
+  font-size: 14px;
+  color: grey;
+}
+
 a {
   font-size: 14px;
   color: #e15a40;

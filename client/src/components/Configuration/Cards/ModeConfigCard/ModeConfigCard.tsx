@@ -9,7 +9,7 @@ const ModeConfigCard = () => {
             <Link to={`/config/configlist`}state={'modes'}>
                 <div className={styles.configCard}>
                     <FaLocationDot className={styles.configIcon}/>
-                    <h2>MODOS DE ASISTENCIA</h2>
+                    <h5>MODOS DE ASISTENCIA</h5>
                 </div>
             </Link>
         </div>

@@ -9,7 +9,7 @@ const TypeConfigCard = () => {
             <Link to={`/config/configlist`} state={'types'}>
                 <div className={styles.configCard}>
                     <IoPeopleSharp className={styles.configIcon}/>
-                    <h2>TIPOS DE EVENTOS</h2>
+                    <h5>TIPOS DE EVENTOS</h5>
                 </div>
             </Link>
         </div>

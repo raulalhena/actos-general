@@ -16,15 +16,11 @@
   color: rgb(121, 121, 121);
 }
 
-.configCard h2 {
-  color: rgb(121, 121, 121);
-}
-
 .configCard:hover {
   color: #e15a40;
   border: 2px solid  #e15a40;
 }
 
-.configCard:hover .configIcon, .configCard:hover h2 {
+.configCard:hover .configIcon, .configCard:hover h5 {
   color: #e15a40;
 }

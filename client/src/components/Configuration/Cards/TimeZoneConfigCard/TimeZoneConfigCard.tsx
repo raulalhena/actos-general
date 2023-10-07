@@ -9,7 +9,7 @@ const TimeZoneConfigCard = () => {
             <Link to={`/config/configlist`} state={'timezones'}>
                 <div className={styles.configCard}>
                     <BiSolidTimeFive className={styles.configIcon}/>
-                    <h2>ZONAS HORARIAS</h2>
+                    <h5>ZONAS HORARIAS</h5>
                 </div>
             </Link>
         </div>

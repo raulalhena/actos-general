@@ -9,7 +9,7 @@ const LanguageConfigCard = () => {
             <Link to={`/config/configlist`} state={'languages'}>
                 <div className={styles.configCard}>
                     <IoLanguageSharp className={styles.configIcon}/>
-                    <h2>IDIOMAS</h2>
+                    <h5>IDIOMAS</h5>
                 </div>
             </Link>
         </div>

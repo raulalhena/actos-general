@@ -9,7 +9,7 @@ const CategoryConfigCard = () => {
             <Link to={`/config/configlist`} state={'categories'}>
                 <div className={styles.configCard}>
                     <BiSolidCategoryAlt className={styles.configIcon}/>
-                    <h2>CATEGORÍAS</h2>
+                    <h5>CATEGORÍAS</h5>
                 </div>
             </Link>
         </div>

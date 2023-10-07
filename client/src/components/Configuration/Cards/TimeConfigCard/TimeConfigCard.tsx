@@ -9,7 +9,7 @@ const TimeConfigCard = () => {
             <Link to={`/config/configlist`} state={'times'}>
                 <div className={styles.configCard}>
                     <BiSolidHourglass className={styles.configIcon}/>
-                    <h2>RANGOS HORARIOS</h2>
+                    <h5>RANGOS HORARIOS</h5>
                 </div>
             </Link>
         </div>

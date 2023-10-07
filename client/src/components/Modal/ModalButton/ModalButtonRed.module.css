@@ -4,7 +4,7 @@
   height: fit-content;
   flex-shrink: 0;
   border-radius: 25px;
-  background: linear-gradient(to right, #e15a40, #f4775e);
+  background: #e15a40;
   color: #fff;
   text-align: center;
   font-size: 12px;
@@ -17,7 +17,7 @@
 .button:hover,
 .button:active {
   cursor: pointer;
-  background: linear-gradient(to right, #d53d1e, #eb6a50);
+  background: #d53d1e;
 }
 
 /* Para pantallas más grandes o iguales a 1400px (xxl) */
