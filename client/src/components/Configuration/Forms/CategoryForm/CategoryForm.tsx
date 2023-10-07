@@ -2,7 +2,6 @@ import { useState, ChangeEvent } from 'react';
 import styles from './CategoryForm.module.css';
 import TextInput from '../../../TextInput/TextInput';
 import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
-import ConfigList from '../../List/ConfigList';
 
 interface CategoryData {
   name: string;
@@ -47,7 +46,6 @@ const CategoryForm = () => {
 
     return (
         <>
-            <ConfigList/>
             <div className={styles.subcategoryPage}>
                 <div className={styles.container}>
                     <div className={styles.form}>
