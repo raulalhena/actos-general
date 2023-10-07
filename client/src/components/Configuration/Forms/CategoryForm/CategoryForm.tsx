@@ -2,19 +2,30 @@ import { useState, ChangeEvent } from 'react';
 import styles from './CategoryForm.module.css';
 import TextInput from '../../../TextInput/TextInput';
 import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
+import ModalDisplay from '../../../Modal/ModalDisplay';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface CategoryData {
-  name: string;
-  description: string;
+    name: string;
+    description: string;
 }
 
 const CategoryForm = () => {
 
     //  States
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
     const [ categoryData, setCategoryData ] = useState<CategoryData>({
         name: '',
         description: '',
     });
+
+    const resetForm = () => {
+        setCategoryData({
+            name: '',
+            description: '',
+        });
+    };
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -26,10 +37,18 @@ const CategoryForm = () => {
         });
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit =  (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        console.log('pasa aqui??');
 
-        const res = fetch(
+        setIsModalOpen(true);
+        window.scrollTo(0, 0);
+    };
+
+    //Save
+    const handleSave = async () => {
+        console.log('pasa');
+        const res = await fetch(
             `http://localhost:8000/api/categories/`,
             {
                 method: 'POST',
@@ -39,14 +58,37 @@ const CategoryForm = () => {
                 body: JSON.stringify(categoryData),
             }
         );
-
-        if (res.ok) console.log('modal');
-        return;
+    
+        if (res.ok) {
+            console.log('gusardado');
+            toast.success('Los cambios se han guardado con éxito', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+    
+            resetForm();
+            setIsModalOpen(false);
+            window.scrollTo(0, 0);
+        } else {
+            console.log('badd');
+            toast.error('Hubo un error al guardar los cambios', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+        }
+    };
+    
+    const closeModal = () => {
+        setIsModalOpen(false);
+        window.scrollTo(0, 0);
     };
 
     return (
         <>
             <div className={styles.subcategoryPage}>
+                <ToastContainer  />
                 <div className={styles.container}>
                     <div className={styles.form}>
                         <form onSubmit={handleSubmit}>
@@ -83,6 +125,21 @@ const CategoryForm = () => {
                                 <ButtonSubmit label="Guardar" />
                             </div>
                         </form>
+                        <div>
+                            {isModalOpen && (
+                                <ModalDisplay
+                                    title={'Quieres guardar?'}
+                                    subtitle={''}
+                                    button1Text={'Guardar'}
+                                    button2Text={'Cancelar'}
+                                    onClose={closeModal}
+                                    isOpen={true}
+                                    onButton1Click={handleSave}
+                                    onButton2Click={closeModal}
+                                    showCloseButton={true}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
