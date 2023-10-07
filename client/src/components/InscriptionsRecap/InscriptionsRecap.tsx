@@ -86,7 +86,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
     return (
         <>
             <div className={styles.container}>
-                <h5>Resumen del evento</h5>
+                <h3>Resumen del evento</h3>
                 <br />
                 <div className={styles.containerSection}>
                     <FaUserCheck className={styles.inscriptionsIcon} />

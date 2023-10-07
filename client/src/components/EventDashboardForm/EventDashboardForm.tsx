@@ -696,7 +696,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
                 <section className={styles.eventStateContainer}>
                     <div className={styles.eventStateContainerTop}>
-                        <h5>Estado del evento</h5>
+                        <h3>Estado del evento</h3>
                         <p className={styles.visibility}>
                             <span>
                                 <b>
@@ -726,7 +726,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                     </div>
                 </section>
 
-                <h5>Detalles del formulario</h5>
+                <h3>Detalles del formulario</h3>
                 <br />
                 <SectionForm
                     title="1. Información básica"
@@ -874,7 +874,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                     value={formData.address}
                                     onChange={handleInputChange}
                                     isRequired={true}
-                                />>
+                                />
                                 <TextInput
                                     id="webLink"
                                     label="Añade un link de acceso"

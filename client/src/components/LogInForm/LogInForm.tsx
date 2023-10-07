@@ -88,9 +88,9 @@ const LogInForm = () => {
                             isPassword={true}
                             isRequired={true}
                         />
-                        <h3 className={styles.forgotPasswordLink}>
+                        <div className={styles.forgotPasswordLink}>
               ¿Has olvidado tu contraseña?
-                        </h3>
+                        </div>
                     </section>
                     <div className={styles.buttonSection}>
                         <ButtonSubmit label="Iniciar sesión" />
