@@ -193,8 +193,6 @@ const EventDetailPage = () => {
 
     const formattedDate = formatDate(eventData.date);
 
-    console.log('qr', qrUser)
-
     return (
         <div data-testid="event-detail" className={styles.page}>
             {/* IMAGE */}

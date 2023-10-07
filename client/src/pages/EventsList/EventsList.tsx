@@ -25,6 +25,7 @@ const EventsList = () => {
         e.preventDefault();
         const { id } = e.target;
         navigate('/eventdashboard', { state: { id: id } });
+        
     };
 
     return (

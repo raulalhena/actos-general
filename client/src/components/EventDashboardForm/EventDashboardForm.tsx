@@ -29,6 +29,8 @@ type Props = { eventData: EventDashboardFormProps };
 // Form
 const EventDashboardForm = ( { eventData }: Props ) => {
 
+    window.scroll(0,0);
+
     const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
 
     useEffect(() => {
