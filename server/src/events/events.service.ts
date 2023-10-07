@@ -8,12 +8,13 @@ import { EventInscriptionDto } from './dto/event-inscription.dto';
 import { EventUnsubscriptionDto } from './dto/event-unsubscription.dto';
 import { buffer } from 'stream/consumers';
 import { AttendanceRecordDto } from './dto/event-attendance-record.dto';
-
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class EventsService {
   constructor(
     @InjectModel(Event.name) private eventModel: Model<Event>,
+    private userService: UsersService
   ) {}
   
 
@@ -83,18 +84,27 @@ export class EventsService {
         }
       }
 
-      const event = await this.eventModel.findOne({ _id: eventId, attendees: userId }).select('attendees').populate({ 
-        path: 'attendees', 
-        select: ['_id', 'name', 'surname', 'email'] 
-      });
+      const event = await this.eventModel.findOne({ _id: eventId });
 
-      if(event) throw new HttpException('Acceso ya usado', HttpStatus.BAD_REQUEST);
-       
-      const eventUpdated = await this.eventModel.findOneAndUpdate({ _id: eventId }, updateData, { new: true})
+      const userIn = event['attendees'].filter(user => {
+        console.log(user.toString(), userId)
+        if(user._id.toString() === userId) return user;
+      });
+      const user = await this.userService.findById(userId).select('name surname email').lean();
+
+      if(userIn.length > 0){
+         let errorMessage = `Ya se ha accedido con este QR. Usuario: ${user.name} ${user.surname} Email: ${user.email}.`;
+         throw new HttpException(errorMessage, HttpStatus.BAD_REQUEST);
+      } else {
+        console.log('else')
+        const eventUpdated = await this.eventModel.findOneAndUpdate({ _id: eventId }, updateData, { new: true});
+      }
       
-      return eventUpdated;
+      return { 
+        message: `Registro realizado con éxito. Usuario: ${user.name} ${user.surname} Email: ${user.email}`,
+      }
     } catch(error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+      throw new HttpException(error, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -104,7 +114,7 @@ export class EventsService {
       
       return Buffer.from(event['image'], 'base64');
     } catch (error) {
-      throw new HttpException(error.messge, HttpStatus.BAD_REQUEST);
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
   

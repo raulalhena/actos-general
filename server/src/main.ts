@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as bodyParser from 'body-parser';
+import { HttpExceptionFilter } from './filters/http-exceptions.filter';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
@@ -18,6 +19,7 @@ async function bootstrap() {
 	app.use(bodyParser.json({limit: '50mb'}));
   	app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 	
+	app.useGlobalFilters(new HttpExceptionFilter());
 	app.enableCors();
 	app.setGlobalPrefix('api');
 
