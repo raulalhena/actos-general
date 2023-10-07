@@ -9,19 +9,22 @@
 }
 
 .containerSection {
-  border: 1px solid #cacaca;
-  border-radius: 20px;
-  padding: 0.5rem 1rem;
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-  gap: 0.5rem;
+  padding: 0.75rem 1rem;
   color: #1c2e48;
-  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.1);
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  border-style: none;
+  font-weight: 500;
+  cursor: pointer;
   max-width: 750px;
+  gap: 1rem;
 }
 
 .textLink:hover {
-  font-weight: 700;
+  font-weight: 500;
   color: #e15a40;
   cursor: pointer;
 }
@@ -37,18 +40,23 @@
 }
 
 .container a :hover {
-  font-weight: 700;
+  font-weight: 500;
   color: #e15a40;
 }
 
 .inscriptionsSection {
-  font-weight: 700;
-  color: #e15a40;
+  font-weight: 500;
+  color: #1c2e48;
+}
+
+.downloadOptions {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .pdfButton {
   border-style: none;
-  background-color: white;
+  background-color: transparent;
   font-size: 16px;
   color: #1c2e48;
   font-weight: 500;
@@ -57,6 +65,11 @@
 
 .pdfButton:hover {
   cursor: pointer;
+}
+
+.inscriptionsIcon {
+  color: #e15a40;
+  font-size: 20px;
 }
 
 /***** MODAL*********/
