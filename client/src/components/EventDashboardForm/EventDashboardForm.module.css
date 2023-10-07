@@ -1,28 +1,15 @@
-.visibilityContainer {
-  display: flex;
-  flex-direction: row;
-}
-
-
-.visibility {
-  text-align: right;
-  padding-left:0;
-  font-size: 16px;
- 
-
-}
 
 .warning {
   color: grey;
   text-align: left;
-  padding-left:0;
+  padding-left: 0;
   font-size: 14px;
   margin-bottom: 2rem;
 }
 
 .buttonSection {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .timeContainer {
@@ -31,8 +18,6 @@
   justify-content: space-between;
   gap: 12px;
 }
-
-
 
 .finalSectionContainer {
   display: flex;
@@ -60,15 +45,50 @@
   color: #cacaca;
 }
 
+.eventStateContainer {
+  border-top: 1px solid #cacaca;
+  border-bottom: 1px solid #cacaca;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  margin-bottom: 3rem;
+  justify-content: space-around;
+}
+
+.eventStateContainerTop {
+  display: flex;
+  margin-bottom: 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.visibility {
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.visibilityIcon {
+  font-size: 20px;
+}
+
+.stateSelects {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
- .finalSection{
-  gap: 3px;
- }
- .status{
-  width: 760px;
- }
-  
+  .finalSection {
+    gap: 3px;
+  }
+  .status {
+    width: 760px;
+  }
 }
 
 /* Para pantallas más grandes o iguales a 992px (lg) */
@@ -89,7 +109,6 @@
 
 /* Para pantallas más grandes o iguales a 1200px (xl) */
 @media screen and (min-width: 1200px) {
-  
   .selectTime select {
     width: 320px;
   }
@@ -103,7 +122,6 @@
 
 /* Para pantallas más grandes o iguales a 1400px (xxl) */
 @media screen and (min-width: 1400px) {
-
   .selectTime select {
     width: 370px;
   }

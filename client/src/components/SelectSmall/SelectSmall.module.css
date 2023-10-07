@@ -1,0 +1,25 @@
+.label {
+  font-weight: 600;
+  color: grey;
+  font-size: 14px;
+}
+
+.input {
+  width: 350px;
+  height: 40px;
+  padding: 0 1rem;
+  border-radius: 5px;
+  border: 1px solid #cacaca;
+  background-color: white;
+  color: #8f8f8f;
+  margin-top: 0.5rem;
+  font-size: 12px;
+  z-index: 50;
+}
+
+.input:focus {
+  border-radius: 0.3125rem;
+  border: 1.5px solid #1C2E48!important;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  outline: none;
+}

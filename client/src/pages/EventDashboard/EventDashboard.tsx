@@ -41,7 +41,7 @@ const EventDashboard = () => {
         capacityOnline: '',
         isLimited: false,
         isLimitedOnline: false,
-        subcategoryLogo: ''
+        subcategoryLogo: '',
     });
 
     useEffect(() => {
@@ -68,15 +68,18 @@ const EventDashboard = () => {
                 <div className={styles.page}>
                     <div className={styles.pageContainer}>
                         <section className={styles.top}>
-                            <section className={styles.header}>
-                                <div className={styles.title}>
-                                    <h1 className={styles.dash}>—</h1>
-                                    <h1>Resumen de tu evento:</h1>
-                                </div>
+                            <div>
                                 <Link target="_blank" to={`/event/${eventData._id}`}>
-                                    <div className={styles.eventTitle}>{eventData.name}</div>
+                                    <div className={styles.eventTitleSection}>
+                                        <h1 className={styles.dash}>—</h1>
+                                        <div className={styles.eventTitle}>{eventData.name}</div>
+                                        <div className={styles.eventLink}>
+                      (ver página del evento)
+                                        </div>
+                                    </div>
                                 </Link>
-                            </section>
+                            </div>
+                            <h5>Resumen del evento</h5>
                             {process.env.NODE_ENV !== 'test' ? ( //ignora esta parte en test
                                 <InscriptionsRecap
                                     eventData={eventData}
