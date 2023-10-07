@@ -49,13 +49,6 @@ console.log(isLogged || (isLogged && user && user.role !== 'admin'));
                         </li>
                         {isLogged && user && user.role === 'admin' && (
                             <li onClick={removeActive}>
-                                <Link to="/eventslist" className={styles.navLink}>
-                                    Eventos Activos
-                                </Link>
-                            </li>
-                        )}
-                        {isLogged && user && user.role === 'admin' && (
-                            <li onClick={removeActive}>
                                 <Link to="/createevent" className={styles.navLink}>
                                     Crear Evento
                                 </Link>
