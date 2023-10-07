@@ -18,9 +18,25 @@
 
 .configCard:hover {
   color: #e15a40;
-  border: 2px solid  #e15a40;
+  border: 2px solid #e15a40;
 }
 
-.configCard:hover .configIcon, .configCard:hover h5 {
+.configCard:hover .configIcon,
+.configCard:hover h5 {
   color: #e15a40;
+}
+
+/* Para pantallas más pequeña a 768px (md) */
+@media screen and (max-width: 768px) {
+  .configCard {
+    width: 350px;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+
+  .configIcon {
+    font-size: 24px;
+  }
 }

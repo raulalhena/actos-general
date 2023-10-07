@@ -30,3 +30,15 @@
   justify-content: center;
   gap: 1rem;
 }
+
+
+/* Para pantallas más pequeña a 768px (md) */
+@media screen and (max-width: 768px) {
+  .titleConfig {
+    width: 350px;
+  }
+
+  .configGrid {
+    width: 350px;
+  }
+}

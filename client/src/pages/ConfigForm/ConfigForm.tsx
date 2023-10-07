@@ -13,7 +13,6 @@ const ConfigForm = () => {
     const location = useLocation();
     const propsData = location.state;
 
-
     const renderSwitch = () => {
         switch(propsData) {
         case 'categories':
