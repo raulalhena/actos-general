@@ -130,7 +130,6 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
 
                 <div className={styles.containerSection}>
                     <RiFileDownloadFill className={styles.inscriptionsIcon} />
-          Descargar QR del evento:
                     <div className={styles.downloadOptions}>
                         <PDFDownloadLink
                             document={
@@ -141,11 +140,12 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                             }
                             fileName={eventData.name}
                         >
-                            <button className={styles.pdfButton}>(.PDF)</button>
+                            <button className={styles.pdfButton}>
+          Descargar QR del evento (.pdf)</button>
                         </PDFDownloadLink>
-                            <p>|</p>
+                        <p>|</p>
                         <a href={eventData.qrEvent} download={eventData.name + '.png'}>
-                            <div className={styles.pdfButton}>(.PNG)</div>
+                            <div className={styles.pdfButton}>Descargar QR del evento (.png)</div>
                         </a>
                     </div>
                 </div>
