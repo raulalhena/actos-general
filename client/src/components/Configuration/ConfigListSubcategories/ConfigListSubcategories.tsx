@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { SubcategoryProps } from '../../../interfaces/subcategoryProps';
+import styles from './ConfigListSubcategories.module.css';
+import Preloader from '../../Preloader/Preloader';
 
 interface DataList {
     name: string;
@@ -15,7 +17,7 @@ const ConfigListSubcategories = () => {
     const [ selectedCategory, setSelectedCategory ] = useState<string>('');
     const [ dataList, setDataList ] = useState<DataList[]>([]);
     const [ subcategories, setSubcategories ] = useState<SubcategoryProps[]>([]);
-
+    const [ isLoading, setIsLoading ] = useState(true);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -26,6 +28,7 @@ const ConfigListSubcategories = () => {
                     throw new Error('Data not found');
                 }
                 const data = await response.json();
+                setIsLoading(false);
                 setDataList(data);
             } catch (error) {
                 console.error(error);
@@ -72,13 +75,18 @@ const ConfigListSubcategories = () => {
     };
 
     return (
-        <>
-            <div>
-                <div>
+        <div className={styles.page}>
+            <div className={styles.pageContainer}>
+                <div className={styles.title}>
+                    <h1 className={styles.dash}>—</h1>
+                    <h1>Configuracion</h1>
+                </div>
+                <div>{ isLoading && <Preloader />}</div>
+                <div className={styles.eventList} data-testid="eventsList-page">
                     <select value={selectedCategory} onChange={handleCategoryChange}>
                         <option value=''>Selecciona una categoría</option>
                         {dataList.map((category) => (
-                            <option key={category._id} value={category._id}>
+                            <option  key={category._id} value={category._id}>
                                 {category.name}
                             </option>
                         ))}
@@ -86,13 +94,13 @@ const ConfigListSubcategories = () => {
                 </div>
             </div>
             {subcategories.length > 0 && (
-                <div>
-                    <h2>Subcategorias:</h2>
+                <div className={styles.eventItem}> 
+                    <h2 className={styles.eventTitle}>Subcategorias:</h2>
                     <ul>
                         {subcategories.map((subcategory) => (
-                            <li key={subcategory.name}>
+                            <li key={subcategory.name} className={styles.eventChips}>
                                 {subcategory.name}
-                                <button onClick={() =>handleSubcategoryDelete(selectedCategory,subcategory)}>Eliminar</button>
+                                <button className={styles.eventItem} onClick={() =>handleSubcategoryDelete(selectedCategory,subcategory)}>Eliminar</button>
                          
                             </li>
                         ))}
@@ -100,13 +108,13 @@ const ConfigListSubcategories = () => {
                 </div>
             )}
             <div>
-                <Link to={`/config/configform`} state={`${propsData}`}>
+                <Link className={styles.eventItem} to={`/config/configform`} state={`${propsData}`}>
                     <div>
                         <h2>CREAR NUEVO</h2>
                     </div>
                 </Link>
             </div>
-        </>
+        </div>
     );
 };
 

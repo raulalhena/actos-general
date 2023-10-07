@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import styles from './ConfigList.module.css';
+import Preloader from '../../Preloader/Preloader';
 
 interface DataList {
     name: string;
@@ -11,7 +13,7 @@ const ConfigList = () => {
     const location = useLocation();
     const propsData = location.state;
     const [ dataList, setDataList ] = useState<DataList[]>([]);
-
+    const [ isLoading, setIsLoading ] = useState(true);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -22,6 +24,7 @@ const ConfigList = () => {
                     throw new Error('Data not found');
                 }
                 const data = await response.json();
+                setIsLoading(false);
                 setDataList(data);
             } catch (error) {
                 console.error(error);
@@ -50,23 +53,32 @@ const ConfigList = () => {
     };
 
     return (
-        <>
-            <div>
-                {dataList.map((list) => (
-                    <div key={list._id}>
-                        <p>{list.name}</p>
-                        <button onClick={() => handleDelete(list.name)}>Eliminar</button>
-                    </div>
-                ))}
+        <div className={styles.page}>
+            <div className={styles.pageContainer}>
+                <div className={styles.title}>
+                    <h1 className={styles.dash}>—</h1>
+                    <h1>Configuracion</h1>
+                </div>
+                <div>{ isLoading && <Preloader />}</div>
+                <div className={styles.eventList} data-testid="eventsList-page">
+                    {dataList.map((list) => (
+                        <div key={list._id} className={styles.eventItem}>
+                            <h2 className={styles.eventTitle}>{list.name}</h2>
+                            <div className={styles.eventChips}>
+                                <button className={styles.eventItem} onClick={() => handleDelete(list.name)}>Eliminar</button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
             <div>
-                <Link to={`/config/configform`} state={`${propsData}`}>
+                <Link className={styles.eventItem} to={`/config/configform`} state={`${propsData}`}>
                     <div>
                         <h2>CREAR NUEVO</h2>
                     </div>
                 </Link>
             </div>
-        </>
+        </div>
     );
 };
 

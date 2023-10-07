@@ -1,0 +1,118 @@
+.page {
+    width: 100vw;
+    margin: 2rem 0 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .pageContainer {
+    margin-top: 2rem;
+    align-items: flex-start;
+  }
+  
+  .title {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    max-width: 300px;
+  }
+  
+  .dash {
+    color: #e15a40;
+  }
+  
+  .eventList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .eventItem {
+    max-width: 400px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem 1rem;
+    color: #1c2e48;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    border-style: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+    gap: 1rem;
+  }
+  
+  .eventItem:hover {
+    background-color: #dedede;
+  }
+  
+  .eventTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1c2e48;
+    max-width: 250px;
+    width: 300px;
+  }
+  
+  .eventChips {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .cardCategory {
+    border-radius: 16px;
+    padding: 0.3rem 0.7rem;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 16px;
+    background-color: white;
+    color: #1C2E48;
+    border: 1px solid #1C2E48;
+    height: fit-content;
+  }
+  
+  .cardSubcategory {
+    border-radius: 16px;
+    padding: 0.3rem 0.7rem;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 16px;
+    background-color: white;
+    color: #e15a40;
+    border: 1px solid #e15a40;
+    height: fit-content;
+  }
+  
+  /* Para pantallas más grandes o iguales a 768px (md) */
+  @media screen and (min-width: 800px) {
+    .pageContainer {
+      margin-top: 2rem;
+      align-items: flex-start;
+    }
+  
+    .eventItem {
+      max-width: 750px;
+    }
+  
+    .title {
+      margin-bottom: 2rem;
+      gap: 1rem;
+      max-width: 800px;
+    }
+  
+    .eventTitle {
+      max-width: 800px;
+      width: 800px;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+  
+  }
+  
