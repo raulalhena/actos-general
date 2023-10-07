@@ -16,7 +16,6 @@ const MyEvents = () => {
             const myEventsDb = await resp.json();
 
             setMyEvents(myEventsDb);
-            console.log(myEventsDb)
         };
 
         getMyEvents();

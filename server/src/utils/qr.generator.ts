@@ -17,7 +17,6 @@ const generateEventQR = async (eventId: Types.ObjectId) => {
 const generateUserQR = async (eventId: ObjectId, userId: ObjectId) => {
     try{
         const qr_svg = qr.image(eventId.toString(), { type: 'png' });
-        // qr_svg.pipe(createWriteStream(`qr_events/${eventId.toString()}.svg`));   
         const eventQR = qr.imageSync(`http://localhost:8000/api/events/attendance/${eventId.toString()}/${userId.toString()}`, { type: 'png' });
         return eventQR;
     } catch(error){ 

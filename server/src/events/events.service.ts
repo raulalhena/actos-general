@@ -60,8 +60,6 @@ export class EventsService {
     try{
       const userEvents = await this.eventModel.find({ 'submitted.userId': id });
 
-      // const userEvents = await this.eventModel.find({ $or: [{ 'submitted.userId': id }, { submittedOnline: id }] });
-      console.log(userEvents)
       return userEvents;
     } catch(error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -102,7 +100,6 @@ export class EventsService {
       const buff = Buffer.from(userQR);
       const base64qr = 'data:image/png;base64,' + buff.toString('base64');
 
-      console.log(base64qr);
       const updateData = {
         $push: { 
           submitted: { 
@@ -169,7 +166,7 @@ export class EventsService {
         path: `submitted${submittedMode}.userId`, 
         select: ['name', 'surname', 'email'] 
       });
-      console.log(submittedList[0]['submitted'])
+      
       return submittedList[0]['submitted'];
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
