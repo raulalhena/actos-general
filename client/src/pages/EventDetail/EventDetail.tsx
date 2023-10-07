@@ -39,6 +39,7 @@ const EventDetailPage = () => {
 
     const [ inscription, setInscription ] = useState<boolean>(false);
     const [ online, setOnline ] = useState<boolean>(false);
+    const [ onlineHybrid, setOnlineHybrid ] = useState<boolean>(false);
     const [ isModalOpen, setIsModalOpen ] = useState(false);
     const [ modalTitle, setModalTitle ] = useState(
         'Estás a punto de inscribirte al evento.'
@@ -116,7 +117,7 @@ const EventDetailPage = () => {
     useEffect(() => {
         const checkInscriptionOnline = async () => {
             const res = await fetch(
-                `http://localhost:8000/api/events/user/${user._id}`
+                `http://localhost:8000/api/events/user/${user._id}/online`
             );
             const inscriptionEvents = await res.json();
 
@@ -128,6 +129,26 @@ const EventDetailPage = () => {
         };
 
         checkInscriptionOnline();
+    }, [ eventData ]);
+
+    useEffect(() => {
+        const checkInscriptionHybrid = async () => {
+            const res = await fetch(
+                `http://localhost:8000/api/events/user/${user._id}/hybrid`
+            );
+            const inscriptionEvents = await res.json();
+
+            const insEvents = Array.from(inscriptionEvents);
+
+            insEvents.forEach((sEvent) => {
+                if (sEvent._id === _id) {
+                    setOnlineHybrid(true);
+                    setInscription(true);
+                }
+            });
+        };
+
+        checkInscriptionHybrid();
     }, [ eventData ]);
 
     const renderFormattedDescription = () => {
@@ -162,22 +183,24 @@ const EventDetailPage = () => {
             });
 
             if (res.ok) {
-                setModalTitle(
-                    `Te has ${
-                        actionType === 'inscription' || actionType === 'online'
-                            ? 'inscrito'
-                            : 'desuscrito'
-                    } correctamente.`
-                );
+                if (actionType === 'inscription' || actionType === 'online') {
+                    setModalTitle(`Te has inscrito correctamente.`);
+                    setInscription(true);
+                    setOnline(true);
+                    setOnlineHybrid(true);
+                } else if (actionType === 'unsubscription' || actionType === 'unsubscribe-online') {
+                    setModalTitle(`Te has desinscrito correctamente.`);
+                    setInscription(false);
+                    setOnline(false);
+                    setOnlineHybrid(false);
+
+                }
                 setModalBtn1Text('');
                 setModalBtn2Text('');
-                setInscription(actionType === 'inscription' || actionType === 'online');
             } else {
-                setModalTitle(
-                    `Error al ${
-                        actionType === 'inscription' ? 'inscribirse' : 'desinscribirse'
-                    }.`
-                );
+                setModalTitle(`Ha habido un error.`);
+                setModalBtn1Text('');
+                setModalBtn2Text('');
             }
         }
     };
@@ -218,14 +241,14 @@ const EventDetailPage = () => {
                 </div>
                 {isLogged && inscription && (
                     <div>
-                        <img src={qrUser} style={{ widht: '100px', height: '100px' }}/>
+                        <img src={qrUser} style={{ width: '100px', height: '100px' }}/>
                     </div>
                 )}
                 {/*INSCRIPTION */}
                 {isLogged &&
                 (eventData.mode === 'Híbrido' ? (
                     <div className={styles.categorySubcategorySection}>
-                        {!inscription ? (
+                        {!inscription || !onlineHybrid ? (
                             <>
                                 <ButtonInscription
                                     label="Inscripción Evento Online"
@@ -255,19 +278,21 @@ const EventDetailPage = () => {
                             />
                         )}
                     </div>
+                ) : eventData.mode === 'En Línea' ? (
+                    <div className={styles.categorySubcategorySection}>
+                        <div className={styles.categorySubcategorySection}>
+                            <ButtonInscription
+                                label={online ? 'Eliminar inscripción' : 'Inscribirse al evento'}
+                                onClick={() => openModal(online ? 'unsubscribe-online' : 'online')}
+                            />
+                        </div>
+                    </div>
                 ) : (
                     <div className={styles.categorySubcategorySection}>
-                        {!inscription ? (
-                            <ButtonInscription
-                                label="Inscribirse al evento"
-                                onClick={() => openModal('inscription')}
-                            />
-                        ) : (
-                            <ButtonInscription
-                                label="Eliminar inscripción"
-                                onClick={() => openModal('unsubscription')}
-                            />
-                        )}
+                        <ButtonInscription
+                            label={inscription ? 'Eliminar inscripción' : 'Inscribirse al evento'}
+                            onClick={() => openModal(inscription ? 'unsubscription' : 'inscription')}
+                        />
                     </div>
                 ))}
             </section>

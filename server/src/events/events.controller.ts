@@ -72,6 +72,16 @@ export class EventsController {
     return this.eventsService.findUserEvents(id);
   }
 
+  @Get('/user/:id/online')
+  findUserEventsOnline(@Param('id') id: ObjectId) {
+    return this.eventsService.findUserEventsOnline(id);
+  }
+
+  @Get('/user/:id/hybrid')
+  findUserEventsHybrid(@Param('id') id: ObjectId) {
+    return this.eventsService.findUserEventsHybrid(id);
+  }
+
   @Put(':id')
   update(@Param('id') id: ObjectId, @Body() updateEventDto: UpdateEventDto) {
   	return this.eventsService.update(id, updateEventDto);

@@ -66,6 +66,29 @@ export class EventsService {
     }
   }
 
+  async findUserEventsOnline(id: ObjectId) {
+    try{
+      const userEvents = await this.eventModel.find({ 'submittedOnline.userId': id });
+
+      return userEvents;
+    } catch(error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async findUserEventsHybrid(id: ObjectId) {
+    try{
+      const userEvents = await this.eventModel.find({ $or: [
+        { 'submitted.userId': id },
+        { 'submittedOnline.userId': id }
+      ] });
+
+      return userEvents;
+    } catch(error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   async update(id: ObjectId, updateEventDto: UpdateEventDto) {
     return await this.eventModel.findByIdAndUpdate(id, updateEventDto, {new: true});
   }
@@ -119,9 +142,9 @@ export class EventsService {
   async eventInscriptionOnline(eventInscriptionDto: EventInscriptionDto) {
     try {
       const updateData = {
-        $push: { submittedOnline: eventInscriptionDto.userId }
-      }
-      const updateEventSubmitted = await this.eventModel.findOneAndUpdate({_id: eventInscriptionDto.eventId}, updateData, {new: true})
+        $push: { submittedOnline: { userId: eventInscriptionDto.userId } }
+      };
+      const updateEventSubmitted = await this.eventModel.findOneAndUpdate({ _id: eventInscriptionDto.eventId }, updateData, { new: true })
 
       return updateEventSubmitted
     } catch (error) {
@@ -132,7 +155,7 @@ export class EventsService {
   async eventUnsubscriptionOnline(eventUnsubscriptionDto: EventUnsubscriptionDto) {
     try {
       const unsuscribedEvent = { 
-        $pull: { submittedOnline: eventUnsubscriptionDto.userId }
+        $pull: { submittedOnline: { userId: eventUnsubscriptionDto.userId } }
       };
 
       const updatedUnsuscribedEvent = await this.eventModel.findByIdAndUpdate({ _id: eventUnsubscriptionDto.eventId }, unsuscribedEvent, { new: true });
