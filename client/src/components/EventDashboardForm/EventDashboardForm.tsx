@@ -22,7 +22,8 @@ import ModalDisplay from '../Modal/ModalDisplay';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
-import SectionFormWithoutToggle from '../SectionFormWithoutToggle/SectionFormWithoutToggle';
+import SelectSmall from '../SelectSmall/SelectSmall';
+import { MdVisibility } from 'react-icons/Md';
 
 type Props = { eventData: EventDashboardFormProps };
 
@@ -694,50 +695,44 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             <form data-testid="event-form" onSubmit={handleSubmit}>
                 <ToastContainer position="top-right" autoClose={3000} />
 
-                <p className={styles.visibility}>
-                    <span>
-                        <b>
-                            <VscCircleFilled style={{ color: visibility ? 'green' : '#e15a40' }} />
-                        </b>
-                    </span>
-                    <span style={{ color: visibility ? 'green' : '#e15a40' }}>
-                        {visibility ? 'Público' : 'Borrador'}
-                    </span>
-                </p>
-
-                <SectionFormWithoutToggle 
-                    title="ESTADO DEL EVENTO"
-                >
-
-                    <div >
-                        <Select
+                <section className={styles.eventStateContainer}>
+                    <div className={styles.eventStateContainerTop}>
+                        <h5>Estado del evento</h5>
+                        <p className={styles.visibility}>
+                            <span>
+                                <b>
+                                    <MdVisibility className={styles.visibilityIcon} style={{ color: visibility ? 'green' : '#e15a40' }} />
+                                </b>
+                            </span>
+                            <span style={{ color: visibility ? 'green' : '#e15a40' }}>
+                                {visibility ? 'Público' : 'Borrador'}
+                            </span>
+                        </p>
+                    </div>
+                    <div className={styles.stateSelects}>
+                        <SelectSmall
                             id="active"
                             label="Estado"
                             options={active}
                             value={formData.active ? 'Activo' : 'Inactivo'}
                             onChange={handleSelectActive}
                         />
+                        <SelectSmall
+                            id="visibility"
+                            label="Visibilidad"
+                            options={ [ 'Borrador', 'Público' ] }
+                            value={formData.visibility ? 'Público' : 'Borrador'}
+                            onChange={handleVisibilityChange}
+                        />
                     </div>
-                    <div className={styles.visibilityContainer}>
-                        <div className={styles.visibilitySelectContainer}>
-                            <Select
-                                id="visibility"
-                                label="Visibilidad"
-                                options={ [ 'Borrador', 'Público' ] }
-                                value={formData.visibility ? 'Público' : 'Borrador'}
-                                onChange={handleVisibilityChange}
-                            />
-                        </div>
+                </section>
 
-                    </div>
-                </SectionFormWithoutToggle>
-
+                <h5>Detalles del formulario</h5>
+                <br />
                 <SectionForm
                     title="1 INFORMACIÓN BÁSICA"
                     isVisible={isSection1Visible}
                     toggleVisibility={() => setIsSection1Visible(!isSection1Visible)}>
-                    {/* <p className={styles.warning}>* Rellena todos los campos obligatorios para poder publicar tu evento.</p> */}
-
                     <FormField>
                         <SelectCategories
                             id="category"

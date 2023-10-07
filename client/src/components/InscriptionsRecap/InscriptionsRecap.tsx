@@ -9,6 +9,7 @@ import { EventFormProps } from '../../interfaces/eventFormProps';
 import { User } from '../../interfaces/User';
 import Preloader from '../Preloader/Preloader';
 import { useLocation, Link } from 'react-router-dom';
+import { IoLogoWhatsapp } from 'react-icons/io5';
 
 interface InscriptionsRecapProps {
     eventData: EventFormProps;
@@ -122,7 +123,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                 </div>
 
                 <div className={styles.containerSection}>
-                    {/* <IoLogoWhatsapp className={styles.icon} /> */}
+                    <IoLogoWhatsapp className={styles.icon} />
                     <a
                         href={`http://web.whatsapp.com/send?text=${encodeURIComponent(eventData.qrEvent)}`}
                         data-action="share/whatsapp/share"
