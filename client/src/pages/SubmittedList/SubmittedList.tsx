@@ -20,9 +20,13 @@ const SubmittedList = () => {
             const respo = await fetch(`http://localhost:8000/api/events/${submittedProps.id}/submitted/?mode=${submittedProps.mode}`);
             const eventsData = await respo.json();
 
-            setUsers(eventsData);
-            console.log('eve', eventsData)
+            if(!respo.ok) {
+                setIsLoading(false);
+                return;
+            }
+            setUsers(eventsData);            
             setIsLoading(false);
+            return;
         };
 
         getAllEvents();
@@ -43,12 +47,12 @@ const SubmittedList = () => {
                                 <div className={styles.eventItem}>
                                     <h2
                                         className={styles.eventTitle}
-                                        id={user?.userId._id}
+                                        id={user?.userId?._id}
                                     >
-                                        {user?.userId.name} {user?.userId.surname}
+                                        {user?.userId?.name} {user?.userId?.surname}
                                     </h2>
                                     <span className={styles.cardSubcategory}>
-                                        {user?.userId.email}
+                                        {user?.userId?.email}
                                     </span>
                                 </div>
                             </div>
