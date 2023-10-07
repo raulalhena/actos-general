@@ -18,9 +18,9 @@ export class EventsController {
         return this.eventsService.create(createEventDto);
     }
 
-  @Put('attendance')
-  attendanceRecord(@Body() attendanceRecord: AttendanceRecordDto) {
-      return this.eventsService.attendanceRecord(attendanceRecord);
+  @Put('attendance/:eventId/:userId')
+  attendanceRecord(@Param('eventId') eventId: ObjectId, @Param('userId') userId: ObjectId) {
+      return this.eventsService.attendanceRecord(eventId, userId);
       // return {message:'Access'};
   }
 

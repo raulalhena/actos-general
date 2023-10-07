@@ -5,6 +5,6 @@ const AccessControl = () => {
     return (
         <AccessControlScanner />
     );
-}
+};
 
 export default AccessControl;

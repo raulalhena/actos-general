@@ -75,24 +75,22 @@ export class EventsService {
     return await this.eventModel.findByIdAndDelete(id);
   }
 
-  async attendanceRecord(attendanceRecord: AttendanceRecordDto) {
+  async attendanceRecord(eventId: ObjectId, userId: ObjectId) {
     try{
       const updateData = {
         $push: {
-          attendees: attendanceRecord.userId
+          attendees: userId
         }
       }
 
-      const event = await this.eventModel.findOne({ _id: attendanceRecord.eventId, attendees: attendanceRecord.userId }).select('attendees').populate({ 
+      const event = await this.eventModel.findOne({ _id: eventId, attendees: userId }).select('attendees').populate({ 
         path: 'attendees', 
         select: ['_id', 'name', 'surname', 'email'] 
       });
 
-      event['attendees'].forEach(user => {
-        if(user._id.toString() === attendanceRecord.userId) throw new HttpException('Acceso ya usado', HttpStatus.BAD_REQUEST);
-      })
-
-      const eventUpdated = await this.eventModel.findOneAndUpdate({ _id: attendanceRecord.eventId }, updateData, { new: true})
+      if(event) throw new HttpException('Acceso ya usado', HttpStatus.BAD_REQUEST);
+       
+      const eventUpdated = await this.eventModel.findOneAndUpdate({ _id: eventId }, updateData, { new: true})
       
       return eventUpdated;
     } catch(error) {

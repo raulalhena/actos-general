@@ -1,54 +1,57 @@
-import React, { useState } from 'react';
-import QrReader from 'react-qr-scanner';
-
-const previewStyle = {
-    height: 240,
-    width: 320,
-};
+import { useEffect, useState } from 'react';
+import { QrScanner } from '@yudiel/react-qr-scanner';
+import { useNavigate } from 'react-router-dom';
 
 const AccessControlScanner = () => {
 
-    const [ scan, setScan ] = useState<string>('No result');
+    const navigate = useNavigate();
+    const [ qrReader, setQrReader ] = useState<boolean>(true);
+    const [ paramsURL, setParamsURL ] = useState<string>('');
 
-    const attendanceRecord = async (data) => {
-        const bodyData = {
-            eventId: '65212279b09ebf43a9489c61',
-            userId: '651af4362d789f0364a6cc65'
-        };
+    useEffect(() => {
+        if(!qrReader) navigate('/accessvalidation', { state: { paramsURL: paramsURL } });
+    }, [ qrReader ]);
 
-        const resp = await fetch(`http://localhost:8000/api/events/attendance`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(bodyData)
-        });
-        const result = await resp.json();
-        console.log(result);
-        if(result) setScan('Registro OK');
+    const container = {
+        margin: '100 0',
+        height: 400,
+        resizeMode: 'crop-and-scale',
+        width: 400
     };
 
     const handleScan = (data) => {
-        if(data) attendanceRecord(data);
-        console.log(data);
-        // setScan(data);
+        if(data !== null){
+            setParamsURL(data);
+            setQrReader(false);
+        }
+        
     };
 
     const handleError = (err) => {
         console.error(err);
     };
 
+    console.log('params', paramsURL);
+
     return (
-        <div>
-            <div>hola</div>
-            <QrReader
-                delay={100}
-                style={previewStyle}
-                onError={handleError}
-                onScan={handleScan}
-            />
-            <p>{scan}</p>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', maxHeight: '500px',  width: '400', margin: 'auto' }}>
+            <div>ACTOS QR ESCANER</div>
+            {qrReader ? (
+                <div style={{ maxHeight: '500px',  width: '400', margin: 'auto', overflow: 'hidden' }}>
+                    <QrScanner
+                        scanDelay={1000}
+                        containerStyle={container}
+                        onError={handleError}
+                        onDecode={handleScan}
+                        tracker={true}
+                        hideCount={true}
+                        constraints={container}
+                    />
+                </div>
+            ) : null }
+            
         </div>
+
     );
 };
 
