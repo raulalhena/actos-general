@@ -30,7 +30,7 @@ const LanguageForm = () => {
         e.preventDefault();
 
         const res = fetch(
-            `http://localhost:8000/api/misc/languages`,
+            `http://localhost:8000/api/languages`,
             {
                 method: 'POST',
                 headers: {

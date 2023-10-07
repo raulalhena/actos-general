@@ -89,6 +89,8 @@ const EventDetailPage = () => {
         getEvent();
     }, [ _id ]);
 
+    const [ qrUser, setQRUser ] = useState('');
+
     useEffect(() => {
         const checkInscription = async () => {
             const res = await fetch(
@@ -99,7 +101,12 @@ const EventDetailPage = () => {
             const insEvents = Array.from(inscriptionEvents);
 
             insEvents.forEach((sEvent) => {
-                if (sEvent._id === _id) setInscription(true);
+                if (sEvent._id === _id) {
+                    setInscription(true);
+                    sEvent.submitted.forEach(submUser => {
+                        if(submUser.userId === user._id) setQRUser(submUser.qrUser);
+                    });
+                }
             });
         };
 
@@ -209,7 +216,11 @@ const EventDetailPage = () => {
                     <span className={styles.category}>{eventData.category}</span>
                     <span className={styles.subcategory}>{eventData.subcategory}</span>
                 </div>
-
+                {isLogged && inscription && (
+                    <div>
+                        <img src={qrUser} style={{ widht: '100px', height: '100px' }}/>
+                    </div>
+                )}
                 {/*INSCRIPTION */}
                 {isLogged &&
                 (eventData.mode === 'Híbrido' ? (
