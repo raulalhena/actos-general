@@ -14,7 +14,7 @@ export class UsersService {
     try {
       const res = await this.userModel.find({ email: createUserDto.email });
       if (res.length === 1) {
-        throw new HttpException('User already exists.', 400);
+        throw new HttpException('El usuario ya existe.', 400);
       } else {
         const newUser = await this.userModel.create(createUserDto)
         return newUser;
@@ -30,10 +30,7 @@ export class UsersService {
 
   async findByEmail(email: string) {
     try {
-      const user = await this.userModel.findOne({ email }).lean();
-      if(!user) throw new HttpException('No se ha podido encontrar el usuario.', HttpStatus.BAD_REQUEST);
-      
-      return user;
+      return await this.userModel.findOne({ email }).lean();
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
