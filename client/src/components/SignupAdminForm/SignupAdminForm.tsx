@@ -14,7 +14,7 @@ const SignupAdminForm = () => {
         surname: '',
         email: '',
         password: '',
-        role: 'admin'
+        role: 'admin',
     });
 
     const nameError = null;
@@ -32,7 +32,7 @@ const SignupAdminForm = () => {
             surname: '',
             email: '',
             password: '',
-            role: 'admin'
+            role: 'admin',
         });
         setPasswordConfirmed('');
     };
@@ -46,9 +46,11 @@ const SignupAdminForm = () => {
         });
     };
 
-    const handleConfirmPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleConfirmPassword = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const { value } = event.target;
-    
+
         setPasswordConfirmed(value);
     };
 
@@ -57,22 +59,26 @@ const SignupAdminForm = () => {
 
         let errorMessage = '';
         if (!validateEmail(signupData.email)) {
-            errorMessage = 'Error: Por favor, introduce una dirección de correo electrónico válida.';
+            errorMessage =
+        'Error: Por favor, introduce una dirección de correo electrónico válida.';
         } else if (!validateName(signupData.name)) {
-            errorMessage = 'Error: Nombre no válido. Asegúrate de que tenga al menos 2 caracteres y no contenga números ni espacios.';
+            errorMessage =
+        'Error: Nombre no válido. Asegúrate de que tenga al menos 2 caracteres y no contenga números ni espacios.';
         } else if (!validateSurname(signupData.surname)) {
-            errorMessage ='Error: Apellido no válido. Asegúrate de que tenga al menos 2 caracteres y no contenga números.';
+            errorMessage =
+        'Error: Apellido no válido. Asegúrate de que tenga al menos 2 caracteres y no contenga números.';
         } else if (!validatePassword(signupData.password)) {
-            errorMessage = 'Error: La contraseña debe tener al menos una letra mayúscula, un número y un carácter especial.';
+            errorMessage =
+        'Error: La contraseña debe tener al menos una letra mayúscula, un número y un carácter especial.';
         } else if (!matchPassword(signupData.password, passwordConfirmed)) {
             errorMessage = 'Error: Las contraseñas no coinciden.';
         } else {
             const resp = await fetch('http://localhost:8000/api/auth/register', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(signupData)
+                body: JSON.stringify(signupData),
             });
 
             if (resp.ok) {
@@ -80,7 +86,7 @@ const SignupAdminForm = () => {
             }
         }
 
-        if (errorMessage.trim() !== '') { 
+        if (errorMessage.trim() !== '') {
             toast.error(errorMessage, {
                 position: toast.POSITION.TOP_RIGHT,
                 closeOnClick: true,
@@ -104,7 +110,7 @@ const SignupAdminForm = () => {
     // Function to validate password
     const validatePassword = (password: string) => {
         const passwordRegex =
-    /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
         return passwordRegex.test(password);
     };
 
@@ -120,86 +126,85 @@ const SignupAdminForm = () => {
     };
 
     return (
-        <div className={styles.container}>
-            <div className={styles.form}>
-                <form onSubmit={handleSubmit}>
-                    <ToastContainer position="top-right" autoClose={3000} />
-                    <section>
-                        <h1>Registro de usuario Administrador</h1>
-                        <TextInputSmall
-                            id="name"
-                            label=""
-                            placeholder="Nombre"
-                            minLength={2}
-                            maxLength={175}
-                            value={signupData.name}
-                            onChange={handleInputChange}
+        <div className={styles.form}>
+            <form onSubmit={handleSubmit}>
+                <ToastContainer position="top-right" autoClose={3000} />
+                <section>
+                    <TextInputSmall
+                        id="name"
+                        label=""
+                        placeholder="Nombre"
+                        minLength={2}
+                        maxLength={175}
+                        value={signupData.name}
+                        onChange={handleInputChange}
+                    />
+                    {nameError && <p className={styles.error}>{nameError}</p>}
+                    <TextInputSmall
+                        id="surname"
+                        label=""
+                        placeholder="Apellidos"
+                        minLength={2}
+                        maxLength={175}
+                        value={signupData.surname}
+                        onChange={handleInputChange}
+                    />
+                    {surnameError && <p className={styles.error}>{surnameError}</p>}
+                    <TextInputSmall
+                        id="email"
+                        label=""
+                        placeholder="Email"
+                        minLength={3}
+                        maxLength={175}
+                        value={signupData.email}
+                        onChange={handleInputChange}
+                    />
+                    {emailError && <p className={styles.error}>{emailError}</p>}
+                    <TextInputSmall
+                        id="password"
+                        label=""
+                        placeholder="Contraseña"
+                        minLength={3}
+                        maxLength={175}
+                        value={signupData.password}
+                        onChange={handleInputChange}
+                        isPassword={true}
+                    />
+                    {passwordError && <p className={styles.error}>{passwordError}</p>}
+                    <ConfirmPasswordInput
+                        id="passwordConfirmed"
+                        label=""
+                        placeholder="Confirma tu contraseña"
+                        minLength={3}
+                        maxLength={175}
+                        value={passwordConfirmed}
+                        onChange={handleConfirmPassword}
+                        isPassword={true}
+                    />
+                    {notPasswordMatchError && (
+                        <p className={styles.error}>{notPasswordMatchError}</p>
+                    )}
+                </section>
+                <div className={styles.buttonSection}>
+                    <ButtonSubmit label="Crear usuario" />
+                </div>
+                <div>
+                    {isModalOpen && (
+                        <ModalDisplay
+                            icon={<BsPatchCheckFill className={styles.checkIcon} />}
+                            title={'Registrado con éxito'}
+                            subtitle={'El administrador ya puede iniciar sesión'}
+                            button1Text={'Cerrar'}
+                            button2Text={''}
+                            onClose={closeModal}
+                            isOpen={true}
+                            onButton1Click={closeModal}
+                            onButton2Click={() => {}}
+                            showCloseButton={true}
                         />
-                        {nameError && <p className={styles.error}>{nameError}</p>}
-                        <TextInputSmall
-                            id="surname"
-                            label=""
-                            placeholder="Apellidos"
-                            minLength={2}
-                            maxLength={175}
-                            value={signupData.surname}
-                            onChange={handleInputChange}
-                        />
-                        {surnameError && <p className={styles.error}>{surnameError}</p>}
-                        <TextInputSmall
-                            id="email"
-                            label=""
-                            placeholder="Email"
-                            minLength={3}
-                            maxLength={175}
-                            value={signupData.email}
-                            onChange={handleInputChange}
-                        />
-                        {emailError && <p className={styles.error}>{emailError}</p>}
-                        <TextInputSmall
-                            id="password"
-                            label=""
-                            placeholder="Contraseña"
-                            minLength={3}
-                            maxLength={175}
-                            value={signupData.password}
-                            onChange={handleInputChange}
-                            isPassword={true}
-                        />
-                        {passwordError && <p className={styles.error}>{passwordError}</p>}
-                        <ConfirmPasswordInput
-                            id="passwordConfirmed"
-                            label=""
-                            placeholder="Confirma tu contraseña"
-                            minLength={3}
-                            maxLength={175}
-                            value={passwordConfirmed}
-                            onChange={handleConfirmPassword}
-                            isPassword={true}
-                        />
-                        {notPasswordMatchError && <p className={styles.error}>{notPasswordMatchError}</p>}
-                    </section>
-                    <div className={styles.buttonSection}>
-                        <ButtonSubmit label="Crear usuario" />
-                    </div>
-                    <div>
-                        {isModalOpen && (
-                            <ModalDisplay
-                                icon={<BsPatchCheckFill className={styles.checkIcon} />}
-                                title={'Registrado con éxito'}
-                                subtitle={'El administrador ya puede iniciar sesión'}
-                                button1Text={'Cerrar'}
-                                button2Text={''}
-                                onClose={closeModal}
-                                isOpen={true}
-                                onButton1Click={closeModal}
-                                onButton2Click={() => {}}
-                                showCloseButton={true}
-                            />
-                        )}
-                    </div>
-                </form>
-            </div>
+                    )}
+                </div>
+            </form>
         </div>
     );
 };
