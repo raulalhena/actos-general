@@ -72,6 +72,7 @@ const ConfigList = () => {
                 </div>
             </div>
             <div>
+                < br />
                 <Link className={styles.eventItem} to={`/config/configform`} state={`${propsData}`}>
                     <div>
                         <h2>CREAR NUEVO</h2>

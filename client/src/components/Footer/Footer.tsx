@@ -18,7 +18,7 @@ const socialMediaLinks = [
 const Footer = () => {
     return (
         <>
-            <div className={styles.container}>
+            <div className={styles.containerFooter}>
                 <div className={styles.footer}>
                     <section className={styles.sectionFooter}>
                         <div className={styles.brandSection}>
