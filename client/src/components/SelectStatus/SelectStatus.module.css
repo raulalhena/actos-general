@@ -4,8 +4,8 @@
 }
 
 .input {
-  width: 180px;
-  height: 45px;
+  width: 780px;
+  height: 40px;
   padding-left: 0.5rem;
   border-radius: 5px;
   border: 1.5px solid #cacaca;
@@ -27,21 +27,21 @@
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
   .input {
-    width: 180px;
+    width: 780px;
   }
 }
 
 /* Para pantallas más grandes o iguales a 992px (lg) */
 @media screen and (min-width: 992px) {
   .input {
-    width: 180px;
+    width: 780px;
   }
 }
 
 /* Para pantallas más grandes o iguales a 1200px (xl) */
 @media screen and (min-width: 1200px) {
   .input {
-    width: 180px;
+    width: 780px;
   }
 }
 

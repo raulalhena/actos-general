@@ -2,25 +2,27 @@ import { Injectable } from '@nestjs/common';
 import { CreateMiscDto } from './dto/create-misc.dto';
 import { UpdateMiscDto } from './dto/update-misc.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Category } from './schemas/category.schema';
-import { Subcategory } from './schemas/subcategory.schema';
-import { Language } from './schemas/language.schema';
-import { Time } from './schemas/time.schema';
-import { Type } from './schemas/type.schema';
-import { TimeZone } from './schemas/timezone.schema';
-import { Visibility } from './schemas/visibility.schema';
-import { Capacity } from './schemas/capacity.schema';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { CreateSubcategoryDto } from './dto/create-subcategory.dto';
-import { CreateCapacityDto } from './dto/create-capacity.dto';
-import { CreateLanguageDto } from './dto/create-language.dto';
-import { CreateTypeDto } from './dto/create-type.dto';
-import { CreateTimeDto } from './dto/create-time.dto';
-import { CreateTimeZoneDto } from './dto/create-timezone.dto';
-import { CreateVisibilityDto } from './dto/create-visibility.dto';
+import { Category } from '../categories/schema/category.schema';
+import { Subcategory } from '../categories/schema/subcategory.schema';
+import { Language } from '../languages/schema/language.schema';
+import { Time } from '../times/schema/time.schema';
+import { Type } from '../types/schemas/type.schema';
+import { TimeZone } from '../timezones/schema/timezone.schema';
+import { Visibility } from '../visibilities/schema/visibility.schema';
+import { Capacity } from '../capacities/schema/capacity.schema';
+import { CreateCategoryDto } from '../categories/dto/create-category.dto';
+import { CreateSubcategoryDto } from '../categories/dto/create-subcategory.dto';
+import { CreateCapacityDto } from '../capacities/dto/create-capacity.dto';
+import { CreateLanguageDto } from '../languages/dto/create-language.dto';
+import { CreateTypeDto } from '../types/dto/create-type.dto';
+import { CreateTimeDto } from '../times/dto/create-time.dto';
+import { CreateTimeZoneDto } from '../timezones/dto/create-timezone.dto';
+import { CreateVisibilityDto } from '../visibilities/dto/create-visibility.dto';
 import { Model, ObjectId } from 'mongoose';
-import { Mode } from './schemas/mode.schema';
-import { CreateModeDto } from './dto/create-mode.dto';
+import { Mode } from '../modes/schema/mode.schema';
+import { CreateModeDto } from '../modes/dto/create-mode.dto';
+import { CreateActiveDto } from '../actives/dto/create-active.dto';
+import { Active } from '../actives/schema/active.schema';
 
 @Injectable()
 export class MiscService {
@@ -30,6 +32,7 @@ export class MiscService {
     @InjectModel(Language.name) private languageModel: Model<Language>,
     @InjectModel(Time.name) private timeModel: Model<Time>,
     @InjectModel(Type.name) private typeModel: Model<Type>,
+    @InjectModel(Active.name) private activeModel: Model<Active>,
     @InjectModel(TimeZone.name) private timeZoneModel: Model<TimeZone>,
     @InjectModel(Visibility.name) private visibilityModel: Model<Visibility>,
     @InjectModel(Capacity.name) private capacityModel: Model<Capacity>,
@@ -55,6 +58,10 @@ export class MiscService {
  createType( createTypeDto: CreateTypeDto) {
    return this.typeModel.create(createTypeDto);
  }
+
+ createActive( createActiveDto: CreateActiveDto) {
+  return this.activeModel.create(createActiveDto);
+}
 
  createTime( createTimeDto: CreateTimeDto) {
    return this.timeModel.create(createTimeDto);
@@ -144,6 +151,10 @@ export class MiscService {
    findAllTypes() {
      return this.typeModel.find();
    }
+
+   findAllActive() {
+    return this.activeModel.find();
+  }
 
    findAllTimes() {
      return this.timeModel.find();

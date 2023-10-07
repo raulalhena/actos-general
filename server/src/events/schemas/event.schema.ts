@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
-import { User } from '../../users/schemas/user.schema';
+import { User, UserSchema } from '../../users/schemas/user.schema';
 
 export type EventDocument = HydratedDocument<Event>;
 
@@ -59,15 +59,20 @@ export class Event {
 
   @Prop({ type: [ { type: mongoose.Schema.Types.ObjectId, ref: User.name } ], default: [] })
       attendees: mongoose.Types.ObjectId[];
+    //{ type: [{ user:  }]}
+  @Prop({ type: [ { userId: { type: mongoose.Schema.Types.ObjectId, ref: User.name }, qrUser: { type: String } } ] })
+      submitted: { 
+        userId: mongoose.Schema.Types.ObjectId,
+        qrUser: String;
+        }[];
 
-  @Prop({ type: [ { type: mongoose.Schema.Types.ObjectId, ref: User.name } ], default: [] })
-      submitted: mongoose.Types.ObjectId[];
-
-  @Prop({ type: [ { type: mongoose.Schema.Types.ObjectId, ref: User.name } ], default: [] })
-      submittedOnline: mongoose.Types.ObjectId[];
+  @Prop({ type: [ { userId: { type: mongoose.Schema.Types.ObjectId, ref: User.name }} ], default: [] })
+      submittedOnline: User;
 
   @Prop()
       capacity: number;
+  @Prop()
+      capacityOnline: number;
 
   @Prop()
       price: number;
@@ -107,6 +112,9 @@ export class Event {
 
     @Prop({ default: false })
         isLimited: boolean;
+    
+    @Prop({ default: false })
+        isLimitedOnline: boolean;
     
     @Prop()
         webLink: string;

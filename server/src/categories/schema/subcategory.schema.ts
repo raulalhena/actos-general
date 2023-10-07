@@ -13,6 +13,7 @@ export class Subcategory {
 
   @Prop()
       image: string;
+
 }
 
 export const SubcategorySchema = SchemaFactory.createForClass(Subcategory);

@@ -15,7 +15,6 @@ export class Category {
   @Prop()
       description: string;
 
-  
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

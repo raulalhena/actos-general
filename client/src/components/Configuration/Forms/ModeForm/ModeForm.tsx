@@ -30,7 +30,7 @@ const ModeForm = () => {
         e.preventDefault();
 
         const res = fetch(
-            `http://localhost:8000/api/misc/modes`,
+            `http://localhost:8000/api/modes`,
             {
                 method: 'POST',
                 headers: {

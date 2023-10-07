@@ -16,13 +16,13 @@ import styles from './EventDashboardForm.module.css';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { ToastContainer, toast } from 'react-toastify';
 import DropdownCheck from '../DropDownCheckbox/DropdownCheck';
-import SelectStatus from '../SelectStatus/SelectStatus';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import { VscCircleFilled } from 'react-icons/vsc';
 import ModalDisplay from '../Modal/ModalDisplay';
 import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
+import SectionFormWithoutToggle from '../SectionFormWithoutToggle/SectionFormWithoutToggle';
 
 type Props = { eventData: EventDashboardFormProps };
 
@@ -32,6 +32,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
 
     useEffect(() => {
+        console.log('form fata ', eventData);
         setFormData(eventData);
     }, [ eventData ]);
 
@@ -77,7 +78,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         const id = event.target.id;
         const value: string = event.target.value;
 
-        if (id === 'capacity') {
+        if (id === 'capacity' || id === 'capacityOnline') {
             const numericValue = Number(value);
 
             if (!isNaN(numericValue) && numericValue >= 0) {
@@ -129,19 +130,10 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // SelectVisibility(draft and public status)
     const handleVisibilityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = event.target;
-    
-        if (value === 'Borrador') {
-            setFormData({
-                ...formData,
-                visibility: false,
-            });
-
-        } else if (value === 'Público') {
-            setFormData({
-                ...formData,
-                visibility: true,
-            });
-        } 
+        setFormData({
+            ...formData,
+            visibility: value === 'Público',
+        });
     };
     
     // Tags
@@ -204,6 +196,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         }
     
         if (visibility !== formData.visibility) {
+
             openModal(
                 null,
                 'Vas a modificar tu evento',
@@ -214,14 +207,13 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                 'Cancelar',
                 closeModal,
                 false,
-                () => {
+                async () => {
                     setFormData({
                         ...formData,
                         visibility: !formData.visibility,
                     });
-                    closeModal();
-                },
-                async () => {
+                    // closeModal();
+
                     const res = await fetch(
                         `http://localhost:8000/api/events/${formData._id}`,
                         {
@@ -229,6 +221,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             headers: { 'Content-type': 'application/json' },
                             body: JSON.stringify(formData),
                         }
+                        
                     );
 
                     if (res.ok) {
@@ -253,12 +246,13 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                 'Cerrar ventana',
                                 closeModal,
                                 true,
-                                closeModal,
-                                () => {}
+                                () => {},
+                                closeModal
                             );
                         } 
                     } 
-                }
+                },
+                closeModal,
             );
 
         } else {
@@ -480,23 +474,56 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         setSelectedCapacity(!selectedCapacity);
     };
 
+    const handleToggleCapacityOnlineChange = (checked: boolean) => {
+        setFormData({
+            ...formData,
+            isLimitedOnline: checked,
+        });
+        setSelectedCapacityOnline(!selectedCapacityOnline);
+    };
+
+    const handleSelectActive = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = event.target;
+        const isActive = value === 'Activo';
+        setFormData({
+            ...formData,
+            active: isActive,
+        });
+    };
+
     // Form fields auto filled state
+    const [ active, setActive ] = useState<Array<string>>([]);
     const [ categories, setCategories ] = useState<Array<EventDashboardFormProps>>([]);
+    const [ selectedCategory, setSelectedCategory ] = useState(formData.category);
     const [ subcategories, setSubcategories ] = useState<Array<string>>([]);
     const [ types, setTypes ] = useState<Array<string>>([]);
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
     const [ time, setTime ] = useState<Array<string>>([]);
     const [ visibility, setVisibility ] = useState<boolean>(false);
-    const [ selectedCategory, setSelectedCategory ] = useState(formData.category);
     const [ mode, setMode ] = useState<ButtonCardRadioProps[]>([]);
 
     // Get all data to fill fields
+
+    // get Active
+    useEffect(() => {
+        const getActiveEvents = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/actives');
+                const data = await response.json();
+                setActive(data.map((active: { name: string; }) => active.name));
+            } catch (error) {
+                console.error('Error al obtener los active:', error);
+            }
+        };
+        getActiveEvents();
+    }, []);
+
     // Get Categories
     useEffect(() => {
         const getCategories = async () => {
             let categoryId = '';
-            const resp = await fetch('http://localhost:8000/api/misc/categories');
+            const resp = await fetch('http://localhost:8000/api/categories');
             const categoriesDb = await resp.json();
 
             setCategories(categoriesDb);
@@ -513,7 +540,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // Get Subcategories
     const getSubcategories = async (selectedCategory: string) => {
         if(selectedCategory) {
-            const resp = await fetch(`http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`);
+            const resp = await fetch(`http://localhost:8000/api/categories/${selectedCategory}/subcategories`);
             const subcategoriesDb = await resp.json();
             setSubcategories(Array.from(subcategoriesDb.subcategories));
         }
@@ -523,7 +550,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     useEffect(() => {
         const getTypes = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/types');
+                const response = await fetch('http://localhost:8000/api/types');
                 const data = await response.json();
                 const typeNames = data.map((type: { name: string; }) => type.name);
                 setTypes(typeNames);
@@ -538,7 +565,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     useEffect(() => {
         const getLanguages = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/languages');
+                const response = await fetch('http://localhost:8000/api/languages');
                 const data = await response.json();
                 const language = data.map((language: { name: string; }) => language.name);
                 setLanguages(language);
@@ -554,7 +581,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     useEffect(() => {
         const getTimeZone = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/timezones');
+                const response = await fetch('http://localhost:8000/api/timezones');
                 const data = await response.json();
                 const timeZone = data.map((timeZone: { name: string; }) => timeZone.name);
                 setTimeZone(timeZone);
@@ -569,7 +596,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     useEffect(() => {
         const getTime = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/times');
+                const response = await fetch('http://localhost:8000/api/times');
                 const data = await response.json();
                 const time = data.map((time: { name: string; }) => time.name);
                 setTime(time);
@@ -580,10 +607,19 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         getTime();
     }, []);
 
-    // get visibility
+    /*                          VISIBILITY                               */
     useEffect(() => {
-        setVisibility(formData.visibility ?? false);
-    }, [ formData.visibility ]);
+        // Recupere o valor de visibility do localStorage
+        const savedVisibility = localStorage.getItem('visibility');
+        if (savedVisibility !== null) {
+            setVisibility(JSON.parse(savedVisibility));
+        }
+    }, []);
+    
+    useEffect(() => {
+        localStorage.setItem('visibility', JSON.stringify(visibility));
+    }, [ visibility ]);
+    /*                                                                   */
 
     //get MODE (online, hibrido, presencial)
     useEffect(() => {
@@ -594,7 +630,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         
         const getMode = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/modes');
+                const response = await fetch('http://localhost:8000/api/modes');
                 const data = await response.json();
                 const modeData = data.map((mode: {
                         _id : string; 
@@ -650,22 +686,51 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     };
 
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
+    const [ selectedCapacityOnline, setSelectedCapacityOnline ] = useState<boolean>(false);
 
     return (
         <div data-testid='dashboard-component' className={styles.formDash}>
-            <p className={styles.status}>
-                <span>
-                    <b>
-                        <VscCircleFilled style={{ color: visibility ? 'green' : '#e15a40' }} />
-                    </b>
-                </span>
-                <span style={{ color: visibility ? 'green' : '#e15a40' }}>
-                    {visibility ? 'Público' : 'Borrador'}
-                </span>
-            </p>
         
             <form data-testid="event-form" onSubmit={handleSubmit}>
                 <ToastContainer position="top-right" autoClose={3000} />
+
+                <p className={styles.visibility}>
+                    <span>
+                        <b>
+                            <VscCircleFilled style={{ color: visibility ? 'green' : '#e15a40' }} />
+                        </b>
+                    </span>
+                    <span style={{ color: visibility ? 'green' : '#e15a40' }}>
+                        {visibility ? 'Público' : 'Borrador'}
+                    </span>
+                </p>
+
+                <SectionFormWithoutToggle 
+                    title="ESTADO DEL EVENTO"
+                >
+
+                    <div >
+                        <Select
+                            id="active"
+                            label="Estado"
+                            options={active}
+                            value={formData.active ? 'Activo' : 'Inactivo'}
+                            onChange={handleSelectActive}
+                        />
+                    </div>
+                    <div className={styles.visibilityContainer}>
+                        <div className={styles.visibilitySelectContainer}>
+                            <Select
+                                id="visibility"
+                                label="Visibilidad"
+                                options={ [ 'Borrador', 'Público' ] }
+                                value={formData.visibility ? 'Público' : 'Borrador'}
+                                onChange={handleVisibilityChange}
+                            />
+                        </div>
+
+                    </div>
+                </SectionFormWithoutToggle>
 
                 <SectionForm
                     title="1 INFORMACIÓN BÁSICA"
@@ -707,6 +772,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             value={formData.name}
                             onChange={handleInputChange}
                         />
+                        <br />
                         <TextArea
                             id="description"
                             label="Descripción del evento *"
@@ -944,24 +1010,35 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             />
                         ): null }
                     </FormField>
-                
+                    
+                    <FormField>
+                        <ToggleSwitch 
+                            id='capacityOnline'
+                            label={'El evento tiene limite de entrada en Línea'}
+                            subtitle={'Activa el botón para definir número de entradas en Línea.'}
+                            onChange={handleToggleCapacityOnlineChange}
+                            isChecked={formData.isLimitedOnline}
+                        />
+                        {formData.isLimitedOnline ? (
+                            <TextInputNumber
+                                id="capacityOnline"
+                                label="Límite de entradas en Línea"
+                                subtitle="Ingrese solamente caracteres numéricos mayores que 0."
+                                placeholder="ej.: 20"
+                                value={formData.capacityOnline} 
+                                onChange={handleInputNumberChange}
+                                isRequired={true}
+                            />
+                        ): null }
+                    </FormField>                
                 </SectionForm>
                 
                 <div className={ styles.finalSectionContainer }>
-                    <div className={styles.finalSection}>
-                        <div className={styles.selectStatus}>
-                            <SelectStatus
-                                id="visibility"
-                                label=""
-                                options={ [ 'Borrador', 'Público' ] }
-                                value={formData.visibility ? 'Público' : 'Borrador'}
-                                onChange={handleVisibilityChange}
-                            />
-                        </div>
-                        <div className={styles.buttonSection}>
-                            <ButtonSubmit label="Guardar"/>
-                        </div>
+                        
+                    <div className={styles.buttonSection}>
+                        <ButtonSubmit label="Guardar"/>
                     </div>
+
                 </div>
                 
                 <div>

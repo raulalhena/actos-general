@@ -24,6 +24,7 @@ export interface EventDashboardFormProps {
     image?: string;
     video?: string;
     capacity?: string;
+    capacityOnline?: string;
     qrEvent?: string;
     qrAttendees?: string[];
     attendees?: string[];
@@ -32,5 +33,7 @@ export interface EventDashboardFormProps {
     payment?: string;
     visibility?: boolean;
     isLimited: boolean;
+    isLimitedOnline: boolean;
     subcategoryLogo: string;
+    active?: boolean;
 }

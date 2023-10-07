@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { EventDashboardFormProps } from "../../interfaces/eventDashboardFormProps";
-import styles from "./EventsList.module.css";
-import Preloader from "../../components/Preloader/Preloader";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
+import styles from './EventsList.module.css';
+import Preloader from '../../components/Preloader/Preloader';
 
 const EventsList = () => {
     const navigate = useNavigate();
-    const [events, setEvents] = useState<Array<EventDashboardFormProps>>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    
+    const [ events, setEvents ] = useState<Array<EventDashboardFormProps>>([]);
+    const [ isLoading, setIsLoading ] = useState(true);
+
     useEffect(() => {
         const getAllEvents = async () => {
-            const respo = await fetch("http://localhost:8000/api/events");
+            const respo = await fetch('http://localhost:8000/api/events');
             const eventsData = await respo.json();
 
             eventsData.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -26,7 +26,8 @@ const EventsList = () => {
     const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const { id } = e.target;
-        navigate("/eventdashboard", { state: { id: id } });
+        window.scroll(0, 0);
+        navigate('/eventdashboard', { state: { id: id } });
     };
 
     return (

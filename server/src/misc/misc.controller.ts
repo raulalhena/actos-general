@@ -1,15 +1,16 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { MiscService } from './misc.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { CreateSubcategoryDto } from './dto/create-subcategory.dto';
-import { CreateCapacityDto } from './dto/create-capacity.dto';
-import { CreateLanguageDto } from './dto/create-language.dto';
-import { CreateTypeDto } from './dto/create-type.dto';
-import { CreateTimeDto } from './dto/create-time.dto';
-import { CreateTimeZoneDto } from './dto/create-timezone.dto';
-import { CreateVisibilityDto } from './dto/create-visibility.dto';
+import { CreateCategoryDto } from '../categories/dto/create-category.dto';
+import { CreateSubcategoryDto } from '../categories/dto/create-subcategory.dto';
+import { CreateCapacityDto } from '../capacities/dto/create-capacity.dto';
+import { CreateLanguageDto } from '../languages/dto/create-language.dto';
+import { CreateTypeDto } from '../types/dto/create-type.dto';
+import { CreateTimeDto } from '../times/dto/create-time.dto';
+import { CreateTimeZoneDto } from '../timezones/dto/create-timezone.dto';
+import { CreateVisibilityDto } from '../visibilities/dto/create-visibility.dto';
 import { ObjectId } from 'mongoose';
-import { CreateModeDto } from './dto/create-mode.dto';
+import { CreateModeDto } from '../modes/dto/create-mode.dto';
+import { CreateActiveDto } from '../actives/dto/create-active.dto';
 
 @Controller('misc')
 export class MiscController {
@@ -37,6 +38,11 @@ export class MiscController {
   @Post('types')
   createType(@Body() createTypeDto: CreateTypeDto) {
     return this.miscService.createType(createTypeDto);
+  }
+
+  @Post('active')
+  createStatus(@Body() createActiveDto: CreateActiveDto) {
+    return this.miscService.createActive(createActiveDto);
   }
 
   @Post('times')
@@ -139,6 +145,11 @@ export class MiscController {
     @Get('types')
     findAllTypes() {
       return this.miscService.findAllTypes();
+    }
+
+    @Get('active')
+    findAllStatus() {
+      return this.miscService.findAllActive();
     }
   
     @Get('times')

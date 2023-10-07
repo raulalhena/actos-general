@@ -53,8 +53,11 @@ const EventForm = () => {
         image: '', 
         video: '', 
         capacity: '',
+        capacityOnline: '',
         isLimited: false,
-        subcategoryLogo: ''
+        isLimitedOnline: false,
+        subcategoryLogo: '',
+        visibility: false,
     });
 
     // Form fields auto filled state
@@ -69,7 +72,7 @@ const EventForm = () => {
     // Get all data to fill fields
     useEffect(() => {
         const getCategories = async () => {
-            const resp = await fetch('http://localhost:8000/api/misc/categories');
+            const resp = await fetch('http://localhost:8000/api/categories');
             const categoriesDb = await resp.json();
 
             setCategories(categoriesDb);
@@ -82,7 +85,7 @@ const EventForm = () => {
     useEffect(() => {
         const getTypes = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/types');
+                const response = await fetch('http://localhost:8000/api/types');
                 const data = await response.json();
                 const typeNames = data.map((type: { name: string; }) => type.name);
                 setTypes(typeNames);
@@ -97,7 +100,7 @@ const EventForm = () => {
     useEffect(() => {
         const getLanguages = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/languages');
+                const response = await fetch('http://localhost:8000/api/languages');
                 const data = await response.json();
                 const language = data.map((language: { name: string; }) => language.name);
                 setLanguages(language);
@@ -113,7 +116,7 @@ const EventForm = () => {
     useEffect(() => {
         const getTimeZone = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/timezones');
+                const response = await fetch('http://localhost:8000/api/timezones');
                 const data = await response.json();
                 const timeZone = data.map((timeZone: { name: string; }) => timeZone.name);
                 setTimeZone(timeZone);
@@ -128,7 +131,7 @@ const EventForm = () => {
     useEffect(() => {
         const getTime = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/times');
+                const response = await fetch('http://localhost:8000/api/times');
                 const data = await response.json();
                 const time = data.map((time: { name: string; }) => time.name);
                 setTime(time);
@@ -143,7 +146,7 @@ const EventForm = () => {
     useEffect(() => {
         const getMode = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/modes');
+                const response = await fetch('http://localhost:8000/api/modes');
                 const data = await response.json();
                 const modeData = data.map((mode: { name: string; }) => ({
                     name: mode.name,
@@ -179,7 +182,7 @@ const EventForm = () => {
 
     // Get Subcategories
     const getSubcategories = async (categoryId: string) => {
-        const resp = await fetch(`http://localhost:8000/api/misc/categories/${categoryId}/subcategories`);
+        const resp = await fetch(`http://localhost:8000/api/categories/${categoryId}/subcategories`);
         const categoriesDb = await resp.json();
         setSubcategories(categoriesDb.subcategories);
     };
@@ -221,7 +224,7 @@ const EventForm = () => {
         const id = event.target.id;
         const value: string = event.target.value;
 
-        if (id === 'capacity') {
+        if (id === 'capacity' || id === 'capacityOnline') {
             const numericValue = Number(value);
 
             if (!isNaN(numericValue) && numericValue >= 0) {
@@ -461,15 +464,26 @@ const EventForm = () => {
         });
     };  
 
-    const handleToggleCapacityChange = (checked: boolean) => { 
+    const handleToggleCapacityChange = (checked: boolean) => {
         setFormData({
             ...formData,
             isLimited: checked,
         });
         setSelectedCapacity(!selectedCapacity);
     };
+
+    const handleToggleCapacityOnlineChange = (checked: boolean) => {
+        setFormData({
+            ...formData,
+            isLimitedOnline: checked,
+        });
+        setSelectedCapacityOnline(!selectedCapacityOnline);
+    };
     
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
+    const [ selectedCapacityOnline, setSelectedCapacityOnline ] = useState<boolean>(false);
+
+    console.log('selected mode', selectedMode);
 
     return (
         <div data-testid='event-form-component' className={styles.formEvent}>
@@ -730,28 +744,52 @@ const EventForm = () => {
                                 onChange={handleToggleIsPrivateChange} 
                             />
                         </FormField>
-    
-                        <FormField>
-                            <ToggleSwitch 
-                                id='capacity'
-                                label={'El evento tiene limite de entrada'}
-                                subtitle={'Activa el botón para definir número de entradas.'}
-                                onChange={handleToggleCapacityChange}
-                                isChecked={formData.isLimited}
-                            />
-                            {selectedCapacity ? (
-                                <TextInputNumber
-                                    id="capacity"
-                                    label="Límite de entradas"
-                                    subtitle="Ingrese solamente caracteres numéricos mayores que 0."
-                                    placeholder="ej.: 20"
-                                    value={formData.capacity} 
-                                    onChange={handleInputNumberChange}
-                                    isRequired={true}
+                        
+                        {selectedMode === 'Presencial' || selectedMode === 'Híbrido' ? (
+                            <FormField>
+                                <ToggleSwitch 
+                                    id='capacity'
+                                    label={'El evento tiene limite de entrada Presencial'}
+                                    subtitle={'Activa el botón para definir número de entradas en Presencial.'}
+                                    onChange={handleToggleCapacityChange}
+                                    isChecked={formData.isLimited}
                                 />
-                            ): null }
-                        </FormField>
-                    
+                                {selectedCapacity ? (
+                                    <TextInputNumber
+                                        id="capacity"
+                                        label="Límite de entradas Presencial"
+                                        subtitle="Ingrese solamente caracteres numéricos mayores que 0."
+                                        placeholder="ej.: 20"
+                                        value={formData.capacity} 
+                                        onChange={handleInputNumberChange}
+                                        isRequired={true}
+                                    />
+                                ): null }
+                            </FormField>
+                        ) : null}
+
+                        {selectedMode === 'En Línea' || selectedMode === 'Híbrido' ? (
+                            <FormField>
+                                <ToggleSwitch 
+                                    id='capacityOnline'
+                                    label={'El evento tiene limite de entrada en Línea'}
+                                    subtitle={'Activa el botón para definir número de entradas en Línea.'}
+                                    onChange={handleToggleCapacityOnlineChange}
+                                    isChecked={formData.isLimitedOnline}
+                                />
+                                {selectedCapacityOnline ? (
+                                    <TextInputNumber
+                                        id="capacityOnline"
+                                        label="Límite de entradas en Línea"
+                                        subtitle="Ingrese solamente caracteres numéricos mayores que 0."
+                                        placeholder="ej.: 20"
+                                        value={formData.capacityOnline} 
+                                        onChange={handleInputNumberChange}
+                                        isRequired={true}
+                                    />
+                                ): null }
+                            </FormField>
+                        ) : null}
                     </SectionForm>
                     
                     <div className={styles.buttonSection}>

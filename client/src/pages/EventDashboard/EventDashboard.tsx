@@ -38,7 +38,9 @@ const EventDashboard = () => {
         image: '',
         video: '',
         capacity: '',
+        capacityOnline: '',
         isLimited: false,
+        isLimitedOnline: false,
         subcategoryLogo: ''
     });
 

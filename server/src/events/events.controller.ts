@@ -62,9 +62,24 @@ export class EventsController {
   	return this.eventsService.findOne(id);
   }
 
+  @Get('/:id/submitted')
+  submitted(@Param('id') id: ObjectId, @Query() query) {
+    return this.eventsService.getSubmitted(id, query.mode);
+  }
+
   @Get('/user/:id')
   findUserEvents(@Param('id') id: ObjectId) {
     return this.eventsService.findUserEvents(id);
+  }
+
+  @Get('/user/:id/online')
+  findUserEventsOnline(@Param('id') id: ObjectId) {
+    return this.eventsService.findUserEventsOnline(id);
+  }
+
+  @Get('/user/:id/hybrid')
+  findUserEventsHybrid(@Param('id') id: ObjectId) {
+    return this.eventsService.findUserEventsHybrid(id);
   }
 
   @Put(':id')

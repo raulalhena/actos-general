@@ -32,27 +32,39 @@ console.log(isLogged || (isLogged && user && user.role !== 'admin'));
                     <ul className={`${styles.navMenu} ${isActive ? styles.active : ''}`}>
                         <li onClick={removeActive}>
                             <Link to="/allevents" className={styles.navLink}>
-                Eventos
+                                Agenda
                             </Link>
                         </li>
                         {isLogged && (
                             <li onClick={removeActive}>
                                 <Link to="/myevents" className={styles.navLink}>
-                  Mis eventos
+                                    Mis eventos
                                 </Link>
                             </li>
                         )}
-                        {!isLogged || (isLogged && user && user.role !== 'admin') && (
+                        <li onClick={removeActive}>
+                            <Link to="/faq" className={styles.navLink}>
+                                FAQ
+                            </Link>
+                        </li>
+                        {isLogged && user && user.role === 'admin' && (
                             <li onClick={removeActive}>
-                                <Link to="/faq" className={styles.navLink}>
-                  FAQ
+                                <Link to="/eventslist" className={styles.navLink}>
+                                    Eventos Activos
                                 </Link>
                             </li>
                         )}
                         {isLogged && user && user.role === 'admin' && (
                             <li onClick={removeActive}>
                                 <Link to="/createevent" className={styles.navLink}>
-                  Crear Evento
+                                    Crear Evento
+                                </Link>
+                            </li>
+                        )}
+                        {isLogged && user && user.role === 'super' && (
+                            <li onClick={removeActive}>
+                                <Link to="/signupadmin" className={styles.navLink}>
+                                    Registro Usuario Administrador
                                 </Link>
                             </li>
                         )}
@@ -78,7 +90,7 @@ console.log(isLogged || (isLogged && user && user.role !== 'admin'));
                             ) : (
                                 <li onClick={removeActive} className={styles.bar}>
                                     <Link to="/logout" className={styles.navLink}>
-                    Cerrar sesión
+                                        Cerrar sesión
                                     </Link>
                                 </li>
                             )
@@ -86,12 +98,12 @@ console.log(isLogged || (isLogged && user && user.role !== 'admin'));
                             <>
                                 <li onClick={removeActive}>
                                     <Link to="/login" className={styles.navLink}>
-                    Iniciar sesión {user ? user.name : ''}
+                                        Iniciar sesión {user ? user.name : ''}
                                     </Link>
                                 </li>
                                 <li onClick={removeActive}>
                                     <Link to="/signup" className={styles.navLink}>
-                    Registrarse
+                                        Registrarse
                                     </Link>
                                 </li>
                             </>

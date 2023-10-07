@@ -3,15 +3,16 @@ import { MiscService } from './misc.service';
 import { MiscController } from './misc.controller';
 import { Mongoose } from 'mongoose';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CategorySchema, Category } from './schemas/category.schema';
-import { Subcategory, SubcategorySchema } from './schemas/subcategory.schema';
-import { Type, TypeSchema } from './schemas/type.schema';
-import { Language, LanguageSchema } from './schemas/language.schema';
-import { Time, TimeSchema } from './schemas/time.schema';
-import { TimeZone, TimeZoneSchema } from './schemas/timezone.schema';
-import { Visibility, VisibilitySchema } from './schemas/visibility.schema';
-import { Capacity, CapacitySchema } from './schemas/capacity.schema';
-import { Mode, ModeSchema } from './schemas/mode.schema';
+import { CategorySchema, Category } from '../categories/schema/category.schema';
+import { Subcategory, SubcategorySchema } from '../categories/schema/subcategory.schema';
+import { Type, TypeSchema } from '../types/schemas/type.schema';
+import { Active, ActiveSchema } from '../actives/schema/active.schema';
+import { Language, LanguageSchema } from '../languages/schema/language.schema';
+import { Time, TimeSchema } from '../times/schema/time.schema';
+import { TimeZone, TimeZoneSchema } from '../timezones/schema/timezone.schema';
+import { Visibility, VisibilitySchema } from '../visibilities/schema/visibility.schema';
+import { Capacity, CapacitySchema } from '../capacities/schema/capacity.schema';
+import { Mode, ModeSchema } from '../modes/schema/mode.schema';
 
 
 @Module({
@@ -28,6 +29,10 @@ import { Mode, ModeSchema } from './schemas/mode.schema';
       {
         name: Type.name,
         schema: TypeSchema
+      },
+      {
+        name: Active.name,
+        schema: ActiveSchema
       },
       {
         name: Language.name,
