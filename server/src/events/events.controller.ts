@@ -7,6 +7,7 @@ import { ObjectId } from 'mongoose';
 import { Header } from '@nestjs/common';
 import { EventInscriptionDto } from './dto/event-inscription.dto';
 import { EventUnsubscriptionDto } from './dto/event-unsubscription.dto';
+import { AttendanceRecordDto } from './dto/event-attendance-record.dto';
 
 @Controller('events')
 export class EventsController {
@@ -17,10 +18,11 @@ export class EventsController {
         return this.eventsService.create(createEventDto);
     }
 
-  @Put('attendance/:eventId/:userId')
-    attendanceRecord(@Param('eventId') eventId: ObjectId, @Param('userId') userId: ObjectId) {
-      return this.eventsService.attendanceRecord(eventId, userId);
-    }
+  @Put('attendance')
+  attendanceRecord(@Body() attendanceRecord: AttendanceRecordDto) {
+      return this.eventsService.attendanceRecord(attendanceRecord);
+      // return {message:'Access'};
+  }
 
   @Put('inscription')
   eventInscription(@Body() eventInscriptionDto: EventInscriptionDto) {

@@ -16,7 +16,9 @@ const AllEvents =  React.lazy(() => import('./pages/AllEvents/AllEvents'));
 const MyEvents =  React.lazy(() => import('./pages/MyEvents/MyEvents'));
 const FAQ = React.lazy(() => import('./pages/FAQ/FAQ'));
 const ConfigBoard = React.lazy(() => import('./pages/ConfigBoard/ConfigBoard'));
+// const AccessControl = React.lazy(() => import('./pages/AccessControl/AccessControl'));
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import AccessControl from './pages/AccessControl/AccessControl';
 import ScrollTopButton from './components/ScrollTopButton/ScrollTopButton';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import SignupAdmin from './pages/SignupAdmin/SignupAdmin';
@@ -101,6 +103,7 @@ function App() {
                                     <SignupAdmin />
                                 </ProtectedRoute>
                             } />
+                            <Route path="/accesscontrol" element={<AccessControl />} />
                             <Route path="/faq" element={<FAQ />} />
                             <Route path="/eventslist" element={<EventsList />} />
                             <Route path="/event/:_id" element={<EventDetail />} />

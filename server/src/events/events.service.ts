@@ -7,6 +7,7 @@ import { generateEventQR, generateUserQR } from '../utils/qr.generator';
 import { EventInscriptionDto } from './dto/event-inscription.dto';
 import { EventUnsubscriptionDto } from './dto/event-unsubscription.dto';
 import { buffer } from 'stream/consumers';
+import { AttendanceRecordDto } from './dto/event-attendance-record.dto';
 
 
 @Injectable()
@@ -74,13 +75,28 @@ export class EventsService {
     return await this.eventModel.findByIdAndDelete(id);
   }
 
-  async attendanceRecord(eventId: ObjectId, userId: ObjectId) {
+  async attendanceRecord(attendanceRecord: AttendanceRecordDto) {
     try{
-      const userAttendee = await this.eventModel.find({ _id: eventId }).select('attendees').populate('attendees').exec();
+      const updateData = {
+        $push: {
+          attendees: attendanceRecord.userId
+        }
+      }
+
+      const event = await this.eventModel.findOne({ _id: attendanceRecord.eventId, attendees: attendanceRecord.userId }).select('attendees').populate({ 
+        path: 'attendees', 
+        select: ['_id', 'name', 'surname', 'email'] 
+      });
+
+      event['attendees'].forEach(user => {
+        if(user._id.toString() === attendanceRecord.userId) throw new HttpException('Acceso ya usado', HttpStatus.BAD_REQUEST);
+      })
+
+      const eventUpdated = await this.eventModel.findOneAndUpdate({ _id: attendanceRecord.eventId }, updateData, { new: true})
       
-      return 'El registro de usuario se ha realizado con éxito';
+      return eventUpdated;
     } catch(error) {
-      throw new HttpException('Error al registrar la asistencia', HttpStatus.BAD_REQUEST);
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 
