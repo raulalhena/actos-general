@@ -15,7 +15,7 @@ const ConfigBoard = () => {
                 <section className={styles.header}>
                     <div className={styles.topTitle}>
                         <h1 className={styles.dash}>—</h1>
-                        <h1>Crea tu propio evento</h1>
+                        <h1>Personaliza los formularios</h1>
                     </div>
                 </section>
                 <section className={styles.gridSection}>

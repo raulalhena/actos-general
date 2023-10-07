@@ -23,24 +23,28 @@ const HomePage = () => {
     return (
         <>
             <HomePageHeader />
-            <section className={styles.sectionHomePage}>
-                <div className={styles.title}>
-                    <h1 className={styles.dash}>—</h1>
-                    <h1>Eventos destacados</h1>
-                </div>
-                <div className={styles.cardGrid}>
-                    {allEvents.map((event, index) => (
-                        <CardEvent key={index} eventData={event} />
-                    ))}
-                </div>
-                <div className={styles.buttonSection}>
-                    <Link to='/allevents'>
-                        <ButtonRed
-                            label='Ver todos los eventos'
-                        />
-                    </Link>
-                </div>
-            </section>
+            <div className={styles.page}>
+                <section className={styles.header}>
+                    <div className={styles.topTitle}>
+                        <h1 className={styles.dash}>—</h1>
+                        <h1>Eventos destacados</h1>
+                    </div>
+                </section>
+                <section className={styles.gridSection}>
+                    <div className={styles.cardGrid}>
+                        {allEvents.map((event, index) => (
+                            <CardEvent key={index} eventData={event} />
+                        ))}
+                    </div>
+                    <div className={styles.buttonSection}>
+                        <Link to='/allevents'>
+                            <ButtonRed
+                                label='Ver todos los eventos'
+                            />
+                        </Link>
+                    </div>
+                </section>
+            </div>
         </>
     );
 };

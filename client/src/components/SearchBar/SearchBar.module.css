@@ -4,10 +4,9 @@
   gap: 0.5rem;
 }
 
-.searchBar{
+.searchBar {
   display: flex;
-  gap: 0.5rem;
-  
+  gap: 1rem;
 }
 
 .searchInput {
@@ -63,7 +62,6 @@
 
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
-
   .searchBarContainer {
     display: flex;
     flex-direction: row;
@@ -73,5 +71,4 @@
   .searchInput {
     width: 500px;
   }
-  
 }
