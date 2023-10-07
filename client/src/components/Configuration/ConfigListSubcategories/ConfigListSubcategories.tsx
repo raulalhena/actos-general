@@ -101,7 +101,7 @@ const ConfigListSubcategories = () => {
                             <li key={subcategory.name} className={styles.eventChips}>
                                 {subcategory.name}
                                 <button className={styles.eventItem} onClick={() =>handleSubcategoryDelete(selectedCategory,subcategory)}>Eliminar</button>
-                         
+                        
                             </li>
                         ))}
                     </ul>

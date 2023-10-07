@@ -12,6 +12,10 @@
   align-items: center;
 }
 
+.form {
+  min-height: 61vh;
+}
+
 .title {
   display: flex;
   margin: 3rem 0;

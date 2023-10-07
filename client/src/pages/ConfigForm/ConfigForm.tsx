@@ -13,7 +13,6 @@ const ConfigForm = () => {
     const location = useLocation();
     const propsData = location.state;
 
-    console.log('action', propsData);
 
     const renderSwitch = () => {
         switch(propsData) {
