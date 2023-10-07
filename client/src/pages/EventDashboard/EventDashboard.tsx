@@ -67,7 +67,9 @@ const EventDashboard = () => {
             {!showPDF ? (
                 <div className={styles.page}>
                     <div className={styles.pageContainer}>
+                        
                         <section className={styles.top}>
+                            {/* TITLE */}
                             <div>
                                 <Link target="_blank" to={`/event/${eventData._id}`}>
                                     <div className={styles.eventTitleSection}>
@@ -79,7 +81,7 @@ const EventDashboard = () => {
                                     </div>
                                 </Link>
                             </div>
-                            <h5>Resumen del evento</h5>
+                            {/* INSCRIPTIONS RECAP */}
                             {process.env.NODE_ENV !== 'test' ? ( //ignora esta parte en test
                                 <InscriptionsRecap
                                     eventData={eventData}
@@ -87,6 +89,7 @@ const EventDashboard = () => {
                                 />
                             ) : null}
                         </section>
+                        {/* EVENT INFO */}
                         <EventDashboardForm eventData={eventData} />
                     </div>
                 </div>
