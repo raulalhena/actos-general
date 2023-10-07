@@ -8,7 +8,8 @@ import { FaUserCheck } from 'react-icons/fa';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 import { User } from '../../interfaces/User';
 import Preloader from '../Preloader/Preloader';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+
 
 interface InscriptionsRecapProps {
     eventData: EventFormProps;

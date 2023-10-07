@@ -38,7 +38,7 @@ const SubmittedList = () => {
                 <div className={styles.pageContainer}>
                     <div className={styles.title}>
                         <h1 className={styles.dash}>—</h1>
-                        <h1>Usuarios inscritos {submittedProps.mode}</h1>
+                        <h1>Usuarios inscritos</h1>
                     </div>
                     <div>{isLoading && <Preloader />}</div>
                     <div className={styles.eventList} data-testid="eventsList-page">
