@@ -8,6 +8,7 @@ import { FaUserCheck } from 'react-icons/fa';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 import { User } from '../../interfaces/User';
 import Preloader from '../Preloader/Preloader';
+import { useLocation } from 'react-router-dom';
 
 interface InscriptionsRecapProps {
     eventData: EventFormProps;
@@ -17,14 +18,28 @@ interface InscriptionsRecapProps {
 const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
 
     const [ isModalOpen, setIsModalOpen ] = useState(false);
-    const [ users, setUsers ] = useState<Array<User>>([]);
     const [ isLoading, setIsLoading ] = useState(true);
-    const [ modalTitle, setModalTitle ] = useState(''); // Adicione o estado para o título
+    const [ modalTitle, setModalTitle ] = useState(''); 
+
+    // const [ users, setUsers ] = useState<Array<User>>([]);
+    const [ users, setUsers ] = useState<Array<User>>([ {
+        id: '',
+        name: '',
+        surname: '',
+        email: '',
+        role: '',
+        token: ''
+    } ]);
+
+    // const location = useLocation();
+    // const submittedProps = location.state;
 
     const submittedProps = {
         id: eventData._id,
         mode: eventData.mode
     };
+
+    console.log('aqui:', submittedProps);
 
     let totalSubmitted = 0;
     let totalSubmittedOnline = 0;
@@ -38,7 +53,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
     }
 
     const openModal = (title: string) => {
-        setModalTitle(title); // Define o título com base no texto clicado
+        setModalTitle(title); 
         setIsModalOpen(true);
     };
 
@@ -46,9 +61,15 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
         const getAllEvents = async () => {
             const respo = await fetch(`http://localhost:8000/api/events/${submittedProps.id}/submitted/?mode=${submittedProps.mode}`);
             const eventsData = await respo.json();
+            console.log('eventdta:',JSON.stringify(eventData));
 
-            setUsers(eventsData[0].submitted);
+            if(!respo.ok) {
+                setIsLoading(false);
+                return;
+            }
+            setUsers(eventsData);            
             setIsLoading(false);
+            return;
         };
 
         getAllEvents();
@@ -131,13 +152,16 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                                     <div key={index}>
                                         <div className={styles.eventItem}>
                                             <h2
-                                                className={styles.h2Modal}
-                                                id={user._id}
+                                                className={styles.pModal}
+                                            
+                                                id={user?.userId?._id}
                                             >
-                                                {user.name} {user.surname}
+                                            
+                                                {user?.userId?.name} {user?.userId?.surname}
                                             </h2>
                                             <span className={styles.cardSubcategory}>
-                                                {user.email}
+                                        
+                                                {user?.userId?.email}
                                             </span>
                                         </div>
                                     </div>
