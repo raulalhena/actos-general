@@ -5,7 +5,11 @@ import Preloader from '../../components/Preloader/Preloader';
 import { useLocation } from 'react-router-dom';
 
 const SubmittedList = () => {
-    const [ users, setUsers ] = useState<Array<User>>([]);
+    const [ users, setUsers ] = useState<Array<User>>([ {
+        name: '',
+        username: '',
+        email: ''
+    } ]);
     const [ isLoading, setIsLoading ] = useState(true);
 
     const location = useLocation();
@@ -17,7 +21,7 @@ const SubmittedList = () => {
             const eventsData = await respo.json();
 
             setUsers(eventsData);
-            console.log(eventsData);
+            console.log('eve', eventsData)
             setIsLoading(false);
         };
 
@@ -34,17 +38,17 @@ const SubmittedList = () => {
                     </div>
                     <div>{isLoading && <Preloader />}</div>
                     <div className={styles.eventList} data-testid="eventsList-page">
-                        {users && users.map((user: User, index: number) => (
+                        {users && users.map((user, index) => (
                             <div key={index}>
                                 <div className={styles.eventItem}>
                                     <h2
                                         className={styles.eventTitle}
-                                        id={user._id}
+                                        id={user?.userId._id}
                                     >
-                                        {user.name} {user.surname}
+                                        {user?.userId.name} {user?.userId.surname}
                                     </h2>
                                     <span className={styles.cardSubcategory}>
-                                        {user.email}
+                                        {user?.userId.email}
                                     </span>
                                 </div>
                             </div>

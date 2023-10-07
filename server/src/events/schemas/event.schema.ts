@@ -59,12 +59,12 @@ export class Event {
 
   @Prop({ type: [ { type: mongoose.Schema.Types.ObjectId, ref: User.name } ], default: [] })
       attendees: mongoose.Types.ObjectId[];
-
-  @Prop({ type: [{ user: { type: mongoose.Schema.Types.ObjectId, ref: User.name  } }]})
-      submitted: { user: mongoose.Types.ObjectId };
-    //   users: mongoose.Types.ObjectId,
-    //   qrUser: string
-    // }[];
+    //{ type: [{ user:  }]}
+  @Prop({ type: [ { userId: { type: mongoose.Schema.Types.ObjectId, ref: User.name }, qrUser: { type: String } } ] })
+      submitted: { 
+        userId: mongoose.Schema.Types.ObjectId,
+        qrUser: String;
+        }[];
 
   @Prop({ type: [ { userId: { type: mongoose.Schema.Types.ObjectId, ref: User.name }} ], default: [] })
       submittedOnline: User;

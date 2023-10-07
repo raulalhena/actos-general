@@ -3,7 +3,7 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types, ObjectId } from 'mongoose';
-import { generateEventQR } from '../utils/qr.generator';
+import { generateEventQR, generateUserQR } from '../utils/qr.generator';
 import { EventInscriptionDto } from './dto/event-inscription.dto';
 import { EventUnsubscriptionDto } from './dto/event-unsubscription.dto';
 import { buffer } from 'stream/consumers';
@@ -58,11 +58,11 @@ export class EventsService {
 
   async findUserEvents(id: ObjectId) {
     try{
-      const userEvents = await this.eventModel.find().populate('submitted');
+      const userEvents = await this.eventModel.find({ 'submitted.userId': id });
 
-      // const userEvents = await this.eventModel.find({ $or: [{ 'submitted.user': id }, { submittedOnline: id }] });
-      console.log(userEvents[0]['submitted'][0])
-      return userEvents[0]['submitted'];
+      // const userEvents = await this.eventModel.find({ $or: [{ 'submitted.userId': id }, { submittedOnline: id }] });
+      console.log(userEvents)
+      return userEvents;
     } catch(error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
@@ -98,15 +98,19 @@ export class EventsService {
   
   async eventInscription(eventInscriptionDto: EventInscriptionDto) {
     try {
-      // const updateData = {
-      //   $push: { 
-      //     submitted: { 
-      //       user: eventInscriptionDto.userId,  
-      //       qrUser: 'aaa'
-      //     }
-      //   }
-      // }
-      const updateData = { $push: { submitted: { user: eventInscriptionDto.userId }}};
+      const userQR = await generateUserQR(eventInscriptionDto.eventId, eventInscriptionDto.userId);
+      const buff = Buffer.from(userQR);
+      const base64qr = 'data:image/png;base64,' + buff.toString('base64');
+
+      console.log(base64qr);
+      const updateData = {
+        $push: { 
+          submitted: { 
+            userId: eventInscriptionDto.userId,  
+            qrUser: base64qr
+          }
+        }
+      }
       const updateEventSubmitted = await this.eventModel.findOneAndUpdate({ _id: eventInscriptionDto.eventId }, updateData, { new: true })
 
       return updateEventSubmitted;
@@ -145,11 +149,10 @@ export class EventsService {
   async eventUnsubscription(eventUnsubscriptionDto: EventUnsubscriptionDto) {
     try {
       const unsuscribedEvent = { 
-        $pull: { submitted: eventUnsubscriptionDto.userId }
+        $pull: { 'submitted': { userId: eventUnsubscriptionDto.userId }}
       };
 
       const updatedUnsuscribedEvent = await this.eventModel.findByIdAndUpdate({ _id: eventUnsubscriptionDto.eventId }, unsuscribedEvent, { new: true });
-
       return updatedUnsuscribedEvent;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -162,7 +165,10 @@ export class EventsService {
       let submittedMode = '';
       if(mode === 'En Línea') submittedMode = 'Online';
       
-      const submittedList = await this.eventModel.find({ _id: id }).select(`submitted${submittedMode}.userId`).populate(`submitted${submittedMode}.userId`);
+      const submittedList = await this.eventModel.find({ _id: id }).select(`submitted${submittedMode}.userId`).populate({ 
+        path: `submitted${submittedMode}.userId`, 
+        select: ['name', 'surname', 'email'] 
+      });
       console.log(submittedList[0]['submitted'])
       return submittedList[0]['submitted'];
     } catch (error) {
