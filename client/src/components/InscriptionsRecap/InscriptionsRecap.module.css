@@ -1,3 +1,4 @@
+/*****  HEADER RESUME DASHBOARD *********/
 .container {
   display: flex;
   flex-direction: column;
@@ -17,6 +18,12 @@
   max-width: 780px;
 }
 
+.textLink:hover {
+  font-weight: 700;
+  color: #e15a40;
+  cursor: pointer;
+}
+
 .containerSection a,
 .containerSection p {
   display: flex;
@@ -32,15 +39,11 @@
   color: #e15a40;
 }
 
+
+
 .inscriptionsSection {
   font-weight: 700;
   color: #e15a40;
-}
-
-.icon {
-  font-size: 16px;
-  color: #1c2e48;
-  font-weight: 500;
 }
 
 .pdfButton {
@@ -56,6 +59,109 @@
   cursor: pointer;
 }
 
+
+/***** MODAL*********/
+
+.modalContent {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  width: 50%;
+  height: fit-content;
+  transform: translate(-50%, -50%);
+  border-radius: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 2rem 2rem;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: end;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  display: flex;
+  color: #e15a40;
+  position: absolute;
+  right: .8rem;
+  top: .3rem;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  max-width: 400px;
+}
+
+.dash {
+  color: #e15a40;
+  margin-bottom: 1.5rem;
+}
+
+.h2Modal {
+  color: #1c2e48;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  margin-right: 2rem;
+}
+
+.pModal {
+  font-size: 14px;
+  color: #1c2e48;
+  font-weight: 500;
+}
+
+.eventList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.eventItem {
+  max-width: 400px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem 1rem;
+  color: #1c2e48;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  border-style: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+  gap: 1rem;
+}
+
+.cardSubcategory {
+  border-radius: 16px;
+  padding: 0.3rem 0.7rem;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 16px;
+  background-color: white;
+  color: #e15a40;
+  border: 1px solid #e15a40;
+  height: fit-content;
+}
+.eventChips {
+  display: flex;
+  gap: 0.5rem;
+}
+
+
 /* Para pantallas más grandes o iguales a 768px (md) */
 @media screen and (min-width: 768px) {
   .container {
@@ -65,6 +171,25 @@
   .containerSection a,
   .containerSection p {
     font-size: 16px;
+  }
+
+  .eventItem {
+    max-width: 750px;
+  }
+
+  .title {
+    margin-bottom: 2rem;
+    gap: 1rem;
+    max-width: 800px;
+  }
+
+  .eventTitle {
+    max-width: 800px;
+    width: 800px;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 
 

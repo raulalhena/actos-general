@@ -30,7 +30,7 @@ const TypeForm = () => {
         e.preventDefault();
 
         const res = fetch(
-            `http://localhost:8000/api/misc/types`,
+            `http://localhost:8000/api/types`,
             {
                 method: 'POST',
                 headers: {

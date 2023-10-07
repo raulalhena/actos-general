@@ -24,7 +24,9 @@ const EventsList = () => {
     const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const { id } = e.target;
+        window.scroll(0,0);
         navigate('/eventdashboard', { state: { id: id } });
+        
     };
 
     return (

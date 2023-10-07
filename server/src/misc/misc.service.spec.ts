@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MiscService } from './misc.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { CreateLanguageDto } from './dto/create-language.dto';
-import { CreateTypeDto } from './dto/create-type.dto';
-import { CreateTimeDto } from './dto/create-time.dto';
-import { CreateTimeZoneDto } from './dto/create-timezone.dto';
+import { CreateCategoryDto } from '../categories/dto/create-category.dto';
+import { CreateLanguageDto } from '../languages/dto/create-language.dto';
+import { CreateTypeDto } from '../types/dto/create-type.dto';
+import { CreateTimeDto } from '../times/dto/create-time.dto';
+import { CreateTimeZoneDto } from '../timezones/dto/create-timezone.dto';
 import mongoose, { Schema } from 'mongoose';
 
 const category =  {

@@ -23,7 +23,7 @@ import SignupAdmin from './pages/SignupAdmin/SignupAdmin';
 import ConfigForm from './pages/ConfigForm/ConfigForm';
 import SubmittedList from './pages/SubmittedList/SubmittedList';
 import ConfigList from './components/Configuration/List/ConfigList';
-import SignupAdminForm from './components/SignupAdminForm/SignupAdminForm';
+import ConfigListSubcategories from './components/Configuration/ConfigListSubcategories/ConfigListSubcategories';
 
 function Layout({ children }: any) {
     return (
@@ -74,6 +74,11 @@ function App() {
                             <Route path='/config/configlist' element={
                                 <ProtectedRoute role={ [ 'admin' ] }>
                                     <ConfigList />
+                                </ProtectedRoute>
+                            } />
+                            <Route path='/config/configlistsubcategories' element={
+                                <ProtectedRoute role={ [ 'admin' ] }>
+                                    <ConfigListSubcategories />
                                 </ProtectedRoute>
                             } />
                             <Route path='/config/configform' element={

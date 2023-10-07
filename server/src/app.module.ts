@@ -10,6 +10,14 @@ import { AuthModule } from './auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { CategoriesModule } from './categories/categories.module';
+import { TypesModule } from './types/types.module';
+import { LanguagesModule } from './languages/languages.module';
+import { ModesModule } from './modes/modes.module';
+import { TimesModule } from './times/times.module';
+import { TimezonesModule } from './timezones/timezones.module';
+import { CapacitiesModule } from './capacities/capacities.module';
+import { ActivesModule } from './actives/actives.module';
+import { VisibilitiesModule } from './visibilities/visibilities.module';
 
 @Module({
   imports: [
@@ -23,7 +31,15 @@ import { CategoriesModule } from './categories/categories.module';
     MiscModule,
     MongooseModule.forRoot(process.env.MONGODB_URI),
     AuthModule,
-    CategoriesModule
+    CategoriesModule,
+    TypesModule,
+    LanguagesModule,
+    ModesModule,
+    TimesModule,
+    TimezonesModule,
+    CapacitiesModule,
+    ActivesModule,
+    VisibilitiesModule
   ],
   controllers: [AppController],
   providers: [AppService],

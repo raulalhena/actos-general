@@ -509,7 +509,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     useEffect(() => {
         const getActiveEvents = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/active');
+                const response = await fetch('http://localhost:8000/api/actives');
                 const data = await response.json();
                 setActive(data.map((active: { name: string; }) => active.name));
             } catch (error) {
@@ -523,7 +523,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     useEffect(() => {
         const getCategories = async () => {
             let categoryId = '';
-            const resp = await fetch('http://localhost:8000/api/misc/categories');
+            const resp = await fetch('http://localhost:8000/api/categories');
             const categoriesDb = await resp.json();
 
             setCategories(categoriesDb);
@@ -540,7 +540,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // Get Subcategories
     const getSubcategories = async (selectedCategory: string) => {
         if(selectedCategory) {
-            const resp = await fetch(`http://localhost:8000/api/misc/categories/${selectedCategory}/subcategories`);
+            const resp = await fetch(`http://localhost:8000/api/categories/${selectedCategory}/subcategories`);
             const subcategoriesDb = await resp.json();
             setSubcategories(Array.from(subcategoriesDb.subcategories));
         }
@@ -550,7 +550,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     useEffect(() => {
         const getTypes = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/types');
+                const response = await fetch('http://localhost:8000/api/types');
                 const data = await response.json();
                 const typeNames = data.map((type: { name: string; }) => type.name);
                 setTypes(typeNames);
@@ -565,7 +565,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     useEffect(() => {
         const getLanguages = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/languages');
+                const response = await fetch('http://localhost:8000/api/languages');
                 const data = await response.json();
                 const language = data.map((language: { name: string; }) => language.name);
                 setLanguages(language);
@@ -581,7 +581,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     useEffect(() => {
         const getTimeZone = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/timezones');
+                const response = await fetch('http://localhost:8000/api/timezones');
                 const data = await response.json();
                 const timeZone = data.map((timeZone: { name: string; }) => timeZone.name);
                 setTimeZone(timeZone);
@@ -596,7 +596,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     useEffect(() => {
         const getTime = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/times');
+                const response = await fetch('http://localhost:8000/api/times');
                 const data = await response.json();
                 const time = data.map((time: { name: string; }) => time.name);
                 setTime(time);
@@ -630,7 +630,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
         
         const getMode = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/misc/modes');
+                const response = await fetch('http://localhost:8000/api/modes');
                 const data = await response.json();
                 const modeData = data.map((mode: {
                         _id : string; 
