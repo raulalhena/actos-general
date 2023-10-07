@@ -100,7 +100,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                         </>
                     )
                         :
-                        <p onClick={() => openModal('Presencial')} className={styles.textLink}>
+                        <p onClick={() => openModal(modeInfo.mode)} className={styles.textLink}>
                             {modeInfo.totalSubmitted}/{modeInfo.capacity || modeInfo.capacity === '0' ? modeInfo.capacity + ' ' : '- ' } 
                                 Usuarios Inscritos {modeInfo.mode}
                         </p>  
