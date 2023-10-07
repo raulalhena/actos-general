@@ -21,6 +21,7 @@
   cursor: pointer;
   max-width: 750px;
   gap: 1rem;
+  font-size: 14px;
 }
 
 .containerSection:hover  {
@@ -39,7 +40,6 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 14px;
   color: #1c2e48;
   font-weight: 500;
 }
@@ -62,10 +62,10 @@
 .pdfButton {
   border-style: none;
   background-color: transparent;
-  font-size: 16px;
   color: #1c2e48;
   font-weight: 500;
   font-family: "Inter", sans-serif;
+  font-size: 14px;
 }
 
 .pdfButton:hover {
@@ -76,6 +76,26 @@
   color: #e15a40;
   font-size: 20px;
 }
+
+/* Para pantallas más grandes o iguales a 768px (md) */
+@media screen and (max-width: 768px) {
+  .containerSection {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    gap: 0.5rem;
+    font-size: 14px;
+  }  
+
+  .downloadOptions {
+    flex-direction: column;
+  }
+
+  .divider {
+    display: none;
+  }
+}
+
 
 /***** MODAL*********/
 

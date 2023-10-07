@@ -768,6 +768,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                             onChange={handleInputChange}
                         />
                         <br />
+                        <br />
                         <TextArea
                             id="description"
                             label="Descripción del evento *"

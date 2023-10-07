@@ -22,7 +22,6 @@
 
 .configCard:hover {
   color: #e15a40;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   border: 2px solid  #e15a40;
 }
 

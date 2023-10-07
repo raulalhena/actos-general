@@ -67,7 +67,6 @@ const EventDashboard = () => {
             {!showPDF ? (
                 <div className={styles.page}>
                     <div className={styles.pageContainer}>
-                        
                         <section className={styles.top}>
                             {/* TITLE */}
                             <div>
