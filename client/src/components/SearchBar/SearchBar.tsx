@@ -68,15 +68,6 @@ function SearchBar() {
     return (
         <div className={styles.searchBarContainer}>
             <div className={styles.searchBar}>
-                <input
-                    type="text"
-                    className={styles.searchInput}
-                    placeholder="Buscar eventos"
-                    value={searchValue}
-                    onChange={handleInputChange}
-                    aria-label="Buscar eventos"
-                    onKeyPress={handleKeyPress}
-                />
                 <div className={styles.filterField}>
                     <DropdownFilter
                         id="search"
@@ -86,9 +77,21 @@ function SearchBar() {
                         onChange={handleFilterChange}
                     />
                 </div>
-                <button className={styles.searchIcon} onClick={handleSearch}>
-                    <FaSearch />
-                </button>
+                <div className={styles.searchSection}>
+                    <input
+                        type="text"
+                        className={styles.searchInput}
+                        placeholder="Buscar eventos"
+                        value={searchValue}
+                        onChange={handleInputChange}
+                        aria-label="Buscar eventos"
+                        onKeyPress={handleKeyPress}
+                    />
+                
+                    <button className={styles.searchIcon} onClick={handleSearch}>
+                        <FaSearch />
+                    </button>
+                </div>
             </div>
         </div>
     );

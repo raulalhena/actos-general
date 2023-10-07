@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import  Style from './DropdownFilter.module.css';
+import Style from './DropdownFilter.module.css';
 import { default as ReactSelect } from 'react-select';
 import { components } from 'react-select';
 import { DropDownCheckProps } from '../../interfaces/dropDownCheckProps.js';
@@ -23,7 +23,7 @@ function DropdownFilter(props: DropDownCheckProps) {
     const { options, values, onChange } = props;
 
     const toJsonObject = (element: string): object => {
-        return { 
+        return {
             value: element,
             label: element,
         };
@@ -34,20 +34,16 @@ function DropdownFilter(props: DropDownCheckProps) {
     const toString = (element: { value: string }): string => {
         return element.value;
     };
-    
+
     const handleChange = (selectedOption: any) => {
         setSelected(selectedOption);
         onChange(selectedOption.map(toString));
-
     };
 
     return (
         <div className={Style.option}>
-
             <div>
-                <span
-                    className={`d-inline-block`}
-                >
+                <span className={`d-inline-block`}>
                     <ReactSelect
                         options={options.map(toJsonObject)}
                         isMulti
@@ -62,21 +58,19 @@ function DropdownFilter(props: DropDownCheckProps) {
                         styles={{
                             control: (baseStyles, state) => ({
                                 ...baseStyles,
-                                'background': 'rgba(255, 255, 255, 0.5)',
-                                'boxShadow': '0px 2px 4px rgba(0, 0, 0, 0.2)',
-                                'borderColor': state.isFocused ? '#e15a40' : 'none',
-                                'borderStyle': 'none',
+                                'background': 'white',
+                                'paddingLeft': '1rem',
+                                'border': 'none', 
+                                'borderRadius': '25px', 
                                 'outline': state.isFocused ? 'none' : '#cacaca',
                                 '&:hover': {
                                     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.3)',
                                 },
                                 'color': state.isFocused ? 'red' : 'grey',
-
                             }),
                             menu: (baseStyles) => ({
                                 ...baseStyles,
                                 textAlign: 'left',
-                                
                             }),
                             input: (baseStyles) => ({
                                 ...baseStyles,
@@ -88,21 +82,17 @@ function DropdownFilter(props: DropDownCheckProps) {
                                 fontSize: '16px',
                                 fontWeight: 400,
                                 paddingLeft: '1rem',
-
                             }),
                             dropdownIndicator: (base, state) => ({
                                 ...base,
                                 color: state.isFocused ? 'grey' : '#e15a40',
-                        
                             }),
                         }}
                     />
                 </span>
             </div>
-            
         </div>
     );
-
 }
 
 export default DropdownFilter;
