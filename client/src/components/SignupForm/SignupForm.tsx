@@ -122,7 +122,7 @@ const SignupForm = () => {
                 <form onSubmit={handleSubmit}>
                     <ToastContainer position="top-right" autoClose={3000} />
                     <section className={styles.optionTitle}>
-                        <h2>¿Ya tienes cuenta?</h2>
+                        <h4>¿Ya tienes cuenta?</h4>
                         <Link to="/login" className={styles.registerLink}>
                             Inicia sesión
                         </Link>

@@ -59,7 +59,7 @@ const LogInForm = () => {
             <div className={styles.form}>
                 <form onSubmit={handleSubmit}>
                     <section className={styles.optionTitle}>
-                        <h2>¿No tienes cuenta?</h2>
+                        <h4>¿No tienes cuenta?</h4>
                         <Link to="/signup" className={styles.registerLink}>
               Regístrate
                         </Link>

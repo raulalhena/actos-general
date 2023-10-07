@@ -26,22 +26,10 @@
   margin: 2rem 0 2rem 0;
   font-size: 12px;
   color: #1c2e48;
+  font-weight: 600;
 }
 
 .buttonSection {
   display: flex;
   justify-content: center;
-}
-
-
-/* Para pantallas más grandes o iguales a 900px (xl) */
-@media screen and (min-width: 900px) {
-
-  .optionTitle {
-    margin-bottom: 3rem;
-  }  
-
-  .forgotPasswordLink {
-    margin: 2rem 0 3rem 0;
-  }
 }

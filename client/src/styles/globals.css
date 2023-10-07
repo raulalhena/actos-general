@@ -32,6 +32,12 @@ h3 {
   font-weight: 600;
 }
 
+h4 {
+  font-weight: 600;
+  font-size: 14px;
+  color: grey;
+}
+
 a {
   font-size: 14px;
   color: #e15a40;
