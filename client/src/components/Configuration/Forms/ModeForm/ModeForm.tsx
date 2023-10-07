@@ -2,19 +2,30 @@ import { useState, ChangeEvent } from 'react';
 import styles from './ModeForm.module.css';
 import TextInput from '../../../TextInput/TextInput';
 import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
+import ModalDisplay from '../../../Modal/ModalDisplay';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface ModeData {
-  name: string;
-  description: string;
+    name: string;
+    description: string;
 }
 
 const ModeForm = () => {
 
     //  States
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
     const [ modeData, setModeData ] = useState<ModeData>({
         name: '',
         description: '',
     });
+
+    const resetForm = () => {
+        setModeData({
+            name: '',
+            description: '',
+        });
+    };
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -26,10 +37,16 @@ const ModeForm = () => {
         });
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit =  (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsModalOpen(true);
+        window.scrollTo(0, 0);
+    };
 
-        const res = fetch(
+    //Save
+    const handleSave = async () => {
+
+        const res = await fetch(
             `http://localhost:8000/api/modes`,
             {
                 method: 'POST',
@@ -40,12 +57,33 @@ const ModeForm = () => {
             }
         );
 
-        if (res.ok) console.log('modal');
-        return;
+        if (res.ok) {
+            toast.success('Los cambios se han guardado con éxito', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+    
+            resetForm();
+            setIsModalOpen(false);
+            window.scrollTo(0, 0);
+        } else {
+            toast.error('Hubo un error al guardar los cambios', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+        }
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        window.scrollTo(0, 0);
     };
 
     return (
         <div className={styles.subcategoryPage}>
+            <ToastContainer  />
             <div className={styles.container}>
                 <div className={styles.form}>
                     <form onSubmit={handleSubmit}>
@@ -82,6 +120,21 @@ const ModeForm = () => {
                             <ButtonSubmit label="Guardar" />
                         </div>
                     </form>
+                    <div>
+                        {isModalOpen && (
+                            <ModalDisplay
+                                title={'Quieres guardar?'}
+                                subtitle={''}
+                                button1Text={'Guardar'}
+                                button2Text={'Cancelar'}
+                                onClose={closeModal}
+                                isOpen={true}
+                                onButton1Click={handleSave}
+                                onButton2Click={closeModal}
+                                showCloseButton={true}
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
