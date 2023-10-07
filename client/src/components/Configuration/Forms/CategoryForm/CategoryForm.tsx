@@ -39,15 +39,13 @@ const CategoryForm = () => {
 
     const handleSubmit =  (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('pasa aqui??');
-
         setIsModalOpen(true);
         window.scrollTo(0, 0);
     };
 
     //Save
     const handleSave = async () => {
-        console.log('pasa');
+        
         const res = await fetch(
             `http://localhost:8000/api/categories/`,
             {
@@ -60,7 +58,6 @@ const CategoryForm = () => {
         );
     
         if (res.ok) {
-            console.log('gusardado');
             toast.success('Los cambios se han guardado con éxito', {
                 position: 'top-right',
                 autoClose: 2500,
@@ -71,7 +68,6 @@ const CategoryForm = () => {
             setIsModalOpen(false);
             window.scrollTo(0, 0);
         } else {
-            console.log('badd');
             toast.error('Hubo un error al guardar los cambios', {
                 position: 'top-right',
                 autoClose: 2500,
