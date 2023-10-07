@@ -11,12 +11,14 @@ import styles from './ConfigBoard.module.css';
 const ConfigBoard = () => {
     return (
         <>
-            <div className={styles.pageConfig}>
-                <div className={styles.pageContainer}>
-                    <div className={styles.titleConfig}>
+            <div className={styles.page}>
+                <section className={styles.header}>
+                    <div className={styles.topTitle}>
                         <h1 className={styles.dash}>—</h1>
-                        <h1>Personaliza tus formularios</h1>
+                        <h1>Crea tu propio evento</h1>
                     </div>
+                </section>
+                <section className={styles.gridSection}>
                     <div className={styles.configGrid}>
                         <CategoryConfigCard />
                         <SubcategoryConfigCard />
@@ -27,7 +29,7 @@ const ConfigBoard = () => {
                         <LanguageConfigCard />
                         <VisibilityConfigCard />
                     </div>
-                </div>
+                </section>
             </div>
         </>
     );

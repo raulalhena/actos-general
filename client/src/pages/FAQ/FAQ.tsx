@@ -38,14 +38,15 @@ const FAQ = () => {
     };
 
     return (
-        <div className={styles.container}>
-            <img src={faq} className={styles.faqImg} alt="faq" />
-
-            <div className={styles.faqPage}>
-                <div className={styles.title}>
+        <div className={styles.page}>
+            <section className={styles.header}>
+                <div className={styles.topTitle}>
                     <h1 className={styles.dash}>—</h1>
-                    <h1>Preguntas frecuentes</h1>
+                    <h1>Preguntas frequentes</h1>
                 </div>
+            </section>
+            <section className={styles.faqSection}>
+                <img src={faq} className={styles.faqImg} alt="faq" />
                 <div className={styles.faqContainer}>
                     {faqData.map((item, index) => (
                         <div
@@ -67,7 +68,7 @@ const FAQ = () => {
                         </div>
                     ))}
                 </div>
-            </div>
+            </section>
         </div>
     );
 };
