@@ -31,15 +31,10 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
         token: ''
     } ]);
 
-    // const location = useLocation();
-    // const submittedProps = location.state;
-
     const submittedProps = {
         id: eventData._id,
         mode: eventData.mode
     };
-
-    console.log('aqui:', submittedProps);
 
     let totalSubmitted = 0;
     let totalSubmittedOnline = 0;
@@ -61,7 +56,6 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
         const getAllEvents = async () => {
             const respo = await fetch(`http://localhost:8000/api/events/${submittedProps.id}/submitted/?mode=${submittedProps.mode}`);
             const eventsData = await respo.json();
-            console.log('eventdta:',JSON.stringify(eventData));
 
             if(!respo.ok) {
                 setIsLoading(false);
