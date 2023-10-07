@@ -82,12 +82,6 @@ export default function AvatarDropDownMenu() {
                 onClose={handleClose}
             >
                 <MenuItem onClick={handleClose} disableRipple>
-                    <Link to="/configboard" className={styles.dropdownLink}>
-                        <IoMdSettings />
-            Configuración
-                    </Link>
-                </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
                     <Link to="/logout" className={styles.dropdownLink}> <HiLogout /> Cerrar sesión</Link>
                 </MenuItem>
             </StyledMenu>
