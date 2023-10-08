@@ -24,15 +24,14 @@ import TextInputNumber from '../TextInputNumber/TextInputNumber';
 import SelectSmall from '../SelectSmall/SelectSmall';
 import { MdVisibility } from 'react-icons/Md';
 
-type Props = { eventData: EventDashboardFormProps };
+type Props = { eventData: EventDashboardFormProps, onCapacityChanged: (event: string | undefined) => void,  onCapacityOnlineChanged: (event?: string) => void };
 
 // Form
-const EventDashboardForm = ( { eventData }: Props ) => {
+const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineChanged }: Props  ) => {
 
     const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
 
     useEffect(() => {
-        console.log('form fata ', eventData);
         setFormData(eventData);
     }, [ eventData ]);
 
@@ -249,10 +248,16 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                 () => {},
                                 closeModal
                             );
+                            if (capacity!== formData.capacity) {
+                                onCapacityChanged(formData.capacity);
+                            } else if (capacityOnline !== formData.capacityOnline) {
+                                onCapacityOnlineChanged(formData.capacityOnline);
+                            }
                         } 
                     } 
                 },
                 closeModal,
+                
             );
 
         } else {
@@ -502,6 +507,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     const [ time, setTime ] = useState<Array<string>>([]);
     const [ visibility, setVisibility ] = useState<boolean>(false);
     const [ mode, setMode ] = useState<ButtonCardRadioProps[]>([]);
+    const [ capacity, setCapacity ] = useState(formData.capacity);
+    const [ capacityOnline, setCapacityOnline ] = useState(formData.capacityOnline);
 
     // Get all data to fill fields
 
@@ -609,7 +616,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     /*                          VISIBILITY                               */
     useEffect(() => {
-        // Recupere o valor de visibility do localStorage
         const savedVisibility = localStorage.getItem('visibility');
         if (savedVisibility !== null) {
             setVisibility(JSON.parse(savedVisibility));
