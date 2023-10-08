@@ -23,7 +23,7 @@ export class CapacitiesService {
   }
 
   async deleteCapacity(id: string): Promise<void> {
-    const result = await this.capacityModel.deleteOne({ _id: id }).exec();
+    const result = await this.capacityModel.deleteOne({ _id: id })
     if (result.deletedCount === 0) {
       throw new NotFoundException(`Capacity with ID ${id} not found`);
     }

@@ -23,7 +23,7 @@ export class TimesService {
   }
 
   async deleteTime(id: string): Promise<void> {
-    const result = await this.timeModel.deleteOne({ _id: id }).exec();
+    const result = await this.timeModel.deleteOne({ _id: id });
     if (result.deletedCount === 0) {
       throw new NotFoundException(`Time with ID ${id} not found`);
     }

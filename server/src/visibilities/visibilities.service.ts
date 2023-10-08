@@ -23,7 +23,7 @@ export class VisibilitiesService {
   }
 
   async deleteVisibility(id: string): Promise<void> {
-    const result = await this.visibilityModel.deleteOne({ _id: id }).exec();
+    const result = await this.visibilityModel.deleteOne({ _id: id });
     if (result.deletedCount === 0) {
       throw new NotFoundException(`Visibility with ID ${id} not found`);
     }
