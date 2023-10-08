@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTimeDto } from './dto/create-time.dto';
 import { UpdateTimeDto } from './dto/update-time.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -20,5 +20,12 @@ export class TimesService {
 
   findAllTimes() {
     return this.timeModel.find();
+  }
+
+  async deleteTime(id: string): Promise<void> {
+    const result = await this.timeModel.deleteOne({ _id: id });
+    if (result.deletedCount === 0) {
+      throw new NotFoundException(`Time with ID ${id} not found`);
+    }
   }
 }

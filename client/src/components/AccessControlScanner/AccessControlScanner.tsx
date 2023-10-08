@@ -39,6 +39,7 @@ const AccessControlScanner = () => {
             {qrReader ? (
                 <div style={{ maxHeight: '500px',  width: '400', margin: 'auto', overflow: 'hidden' }}>
                     <QrScanner
+                        data-testid="qr-scanner"
                         scanDelay={1000}
                         containerStyle={container}
                         onError={handleError}

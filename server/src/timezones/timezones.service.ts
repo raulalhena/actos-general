@@ -21,4 +21,15 @@ export class TimezonesService {
   findAllTimezones() {
     return this.timezoneModel.find();
   }
+
+  async deleteTimezone(id: string): Promise<void> {
+    const result = await this.timezoneModel.deleteOne({ _id: id });
+    if (result.deletedCount === 0) {
+      throw aNotFoundException(`Timezone with ID ${id} not found`);
+    }
+  }
 }
+function aNotFoundException(arg0: string) {
+  throw new Error('Function not implemented.');
+}
+

@@ -1,6 +1,6 @@
 import styles from '../GlobalConfigCard.module.css';
 import { Link } from 'react-router-dom';
-import { MdCategory } from 'react-icons/md';
+import { TbGoGame } from 'react-icons/tb';
 
 const SubcategoryConfigCard = () => {
     
@@ -8,7 +8,7 @@ const SubcategoryConfigCard = () => {
         <div>
             <Link to={`/config/configlistsubcategories`} state={'subcategories'}>
                 <div className={styles.configCard}>
-                    <MdCategory className={styles.configIcon}/>
+                    <TbGoGame className={styles.configIcon}/>
                     <h5>SUBCATEGORÍAS</h5>
                 </div>
             </Link>

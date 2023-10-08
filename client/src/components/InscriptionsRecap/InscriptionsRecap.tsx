@@ -91,7 +91,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
 
     return (
         <>
-            <div className={styles.container}>
+            <div data-testid="inscriptionRecap" className={styles.container}>
                 <h3>Resumen del evento</h3>
                 <br />
                 <div className={styles.containerSection}>
@@ -100,27 +100,30 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                         <>
                             <div
                                 onClick={() => openModal('Presencial')}
+                                className={styles.textLink}
                             >
                                 {totalSubmitted}/
                                 {eventData.capacity || eventData.capacity === 0
                                     ? eventData.capacity + ' '
                                     : '- '}
-                Usuarios Inscritos Presencial
+                                    Usuarios Inscritos Presencial
                             </div>
                             <div className={styles.divider}>|</div>
                             <div
                                 onClick={() => openModal('Presencial')}
+                                className={styles.textLink}
                             >
                                 {totalSubmittedOnline}/
                                 {eventData.capacityOnline || eventData.capacityOnline === 0
                                     ? eventData.capacityOnline + ' '
                                     : '- '}
-                Usuarios Inscritos En Línea
+                                        Usuarios Inscritos En Línea
                             </div>
                         </>
                     ) : (
                         <div
                             onClick={() => openModal(modeInfo.mode)}
+                            className={styles.textLink}
                         >
                             {modeInfo.totalSubmitted}/
                             {modeInfo.capacity || modeInfo.capacity === 0
@@ -156,12 +159,13 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                 {/* <div className={styles.containerSection}>
                     <RiWhatsappFill className={styles.inscriptionsIcon} />
                     <a
-                        href={`http://web.whatsapp.com/send?text=${encodeURI(eventData.qrEvent)}`}
+                        href={`http://web.whatsapp.com/send?text=Hola, te comparto la información de nuestro evento!`}
                         data-action="share/whatsapp/share"
                         target="_blank"
                     >
                         <div className={styles.pdfButton}>
-            Comparte el QR por Whatsapp</div>
+                            Compartir Información en Whatsapp
+                        </div>
                     </a>
                 </div> */}
             </div>

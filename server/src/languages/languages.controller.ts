@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { LanguagesService } from './languages.service';
 import { CreateLanguageDto } from './dto/create-language.dto';
 import { UpdateLanguageDto } from './dto/update-language.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('languages')
 @Controller('languages')
 export class LanguagesController {
   constructor(private readonly languagesService: LanguagesService) {}
@@ -20,5 +22,10 @@ export class LanguagesController {
   @Get()
   findAllLanguages() {
     return this.languagesService.findAllLanguages();
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.languagesService.deleteLanguage(id);
   }
 }

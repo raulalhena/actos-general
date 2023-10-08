@@ -7,7 +7,7 @@ const TagsInputComponent = (props: TagsInputProps) => {
     const { label, placeHolder, value, onChange , id, subtitle } = props;
     
     return (
-        <div className={styles.tagContainer}>
+        <div data-testid="tags-input" className={styles.tagContainer}>
             <div>
                 <label className={styles.label}>
                     {label}

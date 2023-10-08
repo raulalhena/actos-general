@@ -20,7 +20,6 @@ const generateUserQR = async (eventId: ObjectId, userId: ObjectId) => {
         const imgName = `${eventId.toString()}_${userId.toString()}`;
 
         const qr_svg = qr.image(data, { type: 'png' });
-        qr_svg.pipe(createWriteStream(`src/public/users/${imgName}.png`));   
         const eventQR = qr.imageSync(data, { type: 'png' });
         
         return eventQR;

@@ -42,11 +42,6 @@ function Navbar() {
                                 </Link>
                             </li>
                         )}
-                        <li onClick={removeActive}>
-                            <Link to="/faq" className={styles.navLink}>
-                                FAQ
-                            </Link>
-                        </li>
                         {isLogged && user && user.role === 'admin' && (
                             <li onClick={removeActive}>
                                 <Link to="/createevent" className={styles.navLink}>

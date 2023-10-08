@@ -8,7 +8,9 @@ import { Header } from '@nestjs/common';
 import { EventInscriptionDto } from './dto/event-inscription.dto';
 import { EventUnsubscriptionDto } from './dto/event-unsubscription.dto';
 import { AttendanceRecordDto } from './dto/event-attendance-record.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('events')
 @Controller('events')
 export class EventsController {
     constructor(private readonly eventsService: EventsService) {}

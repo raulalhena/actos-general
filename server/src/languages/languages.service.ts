@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateLanguageDto } from './dto/create-language.dto';
 import { UpdateLanguageDto } from './dto/update-language.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -19,6 +19,13 @@ export class LanguagesService {
 
   findAllLanguages() {
     return this.languageModel.find();
+  }
+
+  async deleteLanguage(id: string): Promise<void> {
+    const result = await this.languageModel.deleteOne({ _id: id })
+    if (result.deletedCount === 0) {
+      throw new NotFoundException(`Language with ID ${id} not found`);
+    }
   }
 
 }

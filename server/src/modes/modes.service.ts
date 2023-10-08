@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateModeDto } from './dto/create-mode.dto';
 import { UpdateModeDto } from './dto/update-mode.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -20,5 +20,12 @@ export class ModesService {
 
   findAllModes() {
     return this.modeModel.find();
+  }
+
+  async deleteMode(id: string): Promise<void> {
+    const result = await this.modeModel.deleteOne({ _id: id });
+    if (result.deletedCount === 0) {
+      throw new NotFoundException(`Mode with ID ${id} not found`);
+    }
   }
 }

@@ -5,7 +5,9 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 import { ObjectId } from 'mongoose';
 import { CreateSubcategoryDto } from './dto/create-subcategory.dto';
 import { Subcategory } from './schema/subcategory.schema';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('categories')
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}

@@ -1,4 +1,4 @@
-import { MdVisibility } from 'react-icons/md';
+import { AiFillEye } from 'react-icons/ai';
 import styles from '../GlobalConfigCard.module.css';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ const VisibilityConfigCard = () => {
         <div>
             <Link to={`/config/configlist`} state={'visibilities'}>
                 <div className={styles.configCard}>
-                    <MdVisibility className={styles.configIcon}/>
+                    <AiFillEye className={styles.configIcon}/>
                     <h5>VISIBILIDAD</h5>
                 </div>
             </Link>

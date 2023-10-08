@@ -19,7 +19,7 @@ const ModalDisplay = (props: ModalDisplayProps) => {
     } = props;
 
     return (
-        <div className={styles.modalPage}>
+        <div data-testid="modal" className={styles.modalPage}>
             <ReactModal
                 isOpen={isOpen}
                 onRequestClose={onClose}
