@@ -5,10 +5,10 @@ import styles from './ConfigListSubcategories.module.css';
 import Preloader from '../../Preloader/Preloader';
 
 interface DataList {
-    name: string;
-    description: string;
-    _id: string;
-    subcategories: SubcategoryProps[];
+  name: string;
+  description: string;
+  _id: string;
+  subcategories: SubcategoryProps[];
 }
 
 const ConfigListSubcategories = () => {
@@ -18,6 +18,7 @@ const ConfigListSubcategories = () => {
     const [ dataList, setDataList ] = useState<DataList[]>([]);
     const [ subcategories, setSubcategories ] = useState<SubcategoryProps[]>([]);
     const [ isLoading, setIsLoading ] = useState(true);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -36,7 +37,6 @@ const ConfigListSubcategories = () => {
         };
 
         fetchData();
-
     }, [ propsData ]);
 
     const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -47,7 +47,7 @@ const ConfigListSubcategories = () => {
         if (selectedCategoryData) {
             setSubcategories(selectedCategoryData.subcategories);
         } else {
-            setSubcategories([]); 
+            setSubcategories([]);
         }
     };
 
@@ -61,11 +61,11 @@ const ConfigListSubcategories = () => {
                 },
                 body: JSON.stringify({ subcategoryName: subcategory.name }),
             });
-      
+
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-      
+
             setSubcategories((prevSubcategories) =>
                 prevSubcategories.filter((sub) => sub.name !== subcategory.name)
             );
@@ -79,40 +79,48 @@ const ConfigListSubcategories = () => {
             <div className={styles.pageContainer}>
                 <div className={styles.title}>
                     <h1 className={styles.dash}>—</h1>
-                    <h1>Configuracion</h1>
+                    <h1>Configuración</h1>
                 </div>
-                <div>{ isLoading && <Preloader />}</div>
-                <div className={styles.eventList} data-testid="eventsList-page">
-                    <select value={selectedCategory} onChange={handleCategoryChange}>
+                <div>{isLoading && <Preloader />}</div>
+                <div className={styles.selectContainer}>
+                    <select
+                        value={selectedCategory}
+                        onChange={handleCategoryChange}
+                        className={styles.select}
+                    >
                         <option value=''>Selecciona una categoría</option>
                         {dataList.map((category) => (
-                            <option  key={category._id} value={category._id}>
+                            <option key={category._id} value={category._id}>
                                 {category.name}
                             </option>
                         ))}
                     </select>
                 </div>
-            </div>
-            {subcategories.length > 0 && (
-                <div className={styles.eventItem}> 
-                    <h2 className={styles.eventTitle}>Subcategorias:</h2>
-                    <ul>
-                        {subcategories.map((subcategory) => (
-                            <li key={subcategory.name} className={styles.eventChips}>
-                                {subcategory.name}
-                                <button className={styles.eventItem} onClick={() =>handleSubcategoryDelete(selectedCategory,subcategory)}>Eliminar</button>
-                        
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
-            <div>
-                <Link className={styles.eventItem} to={`/config/configform`} state={`${propsData}`}>
-                    <div>
-                        <h2>CREAR NUEVO</h2>
+                {subcategories.length > 0 && (
+                    <div className={styles.subcategoriesContainer}>
+                        <h2 className={styles.eventTitle}>Subcategorias:</h2>
+                        <ul className={styles.subcategoryList}>
+                            {subcategories.map((subcategory) => (
+                                <li key={subcategory.name} className={styles.subcategoryItem}>
+                                    {subcategory.name}
+                                    <button
+                                        className={styles.deleteButton}
+                                        onClick={() => handleSubcategoryDelete(selectedCategory, subcategory)}
+                                    >
+                    Eliminar
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
-                </Link>
+                )}
+                <div>
+                    <Link className={styles.createLink} to={`/config/configform`} state={`${propsData}`}>
+                        <div>
+                            <h2>CREAR NUEVO</h2>
+                        </div>
+                    </Link>
+                </div>
             </div>
         </div>
     );
