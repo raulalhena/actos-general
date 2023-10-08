@@ -5,7 +5,7 @@ function TextInputNumber(props: TextInputNumberProps) {
     const { label, placeholder, id,value, onChange , isRequired } = props;
 
     return (
-        <div>
+        <div data-testid="input-nbr">
             <label className={styles.label} htmlFor={id}>
                 {label}
             </label>

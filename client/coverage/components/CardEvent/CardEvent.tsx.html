@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">19.56% </span>
+                <span class="strong">13.79% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/46</span>
+                <span class='fraction'>8/58</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">19.56% </span>
+                <span class="strong">13.79% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/46</span>
+                <span class='fraction'>8/58</span>
             </div>
         
             
@@ -109,13 +109,37 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -157,21 +181,19 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import styles from './CardEvent.module.css';
 import { CardEventProps } from '../../interfaces/cardEventProps';
-import logo from '../../assets/zing.png';
-import prueba from '../../assets/prueba.jpg';
 import { Link } from 'react-router-dom';
+import eventImg from '../../assets/logonc.svg';
 &nbsp;
 const CardEvent = <span class="fstat-no" title="function not covered" >({ eventData }: CardEventProps) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    function formatDate(originalDate: string) {</span>
 <span class="cstat-no" title="statement not covered" >        const date = new Date(originalDate);</span>
 <span class="cstat-no" title="statement not covered" >        const day = date.getDate();</span>
 <span class="cstat-no" title="statement not covered" >        const month = date.toLocaleString('default', { month: 'long' });</span>
 <span class="cstat-no" title="statement not covered" >        const year = date.getFullYear();</span>
-<span class="cstat-no" title="statement not covered" >        </span>
+<span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >        return `${day} de ${month} de ${year}`;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    </span>
+<span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    const formattedDate = formatDate(eventData.date);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    return (</span>
@@ -180,13 +202,27 @@ const CardEvent = <span class="fstat-no" title="function not covered" >({ eventD
 <span class="cstat-no" title="statement not covered" >                {/* IMAGE */}</span>
 <span class="cstat-no" title="statement not covered" >                &lt;div className={styles.imageSection}&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;div className={styles.logoContainer}&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        &lt;img src={logo} className={styles.logoImage} alt="Logo" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        {eventData.subcategoryLogo ? (</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;img</span>
+<span class="cstat-no" title="statement not covered" >                                src={eventData.subcategoryLogo}</span>
+<span class="cstat-no" title="statement not covered" >                                className={styles.logoImage}</span>
+<span class="cstat-no" title="statement not covered" >                                alt="Logo"</span>
+<span class="cstat-no" title="statement not covered" >                            /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        ) : (</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;img className={styles.logoImage} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        )}</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;img src={prueba} className={styles.eventImage} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    {eventData.image ? (</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;img src={eventData.image} className={styles.eventImage} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    ) : (</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;img src={eventImg} className={styles.eventImage} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    )}</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;section className={styles.spanContainer}&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;span className={styles.cardCategory}&gt;{eventData.category}&lt;/span&gt; </span>
-<span class="cstat-no" title="statement not covered" >                    &lt;span className={styles.cardSubcategory}&gt;{eventData.subcategory}&lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;span className={styles.cardCategory}&gt;{eventData.category}&lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;span className={styles.cardSubcategory}&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        {eventData.subcategory}</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/section&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;h2 className={styles.cardTitle}&gt;{eventData.name}&lt;/h2&gt;</span>
 <span class="cstat-no" title="statement not covered" >                {/* DATE, MODE, TYPE */}</span>
@@ -208,7 +244,7 @@ export default CardEvent;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-10-03T08:07:49.042Z
+                at 2023-10-08T12:15:46.056Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

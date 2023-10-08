@@ -17,7 +17,6 @@ test('renders the "avatar" element when AvatarDropDownMenu is rendered', () => {
         </Router>
     );
 
-    // Assert that the "avatar" element is rendered
     const avatar = queryByTestId('avatar');
     expect(avatar).toBeInTheDocument();
 });
