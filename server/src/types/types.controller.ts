@@ -22,4 +22,9 @@ export class TypesController {
     return this.typesService.findAllTypes();
   }
 
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.typesService.deleteType(id);
+  }
+
 }

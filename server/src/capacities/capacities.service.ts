@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCapacityDto } from './dto/create-capacity.dto';
 import { UpdateCapacityDto } from './dto/update-capacity.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -20,5 +20,12 @@ export class CapacitiesService {
 
   findAllCapacities() {
     return this.capacityModel.find();
+  }
+
+  async deleteCapacity(id: string): Promise<void> {
+    const result = await this.capacityModel.deleteOne({ _id: id }).exec();
+    if (result.deletedCount === 0) {
+      throw new NotFoundException(`Capacity with ID ${id} not found`);
+    }
   }
 }

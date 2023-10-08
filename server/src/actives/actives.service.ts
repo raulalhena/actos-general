@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateActiveDto } from './dto/create-active.dto';
 import { UpdateActiveDto } from './dto/update-active.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -20,6 +20,13 @@ export class ActivesService {
 
   findAllActives() {
     return this.activeModel.find();
+  }
+
+  async deleteActive(id: string): Promise<void> {
+    const result = await this.activeModel.deleteOne({ _id: id }).exec();
+    if (result.deletedCount === 0) {
+      throw new NotFoundException(`Active with ID ${id} not found`);
+    }
   }
 
 }

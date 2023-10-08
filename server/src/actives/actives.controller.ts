@@ -21,4 +21,8 @@ export class ActivesController {
   findAllActives() {
     return this.activesService.findAllActives();
   }
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.activesService.deleteActive(id);
+  }
 }

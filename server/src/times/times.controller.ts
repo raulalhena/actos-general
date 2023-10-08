@@ -20,4 +20,9 @@ export class TimesController {
   findAllTimes() {
     return this.timesService.findAllTimes();
   }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.timesService.deleteTime(id);
+  }
 }

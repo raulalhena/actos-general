@@ -21,4 +21,9 @@ export class ModesController {
   findAllModes() {
     return this.modesService.findAllModes();
   }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.modesService.deleteMode(id);
+  }
 }

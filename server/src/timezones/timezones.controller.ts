@@ -21,4 +21,9 @@ export class TimezonesController {
   findAllTimezones() {
     return this.timezonesService.findAllTimezones();
   }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.timezonesService.deleteTimezone(id);
+  }
 }

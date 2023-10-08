@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateVisibilityDto } from './dto/create-visibility.dto';
 import { UpdateVisibilityDto } from './dto/update-visibility.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -20,5 +20,12 @@ export class VisibilitiesService {
 
   findAllVisibilities() {
     return this.visibilityModel.find();
+  }
+
+  async deleteVisibility(id: string): Promise<void> {
+    const result = await this.visibilityModel.deleteOne({ _id: id }).exec();
+    if (result.deletedCount === 0) {
+      throw new NotFoundException(`Visibility with ID ${id} not found`);
+    }
   }
 }

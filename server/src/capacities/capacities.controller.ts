@@ -22,4 +22,8 @@ export class CapacitiesController {
     return this.capacitiesService.findAllCapacities();
   }
 
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.capacitiesService.deleteCapacity(id);
+  }
 }

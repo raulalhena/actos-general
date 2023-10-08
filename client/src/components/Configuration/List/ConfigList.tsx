@@ -25,6 +25,7 @@ const ConfigList = () => {
                 }
                 const data = await response.json();
                 setIsLoading(false);
+                console.log(data);
                 setDataList(data);
             } catch (error) {
                 console.error(error);
@@ -35,9 +36,9 @@ const ConfigList = () => {
 
     }, [ propsData ]);
 
-    const handleDelete = async (name: string) => {
+    const handleDelete = async (name: string , id: string) => {
         try {
-            const response = await fetch(`http://localhost:8000/api/${propsData}`, {
+            const response = await fetch(`http://localhost:8000/api/${propsData}/${id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
@@ -65,7 +66,7 @@ const ConfigList = () => {
                         <div key={list._id} className={styles.eventItem}>
                             <h2 className={styles.eventTitle}>{list.name}</h2>
                             <div className={styles.eventChips}>
-                                <button className={styles.eventItem} onClick={() => handleDelete(list.name)}>Eliminar</button>
+                                <button className={styles.eventItem} onClick={() => handleDelete(list.name, list._id)}>Eliminar</button>
                             </div>
                         </div>
                     ))}

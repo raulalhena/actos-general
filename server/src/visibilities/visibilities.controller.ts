@@ -22,4 +22,9 @@ export class VisibilitiesController {
   findAllVisibilities() {
     return this.visibilitiesService.findAllVisibilities();
   }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.visibilitiesService.deleteVisibility(id);
+  }
 }

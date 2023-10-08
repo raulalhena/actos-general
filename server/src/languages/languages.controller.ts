@@ -21,4 +21,9 @@ export class LanguagesController {
   findAllLanguages() {
     return this.languagesService.findAllLanguages();
   }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.languagesService.deleteLanguage(id);
+  }
 }
