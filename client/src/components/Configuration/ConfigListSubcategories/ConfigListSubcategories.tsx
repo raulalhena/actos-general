@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { SubcategoryProps } from '../../../interfaces/subcategoryProps';
 import styles from './ConfigListSubcategories.module.css';
@@ -77,49 +77,53 @@ const ConfigListSubcategories = () => {
     return (
         <div className={styles.page}>
             <div className={styles.pageContainer}>
-                <div className={styles.title}>
-                    <h1 className={styles.dash}>—</h1>
-                    <h1>Configuración</h1>
-                </div>
-                <div>{isLoading && <Preloader />}</div>
-                <div className={styles.selectContainer}>
-                    <select
-                        value={selectedCategory}
-                        onChange={handleCategoryChange}
-                        className={styles.select}
-                    >
-                        <option value=''>Selecciona una categoría</option>
-                        {dataList.map((category) => (
-                            <option key={category._id} value={category._id}>
-                                {category.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                {subcategories.length > 0 && (
-                    <div className={styles.subcategoriesContainer}>
-                        <h2 className={styles.eventTitle}>Subcategorias:</h2>
-                        <ul className={styles.subcategoryList}>
-                            {subcategories.map((subcategory) => (
-                                <li key={subcategory.name} className={styles.subcategoryItem}>
-                                    {subcategory.name}
-                                    <button
-                                        className={styles.deleteButton}
-                                        onClick={() => handleSubcategoryDelete(selectedCategory, subcategory)}
-                                    >
-                    Eliminar
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
+                <div className={styles.header}>
+                    <div className={styles.title}>
+                        <h1 className={styles.dash}>—</h1>
+                        <h1>Configuración</h1>
                     </div>
-                )}
+                    
+                    <br />
+                </div>
                 <div>
-                    <Link className={styles.createLink} to={`/config/configform`} state={`${propsData}`}>
+                    <Link className={`${styles.createLink} ${styles.createBtn}`} to={`/config/configform`} state={`${propsData}`}>
                         <div>
                             <h2>CREAR NUEVO</h2>
                         </div>
                     </Link>
+                </div>
+                <br />
+                <div>{isLoading && <Preloader />}</div>
+
+                <select
+                    value={selectedCategory}
+                    onChange={handleCategoryChange}
+                    className={styles.select}
+                >
+                    <option value=''>Selecciona una categoría</option>
+                    {dataList.map((category) => (
+                        <option key={category._id} value={category._id}>
+                            {category.name}
+                        </option>
+                    ))}
+                </select>
+                <div className={styles.eventList} data-testid="eventsList-page">
+                    {subcategories.length > 0 && (
+                        <div className={styles.subcategoriesContainer}>
+                            <h2 className={styles.eventTitle}>Subcategorias:</h2>
+                            {subcategories.map((subcategory) => (
+                                <div key={subcategory.name} className={styles.eventItem}>
+                                    {subcategory.name}
+                                    <button
+                                        className={styles.createBtn}
+                                        onClick={() => handleSubcategoryDelete(selectedCategory, subcategory)}
+                                    >
+                    Eliminar
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

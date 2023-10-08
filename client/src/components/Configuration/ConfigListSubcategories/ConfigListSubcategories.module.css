@@ -1,6 +1,6 @@
 .page {
   width: 100vw;
-  margin: 2rem 0;
+  margin: 2rem 0 2rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,17 +8,17 @@
 }
 
 .pageContainer {
-  background-color: #f3f3f3;
   margin-top: 2rem;
-  padding: 1rem;
-  border-radius: 10px; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+  align-items: flex-start;
+  width: 50%;
 }
+
 
 .title {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  margin-bottom: 2rem;
   max-width: 300px;
 }
 
@@ -33,18 +33,15 @@ select {
 
 .subcategoriesContainer {
   margin-top: 2rem;
+  width: 100%;
 }
 
 .eventTitle {
   font-size: 16px;
   font-weight: 600;
   color: #1c2e48;
-  max-width: 800px;
-  width: 100%;
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  justify-content: flex-start;
+  max-width: 250px;
+  width: 300px;
 }
 
 .subcategoryList {
@@ -52,24 +49,9 @@ select {
   padding: 0;
 }
 
-.subcategoryItem {
-  max-width: 750px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1rem;
-  color: #1c2e48;
-  background-color: #f3f3f3;
-  border-radius: 5px;
-  border-style: none;
-  cursor: pointer;
-  text-align: left;
-  font-size: 14px;
-  gap: 1rem;
-  margin-bottom: 1rem; 
-}
 
-.subcategoryItem:hover {
+
+.eventItem:hover {
   background-color: #dedede;
 }
 
@@ -83,19 +65,67 @@ select {
   cursor: pointer;
 }
 
-.createLink {
-  margin-top: 1rem;
+.createBtn {
+  background-color: #e15a40;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+  cursor: pointer;
+}
+.createLink{
   text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #5a5352;
+  background-color: #e15a40;
   color: white;
   border: none;
   border-radius: 5px;
   padding: 0.5rem 1rem;
   font-size: 16px;
   cursor: pointer;
+}
+.createLink h2 {
+  color: white;
+  font-weight: 100;
+}
+
+.eventList {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.eventItem {
+  gap: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1rem;
+  color: #1c2e48;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  border: 2px solid white;
+  text-align: left;
+  font-size: 14px;
+  gap: 1rem;
+}
+
+.createBtn {
+  background-color: #e15a40;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+  cursor: pointer;
+}
+.header{
+  display: flex;
+  align-items: center;
+  justify-items: space-between;
 }
 
 
