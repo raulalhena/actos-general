@@ -17,7 +17,7 @@ describe('Card Event Component', () => {
             subcategoryLogo: 'path/para/logo-subcategoria.jpg',
         };
 
-        const { queryByTestId } = render(<Router><CardEvent eventData={eventData} /></Router>);
+        const { queryByTestId } = render(<Router><CardEvent key={+eventData._id} eventData={eventData} /></Router>);
         const dataid = queryByTestId('card-event');
         expect(dataid).toBeInTheDocument();
     });

@@ -64,14 +64,14 @@ const EventDashboard = () => {
         setShowPDF(!showPDF);
     };
 
-    const handleCapacityChange = (capacity?: string) => {
+    const handleCapacityChange = (capacity: number) => {
     
         setEventData({
             ...eventData,
             capacity: capacity,
         });
     };
-    const handleCapacityOnlineChange = (onlineCapacity?: string) => {
+    const handleCapacityOnlineChange = (onlineCapacity: number) => {
     
         setEventData({
             ...eventData,

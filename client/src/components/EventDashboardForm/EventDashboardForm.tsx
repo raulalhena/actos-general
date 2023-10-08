@@ -26,7 +26,7 @@ import { SubcategoryProps } from '../../interfaces/subcategoryProps';
 import { CategoryProps } from '../../interfaces/categoryProps';
 import { AiFillEye } from 'react-icons/ai';
 
-type Props = { eventData: EventDashboardFormProps, onCapacityChanged: (event: string | undefined) => void,  onCapacityOnlineChanged: (event?: string) => void };
+type Props = { eventData: EventDashboardFormProps, onCapacityChanged: (event: number) => void,  onCapacityOnlineChanged: (event: number) => void };
 
 // Form
 const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineChanged }: Props  ) => {
@@ -253,10 +253,10 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
                             console.log('teste');
                             if (capacity!== formData.capacity) {
                                 console.log('capacity aquii');
-                                onCapacityChanged(formData.capacity);
+                                onCapacityChanged(+formData.capacity);
                             } else if (capacityOnline !== formData.capacityOnline) {
                                 console.log('capacity online aquii');
-                                onCapacityOnlineChanged(formData.capacityOnline);
+                                onCapacityOnlineChanged(+formData.capacityOnline);
                             }
                         } 
                     } 
