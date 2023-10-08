@@ -1,6 +1,7 @@
 import { FaLinkedinIn, FaYoutube } from 'react-icons/fa';
 import styles from './Footer.module.css';
 import logo from '../../assets/logo.png';
+import { Link } from 'react-router-dom';
 
 const socialMediaLinks = [
     {
@@ -64,6 +65,12 @@ const Footer = () => {
                 <div className={styles.copyright}>
           © 2023 Nous Cims by ACTOS. Todos los derechos
           reservados&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                    <Link to={'/faq'}>
+                        <a className={styles.copyrightLink}>
+                            FAQ
+                        </a>
+                    </Link>
+                    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
                     <a
                         className={styles.copyrightLink}
                         href="https://www.nouscims.com/aviso-legal/"
