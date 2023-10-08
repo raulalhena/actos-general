@@ -1000,7 +1000,7 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
                         <FormField>
                             <ToggleSwitch 
                                 id='capacity'
-                                label={'El evento tiene limite de entrada Presencial'}
+                                label={'El evento tiene límite de entrada Presencial'}
                                 subtitle={'Activa el botón para definir número de entradas en Presencial.'}
                                 onChange={handleToggleCapacityChange}
                                 isChecked={formData.isLimited}
@@ -1023,10 +1023,10 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
                         <FormField>
                             <ToggleSwitch 
                                 id='capacityOnline'
-                                label={'El evento tiene limite de entrada en Línea'}
+                                label={'El evento tiene límite de entrada en Línea'}
                                 subtitle={'Activa el botón para definir número de entradas en Línea.'}
                                 onChange={handleToggleCapacityOnlineChange}
-                                isChecked={formData.isLimitedOnline}
+                                isChecked={formData.isLimited || selectedMode === 'Híbrido'}
                             />
                             {selectedCapacityOnline ? (
                                 <TextInputNumber
@@ -1040,7 +1040,8 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
                                 />
                             ): null }
                         </FormField>
-                    ) : null}              
+                    ) : null}
+
                 </SectionForm>
                 
                 <div className={ styles.finalSectionContainer }>
