@@ -77,9 +77,13 @@ const ConfigListSubcategories = () => {
     return (
         <div className={styles.page}>
             <div className={styles.pageContainer}>
-                <div className={styles.title}>
-                    <h1 className={styles.dash}>—</h1>
-                    <h1>Configuración</h1>
+                <div className={styles.header}>
+                    <div className={styles.title}>
+                        <h1 className={styles.dash}>—</h1>
+                        <h1>Configuración</h1>
+                    </div>
+                    
+                    <br />
                 </div>
                 <div>
                     <Link className={`${styles.createLink} ${styles.createBtn}`} to={`/config/configform`} state={`${propsData}`}>
