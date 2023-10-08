@@ -57,7 +57,7 @@ export default function AvatarDropDownMenu() {
     };
 
     return (
-        <div>
+        <div  data-testid="avatar">
             <Button
                 id="demo-customized-button"
                 aria-controls={open ? 'demo-customized-menu' : undefined}

@@ -9,7 +9,7 @@ function RadioCardContainer({
     onChange,
 }: RadioGroupContainerProps) {
     return (
-        <div>
+        <div data-testid="radio-container">
             <label className={styles.label}>{label}</label>
             <br />
             <div className={styles.radioGroupContainer}>

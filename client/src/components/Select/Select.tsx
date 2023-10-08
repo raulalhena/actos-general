@@ -11,7 +11,7 @@ function Select(props: SelectProps) {
                 {label} 
             </label>
             <br />
-            <select className={styles.input} id={id} value={value} onChange={onChange}>
+            <select data-testid='select' className={styles.input} id={id} value={value} onChange={onChange}>
                 <option value=''> Seleciona </option>
                 {options.map((option, index) => (
                     <option key={index} value={option}>

@@ -6,7 +6,7 @@ function ConfirmPasswordInput(props: TextInputProps) {
     props;
 
     return (
-        <div>
+        <div data-testid="confirm-passport">
             <label className={styles.label} htmlFor={id}>
                 {label}
             </label>
