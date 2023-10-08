@@ -9,20 +9,22 @@ const MyEvents = () => {
     const [ myEvents, setMyEvents ] = useState<CardEventProps>(null);
     const { user } = useAuth();
 
-    useEffect(()=> {
-        const getMyEvents = async () => {
-            const url = `http://localhost:8000/api/events/user/${user._id}`;
-            const resp = await fetch(url);
-            const myEventsDb = await resp.json();
-
-            setMyEvents(myEventsDb);
-        };
-
-        getMyEvents();
+    useEffect(() => {
+        if (user) {
+            const getMyEvents = async () => {
+                const url = `http://localhost:8000/api/events/user/${user._id}`;
+                const resp = await fetch(url);
+                const myEventsDb = await resp.json();
+    
+                setMyEvents(myEventsDb);
+            };
+    
+            getMyEvents();
+        }
     }, []);
 
     return (
-        <section className={styles.section}>
+        <section data-testid='myEvents-page' className={styles.section}>
             <div className={styles.title}>
                 <h1 className={styles.dash}>—</h1>
                 <h1>Mis Eventos</h1>

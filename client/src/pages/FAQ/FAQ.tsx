@@ -38,7 +38,7 @@ const FAQ = () => {
     };
 
     return (
-        <div className={styles.page}>
+        <div data-testid='faq-page' className={styles.page}>
             <section className={styles.header}>
                 <div className={styles.topTitle}>
                     <h1 className={styles.dash}>—</h1>

@@ -35,7 +35,7 @@ const ConfigForm = () => {
     };
 
     return (
-        <div>
+        <div data-testid="configForm">
             {renderSwitch()}
         </div>
         
