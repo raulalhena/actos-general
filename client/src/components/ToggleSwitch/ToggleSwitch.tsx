@@ -3,7 +3,7 @@ import styles from './ToggleSwitch.module.css';
 import { ToggleSwitchProps } from '../../interfaces/toggleSwitchProps';
 
 const ToggleSwitch = ({ id, label, subtitle, isChecked, onChange }: ToggleSwitchProps) => {
- 
+
     return (
         <div className={styles.toggleContainer}>
             <div>

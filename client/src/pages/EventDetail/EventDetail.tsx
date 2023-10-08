@@ -94,21 +94,23 @@ const EventDetailPage = () => {
 
     useEffect(() => {
         const checkInscription = async () => {
-            const res = await fetch(
-                `http://localhost:8000/api/events/user/${user._id}`
-            );
-            const inscriptionEvents = await res.json();
+            if (user) {
+                const res = await fetch(
+                    `http://localhost:8000/api/events/user/${user._id}`
+                );
+                const inscriptionEvents = await res.json();
 
-            const insEvents = Array.from(inscriptionEvents);
+                const insEvents = Array.from(inscriptionEvents);
 
-            insEvents.forEach((sEvent) => {
-                if (sEvent._id === _id) {
-                    setInscription(true);
-                    sEvent.submitted.forEach(submUser => {
-                        if(submUser.userId === user._id) setQRUser(submUser.qrUser);
-                    });
-                }
-            });
+                insEvents.forEach((sEvent) => {
+                    if (sEvent._id === _id) {
+                        setInscription(true);
+                        sEvent.submitted.forEach(submUser => {
+                            if(submUser.userId === user._id) setQRUser(submUser.qrUser);
+                        });
+                    }
+                });
+            }
         };
 
         checkInscription();
@@ -116,36 +118,43 @@ const EventDetailPage = () => {
 
     useEffect(() => {
         const checkInscriptionOnline = async () => {
-            const res = await fetch(
-                `http://localhost:8000/api/events/user/${user._id}/online`
-            );
-            const inscriptionEvents = await res.json();
-
-            const insEvents = Array.from(inscriptionEvents);
-
-            insEvents.forEach((sEvent) => {
-                if (sEvent._id === _id) setOnline(true);
-            });
+            if (user) {
+                const res = await fetch(
+                    `http://localhost:8000/api/events/user/${user._id}/online`
+                );
+                
+                if (res.ok) { 
+                    const inscriptionEvents = await res.json();
+    
+                    const insEvents = Array.from(inscriptionEvents);
+    
+                    insEvents.forEach((sEvent) => {
+                        if (sEvent._id === _id) setOnline(true);
+                    });
+                } 
+            }
         };
-
+    
         checkInscriptionOnline();
     }, [ eventData ]);
 
     useEffect(() => {
         const checkInscriptionHybrid = async () => {
-            const res = await fetch(
-                `http://localhost:8000/api/events/user/${user._id}/hybrid`
-            );
-            const inscriptionEvents = await res.json();
+            if (user) {
+                const res = await fetch(
+                    `http://localhost:8000/api/events/user/${user._id}/hybrid`
+                );
+                const inscriptionEvents = await res.json();
 
-            const insEvents = Array.from(inscriptionEvents);
+                const insEvents = Array.from(inscriptionEvents);
 
-            insEvents.forEach((sEvent) => {
-                if (sEvent._id === _id) {
-                    setOnlineHybrid(true);
-                    setInscription(true);
-                }
-            });
+                insEvents.forEach((sEvent) => {
+                    if (sEvent._id === _id) {
+                        setOnlineHybrid(true);
+                        setInscription(true);
+                    }
+                });
+            }
         };
 
         checkInscriptionHybrid();

@@ -11,7 +11,7 @@ import styles from './ConfigBoard.module.css';
 const ConfigBoard = () => {
     return (
         <>
-            <div className={styles.page}>
+            <div data-testid='configBoard-page' className={styles.page}>
                 <section className={styles.header}>
                     <div className={styles.topTitle}>
                         <h1 className={styles.dash}>—</h1>
