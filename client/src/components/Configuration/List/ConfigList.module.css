@@ -14,8 +14,9 @@
 
 .title {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  margin-bottom: 2rem;
   max-width: 300px;
 }
 
@@ -61,8 +62,8 @@
   gap: 0.5rem;
 }
 
-.cardCategory {
-  background-color: #434343;
+.createBtn {
+  background-color: #e15a40;
   color: white;
   border: none;
   border-radius: 5px;
@@ -71,19 +72,28 @@
   cursor: pointer;
 }
 
+.header{
+  display: flex;
+  align-items: center;
+  justify-items: space-between;
+}
+
 .createLink{
-  margin-top: 1rem;
   text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #020000;
-  color: rgb(0, 0, 0);
+  background-color: #e15a40;
+  color: white;
   border: none;
   border-radius: 5px;
   padding: 0.5rem 1rem;
   font-size: 16px;
   cursor: pointer;
+}
+.createLink h2 {
+  color: white;
+  font-weight: 100;
 }
 
 .cardSubcategory {
