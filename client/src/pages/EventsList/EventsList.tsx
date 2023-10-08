@@ -14,7 +14,7 @@ const EventsList = () => {
             const respo = await fetch('http://localhost:8000/api/events');
             const eventsData = await respo.json();
 
-            eventsData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            eventsData.sort((a: any, b: any) => new Date(a.date) - new Date(b.date));
 
             setEvents(eventsData);
             setIsLoading(false);
@@ -23,7 +23,7 @@ const EventsList = () => {
         getAllEvents();
     }, []);
 
-    const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
+    const handleClick = async (e: React.MouseEventHandler<HTMLHeadingElement>) => {
         e.preventDefault();
         const { id } = e.target;
         window.scroll(0, 0);

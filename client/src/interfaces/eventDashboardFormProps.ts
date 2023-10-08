@@ -23,12 +23,13 @@ export interface EventDashboardFormProps {
     language: string[];
     image?: string;
     video?: string;
-    capacity?: string;
-    capacityOnline?: string;
+    capacity: number;
+    capacityOnline: number;
     qrEvent?: string;
     qrAttendees?: string[];
     attendees?: string[];
-    submitted?: string[];
+    submitted: string[];
+    submittedOnline?: string[];
     price?: number;
     payment?: string;
     visibility?: boolean;

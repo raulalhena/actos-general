@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import eventImg from '../../assets/logonc.svg';
 
 const CardEvent = ({ eventData }: CardEventProps) => {
+    
     function formatDate(originalDate: string) {
         const date = new Date(originalDate);
         const day = date.getDate();

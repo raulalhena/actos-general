@@ -37,8 +37,8 @@ const EventDashboard = () => {
         language: [], //Select con checkbox
         image: '',
         video: '',
-        capacity: '',
-        capacityOnline: '',
+        capacity: 0,
+        capacityOnline: 0,
         isLimited: false,
         isLimitedOnline: false,
         subcategoryLogo: '',

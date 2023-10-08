@@ -3,10 +3,11 @@ import CardEvent from '../../components/CardEvent/CardEvent';
 import { useEffect, useState } from 'react';
 import { CardEventProps } from '../../interfaces/cardEventProps';
 import { useAuth } from '../../hooks/useAuth';
+// import { EventFormProps } from '../../interfaces/eventFormProps';
 
 const MyEvents = () => {
 
-    const [ myEvents, setMyEvents ] = useState<CardEventProps>(null);
+    const [ myEvents, setMyEvents ] = useState<Array<CardEventProps>>([]);
     const { user } = useAuth();
 
     useEffect(() => {
@@ -31,7 +32,7 @@ const MyEvents = () => {
             </div>
 
             <div className={styles.cardGrid}>
-                {myEvents && myEvents.map((event, index) => (
+                {myEvents && myEvents.map((event: CardEventProps, index: number) => (
                     <CardEvent key={index} eventData={event} />
                 ))}
             </div>

@@ -2,7 +2,7 @@ import { Document, Image, Page, View, Text } from '@react-pdf/renderer';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 
 type Props = {
-    qrImg: Blob;
+    qrImg: string | undefined;
     eventData: EventFormProps;
 }
 

@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
-import { User } from '../../interfaces/User';
+// import { User } from '../../interfaces/User';
 import styles from './SubmittedList.module.css';
 import Preloader from '../../components/Preloader/Preloader';
 import { useLocation } from 'react-router-dom';
+import { SubmittedUser } from '../../interfaces/SubmittedUser';
 
 const SubmittedList = () => {
-    const [ users, setUsers ] = useState<Array<User>>([ {
+    const [ users, setUsers ] = useState<Array<SubmittedUser>>([ {
         name: '',
         username: '',
-        email: ''
+        email: '',
+        qrUser: '',
+        userId: null
     } ]);
     const [ isLoading, setIsLoading ] = useState(true);
 

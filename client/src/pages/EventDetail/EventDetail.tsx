@@ -9,6 +9,8 @@ import ButtonRed from '../../components/Button/ButtonRed/ButtonRed';
 import ButtonInscription from '../../components/Button/ButtonInscription/ButtonInscription';
 import { useAuth } from '../../hooks/useAuth';
 import ModalDisplay from '../../components/Modal/ModalDisplay';
+import { SubmittedUser } from '../../interfaces/SubmittedUser';
+import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 
 const EventDetailPage = () => {
     const { _id } = useParams();
@@ -102,10 +104,10 @@ const EventDetailPage = () => {
 
                 const insEvents = Array.from(inscriptionEvents);
 
-                insEvents.forEach((sEvent) => {
+                insEvents.forEach((sEvent: EventDashboardFormProps) => {
                     if (sEvent._id === _id) {
                         setInscription(true);
-                        sEvent.submitted.forEach(submUser => {
+                        sEvent?.submitted.forEach((submUser: SubmittedUser) => {
                             if(submUser.userId === user._id) setQRUser(submUser.qrUser);
                         });
                     }
@@ -128,7 +130,7 @@ const EventDetailPage = () => {
     
                     const insEvents = Array.from(inscriptionEvents);
     
-                    insEvents.forEach((sEvent) => {
+                    insEvents.forEach((sEvent: EventDashboardFormProps) => {
                         if (sEvent._id === _id) setOnline(true);
                     });
                 } 
@@ -148,7 +150,7 @@ const EventDetailPage = () => {
 
                 const insEvents = Array.from(inscriptionEvents);
 
-                insEvents.forEach((sEvent) => {
+                insEvents.forEach((sEvent: unknown) => {
                     if (sEvent._id === _id) {
                         setOnlineHybrid(true);
                         setInscription(true);
@@ -186,7 +188,7 @@ const EventDetailPage = () => {
                 method: 'PUT',
                 headers: { 'Content-type': 'application/json' },
                 body: JSON.stringify({
-                    userId: user._id,
+                    userId: user?._id,
                     eventId: _id,
                 }),
             });

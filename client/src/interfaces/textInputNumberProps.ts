@@ -3,7 +3,7 @@ export interface TextInputNumberProps {
     subtitle?: string;
     placeholder: string;
     id: string;
-    value?: string;
+    value?: number | undefined;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     className?: string; 
     isPassword?: boolean;

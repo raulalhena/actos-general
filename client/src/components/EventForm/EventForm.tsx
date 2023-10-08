@@ -22,6 +22,7 @@ import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
 import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
+import { SubcategoryProps } from '../../interfaces/subcategoryProps';
 
 // Form
 const EventForm = () => {
@@ -52,8 +53,8 @@ const EventForm = () => {
         language: [], //Select con checkbox
         image: '', 
         video: '', 
-        capacity: '',
-        capacityOnline: '',
+        capacity: 0,
+        capacityOnline: 0,
         isLimited: false,
         isLimitedOnline: false,
         subcategoryLogo: '',
@@ -62,7 +63,7 @@ const EventForm = () => {
 
     // Form fields auto filled state
     const [ categories, setCategories ] = useState<Array<EventDashboardFormProps>>([]);
-    const [ subcategories, setSubcategories ] = useState<Array<string>>([]);
+    const [ subcategories, setSubcategories ] = useState<Array<SubcategoryProps>>([]);
     const [ types, setTypes ] = useState<Array<string>>([]);
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
@@ -153,7 +154,7 @@ const EventForm = () => {
                     checked: false,
                 }));
                 setMode(modeData);
-            } catch (error) {
+            } catch (error: Error) {
                 throw new Error(error.message);
             }
         };
@@ -263,7 +264,7 @@ const EventForm = () => {
             });
 
         } else  if(id === 'subcategory') {
-            subcategories.forEach(subc => {
+            subcategories.forEach((subc: SubcategoryProps) => {
                 if(subc.name === value){
                     setFormData({
                         ...formData,
@@ -389,7 +390,7 @@ const EventForm = () => {
     //  States
     const [ previewURL, setPreviewURL ] = useState<string>('');
     const [ imgVisibility, setImgVisibility ] = useState<string>('none');
-    const [ imageFile, setImageFile ] = useState<Blob>(null);
+    const [ imageFile, setImageFile ] = useState<Blob | null>(null);
 
     useEffect(() => {
         convertToBase64();
@@ -759,7 +760,7 @@ const EventForm = () => {
                                         label="Límite de entradas Presencial"
                                         subtitle="Ingrese solamente caracteres numéricos mayores que 0."
                                         placeholder="ej.: 20"
-                                        value={formData.capacity} 
+                                        value={+formData.capacity} 
                                         onChange={handleInputNumberChange}
                                         isRequired={true}
                                     />
@@ -782,7 +783,7 @@ const EventForm = () => {
                                         label="Límite de entradas en Línea"
                                         subtitle="Ingrese solamente caracteres numéricos mayores que 0."
                                         placeholder="ej.: 20"
-                                        value={formData.capacityOnline} 
+                                        value={+formData?.capacityOnline} 
                                         onChange={handleInputNumberChange}
                                         isRequired={true}
                                     />

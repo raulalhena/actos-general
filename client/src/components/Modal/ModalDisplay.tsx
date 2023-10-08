@@ -3,7 +3,6 @@ import styles from './ModalDisplay.module.css';
 import { ModalDisplayProps } from '../../interfaces/modalDisplayProps';
 import ModalButtonRed from './ModalButton/ModalButtonRed';
 import ModalButtonNoBorder from './ModalButton/ModalButtonNoBorder';
-import { useEffect } from 'react';
 
 const ModalDisplay = (props: ModalDisplayProps) => {
     const {

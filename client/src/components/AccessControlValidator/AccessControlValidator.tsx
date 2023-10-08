@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FcHighPriority } from 'react-icons/fc';
 import { FcCheckmark } from 'react-icons/fc';
 import { useNavigate } from 'react-router-dom';
@@ -34,7 +34,7 @@ const AccessControlValidator = ({ paramsURL }: Props) => {
         attendanceRecord();
     }, []);
 
-    const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         navigate('/accesscontrol');
     };

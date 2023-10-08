@@ -23,6 +23,8 @@ import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
 import SelectSmall from '../SelectSmall/SelectSmall';
 import { MdVisibility } from 'react-icons/Md';
+import { SubcategoryProps } from '../../interfaces/subcategoryProps';
+import { CategoryProps } from '../../interfaces/categoryProps';
 
 type Props = { eventData: EventDashboardFormProps };
 
@@ -376,7 +378,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     const [ previewURL, setPreviewURL ] = useState<string>('');
     const [ imgVisibility, setImgVisibility ] = useState<string>('block');
     const [ image, setImage ] = useState<string | undefined>(formData.image);
-    const [ imageFile, setImageFile ] = useState<Blob>('');
+    const [ imageFile, setImageFile ] = useState<Blob | null>(null);
 
     // Convert Image to Base64 to send in JSON
     const convertToBase64 = () => {
@@ -387,7 +389,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             fileReader.onloadend = () => {
                 setFormData({
                     ...formData,
-                    image: fileReader.result
+                    image: String(fileReader.result)
                 });
             };
         }
@@ -495,7 +497,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     const [ active, setActive ] = useState<Array<string>>([]);
     const [ categories, setCategories ] = useState<Array<EventDashboardFormProps>>([]);
     const [ selectedCategory, setSelectedCategory ] = useState(formData.category);
-    const [ subcategories, setSubcategories ] = useState<Array<string>>([]);
+    const [ subcategories, setSubcategories ] = useState<Array<SubcategoryProps>>([]);
     const [ types, setTypes ] = useState<Array<string>>([]);
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
@@ -527,7 +529,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
             const categoriesDb = await resp.json();
 
             setCategories(categoriesDb);
-            categoriesDb.forEach(category => {
+            categoriesDb.forEach((category: CategoryProps) => {
                 if(category.name === formData.category) categoryId=category._id;
 
             });
@@ -996,7 +998,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                 label="Límite de entradas"
                                 subtitle="Ingrese solamente caracteres numéricos mayores que 0."
                                 placeholder="ej.: 20"
-                                value={formData.capacity} 
+                                value={+formData.capacity} 
                                 onChange={handleInputNumberChange}
                                 isRequired={true}
                             />
@@ -1017,7 +1019,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                 label="Límite de entradas en Línea"
                                 subtitle="Ingrese solamente caracteres numéricos mayores que 0."
                                 placeholder="ej.: 20"
-                                value={formData.capacityOnline} 
+                                value={+formData.capacityOnline} 
                                 onChange={handleInputNumberChange}
                                 isRequired={true}
                             />
