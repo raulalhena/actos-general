@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import HomePageHeader from '../../components/HomePageHeader/HomePageHeader';
 import CardEvent from '../../components/CardEvent/CardEvent';
-import styles from './home.module.css';
+import styles from './Home.module.css';
 import { CardEventProps } from '../../interfaces/cardEventProps';
 import { Link } from 'react-router-dom';
 import ButtonRed from '../../components/Button/ButtonRed/ButtonRed';
