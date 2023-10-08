@@ -251,20 +251,10 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
                                 closeModal
                             );
                             
-                            if (capacity!== formData.capacity) {
-<<<<<<< HEAD
-                                console.log('capacity aquii');
-                                onCapacityChanged(+formData.capacity);
-                            } else if (capacityOnline !== formData.capacityOnline) {
-                                console.log('capacity online aquii');
-                                onCapacityOnlineChanged(+formData.capacityOnline);
-=======
-                                
+                            if (capacity!== formData.capacity) {                                
                                 onCapacityChanged(formData.capacity);
                             } else if (capacityOnline !== formData.capacityOnline) {
-                        
                                 onCapacityOnlineChanged(formData.capacityOnline);
->>>>>>> dev
                             }
                         } 
                     } 
