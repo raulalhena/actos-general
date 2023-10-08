@@ -103,8 +103,16 @@ function App() {
                                     <SignupAdmin />
                                 </ProtectedRoute>
                             } />
-                            <Route path="/accesscontrol" element={<AccessControl />} />
-                            <Route path="/accessvalidation" element={<AccessControlValidation />} />
+                            <Route path='/accesscontrol' element={
+                                <ProtectedRoute role={ [ 'admin' ] }>
+                                    <AccessControl />
+                                </ProtectedRoute>
+                            } />
+                            <Route path='/accessvalidation' element={
+                                <ProtectedRoute role={ [ 'admin' ] }>
+                                    <AccessControlValidation />
+                                </ProtectedRoute>
+                            } />
                             <Route path="/faq" element={<FAQ />} />
                             <Route path="/eventslist" element={<EventsList />} />
                             <Route path="/event/:_id" element={<EventDetail />} />
