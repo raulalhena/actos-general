@@ -30,10 +30,20 @@ import ConfigListSubcategories from './components/Configuration/ConfigListSubcat
 function Layout({ children }: any) {
     return (
         <>
-            <NavBar />
-            {children}
-            <ScrollTopButton/>
-            <Footer />
+            <div style={{
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column'
+            }}>
+                <NavBar />
+                <div style={{
+                    flexGrow: 1
+                }}>
+                    {children}
+                </div>
+                <ScrollTopButton/>
+                <Footer />
+            </div>
         </>
     );
 }
