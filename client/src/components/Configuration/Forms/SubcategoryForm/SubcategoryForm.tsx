@@ -209,7 +209,7 @@ const SubcategoryForm = () => {
     };
 
     return (
-        <div className={styles.subcategoryPage}>
+        <div data-testid="subcategory-form" className={styles.subcategoryPage}>
             <ToastContainer  />
             <div className={styles.container}>
                 
@@ -217,7 +217,7 @@ const SubcategoryForm = () => {
                     <form onSubmit={handleSubmit}>
     
                         <section>
-                            <div className={styles.title}>
+                            <div data-testid="header-title"  className={styles.title}>
                                 <h1 className={styles.dash}>—</h1>
                                 <h1>Crea una subcategoría</h1>
                             </div>
@@ -261,11 +261,11 @@ const SubcategoryForm = () => {
                                 onDragOver={handleDragOver}
                             />
                         </section>
-                        <div className={styles.buttonSection}>
+                        <div data-testid="button-submit" className={styles.buttonSection}>
                             <ButtonSubmit label="Guardar" />
                         </div>
                     </form>
-                    <div>
+                    <div data-testid="modal">
                         {isModalOpen && (
                             <ModalDisplay
                                 icon={''}

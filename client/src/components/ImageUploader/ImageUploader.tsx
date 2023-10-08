@@ -13,11 +13,11 @@ interface ImageUploaderProps {
 export const ImageUploader = ({ previewURL, imgVisibility, removeImage, onDrop, onDragOver }: ImageUploaderProps) => {
 
     return (
-        <div className={styles.uploadImgContainer} onDrop={onDrop} onDragOver={onDragOver}>
+        <div data-testid="img-uploader" className={styles.uploadImgContainer} onDrop={onDrop} onDragOver={onDragOver}>
             <label className={styles.label}>Imagen</label>
             <br />
             <div className={styles.dragDropZone}>
-                {previewURL ? null : ( // Ocultar el icono y el texto si previewURL existe
+                {previewURL ? null : ( 
                     <div>
                         <RiFolderUploadFill className={styles.icon} />
                         <br />
@@ -32,7 +32,7 @@ export const ImageUploader = ({ previewURL, imgVisibility, removeImage, onDrop, 
                     alt="uploaded"
                 />
                 <div className={styles.buttons} >
-                    {previewURL && ( // Mostrar el botón "Eliminar" solo si previewURL existe
+                    {previewURL && ( 
                         <button className={styles.remove} onClick={removeImage}>Eliminar</button>
                     )}
                 </div>
