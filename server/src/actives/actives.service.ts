@@ -21,9 +21,8 @@ export class ActivesService {
   findAllActives() {
     return this.activeModel.find();
   }
-
   async deleteActive(id: string): Promise<void> {
-    const result = await this.activeModel.deleteOne({ _id: id }).exec();
+    const result = await this.activeModel.deleteOne({ _id: id });
     if (result.deletedCount === 0) {
       throw new NotFoundException(`Active with ID ${id} not found`);
     }

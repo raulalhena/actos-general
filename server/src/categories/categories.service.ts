@@ -1,13 +1,10 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
-
-import { InjectModel } from '@nestjs/mongoose';
-import { Model, ObjectId } from 'mongoose';
-import { Category } from 'src/categories/schema/category.schema';
-import { CreateSubcategoryDto } from './dto/create-subcategory.dto';
-import { Subcategory } from './schema/subcategory.schema';
-
+import { Injectable, HttpException, HttpStatus, NotFoundException } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model, ObjectId } from "mongoose";
+import { CreateCategoryDto } from "./dto/create-category.dto";
+import { CreateSubcategoryDto } from "./dto/create-subcategory.dto";
+import { Category } from "./schema/category.schema";
+import { Subcategory } from "./schema/subcategory.schema";
 
 @Injectable()
 export class CategoriesService {
