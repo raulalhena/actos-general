@@ -15,6 +15,7 @@ function DropdownButton() {
                 value={selectedOption}
                 onChange={handleOptionChange}
                 className={styles.select}
+                data-testid="select-option"
             >
                 <option value="Draft">
           BORRADOR
