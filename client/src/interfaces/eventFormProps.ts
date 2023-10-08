@@ -22,8 +22,8 @@ export interface EventFormProps  {
     language: string[];
     image?: any;
     video?: string;
-    capacity?: number;
-    capacityOnline?: number;
+    capacity: number;
+    capacityOnline: number;
     qrEvent?: string;
     qrAttendees?: string[];
     attendees?: string[];

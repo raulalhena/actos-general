@@ -14,7 +14,7 @@ const EventsList = () => {
             const respo = await fetch('http://localhost:8000/api/events');
             const eventsData = await respo.json();
 
-            eventsData.sort((a: any, b: any) => new Date(a.date) - new Date(b.date));
+            eventsData.sort((a: any, b: any) => (new Date(a.date) as any) - (new Date(b.date) as any));
 
             setEvents(eventsData);
             setIsLoading(false);
@@ -23,9 +23,10 @@ const EventsList = () => {
         getAllEvents();
     }, []);
 
-    const handleClick = async (e: React.MouseEventHandler<HTMLHeadingElement>) => {
+    const handleClick = async (e: any) => {
         e.preventDefault();
-        const { id } = e.target;
+        const { target } = e;
+        const { id } = target as HTMLButtonElement;
         window.scroll(0, 0);
         navigate('/eventdashboard', { state: { id: id } });
     };

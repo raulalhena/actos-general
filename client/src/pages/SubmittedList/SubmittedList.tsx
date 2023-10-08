@@ -7,10 +7,13 @@ import { SubmittedUser } from '../../interfaces/SubmittedUser';
 
 const SubmittedList = () => {
     const [ users, setUsers ] = useState<Array<SubmittedUser>>([ {
+        _id: '',
         name: '',
-        username: '',
+        surname: '',
         email: '',
         qrUser: '',
+        token: '',
+        role: '',
         userId: null
     } ]);
     const [ isLoading, setIsLoading ] = useState(true);

@@ -430,7 +430,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     // Image remover
     const removeImage = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        setImageFile('');
+        setImageFile(null);
         setImage('');
         setPreviewURL('');
         setFormData({

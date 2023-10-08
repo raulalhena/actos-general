@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
 import styles from './EventDetail.module.css';
 import { EventDetailProps } from '../../interfaces/eventDetailProps';
@@ -92,7 +93,7 @@ const EventDetailPage = () => {
         getEvent();
     }, [ _id ]);
 
-    const [ qrUser, setQRUser ] = useState('');
+    const [ qrUser, setQRUser ] = useState<string>('');
 
     useEffect(() => {
         const checkInscription = async () => {
@@ -102,7 +103,7 @@ const EventDetailPage = () => {
                 );
                 const inscriptionEvents = await res.json();
 
-                const insEvents = Array.from(inscriptionEvents);
+                const insEvents = Array.from(inscriptionEvents) as EventDashboardFormProps[];
 
                 insEvents.forEach((sEvent: EventDashboardFormProps) => {
                     if (sEvent._id === _id) {
@@ -128,7 +129,7 @@ const EventDetailPage = () => {
                 if (res.ok) { 
                     const inscriptionEvents = await res.json();
     
-                    const insEvents = Array.from(inscriptionEvents);
+                    const insEvents = Array.from(inscriptionEvents) as EventDashboardFormProps[];
     
                     insEvents.forEach((sEvent: EventDashboardFormProps) => {
                         if (sEvent._id === _id) setOnline(true);
@@ -150,7 +151,7 @@ const EventDetailPage = () => {
 
                 const insEvents = Array.from(inscriptionEvents);
 
-                insEvents.forEach((sEvent: unknown) => {
+                insEvents.forEach((sEvent: any) => {
                     if (sEvent._id === _id) {
                         setOnlineHybrid(true);
                         setInscription(true);

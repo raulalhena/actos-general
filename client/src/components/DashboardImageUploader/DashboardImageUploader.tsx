@@ -9,6 +9,7 @@ interface ImageUploaderProps {
     onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
     onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
     image: string | undefined;
+    value: string | undefined;
 }
 
 export const DashboardImageUploader = ({ image, previewURL, imgVisibility, removeImage, onDrop, onDragOver }: ImageUploaderProps) => {

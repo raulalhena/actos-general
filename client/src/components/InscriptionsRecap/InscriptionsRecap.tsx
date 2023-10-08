@@ -6,7 +6,6 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import { RiFileDownloadFill } from 'react-icons/ri';
 // import { RiWhatsappFill } from 'react-icons/ri';
 import { FaUserCheck } from 'react-icons/fa';
-import { User } from '../../interfaces/User';
 import Preloader from '../Preloader/Preloader';
 import { SubmittedUser } from '../../interfaces/SubmittedUser';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
@@ -22,14 +21,16 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
     const [ modalTitle, setModalTitle ] = useState('');
 
     // const [ users, setUsers ] = useState<Array<User>>([]);
-    const [ users, setUsers ] = useState<Array<User>>([
+    const [ users, setUsers ] = useState<Array<SubmittedUser>>([
         {
-            id: '',
+            _id: '',
             name: '',
             surname: '',
             email: '',
             role: '',
             token: '',
+            qrUser: '',
+            userId: null,
         },
     ]);
 
@@ -101,7 +102,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                                 onClick={() => openModal('Presencial')}
                             >
                                 {totalSubmitted}/
-                                {eventData.capacity || eventData.capacity === '0'
+                                {eventData.capacity || eventData.capacity === 0
                                     ? eventData.capacity + ' '
                                     : '- '}
                 Usuarios Inscritos Presencial

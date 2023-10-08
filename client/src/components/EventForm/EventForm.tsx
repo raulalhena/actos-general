@@ -154,7 +154,7 @@ const EventForm = () => {
                     checked: false,
                 }));
                 setMode(modeData);
-            } catch (error: Error) {
+            } catch (error: any) {
                 throw new Error(error.message);
             }
         };

@@ -1,3 +1,5 @@
+import { SubmittedUser } from './SubmittedUser';
+
 export interface EventDashboardFormProps {
     _id: string;
     name: string;
@@ -28,8 +30,8 @@ export interface EventDashboardFormProps {
     qrEvent?: string;
     qrAttendees?: string[];
     attendees?: string[];
-    submitted: string[];
-    submittedOnline?: string[];
+    submitted: string[] | SubmittedUser[];
+    submittedOnline: string[];
     price?: number;
     payment?: string;
     visibility?: boolean;
