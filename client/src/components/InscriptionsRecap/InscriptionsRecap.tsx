@@ -93,27 +93,30 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                         <>
                             <div
                                 onClick={() => openModal('Presencial')}
+                                className={styles.textLink}
                             >
                                 {totalSubmitted}/
                                 {eventData.capacity || eventData.capacity === '0'
                                     ? eventData.capacity + ' '
                                     : '- '}
-                Usuarios Inscritos Presencial
+                                    Usuarios Inscritos Presencial
                             </div>
                             <div className={styles.divider}>|</div>
                             <div
                                 onClick={() => openModal('Presencial')}
+                                className={styles.textLink}
                             >
                                 {totalSubmittedOnline}/
                                 {eventData.capacityOnline || eventData.capacityOnline === '0'
                                     ? eventData.capacityOnline + ' '
                                     : '- '}
-                Usuarios Inscritos En Línea
+                                        Usuarios Inscritos En Línea
                             </div>
                         </>
                     ) : (
                         <div
                             onClick={() => openModal(modeInfo.mode)}
+                            className={styles.textLink}
                         >
                             {modeInfo.totalSubmitted}/
                             {modeInfo.capacity || modeInfo.capacity === '0'

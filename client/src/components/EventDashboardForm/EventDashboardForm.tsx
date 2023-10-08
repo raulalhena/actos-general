@@ -22,17 +22,16 @@ import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
 import SelectSmall from '../SelectSmall/SelectSmall';
-import { MdVisibility } from 'react-icons/Md';
+import { AiFillEye } from 'react-icons/ai';
 
-type Props = { eventData: EventDashboardFormProps };
+type Props = { eventData: EventDashboardFormProps, onCapacityChanged: (event: string | undefined) => void,  onCapacityOnlineChanged: (event?: string) => void };
 
 // Form
-const EventDashboardForm = ( { eventData }: Props ) => {
+const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineChanged }: Props  ) => {
 
     const [ formData, setFormData ] = useState<EventDashboardFormProps>(eventData);
 
     useEffect(() => {
-        console.log('form fata ', eventData);
         setFormData(eventData);
     }, [ eventData ]);
 
@@ -249,10 +248,19 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                                 () => {},
                                 closeModal
                             );
+                            console.log('teste');
+                            if (capacity!== formData.capacity) {
+                                console.log('capacity aquii');
+                                onCapacityChanged(formData.capacity);
+                            } else if (capacityOnline !== formData.capacityOnline) {
+                                console.log('capacity online aquii');
+                                onCapacityOnlineChanged(formData.capacityOnline);
+                            }
                         } 
                     } 
                 },
                 closeModal,
+                
             );
 
         } else {
@@ -264,6 +272,14 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                     body: JSON.stringify(formData),
                 }
             );
+            
+            if (capacity!== formData.capacity) {
+            
+                onCapacityChanged(formData.capacity);
+            } else if (capacityOnline !== formData.capacityOnline) {
+            
+                onCapacityOnlineChanged(formData.capacityOnline);
+            }
 
             if (res.ok) {
                 const res = await fetch(
@@ -502,6 +518,8 @@ const EventDashboardForm = ( { eventData }: Props ) => {
     const [ time, setTime ] = useState<Array<string>>([]);
     const [ visibility, setVisibility ] = useState<boolean>(false);
     const [ mode, setMode ] = useState<ButtonCardRadioProps[]>([]);
+    const [ capacity, setCapacity ] = useState(formData.capacity);
+    const [ capacityOnline, setCapacityOnline ] = useState(formData.capacityOnline);
 
     // Get all data to fill fields
 
@@ -609,7 +627,6 @@ const EventDashboardForm = ( { eventData }: Props ) => {
 
     /*                          VISIBILITY                               */
     useEffect(() => {
-        // Recupere o valor de visibility do localStorage
         const savedVisibility = localStorage.getItem('visibility');
         if (savedVisibility !== null) {
             setVisibility(JSON.parse(savedVisibility));
@@ -700,7 +717,7 @@ const EventDashboardForm = ( { eventData }: Props ) => {
                         <p className={styles.visibility}>
                             <span>
                                 <b>
-                                    <MdVisibility className={styles.visibilityIcon} style={{ color: visibility ? 'green' : '#e15a40' }} />
+                                    <AiFillEye className={styles.visibilityIcon} style={{ color: visibility ? 'green' : '#e15a40' }} />
                                 </b>
                             </span>
                             <span style={{ color: visibility ? 'green' : '#e15a40' }}>

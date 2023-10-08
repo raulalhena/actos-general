@@ -37,8 +37,8 @@ const EventDashboard = () => {
         language: [], //Select con checkbox
         image: '',
         video: '',
-        capacity: 0,
-        capacityOnline: 0,
+        capacity: '',
+        capacityOnline: '',
         submitted: [],
         submittedOnline: [],
         isLimited: false,
@@ -64,6 +64,21 @@ const EventDashboard = () => {
         setShowPDF(!showPDF);
     };
 
+    const handleCapacityChange = (capacity?: string) => {
+    
+        setEventData({
+            ...eventData,
+            capacity: capacity,
+        });
+    };
+    const handleCapacityOnlineChange = (onlineCapacity?: string) => {
+    
+        setEventData({
+            ...eventData,
+            capacityOnline: onlineCapacity,
+        });
+    };
+
     return (
         <>
             {!showPDF ? (
@@ -77,7 +92,7 @@ const EventDashboard = () => {
                                         <h1 className={styles.dash}>—</h1>
                                         <div className={styles.eventTitle}>{eventData.name}</div>
                                         <div className={styles.eventLink}>
-                      (ver página del evento)
+                                            (ver página del evento)
                                         </div>
                                     </div>
                                 </Link>
@@ -91,7 +106,7 @@ const EventDashboard = () => {
                             ) : null}
                         </section>
                         {/* EVENT INFO */}
-                        <EventDashboardForm eventData={eventData} />
+                        <EventDashboardForm eventData={eventData} onCapacityChanged={handleCapacityChange} onCapacityOnlineChanged={handleCapacityOnlineChange} />
                     </div>
                 </div>
             ) : (
