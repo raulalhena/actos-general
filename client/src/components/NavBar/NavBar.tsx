@@ -9,7 +9,7 @@ import { useMediaQuery } from '@mui/material';
 function Navbar() {
     const [ isActive, setIsActive ] = useState(false);
     const { user, isLogged } = useAuth();
-console.log(isLogged || (isLogged && user && user.role !== 'admin'));
+
     const toggleActiveClass = () => {
         setIsActive(!isActive);
     };
