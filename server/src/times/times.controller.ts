@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { TimesService } from './times.service';
 import { CreateTimeDto } from './dto/create-time.dto';
 import { UpdateTimeDto } from './dto/update-time.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('times')
 @Controller('times')
 export class TimesController {
   constructor(private readonly timesService: TimesService) {}

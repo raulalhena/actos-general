@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { CapacitiesService } from './capacities.service';
 import { CreateCapacityDto } from './dto/create-capacity.dto';
 import { UpdateCapacityDto } from './dto/update-capacity.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('capacities')
 @Controller('capacities')
 export class CapacitiesController {
   constructor(private readonly capacitiesService: CapacitiesService) {}

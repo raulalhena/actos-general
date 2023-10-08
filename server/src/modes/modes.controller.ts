@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ModesService } from './modes.service';
 import { CreateModeDto } from './dto/create-mode.dto';
 import { UpdateModeDto } from './dto/update-mode.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('modes')
 @Controller('modes')
 export class ModesController {
   constructor(private readonly modesService: ModesService) {}

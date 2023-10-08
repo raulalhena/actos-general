@@ -11,7 +11,9 @@ import { CreateVisibilityDto } from '../visibilities/dto/create-visibility.dto';
 import { ObjectId } from 'mongoose';
 import { CreateModeDto } from '../modes/dto/create-mode.dto';
 import { CreateActiveDto } from '../actives/dto/create-active.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('misc')
 @Controller('misc')
 export class MiscController {
   constructor(private readonly miscService: MiscService) {}
