@@ -87,16 +87,14 @@ export class EventsService {
       const event = await this.eventModel.findOne({ _id: eventId });
 
       const userIn = event['attendees'].filter(user => {
-        console.log(user.toString(), userId)
         if(user._id.toString() === userId) return user;
       });
-      const user = await this.userService.findById(userId).select('name surname email').lean();
 
+      const user = await this.userService.findById(userId).select('name surname email').lean();
+      
       if(userIn.length > 0){
-         let errorMessage = `Ya se ha accedido con este QR. Usuario: ${user.name} ${user.surname} Email: ${user.email}.`;
-         throw new HttpException(errorMessage, HttpStatus.BAD_REQUEST);
+         throw new HttpException(`Ya se ha accedido con este QR. Usuario: ${user.name} ${user.surname} Email: ${user.email}.`, HttpStatus.BAD_REQUEST);
       } else {
-        console.log('else')
         const eventUpdated = await this.eventModel.findOneAndUpdate({ _id: eventId }, updateData, { new: true});
       }
       
@@ -104,7 +102,7 @@ export class EventsService {
         message: `Registro realizado con éxito. Usuario: ${user.name} ${user.surname} Email: ${user.email}`,
       }
     } catch(error) {
-      throw new HttpException(error, HttpStatus.BAD_REQUEST);
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 

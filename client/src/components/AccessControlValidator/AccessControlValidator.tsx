@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FcHighPriority } from 'react-icons/fc';
 import { FcCheckmark } from 'react-icons/fc';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
     paramsURL: string;
@@ -8,10 +9,10 @@ type Props = {
 
 const AccessControlValidator = ({ paramsURL }: Props) => {
 
-    console.log('params in validator', paramsURL);
+    const navigate = useNavigate();
 
     const [ message, setMessage ] = useState<string>('');
-    const [ status, setStatus ] = useState<boolean>();
+    const [ status, setStatus ] = useState<boolean>(true);
 
     useEffect(() => {
         const attendanceRecord = async () => {
@@ -19,15 +20,24 @@ const AccessControlValidator = ({ paramsURL }: Props) => {
                 method: 'PUT'
             });
             
-            const { message, status } = await resp.json();
-            setMessage(message);
+            const data = await resp.json();
+            console.log('mesg sta', message, resp.status);
             
-            if(!resp.ok) setStatus(status);
+            if(!resp.ok) {
+                setStatus(false);
+            }
+
+            setMessage(data.message);
             
         };
 
         attendanceRecord();
-    });
+    }, []);
+
+    const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        navigate('/accesscontrol');
+    };
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', height: '100vh' }}>
@@ -35,6 +45,9 @@ const AccessControlValidator = ({ paramsURL }: Props) => {
                 {status ? <FcCheckmark /> : <FcHighPriority />}
             </div>
             {message}
+            <div>
+                <button onClick={handleClick}>Volver</button>
+            </div>
         </div>
     );
 };
