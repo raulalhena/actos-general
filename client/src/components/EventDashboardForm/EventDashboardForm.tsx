@@ -248,9 +248,12 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
                                 () => {},
                                 closeModal
                             );
+                            console.log('teste');
                             if (capacity!== formData.capacity) {
+                                console.log('capacity aquii');
                                 onCapacityChanged(formData.capacity);
                             } else if (capacityOnline !== formData.capacityOnline) {
+                                console.log('capacity online aquii');
                                 onCapacityOnlineChanged(formData.capacityOnline);
                             }
                         } 
@@ -269,6 +272,14 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
                     body: JSON.stringify(formData),
                 }
             );
+            
+            if (capacity!== formData.capacity) {
+            
+                onCapacityChanged(formData.capacity);
+            } else if (capacityOnline !== formData.capacityOnline) {
+            
+                onCapacityOnlineChanged(formData.capacityOnline);
+            }
 
             if (res.ok) {
                 const res = await fetch(

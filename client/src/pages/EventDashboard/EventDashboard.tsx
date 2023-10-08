@@ -65,12 +65,14 @@ const EventDashboard = () => {
     };
 
     const handleCapacityChange = (capacity?: string) => {
+    
         setEventData({
             ...eventData,
             capacity: capacity,
         });
     };
     const handleCapacityOnlineChange = (onlineCapacity?: string) => {
+    
         setEventData({
             ...eventData,
             capacityOnline: onlineCapacity,
