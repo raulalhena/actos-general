@@ -1,6 +1,6 @@
 import styles from '../GlobalConfigCard.module.css';
 import { Link } from 'react-router-dom';
-import { MdCategory } from 'react-icons/Md';
+import { MdCategory } from 'react-icons/md';
 
 const SubcategoryConfigCard = () => {
     
