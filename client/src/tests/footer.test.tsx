@@ -1,9 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import Footer from '../components/Footer/Footer';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 test('Checks if the word "Fundación Privada Nous Cims" is present', () => {
     render(
-        <Footer />
+        <Router>
+            <Footer />
+        </Router>
+        
     );
 
     const title = screen.getByText('Fundación Privada Nous Cims');
@@ -12,7 +16,9 @@ test('Checks if the word "Fundación Privada Nous Cims" is present', () => {
 
 test('Checks if the word "Contacto" is present', () => {
     render(
-        <Footer />
+        <Router>
+            <Footer />
+        </Router>
     );
 
     const title = screen.getByText('Contacto');
