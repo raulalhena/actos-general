@@ -1,39 +1,31 @@
 .searchBarContainer {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 }
 
-.searchBar{
+.searchBar {
   display: flex;
   gap: 0.5rem;
-  
 }
 
 .searchInput {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-  background: rgba(255, 255, 255, 0.5);
+  background: white;
   border-style: none;
-  border-radius: 5px;
-  width: 300px;
+  border-radius: 25px;
+  width: 500px;
   height: 50px;
   font-size: 16px;
   font-weight: 400;
   color: #000000;
-  padding-left: 1rem;
+  padding-left: 1.5rem;
 }
 
-.searchInput:hover {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
+.searchInput:hover,
 .searchInput:focus {
   outline: none;
-  border: 2px solid #e15a40;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .searchIcon {
@@ -41,18 +33,18 @@
   font-size: 20px;
   color: white;
   border-style: none;
-  background-color: #e15a40;
+  background-color: #1c2e48;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-  width: 50px;
-  height: 50px;
-  border-radius: 5px;
+  width: 45px;
+  height: 45px;
+  border-radius: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .searchIcon:hover {
-  background-color: #d53d1e;
+  background-color: #43618b;
   transition: 0.1s;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -61,17 +53,36 @@
   z-index: 1;
 }
 
-/* Para pantallas más grandes o iguales a 768px (md) */
-@media screen and (min-width: 768px) {
+.searchSection {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
+@media screen and (max-width: 768px) {
   .searchBarContainer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 0.5rem;
   }
 
-  .searchInput {
-    width: 500px;
+  .searchBar {
+    flex-direction: column;
   }
-  
+
+  .searchInput {
+    width: 300px;
+  }
+
+  .searchIcon {
+    font-size: 14px;
+    width: 35px;
+    height: 35px;
+  }
+
+  .searchSection {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
 }
