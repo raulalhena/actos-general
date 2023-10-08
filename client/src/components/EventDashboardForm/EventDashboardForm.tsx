@@ -997,50 +997,51 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
                         />
                     </FormField>
                     {selectedMode === 'Presencial' || selectedMode === 'Híbrido' ? (
-                        <FormField>
-                            <ToggleSwitch 
-                                id='capacity'
-                                label={'El evento tiene límite de entrada Presencial'}
-                                subtitle={'Activa el botón para definir número de entradas en Presencial.'}
-                                onChange={handleToggleCapacityChange}
-                                isChecked={formData.isLimited}
-                            />
-                            {selectedCapacity ? (
-                                <TextInputNumber
-                                    id="capacity"
-                                    label="Límite de entradas Presencial"
-                                    subtitle="Ingrese solamente caracteres numéricos mayores que 0."
-                                    placeholder="ej.: 20"
-                                    value={formData.capacity} 
-                                    onChange={handleInputNumberChange}
-                                    isRequired={true}
-                                />
-                            ): null }
-                        </FormField>
-                    ) : null}
+    <FormField>
+        <ToggleSwitch 
+            id='capacity'
+            label={'El evento tiene límite de entrada Presencial'}
+            subtitle={'Activa el botón para definir número de entradas en Presencial.'}
+            onChange={handleToggleCapacityChange}
+            isChecked={formData.isLimited}
+        />
+        {selectedCapacity ? (
+            <TextInputNumber
+                id="capacity"
+                label="Límite de entradas Presencial"
+                subtitle="Ingrese solamente caracteres numéricos mayores que 0."
+                placeholder="ej.: 20"
+                value={formData.capacity} 
+                onChange={handleInputNumberChange}
+                isRequired={true}
+            />
+        ): null }
+    </FormField>
+) : null}
 
-                    {selectedMode === 'En Línea' || selectedMode === 'Híbrido' ? (
-                        <FormField>
-                            <ToggleSwitch 
-                                id='capacityOnline'
-                                label={'El evento tiene límite de entrada en Línea'}
-                                subtitle={'Activa el botón para definir número de entradas en Línea.'}
-                                onChange={handleToggleCapacityOnlineChange}
-                                isChecked={formData.isLimited || selectedMode === 'Híbrido'}
-                            />
-                            {selectedCapacityOnline ? (
-                                <TextInputNumber
-                                    id="capacityOnline"
-                                    label="Límite de entradas en Línea"
-                                    subtitle="Ingrese solamente caracteres numéricos mayores que 0."
-                                    placeholder="ej.: 20"
-                                    value={formData.capacityOnline} 
-                                    onChange={handleInputNumberChange}
-                                    isRequired={true}
-                                />
-                            ): null }
-                        </FormField>
-                    ) : null}
+{selectedMode === 'En Línea' || selectedMode === 'Híbrido' ? (
+    <FormField>
+        <ToggleSwitch 
+            id='capacityOnline'
+            label={'El evento tiene límite de entrada en Línea'}
+            subtitle={'Activa el botón para definir número de entradas en Línea.'}
+            onChange={handleToggleCapacityOnlineChange}
+            isChecked={formData.isLimited || selectedMode === 'Híbrido'}
+        />
+        {selectedCapacityOnline ? (
+            <TextInputNumber
+                id="capacityOnline"
+                label="Límite de entradas en Línea"
+                subtitle="Ingrese solamente caracteres numéricos mayores que 0."
+                placeholder="ej.: 20"
+                value={formData.capacityOnline} 
+                onChange={handleInputNumberChange}
+                isRequired={true}
+            />
+        ): null }
+    </FormField>
+) : null}
+
 
                 </SectionForm>
                 
