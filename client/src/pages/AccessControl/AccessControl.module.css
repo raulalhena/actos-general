@@ -15,3 +15,9 @@
   .dash {
     color: #e15a40;
   }
+
+  .subtitleQR {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
