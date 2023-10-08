@@ -149,12 +149,13 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                 <div className={styles.containerSection}>
                     <RiWhatsappFill className={styles.inscriptionsIcon} />
                     <a
-                        href={`http://web.whatsapp.com/send?text=${encodeURI(eventData.qrEvent)}`}
+                        href={`http://web.whatsapp.com/send?text=Hola, te comparto la información de nuestro evento!`}
                         data-action="share/whatsapp/share"
                         target="_blank"
                     >
                         <div className={styles.pdfButton}>
-            Comparte el QR por Whatsapp</div>
+                            Compartir Información en Whatsapp
+                        </div>
                     </a>
                 </div>
             </div>
