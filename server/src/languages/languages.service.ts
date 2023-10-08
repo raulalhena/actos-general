@@ -22,9 +22,9 @@ export class LanguagesService {
   }
 
   async deleteLanguage(id: string): Promise<void> {
-    const result = await this.languageModel.deleteOne({ _id: id }).exec();
+    const result = await this.languageModel.deleteOne({ _id: id })
     if (result.deletedCount === 0) {
-      throw new NotFoundException(`Entity with ID ${id} not found`);
+      throw new NotFoundException(`Language with ID ${id} not found`);
     }
   }
 

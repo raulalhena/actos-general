@@ -18,7 +18,7 @@ const ConfigList = () => {
     const [ dataList, setDataList ] = useState<DataList[]>([]);
     const [ isLoading, setIsLoading ] = useState(true);
     const [ isModalOpen, setIsModalOpen ] = useState(false);
-    const [itemToDelete, setItemToDelete] = useState<{ name: string, id: string } | null>(null);
+    const [ itemToDelete, setItemToDelete ] = useState<{ name: string, id: string } | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {

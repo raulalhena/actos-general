@@ -23,7 +23,7 @@ export class TimezonesService {
   }
 
   async deleteTimezone(id: string): Promise<void> {
-    const result = await this.timezoneModel.deleteOne({ _id: id }).exec();
+    const result = await this.timezoneModel.deleteOne({ _id: id });
     if (result.deletedCount === 0) {
       throw aNotFoundException(`Timezone with ID ${id} not found`);
     }
