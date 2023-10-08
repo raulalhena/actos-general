@@ -22,7 +22,7 @@ export class TypesService {
   }
 
   async deleteType(id: string): Promise<void> {
-    const result = await this.typeModel.deleteOne({ _id: id }).exec();
+    const result = await this.typeModel.deleteOne({ _id: id });
     if (result.deletedCount === 0) {
       throw new NotFoundException(`Type with ID ${id} not found`);
     }

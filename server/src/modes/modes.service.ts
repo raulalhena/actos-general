@@ -23,7 +23,7 @@ export class ModesService {
   }
 
   async deleteMode(id: string): Promise<void> {
-    const result = await this.modeModel.deleteOne({ _id: id }).exec();
+    const result = await this.modeModel.deleteOne({ _id: id });
     if (result.deletedCount === 0) {
       throw new NotFoundException(`Mode with ID ${id} not found`);
     }
