@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import styles from './ConfigList.module.css'; // Importa los estilos CSS
+import styles from './ConfigList.module.css'; 
 import Preloader from '../../Preloader/Preloader';
 
 interface DataList {
