@@ -2,11 +2,14 @@ import  { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './ConfigList.module.css'; 
 import Preloader from '../../Preloader/Preloader';
+import ModalDisplay from '../../Modal/ModalDisplay';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface DataList {
-  name: string;
-  description: string;
-  _id: string;
+    name: string;
+    description: string;
+    _id: string;
 }
 
 const ConfigList = () => {
@@ -14,6 +17,8 @@ const ConfigList = () => {
     const propsData = location.state;
     const [ dataList, setDataList ] = useState<DataList[]>([]);
     const [ isLoading, setIsLoading ] = useState(true);
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [itemToDelete, setItemToDelete] = useState<{ name: string, id: string } | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,25 +41,50 @@ const ConfigList = () => {
         fetchData();
     }, [ propsData ]);
 
+    const handleDeleteButtonClick = (name: string, id: string) => {
+        setItemToDelete({ name, id });
+        setIsModalOpen(true);
+    };
+
     const handleDelete = async (name: string, id: string) => {
+
         try {
             const response = await fetch(`http://localhost:8000/api/${propsData}/${id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                
+                toast.error('Hubo un error al eliminar ${name}', {
+                    position: 'top-right',
+                    autoClose: 2500,
+                    pauseOnHover: true,
+                });
             }
 
             setDataList((prevDataList) =>
                 prevDataList.filter((list) => list.name !== name)
             );
+            toast.success('Eliminado con éxito', {
+                position: 'top-right',
+                autoClose: 2500,
+                pauseOnHover: true,
+            });
+            closeModal(); 
+
         } catch (error) {
             console.error(error);
         }
     };
 
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setItemToDelete(null);
+        window.scrollTo(0, 0);
+    };
+
     return (
         <div className={styles.page}>
+            <ToastContainer  />
             <div className={styles.pageContainer}>
                 <div className={styles.title}>
                     <h1 className={styles.dash}>—</h1>
@@ -68,9 +98,9 @@ const ConfigList = () => {
                             <div className={styles.eventChips}>
                                 <button
                                     className={styles.cardCategory}
-                                    onClick={() => handleDelete(list.name, list._id)}
+                                    onClick={() => handleDeleteButtonClick(list.name, list._id)}
                                 >
-                  Eliminar
+                                    Eliminar
                                 </button>
                             </div>
                         </div>
@@ -84,6 +114,20 @@ const ConfigList = () => {
                         <h2>CREAR NUEVO</h2>
                     </div>
                 </Link>
+            </div>
+            <div data-testid="modal">
+                {isModalOpen && (
+                    <ModalDisplay
+                        title={`Quieres eliminar ${itemToDelete?.name}?`}
+                        button1Text={'Eliminar'}
+                        button2Text={'Cancelar'}
+                        onClose={closeModal}
+                        isOpen={true}
+                        onButton1Click={() => handleDelete(itemToDelete?.name || '', itemToDelete?.id || '')}
+                        onButton2Click={closeModal}
+                        showCloseButton={true}
+                    />
+                )}
             </div>
         </div>
     );
