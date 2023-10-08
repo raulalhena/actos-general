@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import {  fireEvent, render, screen } from '@testing-library/react';
 import { test, expect } from 'vitest';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import CreateEvent from '../pages/CreateEvent/CreateEvent';
@@ -11,6 +11,9 @@ import NotFound from '../pages/NotFound/NotFound';
 import FAQ from '../pages/FAQ/FAQ';
 import EventsList from '../pages/EventsList/EventsList';
 import AllEvents from '../pages/AllEvents/AllEvents';
+import ConfigForm from '../pages/ConfigForm/ConfigForm';
+import MyEvents from '../pages/MyEvents/MyEvents';
+import ConfigBoard from '../pages/ConfigBoard/ConfigBoard';
 
 /*               {CREATE EVENT Page}               */
 test('Render Create Event Page', async () => {
@@ -162,4 +165,41 @@ test('Render All Events Page', async () => {
     
 });
 
-/*               {Logout Page}               */
+/*               {CONFIG BOARD}               */
+test('Render Config Board Page', async () => {
+    render(
+        <MemoryRouter initialEntries={[ '/configBoard' ]} initialIndex={0}>
+            <Routes>
+                <Route path="/configBoard" element={<ConfigBoard />} />
+            </Routes>
+        </MemoryRouter>
+    );
+
+    const configBoardComponent = screen.getByTestId('configBoard-page');
+    expect(configBoardComponent).toBeInTheDocument();
+});
+
+/*               {CONFIG FORM}               */
+test('Render ConfigForm with CategoryForm', () => {
+    render(
+        <MemoryRouter initialEntries={[ '/config' ]}>
+            <Routes>
+                <Route path="/config" element={<ConfigForm />} />
+            </Routes>
+        </MemoryRouter>
+    );
+});
+
+/*               {MY EVENTS}               */
+test('Render My Events Page', async () => {
+    render(
+        <MemoryRouter initialEntries={[ '/myEvents' ]} initialIndex={0}>
+            <Routes>
+                <Route path="/myEvents" element={<MyEvents />} />
+            </Routes>
+        </MemoryRouter>
+    );
+
+    const myEventsComponent = screen.getByTestId('myEvents-page');
+    expect(myEventsComponent).toBeInTheDocument();
+});
