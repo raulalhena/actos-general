@@ -83,13 +83,13 @@ const CategoryForm = () => {
 
     return (
         <>
-            <div className={styles.subcategoryPage}>
+            <div data-testid="category-form" className={styles.subcategoryPage}>
                 <ToastContainer  />
                 <div className={styles.container}>
                     <div className={styles.form}>
                         <form onSubmit={handleSubmit}>
                             <section>
-                                <div className={styles.title}>
+                                <div data-testid="header-title" className={styles.title}>
                                     <h1 className={styles.dash}>—</h1>
                                     <h1>Crea una categoría</h1>
                                 </div>
@@ -117,11 +117,11 @@ const CategoryForm = () => {
                                     />
                                 </div>
                             </section>
-                            <div className={styles.buttonSection}>
+                            <div data-testid="button-submit" className={styles.buttonSection}>
                                 <ButtonSubmit label="Guardar" />
                             </div>
                         </form>
-                        <div>
+                        <div data-testid="modal">
                             {isModalOpen && (
                                 <ModalDisplay
                                     title={'Quieres guardar?'}

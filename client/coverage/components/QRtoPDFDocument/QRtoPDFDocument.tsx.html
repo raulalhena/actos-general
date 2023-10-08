@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.61% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/26</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.61% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/26</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -98,23 +98,23 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Document, Image, Page, View, Text } from '@react-pdf/renderer';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 &nbsp;
@@ -123,24 +123,24 @@ type Props = {
     eventData: EventFormProps;
 }
 &nbsp;
-export const QRtoPDFDocument = <span class="fstat-no" title="function not covered" >({ eventData, qrImg }: Props) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    return (</span>
-<span class="cstat-no" title="statement not covered" >        &lt;Document title={eventData.name}&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;Page size="A4"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                &lt;View style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;Text style={{ fontSize: '50px' }}&gt;{ eventData.name }&lt;/Text&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;Text&gt; &lt;/Text&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;Text&gt;Dirección: { eventData.address }&lt;/Text&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;Text&gt;Fecha: { eventData.date }&lt;/Text&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;Text&gt;Hora Inicio: { eventData.startTime }&lt;/Text&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;Text&gt;Hora Fin: { eventData.endTime }&lt;/Text&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    &lt;Image src={qrImg} style={{ width: '200px', height: '200px' }} /&gt;</span>
-<span class="cstat-no" title="statement not covered" >                &lt;/View&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/Page&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/Document&gt;</span>
-<span class="cstat-no" title="statement not covered" >    );</span>
-<span class="cstat-no" title="statement not covered" >};</span>
+export const QRtoPDFDocument = ({ eventData, qrImg }: Props) =&gt; {
+&nbsp;
+    return (
+        &lt;Document title={eventData.name}&gt;
+            &lt;Page size="A4"&gt;
+                &lt;View style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}&gt;
+                    &lt;Text style={{ fontSize: '50px' }}&gt;{ eventData.name }&lt;/Text&gt;
+                    &lt;Text&gt; &lt;/Text&gt;
+                    &lt;Text&gt;Dirección: { eventData.address }&lt;/Text&gt;
+                    &lt;Text&gt;Fecha: { eventData.date }&lt;/Text&gt;
+                    &lt;Text&gt;Hora Inicio: { eventData.startTime }&lt;/Text&gt;
+                    &lt;Text&gt;Hora Fin: { eventData.endTime }&lt;/Text&gt;
+                    &lt;Image src={qrImg} style={{ width: '200px', height: '200px' }} /&gt;
+                &lt;/View&gt;
+            &lt;/Page&gt;
+        &lt;/Document&gt;
+    );
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -148,7 +148,7 @@ export const QRtoPDFDocument = <span class="fstat-no" title="function not covere
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-10-08T12:15:46.056Z
+                at 2023-10-08T13:42:02.074Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

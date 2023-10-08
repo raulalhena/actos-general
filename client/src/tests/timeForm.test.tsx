@@ -5,8 +5,8 @@ import TimeForm from '../components/Configuration/Forms/TimeForm/TimeForm';
 describe('time form Component', () => {
     it('renders without errors', () => {
         const { queryByTestId } = render(<Router><TimeForm/></Router>);
-        const dateInput = queryByTestId('time-form');
-        expect(dateInput).toBeInTheDocument();
+        const dataid = queryByTestId('time-form');
+        expect(dataid).toBeInTheDocument();
     });
 
     it('displays a header title for successful registration', async () => {

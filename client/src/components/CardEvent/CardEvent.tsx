@@ -17,7 +17,7 @@ const CardEvent = ({ eventData }: CardEventProps) => {
 
     return (
         <Link to={`/event/${eventData._id}`} state={eventData._id}>
-            <div className={styles.card}>
+            <div data-testid="card-event" className={styles.card}>
                 {/* IMAGE */}
                 <div className={styles.imageSection}>
                     <div className={styles.logoContainer}>

@@ -5,7 +5,7 @@ import { IoCheckmarkCircleSharp } from 'react-icons/io5';
 const ButtonCardRadio = (props: ButtonCardRadioProps) => {
 
     return (
-        <div className={styles.cardButtonContainer}>
+        <div data-testid="cardRadio-btn" className={styles.cardButtonContainer}>
             <label className={styles.cardButton} >
                 <input
                     type="radio"
