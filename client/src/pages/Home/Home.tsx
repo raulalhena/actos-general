@@ -10,7 +10,7 @@ const HomePage = () => {
     const [ allEvents, setAllEvents ] = useState<CardEventProps['eventData'][]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/events/home')
+        fetch('http://93.93.112.16:8000/api/events/home')
             .then((response) => response.json())
             .then((data) => {
                 setAllEvents(data);

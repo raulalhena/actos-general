@@ -19,7 +19,7 @@ const AllEvents = () => {
 
     useEffect(() => {
         if (keywords && filters) {
-            const apiUrl = `http://localhost:8000/api/events/search?filters=${filters}&keywords=${keywords}`;
+            const apiUrl = `http://93.93.112.16:8000/api/events/search?filters=${filters}&keywords=${keywords}`;
     
             fetch(apiUrl)
                 .then((response) => response.json())
@@ -39,7 +39,7 @@ const AllEvents = () => {
         } else if (keywords && !filters) {
 
             const allFilters = 'name,category,subcategory,language,tags,type,mode';
-            const apiUrl = `http://localhost:8000/api/events/search?filters=${allFilters}&keywords=${keywords}`;
+            const apiUrl = `http://93.93.112.16:8000/api/events/search?filters=${allFilters}&keywords=${keywords}`;
     
             fetch(apiUrl)
                 .then((response) => response.json())
@@ -57,7 +57,7 @@ const AllEvents = () => {
                     console.error('Error al obtener datos:', error);
                 });
         } else {
-            fetch('http://localhost:8000/api/events')
+            fetch('http://93.93.112.16:8000/api/events')
                 .then((response) => response.json())
                 .then((res) => {
                     if (Array.isArray(res) && res.length > 0) {
