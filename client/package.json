@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest --no-browser",
     "coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "watch": "watch 'npm run build' ."
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -39,7 +40,8 @@
     "react-tag-input-component": "^2.0.2",
     "react-toastify": "^9.1.3",
     "sinon": "^16.1.0",
-    "styled-components": "^5.3.11"
+    "styled-components": "^5.3.11",
+    "watch": "^1.0.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.1.3",

@@ -30,7 +30,7 @@ export interface EventDashboardFormProps {
     qrEvent?: string;
     qrAttendees?: string[];
     attendees?: string[];
-    submitted: string[] | SubmittedUser[];
+    submitted: SubmittedUser[];
     submittedOnline: string[];
     price?: number;
     payment?: string;
