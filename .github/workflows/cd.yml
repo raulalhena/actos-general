@@ -27,15 +27,15 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }}
         port: 22
         script: |
-          cd ..
+          cd /home/${{ secrets.USERNAME }}/apps/actos/
+          git pull origin main
+          nvm use v18.16.1
           cd server
           npm install
           npm run test
           npm run build
           pm2 startOrGracefulReload pm2run.json
-          cd /home/${{ secrets.USERNAME }}/apps/actos/
-          git pull origin main
-          nvm use v18.16.1
+          cd ..
           cd client
           npm install
           npx vitest run
