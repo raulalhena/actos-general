@@ -18,7 +18,7 @@ const ConfigList = () => {
     const [ dataList, setDataList ] = useState<DataList[]>([]);
     const [ isLoading, setIsLoading ] = useState(true);
     const [ isModalOpen, setIsModalOpen ] = useState(false);
-    const [itemToDelete, setItemToDelete] = useState<{ name: string, id: string } | null>(null);
+    const [ itemToDelete, setItemToDelete ] = useState<{ name: string, id: string } | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -86,10 +86,23 @@ const ConfigList = () => {
         <div className={styles.page}>
             <ToastContainer  />
             <div className={styles.pageContainer}>
-                <div className={styles.title}>
-                    <h1 className={styles.dash}>—</h1>
-                    <h1>Configuración</h1>
+                <div className={styles.header}>
+                    <div className={styles.title}>
+                        <h1 className={styles.dash}>—</h1>
+                        <h1>Configuración</h1>
+                    </div>
+                    
+                    <br />
                 </div>
+                <div className={styles.btnContainer}>
+                    <Link className={styles.createLink} to={`/config/configform`} state={`${propsData}`}>
+                        <div >
+                            <h2>CREAR NUEVO</h2>
+                        </div>
+                    </Link>
+                </div>
+                <br />
+                
                 <div>{isLoading && <Preloader />}</div>
                 <div className={styles.eventList} data-testid="eventsList-page">
                     {dataList.map((list) => (
@@ -97,7 +110,7 @@ const ConfigList = () => {
                             <h2 className={styles.eventTitle}>{list.name}</h2>
                             <div className={styles.eventChips}>
                                 <button
-                                    className={styles.cardCategory}
+                                    className={styles.createBtn}
                                     onClick={() => handleDeleteButtonClick(list.name, list._id)}
                                 >
                                     Eliminar
@@ -108,12 +121,6 @@ const ConfigList = () => {
                 </div>
             </div>
             <div>
-                <br />
-                <Link className={styles.createLink} to={`/config/configform`} state={`${propsData}`}>
-                    <div>
-                        <h2>CREAR NUEVO</h2>
-                    </div>
-                </Link>
             </div>
             <div data-testid="modal">
                 {isModalOpen && (
