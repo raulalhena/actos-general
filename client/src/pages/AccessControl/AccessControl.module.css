@@ -1,0 +1,23 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    margin: 5% 15%;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    max-width: 300px;
+  }
+  
+  .dash {
+    color: #e15a40;
+  }
+
+  .subtitleQR {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
