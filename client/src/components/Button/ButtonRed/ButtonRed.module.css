@@ -14,21 +14,28 @@
   letter-spacing: 1px;
 }
 
-.button:hover, .button:active {
+.button:hover,
+.button:active {
   cursor: pointer;
   font-weight: 700;
-  background:  #d53d1e;
-  }
+  background: #d53d1e;
+}
 
+/* Para pantallas más pequeña a 768px (md) */
+@media screen and (max-width: 768px) {
+  .button {
+    padding: 1rem;
+  }
+}
 
 /* Para pantallas más grandes o iguales a 1400px (xxl) */
 @media screen and (min-width: 1400px) {
   .button {
-  font-size: 14px;
-  padding: 1rem;
-}
+    font-size: 14px;
+    padding: 1rem;
+  }
 
-.ticketIcon {
-  font-size: 18px;
-}
+  .ticketIcon {
+    font-size: 18px;
+  }
 }

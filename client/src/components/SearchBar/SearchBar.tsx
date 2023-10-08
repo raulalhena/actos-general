@@ -11,7 +11,7 @@ const filterOptions: Record<string, string> = {
     language: 'Idioma',
     tags: 'Etiquetas',
     mode: 'Formato del evento',
-    type: 'Tipo de evento'
+    type: 'Tipo de evento',
 };
 
 function SearchBar() {
@@ -40,7 +40,7 @@ function SearchBar() {
         Object.entries(filterOptions).forEach(([ key, value ]) => {
             invertedTranslations[value] = key;
         });
-    
+
         return invertedTranslations[filter] || filter;
     };
 
@@ -50,7 +50,7 @@ function SearchBar() {
 
         localStorage.setItem('lastSearch', searchValue);
         localStorage.setItem('lastFilters', filtersString);
-    
+
         navigate(`/allevents?keywords=${searchValue}&filters=${filtersString}`);
     };
 
@@ -67,30 +67,32 @@ function SearchBar() {
 
     return (
         <div className={styles.searchBarContainer}>
-            <div className={styles.filterField}>
-                <DropdownFilter
-                    id="search"
-                    label={'Buscar por filtro'}
-                    options={Object.values(filterOptions)}
-                    values={filter}
-                    onChange={handleFilterChange}
-                />
-            </div>
             <div className={styles.searchBar}>
-                <input
-                    type="text"
-                    className={styles.searchInput}
-                    placeholder="Buscar eventos"
-                    value={searchValue}
-                    onChange={handleInputChange}
-                    aria-label="Buscar eventos"
-                    onKeyPress={handleKeyPress}
-                />
-                <button className={styles.searchIcon} onClick={handleSearch}>
-                    <FaSearch />
-                </button>
+                <div className={styles.filterField}>
+                    <DropdownFilter
+                        id="search"
+                        label={'Buscar por filtro'}
+                        options={Object.values(filterOptions)}
+                        values={filter}
+                        onChange={handleFilterChange}
+                    />
+                </div>
+                <div className={styles.searchSection}>
+                    <input
+                        type="text"
+                        className={styles.searchInput}
+                        placeholder="Buscar eventos"
+                        value={searchValue}
+                        onChange={handleInputChange}
+                        aria-label="Buscar eventos"
+                        onKeyPress={handleKeyPress}
+                    />
+                
+                    <button className={styles.searchIcon} onClick={handleSearch}>
+                        <FaSearch />
+                    </button>
+                </div>
             </div>
-            
         </div>
     );
 }

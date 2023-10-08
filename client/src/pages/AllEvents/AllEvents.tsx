@@ -76,30 +76,30 @@ const AllEvents = () => {
     return (
         <>
             <div className={styles.page}>
-                <div className={styles.pageContainer}>
-                    <div className={styles.title}>
+                <section className={styles.header}>
+                    <div className={styles.topTitle}>
                         <h1 className={styles.dash}>—</h1>
                         <h1>Todos los eventos</h1>
                     </div>
-                    <div className={styles.searchBar}>
-                        <SearchBar/>
-                        <br />
-                    </div>
+                </section>
+                <div className={styles.searchBar}>
+                    <SearchBar/>
                     <br />
-                    <div>
-                        {isLoading && <Preloader />}
-                        {!isLoading && noResults && (
-                            <div className={styles.textBox}>
-                                <p className={styles.textStyle}> No se encontraron resultados. </p>
-                            </div>
-                        )}
-                    </div>
-                    <div data-testid="allEvents-page"> 
-                        <div className={styles.cardGrid}>
-                            {eventData.map((event, index) => (
-                                <CardEvent key={index} eventData={event} />
-                            ))}
+                </div>
+                <br />
+                <div>
+                    {isLoading && <Preloader />}
+                    {!isLoading && noResults && (
+                        <div className={styles.textBox}>
+                            <p className={styles.textStyle}> No se encontraron resultados. </p>
                         </div>
+                    )}
+                </div>
+                <div data-testid="allEvents-page"> 
+                    <div className={styles.cardGrid}>
+                        {eventData.map((event, index) => (
+                            <CardEvent key={index} eventData={event} />
+                        ))}
                     </div>
                 </div>
             </div>

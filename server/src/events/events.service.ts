@@ -7,12 +7,14 @@ import { generateEventQR, generateUserQR } from '../utils/qr.generator';
 import { EventInscriptionDto } from './dto/event-inscription.dto';
 import { EventUnsubscriptionDto } from './dto/event-unsubscription.dto';
 import { buffer } from 'stream/consumers';
-
+import { AttendanceRecordDto } from './dto/event-attendance-record.dto';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class EventsService {
   constructor(
     @InjectModel(Event.name) private eventModel: Model<Event>,
+    private userService: UsersService
   ) {}
   
 
@@ -99,11 +101,31 @@ export class EventsService {
 
   async attendanceRecord(eventId: ObjectId, userId: ObjectId) {
     try{
-      const userAttendee = await this.eventModel.find({ _id: eventId }).select('attendees').populate('attendees').exec();
+      const updateData = {
+        $push: {
+          attendees: userId
+        }
+      }
+
+      const event = await this.eventModel.findOne({ _id: eventId });
+
+      const userIn = event['attendees'].filter(user => {
+        if(user._id.toString() === userId) return user;
+      });
+
+      const user = await this.userService.findById(userId).select('name surname email').lean();
       
-      return 'El registro de usuario se ha realizado con éxito';
+      if(userIn.length > 0){
+         throw new HttpException(`Ya se ha accedido con este QR. Usuario: ${user.name} ${user.surname} Email: ${user.email}.`, HttpStatus.BAD_REQUEST);
+      } else {
+        const eventUpdated = await this.eventModel.findOneAndUpdate({ _id: eventId }, updateData, { new: true});
+      }
+      
+      return { 
+        message: `Registro realizado con éxito. Usuario: ${user.name} ${user.surname} Email: ${user.email}`,
+      }
     } catch(error) {
-      throw new HttpException('Error al registrar la asistencia', HttpStatus.BAD_REQUEST);
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -113,7 +135,7 @@ export class EventsService {
       
       return Buffer.from(event['image'], 'base64');
     } catch (error) {
-      throw new HttpException(error.messge, HttpStatus.BAD_REQUEST);
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
   

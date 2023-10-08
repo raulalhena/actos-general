@@ -1,14 +1,33 @@
-.title {
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  padding: 0 2rem;
+  background-color: white;
+  margin-bottom: 4rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: auto;
+  padding: 3rem 0 0.5rem 0;
+}
+
+.topTitle {
+  width: 90vw;
   display: flex;
   gap: 1rem;
-  margin-bottom: 0.5rem;
+  margin: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid #cacaca;
 }
 
 .dash {
   color: #e15a40;
-}
-
-.sectionHomePage {
 }
 
 .cardGrid {
@@ -22,7 +41,7 @@
   align-items: center;
   justify-content: flex-end;
   width: 80vw;
-  margin-bottom: 1rem;
+  margin: 2rem 0;
 }
 
 /* Para pantallas más grandes o iguales a 768px (md) */
