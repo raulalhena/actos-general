@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import styles from './ConfigList.module.css';
+import styles from './ConfigList.module.css'; 
 import Preloader from '../../Preloader/Preloader';
 
 interface DataList {
-    name: string;
-    description: string;
-    _id: string;
+  name: string;
+  description: string;
+  _id: string;
 }
 
 const ConfigList = () => {
@@ -14,6 +14,7 @@ const ConfigList = () => {
     const propsData = location.state;
     const [ dataList, setDataList ] = useState<DataList[]>([]);
     const [ isLoading, setIsLoading ] = useState(true);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -33,10 +34,9 @@ const ConfigList = () => {
         };
 
         fetchData();
-
     }, [ propsData ]);
 
-    const handleDelete = async (name: string , id: string) => {
+    const handleDelete = async (name: string, id: string) => {
         try {
             const response = await fetch(`http://localhost:8000/api/${propsData}/${id}`, {
                 method: 'DELETE',
@@ -60,21 +60,26 @@ const ConfigList = () => {
                     <h1 className={styles.dash}>—</h1>
                     <h1>Configuración</h1>
                 </div>
-                <div>{ isLoading && <Preloader />}</div>
+                <div>{isLoading && <Preloader />}</div>
                 <div className={styles.eventList} data-testid="eventsList-page">
                     {dataList.map((list) => (
                         <div key={list._id} className={styles.eventItem}>
                             <h2 className={styles.eventTitle}>{list.name}</h2>
                             <div className={styles.eventChips}>
-                                <button className={styles.eventItem} onClick={() => handleDelete(list.name, list._id)}>Eliminar</button>
+                                <button
+                                    className={styles.cardCategory}
+                                    onClick={() => handleDelete(list.name, list._id)}
+                                >
+                  Eliminar
+                                </button>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
             <div>
-                < br />
-                <Link className={styles.eventItem} to={`/config/configform`} state={`${propsData}`}>
+                <br />
+                <Link className={styles.createLink} to={`/config/configform`} state={`${propsData}`}>
                     <div>
                         <h2>CREAR NUEVO</h2>
                     </div>
