@@ -52,7 +52,7 @@ export class EventsService {
 
   async homePageEvents() {
     try {
-      return await this.eventModel.find({active: true, visibility: true}).sort({_id: -1}).limit(6);;
+      return await this.eventModel.find({active: true, visibility: true}).sort({_id: -1}).limit(6);
     } catch (error) {
         throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
