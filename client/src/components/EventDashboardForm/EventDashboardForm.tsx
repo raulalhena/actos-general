@@ -22,7 +22,7 @@ import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
 import SelectSmall from '../SelectSmall/SelectSmall';
-import { MdVisibility } from 'react-icons/Md';
+import { AiFillEye } from 'react-icons/ai';
 
 type Props = { eventData: EventDashboardFormProps, onCapacityChanged: (event: string | undefined) => void,  onCapacityOnlineChanged: (event?: string) => void };
 
@@ -706,7 +706,7 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
                         <p className={styles.visibility}>
                             <span>
                                 <b>
-                                    <MdVisibility className={styles.visibilityIcon} style={{ color: visibility ? 'green' : '#e15a40' }} />
+                                    <AiFillEye className={styles.visibilityIcon} style={{ color: visibility ? 'green' : '#e15a40' }} />
                                 </b>
                             </span>
                             <span style={{ color: visibility ? 'green' : '#e15a40' }}>
