@@ -22,7 +22,7 @@ import SelectCategories from '../SelectCategories/SelectCategories';
 import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
 import SelectSmall from '../SelectSmall/SelectSmall';
-import { MdVisibility } from 'react-icons/Md';
+import { MdVisibility } from 'react-icons/md';
 import { SubcategoryProps } from '../../interfaces/subcategoryProps';
 import { CategoryProps } from '../../interfaces/categoryProps';
 

@@ -1,4 +1,4 @@
-import { MdVisibility } from 'react-icons/Md';
+import { MdVisibility } from 'react-icons/md';
 import styles from '../GlobalConfigCard.module.css';
 import { Link } from 'react-router-dom';
 
