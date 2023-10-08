@@ -1,6 +1,6 @@
 import styles from '../GlobalConfigCard.module.css';
 import { Link } from 'react-router-dom';
-import { TbGoGame } from 'react-icons/td';
+import { TbGoGame } from 'react-icons/tb';
 
 const SubcategoryConfigCard = () => {
     
