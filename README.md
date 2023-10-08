@@ -117,11 +117,9 @@ Below are the basic properties of an event form, along with examples of fields t
 
 Breakpoints:
 ```CSS
-    xs: 0,
-    sm: 576px,
+    sm: 400px,
     md: 768px,
-    lg: 992px,
-    xl: 1200px,
+    lg: 1200px,
     xxl: 1400px
 ```
 
@@ -130,6 +128,25 @@ To further enhance this application and provide even more value, we have identif
 
 
 ![github issues](./client//src/assets/issues.png)
+
+## Unit Tests and Code Coverage
+This repository includes unit tests to ensure code quality and reliability. Additionally, you can check code coverage to understand how our tests cover the source code.
+
+To run unit tests (renders), use the following command:
+
+```
+npm test
+```
+To run Coverage test, use the following command:
+This will generate a detailed coverage report that you can review to ensure our code is well-tested.
+```
+npm run coverage
+```
+We also have user interface (UI) tests using Vite and other tools. You can run these tests with the following command:
+```
+npm run test:ui
+```
+![vitest](./client/src/assets/vitest.png)
 
 ## 📚 Lessons Learned and Challenges Faced
 It was a team effort in various ways, involving different levels of expertise and skills. During the initial sprints, the project was somewhat disorganized, with poorly defined tasks that ended up affecting the project towards the end. Additionally, outside of class hours, not all team members were available, which added to the challenges.
