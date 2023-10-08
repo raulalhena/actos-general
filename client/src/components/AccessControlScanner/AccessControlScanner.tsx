@@ -35,7 +35,7 @@ const AccessControlScanner = () => {
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', maxHeight: '500px',  width: '400', margin: 'auto' }}>
-            <div>ACTOS QR ESCANER</div>
+
             {qrReader ? (
                 <div style={{ maxHeight: '500px',  width: '400', margin: 'auto', overflow: 'hidden' }}>
                     <QrScanner
