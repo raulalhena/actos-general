@@ -7,8 +7,8 @@ import { HttpExceptionFilter } from './filters/http-exceptions.filter';
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 
-	const config = new DocumentBuilder().setTitle('Aplicación ACTOS')
-						.setDescription('Aplicación de gestión de eventos')
+	const config = new DocumentBuilder().setTitle('ACTOS App')
+						.setDescription('Events management application.')
 						.setVersion('v1')
 						.addTag('events')
 						.build();
