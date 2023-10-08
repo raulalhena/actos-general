@@ -3,7 +3,6 @@ import styles from './ModalDisplay.module.css';
 import { ModalDisplayProps } from '../../interfaces/modalDisplayProps';
 import ModalButtonRed from './ModalButton/ModalButtonRed';
 import ModalButtonNoBorder from './ModalButton/ModalButtonNoBorder';
-import { useEffect } from 'react';
 
 const ModalDisplay = (props: ModalDisplayProps) => {
     const {
@@ -20,7 +19,7 @@ const ModalDisplay = (props: ModalDisplayProps) => {
     } = props;
 
     return (
-        <div className={styles.modalPage}>
+        <div data-testid="modal" className={styles.modalPage}>
             <ReactModal
                 isOpen={isOpen}
                 onRequestClose={onClose}

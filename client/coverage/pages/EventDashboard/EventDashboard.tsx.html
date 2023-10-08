@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.26% </span>
+                <span class="strong">88.46% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>94/103</span>
+                <span class='fraction'>92/104</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.26% </span>
+                <span class="strong">88.46% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>94/103</span>
+                <span class='fraction'>92/104</span>
             </div>
         
             
@@ -166,12 +166,8 @@
 <a name='L101'></a><a href='#L101'>101</a>
 <a name='L102'></a><a href='#L102'>102</a>
 <a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -232,7 +228,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -252,6 +247,13 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -274,10 +276,10 @@ import EventDashboardForm from '../../components/EventDashboardForm/EventDashboa
 import InscriptionsRecap from '../../components/InscriptionsRecap/InscriptionsRecap';
 import styles from './EventDashboard.module.css';
 import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { PDFViewer } from '@react-pdf/renderer';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
-import qrImg from '../../../../server/src/public/65157e08822b661558d58771.png';
 &nbsp;
 const EventDashboard = () =&gt; {
     const location = useLocation();
@@ -309,15 +311,10 @@ const EventDashboard = () =&gt; {
         image: '',
         video: '',
         capacity: '',
+        capacityOnline: '',
         isLimited: false,
-    // qrEvent: '',
-    // qrAttendees: [],
-    // attendees: [],
-    // submitted: [],
-    // price: 0,
-    // payment: '',
-    // visibility: false,
-    // status: false
+        isLimitedOnline: false,
+        subcategoryLogo: '',
     });
 &nbsp;
     useEffect(() =&gt; {
@@ -326,12 +323,11 @@ const EventDashboard = () =&gt; {
 <span class="cstat-no" title="statement not covered" >            const data = await resp.json();</span>
 <span class="cstat-no" title="statement not covered" >            setEventData(data);</span>
         };
-    
+&nbsp;
         fetchEvent();
     }, [ eventId ]);
 &nbsp;
-    useEffect(() =&gt; {
-    }, [ eventData ]);
+    useEffect(() =&gt; {}, [ eventData ]);
 &nbsp;
     const [ showPDF, setShowPDF ] = useState(false);
 &nbsp;
@@ -341,32 +337,39 @@ const EventDashboard = () =&gt; {
 &nbsp;
     return (
         &lt;&gt;
-            { !showPDF ?
+            {!showPDF ? (
                 &lt;div className={styles.page}&gt;
-                    &lt;section className={styles.top}&gt;
-                        &lt;section className={styles.header}&gt;
+                    &lt;div className={styles.pageContainer}&gt;
+                        &lt;section className={styles.top}&gt;
+                            {/* TITLE */}
                             &lt;div&gt;
-                                &lt;section className={styles.title}&gt;
-                                    &lt;h1 className={styles.dash}&gt;—&lt;/h1&gt;
-                                    &lt;h1&gt;Resumen de tu evento: {eventData.name}&lt;/h1&gt;
-                                &lt;/section&gt;
+                                &lt;Link target="_blank" to={`/event/${eventData._id}`}&gt;
+                                    &lt;div className={styles.eventTitleSection}&gt;
+                                        &lt;h1 className={styles.dash}&gt;—&lt;/h1&gt;
+                                        &lt;div className={styles.eventTitle}&gt;{eventData.name}&lt;/div&gt;
+                                        &lt;div className={styles.eventLink}&gt;
+                      (ver página del evento)
+                                        &lt;/div&gt;
+                                    &lt;/div&gt;
+                                &lt;/Link&gt;
                             &lt;/div&gt;
+                            {/* INSCRIPTIONS RECAP */}
+                            {process.env.NODE_ENV !== <span class="branch-0 cbranch-no" title="branch not covered" >'test' ? ( //ignora esta parte en test</span>
+<span class="cstat-no" title="statement not covered" >                                &lt;InscriptionsRecap</span>
+<span class="cstat-no" title="statement not covered" >                                    eventData={eventData}</span>
+<span class="cstat-no" title="statement not covered" >                                    createPDF={createPDF}</span>
+<span class="cstat-no" title="statement not covered" >                                /&gt;</span>
+                            ) : null}
                         &lt;/section&gt;
-                        
-                        &lt;div className={styles.containerSection}&gt;
-                            { process.env.NODE_ENV !== <span class="branch-0 cbranch-no" title="branch not covered" >'test' ? //ignora esta parte en test</span>
-<span class="cstat-no" title="statement not covered" >                                &lt;InscriptionsRecap eventData={ eventData } createPDF={createPDF}/&gt;</span>
-                                : null}
-                        &lt;/div&gt;
-                        
-                    &lt;/section&gt;
-                    &lt;EventDashboardForm eventData={eventData} /&gt;
+                        {/* EVENT INFO */}
+                        &lt;EventDashboardForm eventData={eventData} /&gt;
+                    &lt;/div&gt;
 <span class="branch-0 cbranch-no" title="branch not covered" >                &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >                :</span>
-<span class="cstat-no" title="statement not covered" >                &lt;PDFViewer style={{ width: '100%', height: '90vh' }}&gt;                 </span>
-<span class="cstat-no" title="statement not covered" >                    &lt;QRtoPDFDocument eventData={eventData}  qrImg={qrImg}/&gt;</span>
+<span class="cstat-no" title="statement not covered" >            ) : (</span>
+<span class="cstat-no" title="statement not covered" >                &lt;PDFViewer style={{ width: '100%', height: '90vh' }}&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;QRtoPDFDocument eventData={eventData} qrImg={eventData.qrEvent} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/PDFViewer&gt;</span>
-            }
+            )}
         &lt;/&gt;
     );
 };
@@ -379,7 +382,7 @@ export default EventDashboard;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-10-03T08:07:49.042Z
+                at 2023-10-08T12:15:46.056Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

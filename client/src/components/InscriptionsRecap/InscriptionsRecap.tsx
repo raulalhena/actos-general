@@ -10,8 +10,8 @@ import { User } from '../../interfaces/User';
 import Preloader from '../Preloader/Preloader';
 
 interface InscriptionsRecapProps {
-  eventData: EventFormProps;
-  createPDF: () => void;
+    eventData: EventFormProps;
+    createPDF: () => void;
 }
 
 const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
@@ -84,7 +84,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
 
     return (
         <>
-            <div className={styles.container}>
+            <div data-testid="inscriptionRecap" className={styles.container}>
                 <h3>Resumen del evento</h3>
                 <br />
                 <div className={styles.containerSection}>

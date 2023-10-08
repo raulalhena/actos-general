@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">90.78% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>63/72</span>
+                <span class='fraction'>69/76</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">90.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>63/72</span>
+                <span class='fraction'>69/76</span>
             </div>
         
             
@@ -135,7 +135,12 @@
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -181,6 +186,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -196,10 +205,9 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -209,6 +217,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from 'react';
 import styles from './FAQ.module.css';
+import faq from '../../assets/faq.png';
 &nbsp;
 const FAQ = () =&gt; {
     const faqData = [
@@ -246,34 +255,37 @@ const FAQ = () =&gt; {
 <span class="cstat-no" title="statement not covered" >    };</span>
 &nbsp;
     return (
-        &lt;div data-testid='faq-page' className={styles.faqPage}&gt;
-            &lt;div className={styles.title}&gt;
-                &lt;h1 className={styles.dash}&gt;—&lt;/h1&gt;
-                &lt;h1&gt;Preguntas frecuentes&lt;/h1&gt;
-            &lt;/div&gt;
-            &lt;div className={styles.faqContainer}&gt;
-                {faqData.map((item, index) =&gt; (
-                    &lt;div
-                        key={index}
-                        className={`${styles.faqItem} ${
-                            expandedIndex === <span class="branch-0 cbranch-no" title="branch not covered" >index ? styles.expanded : '</span>'
-                        }`}
-                        onClick={<span class="fstat-no" title="function not covered" >() =&gt; handleToggleFAQ(index)}</span>
-                    &gt;
-                        &lt;div className={styles.faqQuestion}&gt;
-                            &lt;h2&gt;{item.pregunta}&lt;/h2&gt;
-                            &lt;span className={styles.toggleIcon}&gt;
-                                {expandedIndex === <span class="branch-0 cbranch-no" title="branch not covered" >index ? '-' : '</span>+'}
-                            &lt;/span&gt;
+        &lt;div data-testid='faq-page' className={styles.page}&gt;
+            &lt;section className={styles.header}&gt;
+                &lt;div className={styles.topTitle}&gt;
+                    &lt;h1 className={styles.dash}&gt;—&lt;/h1&gt;
+                    &lt;h1&gt;Preguntas frequentes&lt;/h1&gt;
+                &lt;/div&gt;
+            &lt;/section&gt;
+            &lt;section className={styles.faqSection}&gt;
+                &lt;img src={faq} className={styles.faqImg} alt="faq" /&gt;
+                &lt;div className={styles.faqContainer}&gt;
+                    {faqData.map((item, index) =&gt; (
+                        &lt;div
+                            key={index}
+                            className={`${styles.faqItem} ${
+                                expandedIndex === <span class="branch-0 cbranch-no" title="branch not covered" >index ? styles.expanded : '</span>'
+                            }`}
+                            onClick={<span class="fstat-no" title="function not covered" >() =&gt; handleToggleFAQ(index)}</span>
+                        &gt;
+                            &lt;div className={styles.faqQuestion}&gt;
+                                &lt;h4&gt;{item.pregunta}&lt;/h4&gt;
+                                &lt;span className={styles.toggleIcon}&gt;
+                                    {expandedIndex === <span class="branch-0 cbranch-no" title="branch not covered" >index ? '-' : '</span>+'}
+                                &lt;/span&gt;
+                            &lt;/div&gt;
+                            {expandedIndex === <span class="branch-0 cbranch-no" title="branch not covered" >index &amp;&amp; (</span>
+<span class="cstat-no" title="statement not covered" >                                &lt;div className={styles.faqAnswer}&gt;{item.respuesta}&lt;/div&gt;</span>
+                            )}
                         &lt;/div&gt;
-                        {expandedIndex === <span class="branch-0 cbranch-no" title="branch not covered" >index &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >                            &lt;div className={styles.faqAnswer}&gt;</span>
-<span class="cstat-no" title="statement not covered" >                                {item.respuesta}</span>
-<span class="cstat-no" title="statement not covered" >                            &lt;/div&gt;</span>
-                        )}
-                    &lt;/div&gt;
-                ))}
-            &lt;/div&gt;
+                    ))}
+                &lt;/div&gt;
+            &lt;/section&gt;
         &lt;/div&gt;
     );
 };
@@ -286,7 +298,7 @@ export default FAQ;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-10-03T08:07:49.042Z
+                at 2023-10-08T12:15:46.056Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
