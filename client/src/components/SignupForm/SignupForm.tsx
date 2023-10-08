@@ -117,19 +117,20 @@ const SignupForm = () => {
     };
 
     return (
-        <div className={styles.container}>
+        <div data-testid="sigunp-form" className={styles.container}>
             <div className={styles.form}>
                 <form onSubmit={handleSubmit}>
                     <ToastContainer position="top-right" autoClose={3000} />
                     <section className={styles.optionTitle}>
                         <h4>¿Ya tienes cuenta?</h4>
-                        <Link to="/login" className={styles.registerLink}>
+                        <Link data-testid='login-link' to="/login" className={styles.registerLink}>
                             Inicia sesión
                         </Link>
                     </section>
-                    <section>
+                    <section data-testid="user-register">
                         <h1>Registro de usuario</h1>
                         <TextInputSmall
+                            data-testid="name-input"
                             id="name"
                             label=""
                             placeholder="Nombre"
@@ -140,6 +141,7 @@ const SignupForm = () => {
                         />
                         {nameError && <p className={styles.error}>{nameError}</p>}
                         <TextInputSmall
+                            data-testid="surname-input"
                             id="surname"
                             label=""
                             placeholder="Apellidos"
@@ -150,6 +152,7 @@ const SignupForm = () => {
                         />
                         {surnameError && <p className={styles.error}>{surnameError}</p>}
                         <TextInputSmall
+                            data-testid="email-input"
                             id="email"
                             label=""
                             placeholder="Email"
@@ -182,10 +185,10 @@ const SignupForm = () => {
                         />
                         {notPasswordMatchError && <p className={styles.error}>{notPasswordMatchError}</p>}
                     </section>
-                    <div className={styles.buttonSection}>
+                    <div data-testid="btn-register" className={styles.buttonSection}>
                         <ButtonSubmit label="Registrarse" />
                     </div>
-                    <div>
+                    <div data-testid="modal">
                         {isModalOpen && (
                             <ModalDisplay
                                 icon={<BsPatchCheckFill className={styles.checkIcon} />}

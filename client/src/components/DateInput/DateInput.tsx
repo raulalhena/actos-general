@@ -5,7 +5,7 @@ const DateInput = (props : DateInputProps) => {
     const { id, name, value, onChange } = props;
 
     return (
-        <div className={Style.datecontainer}>
+        <div data-testid="date-input" className={Style.datecontainer}>
             <div >
                 <label 
                     className={Style.label}
