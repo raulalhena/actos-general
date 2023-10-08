@@ -8,7 +8,6 @@ import { FaUserCheck } from 'react-icons/fa';
 import { EventFormProps } from '../../interfaces/eventFormProps';
 import { User } from '../../interfaces/User';
 import Preloader from '../Preloader/Preloader';
-import { useLocation, Link } from 'react-router-dom';
 
 interface InscriptionsRecapProps {
   eventData: EventFormProps;
@@ -140,7 +139,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                             <button className={styles.pdfButton}>
           Descargar QR del evento (.pdf)</button>
                         </PDFDownloadLink>
-                            <div className={styles.divider}>|</div>
+                        <div className={styles.divider}>|</div>
                         <a href={eventData.qrEvent} download={eventData.name + '.png'}>
                             <div className={styles.pdfButton}>Descargar QR del evento (.png)</div>
                         </a>
@@ -150,9 +149,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                 <div className={styles.containerSection}>
                     <RiWhatsappFill className={styles.inscriptionsIcon} />
                     <a
-                        href={`http://web.whatsapp.com/send?text=${encodeURIComponent(
-                            eventData.qrEvent
-                        )}`}
+                        href={`http://web.whatsapp.com/send?text=${encodeURI(eventData.qrEvent)}`}
                         data-action="share/whatsapp/share"
                         target="_blank"
                     >
