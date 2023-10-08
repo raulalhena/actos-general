@@ -43,11 +43,19 @@ export class EventsService {
   }
 
   async findAll() {
-    return await this.eventModel.find({active: true, visibility: true});
+    try {
+      return await this.eventModel.find({active: true, visibility: true});
+    } catch (error) {
+        throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   async homePageEvents() {
-    return await this.eventModel.find({active: true, visibility: true}).sort({_id: -1}).limit(6);;
+    try {
+      return await this.eventModel.find({active: true, visibility: true}).sort({_id: -1}).limit(6);;
+    } catch (error) {
+        throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   async findOne(id: ObjectId) {
