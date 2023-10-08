@@ -61,6 +61,13 @@ function Navbar() {
                                 </Link>
                             </li>
                         )}
+                        {isLogged && user && user.role === 'admin' && (
+                            <li onClick={removeActive}>
+                                <Link to="/accesscontrol" className={styles.navLink}>
+                                    Control Acceso
+                                </Link>
+                            </li>
+                        )}
                         {isLogged && user && user.role === 'super' && (
                             <li onClick={removeActive}>
                                 <Link to="/signupadmin" className={styles.navLink}>
