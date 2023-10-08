@@ -122,6 +122,10 @@ Breakpoints:
     lg: 1200px,
     xxl: 1400px
 ```
+## ## API Documentation using Swagger
+Our API is documented using Swagger, a powerful tool for creating and visualizing API specifications. Swagger provides an interactive interface for exploring and testing API endpoints, as well as details about the available endpoints, parameters, and usage examples.
+
+![swagger](./client/src/assets/swagger.png)
 
 ## 🚀 Future Development
 To further enhance this application and provide even more value, we have identified several areas for future development. During the course of this project, we created and tracked various GitHub issues to address these potential improvements. <a href='https://github.com/raulalhena/actos-general/issues'> 🔗 GITHUB ISSUES </a>
