@@ -4,7 +4,6 @@ import styles from './InscriptionsRecap.module.css';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { RiFileDownloadFill } from 'react-icons/ri';
-// import { RiWhatsappFill } from 'react-icons/ri';
 import { FaUserCheck } from 'react-icons/fa';
 import Preloader from '../Preloader/Preloader';
 import { SubmittedUser } from '../../interfaces/SubmittedUser';
@@ -20,8 +19,6 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
     const [ isModalOpen, setIsModalOpen ] = useState(false);
     const [ isLoading, setIsLoading ] = useState(true);
     const [ modalTitle, setModalTitle ] = useState('');
-
-    // const [ users, setUsers ] = useState<Array<User>>([]);
     const [ users, setUsers ] = useState<Array<SubmittedUser>>([
         {
             _id: '',

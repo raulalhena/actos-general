@@ -485,8 +485,6 @@ const EventForm = () => {
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
     const [ selectedCapacityOnline, setSelectedCapacityOnline ] = useState<boolean>(false);
 
-    console.log('selected mode', selectedMode);
-
     return (
         <div data-testid='event-form-component' className={styles.formEvent}>
 

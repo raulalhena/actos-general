@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.67% </span>
+                <span class="strong">86.36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/43</span>
+                <span class='fraction'>38/44</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.67% </span>
+                <span class="strong">86.36% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/43</span>
+                <span class='fraction'>38/44</span>
             </div>
         
             
@@ -106,21 +106,8 @@
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -143,6 +130,21 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -159,7 +161,8 @@ interface ImageUploaderProps {
     removeImage: (e: React.MouseEvent&lt;HTMLButtonElement&gt;) =&gt; void;
     onDrop: (e: React.DragEvent&lt;HTMLDivElement&gt;) =&gt; void;
     onDragOver: (e: React.DragEvent&lt;HTMLDivElement&gt;) =&gt; void;
-    image: Blob;
+    image: string | undefined;
+    value: string | undefined;
 }
 &nbsp;
 export const DashboardImageUploader = ({ image, previewURL, imgVisibility, removeImage, onDrop, onDragOver }: ImageUploaderProps) =&gt; {
@@ -169,13 +172,13 @@ export const DashboardImageUploader = ({ image, previewURL, imgVisibility, remov
             &lt;label className={styles.label}&gt;Imagen&lt;/label&gt;
             &lt;br /&gt;
             &lt;div className={styles.dragDropZone}&gt;
-                {(image || <span class="branch-0 cbranch-no" title="branch not covered" >previewURL) ? null : ( // Ocultar el icono y el texto si previewURL existe</span>
-                    &lt;div&gt;
-                        &lt;RiFolderUploadFill className={styles.icon} /&gt;
-                        &lt;br /&gt;
-                        &lt;br /&gt;
-                        &lt;p className={styles.text}&gt;Arrastra una imagen&lt;/p&gt;
-                    &lt;/div&gt;
+                {(<span class="branch-0 cbranch-no" title="branch not covered" >image || previewURL) ? <span class="branch-0 cbranch-no" title="branch not covered" >n</span>ull : ( // Ocultar el icono y el texto si previewURL existe</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;div&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;RiFolderUploadFill className={styles.icon} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;br /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;br /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;p className={styles.text}&gt;Arrastra una imagen&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;/div&gt;</span>
                 )}
                 &lt;img
                     src={image}
@@ -184,8 +187,8 @@ export const DashboardImageUploader = ({ image, previewURL, imgVisibility, remov
                     alt="uploaded"
                 /&gt;
                 &lt;div className={styles.buttons} &gt;
-                    {(image || <span class="branch-0 cbranch-no" title="branch not covered" >previewURL) &amp;&amp; ( // Mostrar el botón "Eliminar" solo si previewURL existe</span>
-<span class="cstat-no" title="statement not covered" >                        &lt;button className={styles.remove} onClick={removeImage}&gt;Eliminar&lt;/button&gt;</span>
+                    {(<span class="branch-0 cbranch-no" title="branch not covered" >image || previewURL) &amp;&amp; ( // Mostrar el botón "Eliminar" solo si previewURL existe</span>
+                        &lt;button className={styles.remove} onClick={removeImage}&gt;Eliminar&lt;/button&gt;
                     )}
                 &lt;/div&gt;
             &lt;/div&gt;
@@ -199,7 +202,7 @@ export const DashboardImageUploader = ({ image, previewURL, imgVisibility, remov
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-10-08T13:42:02.074Z
+                at 2023-10-09T07:27:39.992Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.81% </span>
+                <span class="strong">29.16% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/22</span>
+                <span class='fraction'>7/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.31% </span>
+                <span class="strong">22.72% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/19</span>
+                <span class='fraction'>5/22</span>
             </div>
         
             
@@ -112,7 +112,13 @@
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -127,6 +133,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -135,9 +150,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -174,8 +186,17 @@ export class UsersService {
 <span class="fstat-no" title="function not covered" >  constructor(@I</span>njectModel(User.name) private <span class="cstat-no" title="statement not covered" >userModel: M</span>odel&lt;User&gt;) { }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  async </span>create(createUserDto: CreateUserDto) {
-    const newUser = <span class="cstat-no" title="statement not covered" >await this.userModel.create(createUserDto)</span>
-<span class="cstat-no" title="statement not covered" >    return newUser;</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      const res = <span class="cstat-no" title="statement not covered" >await this.userModel.find({ email: createUserDto.email });</span>
+<span class="cstat-no" title="statement not covered" >      if (res.length === 1) {</span>
+<span class="cstat-no" title="statement not covered" >        throw new HttpException('El usuario ya existe.', 400);</span>
+      } else {
+        const newUser = <span class="cstat-no" title="statement not covered" >await this.userModel.create(createUserDto)</span>
+<span class="cstat-no" title="statement not covered" >        return newUser;</span>
+      }
+    } catch (error) {
+<span class="cstat-no" title="statement not covered" >      throw error</span>
+    }
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  findAll(</span>) {
@@ -184,10 +205,7 @@ export class UsersService {
 &nbsp;
 <span class="fstat-no" title="function not covered" >  async </span>findByEmail(email: string) {
 <span class="cstat-no" title="statement not covered" >    try {</span>
-      const user = <span class="cstat-no" title="statement not covered" >await this.userModel.findOne({ email }).lean();</span>
-<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if(!user) <span class="cstat-no" title="statement not covered" >throw new HttpException('No se ha podido encontrar el usuario.', HttpStatus.BAD_REQUEST);</span></span>
-      
-<span class="cstat-no" title="statement not covered" >      return user;</span>
+<span class="cstat-no" title="statement not covered" >      return await this.userModel.findOne({ email }).lean();</span>
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);</span>
     }
@@ -217,7 +235,7 @@ export class UsersService {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-10-03T08:07:24.347Z
+                at 2023-10-09T07:36:32.354Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

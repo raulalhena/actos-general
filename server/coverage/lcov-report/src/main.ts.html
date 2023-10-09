@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -85,15 +85,25 @@
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -101,6 +111,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -110,23 +124,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { NestFactory } from '@nestjs/core';</span>
 <span class="cstat-no" title="statement not covered" >import { AppModule } from './app.module';</span>
 <span class="cstat-no" title="statement not covered" >import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';</span>
+<span class="cstat-no" title="statement not covered" >import * as bodyParser from 'body-parser';</span>
+<span class="cstat-no" title="statement not covered" >import { HttpExceptionFilter } from './filters/http-exceptions.filter';</span>
+import { ConfigModule } from '@nestjs/config';
 &nbsp;
 async function <span class="fstat-no" title="function not covered" >bootstrap(</span>) {
 	const app = <span class="cstat-no" title="statement not covered" >await NestFactory.create(AppModule);</span>
 &nbsp;
-	const config = <span class="cstat-no" title="statement not covered" >new DocumentBuilder().setTitle('Aplicación ACTOS')</span>
-						.setDescription('Aplicación de gestión de eventos')
+	const config = <span class="cstat-no" title="statement not covered" >new DocumentBuilder().setTitle('ACTOS App')</span>
+						.setDescription('Events management application.')
 						.setVersion('v1')
 						.addTag('events')
 						.build();
 &nbsp;
 	const document = <span class="cstat-no" title="statement not covered" >SwaggerModule.createDocument(app, config);						</span>
 <span class="cstat-no" title="statement not covered" >	SwaggerModule.setup('docs', app, document);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	app.use(bodyParser.json({limit: '50mb'}));</span>
+<span class="cstat-no" title="statement not covered" >  	app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));</span>
 	
+<span class="cstat-no" title="statement not covered" >	app.useGlobalFilters(new HttpExceptionFilter());</span>
 <span class="cstat-no" title="statement not covered" >	app.enableCors();</span>
 <span class="cstat-no" title="statement not covered" >	app.setGlobalPrefix('api');</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >	await app.listen(8000);</span>
+<span class="cstat-no" title="statement not covered" >	await app.listen(process.env.PORT);</span>
 }
 <span class="cstat-no" title="statement not covered" >bootstrap();</span>
 &nbsp;</pre></td></tr></table></pre>
@@ -136,7 +157,7 @@ async function <span class="fstat-no" title="function not covered" >bootstrap(</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-10-03T08:07:24.347Z
+                at 2023-10-09T07:36:32.354Z
             </div>
         <script src="../prettify.js"></script>
         <script>

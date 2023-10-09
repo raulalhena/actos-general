@@ -4,8 +4,6 @@ import { ToggleSwitchProps } from '../../interfaces/toggleSwitchProps';
 
 const ToggleSwitch = ({ id, label, subtitle, isChecked, onChange }: ToggleSwitchProps) => {
 
-    console.log(isChecked)
-
     return (
         <div className={styles.toggleContainer}>
             <div>

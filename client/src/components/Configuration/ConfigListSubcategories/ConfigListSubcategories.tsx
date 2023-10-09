@@ -53,7 +53,6 @@ const ConfigListSubcategories = () => {
     };
 
     const handleSubcategoryDelete = async (categoryId: string, subcategory: SubcategoryProps) => {
-        console.log(subcategory.name);
         try {
             const response = await fetch(`${HOST}api/categories/${categoryId}/subcategory`, {
                 method: 'DELETE',

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.11% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/18</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.11% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/18</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -92,24 +92,18 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -118,38 +112,56 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import mongoose, { Types } from 'mongoose';
-import * as qr from 'qr-image';
-import { createWriteStream } from 'fs';
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import mongoose, { Types, ObjectId } from 'mongoose';
+<span class="cstat-no" title="statement not covered" >import * as qr from 'qr-image';</span>
+<span class="cstat-no" title="statement not covered" >import { createWriteStream } from 'fs';</span>
 &nbsp;
-const generateEventQR = async (eventId: Types.ObjectId) =&gt; {
-    try{
-        const qr_svg = qr.image(eventId.toString(), { type: 'png' });
-        qr_svg.pipe(createWriteStream(`src/public/${eventId.toString()}.png`));   
-        const eventQR = qr.imageSync(`http://localhost:8000/api/events/${eventId.toString()}`, { type: 'png' });
-        return eventQR;
+const generateEventQR = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async </span>(eventId: Types.ObjectId) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    try{</span>
+        const qr_svg = <span class="cstat-no" title="statement not covered" >qr.image(eventId.toString(), { type: 'png' });</span>
+        
+<span class="cstat-no" title="statement not covered" >        qr_svg.pipe(createWriteStream(`src/public/${eventId.toString()}.png`));   </span>
+        const eventQR = <span class="cstat-no" title="statement not covered" >qr.imageSync(`http://localhost:8000/api/events/${eventId.toString()}`, { type: 'png' });</span>
+<span class="cstat-no" title="statement not covered" >        return eventQR;</span>
     } catch(error){ 
-<span class="cstat-no" title="statement not covered" >        console.log(error);</span>
+<span class="cstat-no" title="statement not covered" >        throw error;</span>
     }
 }
 &nbsp;
-const generateUserQR = <span class="fstat-no" title="function not covered" >async </span>(eventId: mongoose.Schema.Types.ObjectId, userId: mongoose.Schema.Types.ObjectId) =&gt; {
+const generateUserQR = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async </span>(eventId: ObjectId, userId: ObjectId) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    try{</span>
-        const qr_svg = <span class="cstat-no" title="statement not covered" >qr.image(eventId.toString(), { type: 'svg' });</span>
-<span class="cstat-no" title="statement not covered" >        qr_svg.pipe(createWriteStream(`qr_events/${eventId.toString()}.svg`));   </span>
-        const eventQR = <span class="cstat-no" title="statement not covered" >qr.imageSync(`http://localhost:8000/api/events/attendance/${eventId.toString()}/${userId.toString()}`, { type: 'svg' });</span>
+        const data = <span class="cstat-no" title="statement not covered" >`${eventId.toString()}/${userId.toString()}`;</span>
+        const imgName = <span class="cstat-no" title="statement not covered" >`${eventId.toString()}_${userId.toString()}`;</span>
+&nbsp;
+        const qr_svg = <span class="cstat-no" title="statement not covered" >qr.image(data, { type: 'png' });</span>
+        const eventQR = <span class="cstat-no" title="statement not covered" >qr.imageSync(data, { type: 'png' });</span>
+        
 <span class="cstat-no" title="statement not covered" >        return eventQR;</span>
     } catch(error){ 
-<span class="cstat-no" title="statement not covered" >        console.log(error);</span>
+<span class="cstat-no" title="statement not covered" >        throw error;</span>
     }
 }
 &nbsp;
 export {
-    generateEventQR,
-    generateUserQR
+<span class="cstat-no" title="statement not covered" >    generateEventQR,</span>
+<span class="cstat-no" title="statement not covered" >    generateUserQR</span>
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -157,7 +169,7 @@ export {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-10-03T08:07:24.347Z
+                at 2023-10-09T07:36:32.354Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

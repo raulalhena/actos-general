@@ -22,7 +22,6 @@ const AccessControlValidator = ({ paramsURL }: Props) => {
             });
             
             const data = await resp.json();
-            console.log('mesg sta', message, resp.status);
             
             if(!resp.ok) {
                 setStatus(false);

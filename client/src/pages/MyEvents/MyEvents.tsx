@@ -14,6 +14,7 @@ const MyEvents = () => {
         if (user) {
             const getMyEvents = async () => {
                 const url = `${HOST}api/events/user/${user._id}`;
+                console.log(url)
                 const resp = await fetch(url);
                 const myEventsDb = await resp.json();
     
