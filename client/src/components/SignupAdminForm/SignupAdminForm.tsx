@@ -7,6 +7,7 @@ import ConfirmPasswordInput from '../ConfirmPasswordInput/ConfirmPasswordInput';
 import { BsPatchCheckFill } from 'react-icons/bs';
 import ModalDisplay from '../Modal/ModalDisplay';
 import { ToastContainer, toast } from 'react-toastify';
+import HOST from '../../utils/env';
 
 const SignupAdminForm = () => {
     const [ signupData, setSignupData ] = useState<SignupAdminProps>({
@@ -73,7 +74,7 @@ const SignupAdminForm = () => {
         } else if (!matchPassword(signupData.password, passwordConfirmed)) {
             errorMessage = 'Error: Las contraseñas no coinciden.';
         } else {
-            const resp = await fetch('http://localhost:8000/api/auth/register', {
+            const resp = await fetch(`${HOST}api/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

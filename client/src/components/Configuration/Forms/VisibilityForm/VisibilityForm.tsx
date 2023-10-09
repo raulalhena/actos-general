@@ -48,7 +48,7 @@ const VisibilityForm = () => {
     const handleSave = async () => {
 
         const res = await fetch(
-            `${HOST}/api/visibilities`,
+            `${HOST}api/visibilities`,
             {
                 method: 'POST',
                 headers: {

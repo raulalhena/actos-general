@@ -48,7 +48,7 @@ const TimeZoneForm = () => {
     const handleSave = async () => {
 
         const res = await fetch(
-            `${HOST}/api/timezones`,
+            `${HOST}api/timezones`,
             {
                 method: 'POST',
                 headers: {

@@ -217,7 +217,7 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
                     // closeModal();
 
                     const res = await fetch(
-                        `${HOST}/api/events/${formData._id}`,
+                        `${HOST}api/events/${formData._id}`,
                         {
                             method: 'PUT',
                             headers: { 'Content-type': 'application/json' },
@@ -228,7 +228,7 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
 
                     if (res.ok) {
                         const res = await fetch(
-                            `${HOST}/api/events/${formData._id}`,
+                            `${HOST}api/events/${formData._id}`,
                             {
                                 method: 'GET',
                                 headers: { 'Content-Type': 'application/json' },
@@ -266,7 +266,7 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
 
         } else {
             const res = await fetch(
-                `${HOST}/api/events/${formData._id}`,
+                `${HOST}api/events/${formData._id}`,
                 {
                     method: 'PUT',
                     headers: { 'Content-type': 'application/json' },
@@ -282,7 +282,7 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
 
             if (res.ok) {
                 const res = await fetch(
-                    `${HOST}/api/events/${formData._id}`,
+                    `${HOST}api/events/${formData._id}`,
                     {
                         method: 'GET',
                         headers: { 'Content-Type': 'application/json' },
@@ -525,7 +525,7 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
     useEffect(() => {
         const getActiveEvents = async () => {
             try {
-                const response = await fetch(`${HOST}/api/actives`);
+                const response = await fetch(`${HOST}api/actives`);
                 const data = await response.json();
                 setActive(data.map((active: { name: string; }) => active.name));
             } catch (error) {
@@ -539,7 +539,7 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
     useEffect(() => {
         const getCategories = async () => {
             let categoryId = '';
-            const resp = await fetch(`${HOST}/api/categories`);
+            const resp = await fetch(`${HOST}api/categories`);
             const categoriesDb = await resp.json();
 
             setCategories(categoriesDb);
@@ -556,7 +556,7 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
     // Get Subcategories
     const getSubcategories = async (selectedCategory: string) => {
         if(selectedCategory) {
-            const resp = await fetch(`${HOST}/api/categories/${selectedCategory}/subcategories`);
+            const resp = await fetch(`${HOST}api/categories/${selectedCategory}/subcategories`);
             const subcategoriesDb = await resp.json();
             setSubcategories(Array.from(subcategoriesDb.subcategories));
         }
@@ -566,7 +566,7 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
     useEffect(() => {
         const getTypes = async () => {
             try {
-                const response = await fetch(`${HOST}/api/types`);
+                const response = await fetch(`${HOST}api/types`);
                 const data = await response.json();
                 const typeNames = data.map((type: { name: string; }) => type.name);
                 setTypes(typeNames);
@@ -581,7 +581,7 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
     useEffect(() => {
         const getLanguages = async () => {
             try {
-                const response = await fetch(`${HOST}/api/languages`);
+                const response = await fetch(`${HOST}api/languages`);
                 const data = await response.json();
                 const language = data.map((language: { name: string; }) => language.name);
                 setLanguages(language);
@@ -597,7 +597,7 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
     useEffect(() => {
         const getTimeZone = async () => {
             try {
-                const response = await fetch(`${HOST}/api/timezones`);
+                const response = await fetch(`${HOST}api/timezones`);
                 const data = await response.json();
                 const timeZone = data.map((timeZone: { name: string; }) => timeZone.name);
                 setTimeZone(timeZone);
@@ -612,7 +612,7 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
     useEffect(() => {
         const getTime = async () => {
             try {
-                const response = await fetch(`${HOST}/api/times`);
+                const response = await fetch(`${HOST}api/times`);
                 const data = await response.json();
                 const time = data.map((time: { name: string; }) => time.name);
                 setTime(time);
@@ -645,7 +645,7 @@ const EventDashboardForm = ( { eventData, onCapacityChanged, onCapacityOnlineCha
         
         const getMode = async () => {
             try {
-                const response = await fetch(`${HOST}/api/modes`);
+                const response = await fetch(`${HOST}api/modes`);
                 const data = await response.json();
                 const modeData = data.map((mode: {
                         _id : string; 

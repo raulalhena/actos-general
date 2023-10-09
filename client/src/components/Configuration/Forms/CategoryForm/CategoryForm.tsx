@@ -48,7 +48,7 @@ const CategoryForm = () => {
     const handleSave = async () => {
         
         const res = await fetch(
-            `${HOST}/api/categories/`,
+            `${HOST}api/categories/`,
             {
                 method: 'POST',
                 headers: {

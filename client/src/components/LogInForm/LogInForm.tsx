@@ -31,7 +31,7 @@ const LogInForm = () => {
     };
 
     const requestLogin = async () => {
-        const resp = await fetch('http://localhost:8000/api/auth/login', {
+        const resp = await fetch(`${HOST}api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

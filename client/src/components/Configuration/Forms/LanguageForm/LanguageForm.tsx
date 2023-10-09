@@ -48,7 +48,7 @@ const LanguageForm = () => {
     const handleSave = async () => {
 
         const res = await fetch(
-            `${HOST}/api/languages`,
+            `${HOST}api/languages`,
             {
                 method: 'POST',
                 headers: {

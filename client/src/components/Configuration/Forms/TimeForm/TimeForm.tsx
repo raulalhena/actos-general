@@ -48,7 +48,7 @@ const TimeForm = () => {
     const handleSave = async () => {
         
         const res = await fetch(
-            `${HOST}/api/times`,
+            `${HOST}api/times`,
             {
                 method: 'POST',
                 headers: {

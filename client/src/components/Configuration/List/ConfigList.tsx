@@ -24,7 +24,7 @@ const ConfigList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const apiUrl = `${HOST}/api/${propsData}`;
+                const apiUrl = `${HOST}api/${propsData}`;
 
                 const response = await fetch(apiUrl);
                 if (!response.ok) {
@@ -49,7 +49,7 @@ const ConfigList = () => {
     const handleDelete = async (name: string, id: string) => {
 
         try {
-            const response = await fetch(`${HOST}/api/${propsData}/${id}`, {
+            const response = await fetch(`${HOST}api/${propsData}/${id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {

@@ -23,7 +23,7 @@ const SubmittedList = () => {
 
     useEffect(() => {
         const getAllEvents = async () => {
-            const respo = await fetch(`${HOST}/api/events/${submittedProps.id}/submitted/?mode=${submittedProps.mode}`);
+            const respo = await fetch(`${HOST}api/events/${submittedProps.id}/submitted/?mode=${submittedProps.mode}`);
             const eventsData = await respo.json();
 
             if(!respo.ok) {

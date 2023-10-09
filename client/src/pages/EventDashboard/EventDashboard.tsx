@@ -49,7 +49,7 @@ const EventDashboard = () => {
 
     useEffect(() => {
         const fetchEvent = async () => {
-            const resp = await fetch(`${HOST}/api/events/${eventId}`);
+            const resp = await fetch(`${HOST}api/events/${eventId}`);
             const data = await resp.json();
             setEventData(data);
         };

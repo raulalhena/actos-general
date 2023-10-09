@@ -48,7 +48,7 @@ const ModeForm = () => {
     const handleSave = async () => {
 
         const res = await fetch(
-            `${HOST}/api/modes`,
+            `${HOST}api/modes`,
             {
                 method: 'POST',
                 headers: {

@@ -23,7 +23,7 @@ const ConfigListSubcategories = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const apiUrl = `${HOST}/api/categories`;
+                const apiUrl = `${HOST}api/categories`;
 
                 const response = await fetch(apiUrl);
                 if (!response.ok) {
@@ -55,7 +55,7 @@ const ConfigListSubcategories = () => {
     const handleSubcategoryDelete = async (categoryId: string, subcategory: SubcategoryProps) => {
         console.log(subcategory.name);
         try {
-            const response = await fetch(`${HOST}/api/categories/${categoryId}/subcategory`, {
+            const response = await fetch(`${HOST}api/categories/${categoryId}/subcategory`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

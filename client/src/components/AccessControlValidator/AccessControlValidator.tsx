@@ -17,7 +17,7 @@ const AccessControlValidator = ({ paramsURL }: Props) => {
 
     useEffect(() => {
         const attendanceRecord = async () => {
-            const resp = await fetch(`${HOST}/api/events/attendance/${paramsURL}`, {
+            const resp = await fetch(`${HOST}api/events/attendance/${paramsURL}`, {
                 method: 'PUT'
             });
             

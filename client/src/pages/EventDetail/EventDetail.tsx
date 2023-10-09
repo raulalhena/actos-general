@@ -86,7 +86,7 @@ const EventDetailPage = () => {
 
     useEffect(() => {
         const getEvent = async () => {
-            const response = await fetch(`${HOST}/api/events/${_id}`);
+            const response = await fetch(`${HOST}api/events/${_id}`);
             const data = await response.json();
             setEventData(data);
         };
@@ -100,7 +100,7 @@ const EventDetailPage = () => {
         const checkInscription = async () => {
             if (user) {
                 const res = await fetch(
-                    `${HOST}/api/events/user/${user._id}`
+                    `${HOST}api/events/user/${user._id}`
                 );
                 const inscriptionEvents = await res.json();
 
@@ -124,7 +124,7 @@ const EventDetailPage = () => {
         const checkInscriptionOnline = async () => {
             if (user) {
                 const res = await fetch(
-                    `${HOST}/api/events/user/${user._id}/online`
+                    `${HOST}api/events/user/${user._id}/online`
                 );
                 
                 if (res.ok) { 
@@ -146,7 +146,7 @@ const EventDetailPage = () => {
         const checkInscriptionHybrid = async () => {
             if (user) {
                 const res = await fetch(
-                    `${HOST}/api/events/user/${user._id}/hybrid`
+                    `${HOST}api/events/user/${user._id}/hybrid`
                 );
                 const inscriptionEvents = await res.json();
 
@@ -175,11 +175,11 @@ const EventDetailPage = () => {
 
     const handleEventAction = async () => {
         const endpointMapping = {
-            'inscription': `${HOST}/api/events/inscription`,
-            'unsubscription': `${HOST}/api/events/unsubscription`,
-            'online': `${HOST}/api/events/online`,
+            'inscription': `${HOST}api/events/inscription`,
+            'unsubscription': `${HOST}api/events/unsubscription`,
+            'online': `${HOST}api/events/online`,
             'unsubscribe-online':
-        `${HOST}/api/events/unsubscribe-online`,
+        `${HOST}api/events/unsubscribe-online`,
         };
 
         const endpoint =

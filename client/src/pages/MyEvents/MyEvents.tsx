@@ -13,7 +13,7 @@ const MyEvents = () => {
     useEffect(() => {
         if (user) {
             const getMyEvents = async () => {
-                const url = `${HOST}/api/events/user/${user._id}`;
+                const url = `${HOST}api/events/user/${user._id}`;
                 const resp = await fetch(url);
                 const myEventsDb = await resp.json();
     

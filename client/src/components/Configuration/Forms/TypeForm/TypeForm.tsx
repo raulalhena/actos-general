@@ -48,7 +48,7 @@ const TypeForm = () => {
     const handleSave = async () => {
 
         const res = await fetch(
-            `${HOST}/api/types`,
+            `${HOST}api/types`,
             {
                 method: 'POST',
                 headers: {

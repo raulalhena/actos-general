@@ -12,7 +12,7 @@ const EventsList = () => {
 
     useEffect(() => {
         const getAllEvents = async () => {
-            const respo = await fetch(`${HOST}/api/events`);
+            const respo = await fetch(`${HOST}api/events`);
             const eventsData = await respo.json();
 
             eventsData.sort((a: any, b: any) => (new Date(a.date) as any) - (new Date(b.date) as any));
