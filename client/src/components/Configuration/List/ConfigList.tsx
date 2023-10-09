@@ -31,7 +31,6 @@ const ConfigList = () => {
                 }
                 const data = await response.json();
                 setIsLoading(false);
-                console.log(data);
                 setDataList(data);
             } catch (error) {
                 console.error(error);
