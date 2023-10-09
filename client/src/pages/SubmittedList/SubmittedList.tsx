@@ -3,6 +3,7 @@ import styles from './SubmittedList.module.css';
 import Preloader from '../../components/Preloader/Preloader';
 import { useLocation } from 'react-router-dom';
 import { SubmittedUser } from '../../interfaces/SubmittedUser';
+import HOST from '../../utils/env';
 
 const SubmittedList = () => {
     const [ users, setUsers ] = useState<Array<SubmittedUser>>([ {
