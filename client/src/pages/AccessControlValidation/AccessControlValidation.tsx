@@ -6,8 +6,6 @@ const AccessControlValidation = () => {
     const location = useLocation();
     const data = location.state;
 
-    console.log('data', data.paramsURL);
-
     return (
         <AccessControlValidator paramsURL={ data.paramsURL } />
     );

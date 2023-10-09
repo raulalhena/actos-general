@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { FcHighPriority } from 'react-icons/fc';
 import { FcCheckmark } from 'react-icons/fc';
 import { useNavigate } from 'react-router-dom';
+import HOST from '../../utils/env';
 
 type Props = {
     paramsURL: string;
@@ -16,7 +17,7 @@ const AccessControlValidator = ({ paramsURL }: Props) => {
 
     useEffect(() => {
         const attendanceRecord = async () => {
-            const resp = await fetch(`http://localhost:8000/api/events/attendance/${paramsURL}`, {
+            const resp = await fetch(`${HOST}/api/events/attendance/${paramsURL}`, {
                 method: 'PUT'
             });
             
