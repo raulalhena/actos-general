@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as bodyParser from 'body-parser';
 import { HttpExceptionFilter } from './filters/http-exceptions.filter';
+import { ConfigModule } from '@nestjs/config';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
@@ -23,6 +24,6 @@ async function bootstrap() {
 	app.enableCors();
 	app.setGlobalPrefix('api');
 
-	await app.listen(8000);
+	await app.listen(process.env.PORT);
 }
 bootstrap();
