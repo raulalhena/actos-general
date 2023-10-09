@@ -10,8 +10,10 @@ import HOST from '../../utils/env';
 const HomePage = () => {
     const [ allEvents, setAllEvents ] = useState<CardEventProps['eventData'][]>([]);
 
+    console.log('HOST IN ', HOST);
+
     useEffect(() => {
-        fetch(`${HOST}/api/events/home`)
+        fetch(`${HOST}api/events/home`)
             .then((response) => response.json())
             .then((data) => {
                 setAllEvents(data);
