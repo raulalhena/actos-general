@@ -31,8 +31,6 @@ const AccessControlScanner = () => {
         console.error(err);
     };
 
-    console.log('params', paramsURL);
-
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', maxHeight: '500px',  width: '400', margin: 'auto' }}>
 

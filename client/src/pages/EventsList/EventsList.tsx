@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import styles from './EventsList.module.css';
 import Preloader from '../../components/Preloader/Preloader';
+import HOST from '../../utils/env';
 
 const EventsList = () => {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ const EventsList = () => {
 
     useEffect(() => {
         const getAllEvents = async () => {
-            const respo = await fetch('http://localhost:8000/api/events');
+            const respo = await fetch(`${HOST}/api/events`);
             const eventsData = await respo.json();
 
             eventsData.sort((a: any, b: any) => (new Date(a.date) as any) - (new Date(b.date) as any));

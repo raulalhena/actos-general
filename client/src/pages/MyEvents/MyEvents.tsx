@@ -3,7 +3,7 @@ import CardEvent from '../../components/CardEvent/CardEvent';
 import { useEffect, useState } from 'react';
 import { CardEventProps, EventDataProps } from '../../interfaces/cardEventProps';
 import { useAuth } from '../../hooks/useAuth';
-// import { EventFormProps } from '../../interfaces/eventFormProps';
+import HOST from '../../utils/env';
 
 const MyEvents = () => {
 
@@ -13,7 +13,7 @@ const MyEvents = () => {
     useEffect(() => {
         if (user) {
             const getMyEvents = async () => {
-                const url = `http://localhost:8000/api/events/user/${user._id}`;
+                const url = `${HOST}/api/events/user/${user._id}`;
                 const resp = await fetch(url);
                 const myEventsDb = await resp.json();
     

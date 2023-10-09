@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { PDFViewer } from '@react-pdf/renderer';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
+import HOST from '../../utils/env';
 
 const EventDashboard = () => {
     const location = useLocation();
@@ -48,7 +49,7 @@ const EventDashboard = () => {
 
     useEffect(() => {
         const fetchEvent = async () => {
-            const resp = await fetch(`http://localhost:8000/api/events/${eventId}`);
+            const resp = await fetch(`${HOST}/api/events/${eventId}`);
             const data = await resp.json();
             setEventData(data);
         };

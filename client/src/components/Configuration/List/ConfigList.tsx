@@ -5,6 +5,7 @@ import Preloader from '../../Preloader/Preloader';
 import ModalDisplay from '../../Modal/ModalDisplay';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import HOST from '../../../utils/env';
 
 interface DataList {
     name: string;
@@ -23,7 +24,7 @@ const ConfigList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const apiUrl = `http://localhost:8000/api/${propsData}`;
+                const apiUrl = `${HOST}/api/${propsData}`;
 
                 const response = await fetch(apiUrl);
                 if (!response.ok) {
@@ -31,7 +32,6 @@ const ConfigList = () => {
                 }
                 const data = await response.json();
                 setIsLoading(false);
-                console.log(data);
                 setDataList(data);
             } catch (error) {
                 console.error(error);
@@ -49,7 +49,7 @@ const ConfigList = () => {
     const handleDelete = async (name: string, id: string) => {
 
         try {
-            const response = await fetch(`http://localhost:8000/api/${propsData}/${id}`, {
+            const response = await fetch(`${HOST}/api/${propsData}/${id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {

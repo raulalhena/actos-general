@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-// import { User } from '../../interfaces/User';
 import styles from './SubmittedList.module.css';
 import Preloader from '../../components/Preloader/Preloader';
 import { useLocation } from 'react-router-dom';
@@ -23,7 +22,7 @@ const SubmittedList = () => {
 
     useEffect(() => {
         const getAllEvents = async () => {
-            const respo = await fetch(`http://localhost:8000/api/events/${submittedProps.id}/submitted/?mode=${submittedProps.mode}`);
+            const respo = await fetch(`${HOST}/api/events/${submittedProps.id}/submitted/?mode=${submittedProps.mode}`);
             const eventsData = await respo.json();
 
             if(!respo.ok) {

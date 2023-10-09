@@ -5,12 +5,13 @@ import styles from './Home.module.css';
 import { CardEventProps } from '../../interfaces/cardEventProps';
 import { Link } from 'react-router-dom';
 import ButtonRed from '../../components/Button/ButtonRed/ButtonRed';
+import HOST from '../../utils/env';
 
 const HomePage = () => {
     const [ allEvents, setAllEvents ] = useState<CardEventProps['eventData'][]>([]);
 
     useEffect(() => {
-        fetch('http://93.93.112.16:8000/api/events/home')
+        fetch(`${HOST}/api/events/home`)
             .then((response) => response.json())
             .then((data) => {
                 setAllEvents(data);

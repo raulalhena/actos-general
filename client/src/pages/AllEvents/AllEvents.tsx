@@ -5,6 +5,7 @@ import { CardEventProps } from '../../interfaces/cardEventProps';
 import Preloader from '../../components/Preloader/Preloader';
 import { useLocation } from 'react-router-dom';
 import SearchBar from '../../components/SearchBar/SearchBar';
+import HOST from '../../utils/env';
 
 const AllEvents = () => {
     const location = useLocation();
@@ -19,7 +20,7 @@ const AllEvents = () => {
 
     useEffect(() => {
         if (keywords && filters) {
-            const apiUrl = `http://93.93.112.16:8000/api/events/search?filters=${filters}&keywords=${keywords}`;
+            const apiUrl = `${HOST}/api/events/search?filters=${filters}&keywords=${keywords}`;
     
             fetch(apiUrl)
                 .then((response) => response.json())
@@ -39,7 +40,7 @@ const AllEvents = () => {
         } else if (keywords && !filters) {
 
             const allFilters = 'name,category,subcategory,language,tags,type,mode';
-            const apiUrl = `http://93.93.112.16:8000/api/events/search?filters=${allFilters}&keywords=${keywords}`;
+            const apiUrl = `${HOST}/api/events/search?filters=${allFilters}&keywords=${keywords}`;
     
             fetch(apiUrl)
                 .then((response) => response.json())
@@ -57,7 +58,7 @@ const AllEvents = () => {
                     console.error('Error al obtener datos:', error);
                 });
         } else {
-            fetch('http://93.93.112.16:8000/api/events')
+            fetch(`${HOST}/api/events`)
                 .then((response) => response.json())
                 .then((res) => {
                     if (Array.isArray(res) && res.length > 0) {

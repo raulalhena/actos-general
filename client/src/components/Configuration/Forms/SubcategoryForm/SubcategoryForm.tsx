@@ -8,6 +8,7 @@ import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
 import SelectCategories from '../../../SelectCategories/SelectCategories';
 import { EventDashboardFormProps } from '../../../../interfaces/eventDashboardFormProps';
 import ModalDisplay from '../../../Modal/ModalDisplay';
+import HOST from '../../../../utils/env';
 
 interface CategoryData {
     name: string;
@@ -49,7 +50,7 @@ const SubcategoryForm = () => {
 
     useEffect(() => {
         const getCategories = async () => {
-            const resp = await fetch('http://localhost:8000/api/categories');
+            const resp = await fetch(`${HOST}/api/categories`);
             const categoriesDb = await resp.json();
 
             setCategories(categoriesDb);
@@ -81,7 +82,7 @@ const SubcategoryForm = () => {
     const handleSave = async () => {
         const saveData = async () => {
             const res = await fetch(
-                `http://localhost:8000/api/categories/${selectedCategory}/subcategories`,
+                `${HOST}/api/categories/${selectedCategory}/subcategories`,
                 {
                     method: 'PUT',
                     headers: {

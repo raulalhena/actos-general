@@ -5,6 +5,7 @@ import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ModalDisplay from '../../../Modal/ModalDisplay';
+import HOST from '../../../../utils/env';
 
 interface LanguageData {
     name: string;
@@ -47,7 +48,7 @@ const LanguageForm = () => {
     const handleSave = async () => {
 
         const res = await fetch(
-            `http://localhost:8000/api/languages`,
+            `${HOST}/api/languages`,
             {
                 method: 'POST',
                 headers: {

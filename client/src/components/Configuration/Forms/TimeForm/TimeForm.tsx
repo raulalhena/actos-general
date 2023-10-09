@@ -5,6 +5,7 @@ import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
 import ModalDisplay from '../../../Modal/ModalDisplay';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import HOST from '../../../../utils/env';
 
 interface TimeData {
     name: string;
@@ -47,7 +48,7 @@ const TimeForm = () => {
     const handleSave = async () => {
         
         const res = await fetch(
-            `http://localhost:8000/api/times`,
+            `${HOST}/api/times`,
             {
                 method: 'POST',
                 headers: {
