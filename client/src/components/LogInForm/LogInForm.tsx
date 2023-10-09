@@ -7,6 +7,7 @@ import TextInputSmall from '../TextInputSmall/TextInputSmall';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import HOST from '../../utils/env';
 
 const LogInForm = () => {
     const { login } = useAuth();

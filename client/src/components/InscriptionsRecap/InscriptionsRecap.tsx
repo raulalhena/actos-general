@@ -9,6 +9,7 @@ import { FaUserCheck } from 'react-icons/fa';
 import Preloader from '../Preloader/Preloader';
 import { SubmittedUser } from '../../interfaces/SubmittedUser';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
+import HOST from '../../utils/env';
 
 interface InscriptionsRecapProps {
   eventData: EventDashboardFormProps;
@@ -73,7 +74,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
     useEffect(() => {
         const getAllEvents = async () => {
             const respo = await fetch(
-                `http://localhost:8000/api/events/${submittedProps.id}/submitted/?mode=${submittedProps.mode}`
+                `${HOST}api/events/${submittedProps.id}/submitted/?mode=${submittedProps.mode}`
             );
             const eventsData = await respo.json();
 
