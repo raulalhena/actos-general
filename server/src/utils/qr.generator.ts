@@ -17,7 +17,7 @@ const generateEventQR = async (eventId: Types.ObjectId) => {
 
 const generateUserQR = async (eventId: ObjectId, userId: ObjectId) => {
     try{
-        const data = `https://actos.up.railway.app/api/events/${eventId.toString()}/${userId.toString()}`;
+        const data = `${eventId.toString()}/${userId.toString()}`;
         const imgName = `${eventId.toString()}_${userId.toString()}`;
 
         const qr_svg = qr.image(data, { type: 'png' });
