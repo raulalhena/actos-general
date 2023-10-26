@@ -7,6 +7,7 @@ import TextInputSmall from '../TextInputSmall/TextInputSmall';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import HOST from '../../utils/env';
 
 const LogInForm = () => {
     const { login } = useAuth();
@@ -31,7 +32,7 @@ const LogInForm = () => {
     };
 
     const requestLogin = async () => {
-        const resp = await fetch('http://localhost:8000/api/auth/login', {
+        const resp = await fetch(`${HOST}api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

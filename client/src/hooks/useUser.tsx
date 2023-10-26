@@ -16,7 +16,7 @@ export const useUser = () => {
 
     const removeUser = () => {
         setUser({
-            id: '',
+            _id: '',
             name: '', 
             surname: '',
             email: '', 

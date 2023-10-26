@@ -1,18 +1,20 @@
 import styles from './MyEvents.module.css';
 import CardEvent from '../../components/CardEvent/CardEvent';
 import { useEffect, useState } from 'react';
-import { CardEventProps } from '../../interfaces/cardEventProps';
+import { CardEventProps, EventDataProps } from '../../interfaces/cardEventProps';
 import { useAuth } from '../../hooks/useAuth';
+import HOST from '../../utils/env';
 
 const MyEvents = () => {
 
-    const [ myEvents, setMyEvents ] = useState<CardEventProps>(null);
+    const [ myEvents, setMyEvents ] = useState<CardEventProps['eventData'][]>([]);
     const { user } = useAuth();
 
     useEffect(() => {
         if (user) {
             const getMyEvents = async () => {
-                const url = `http://localhost:8000/api/events/user/${user._id}`;
+                const url = `${HOST}api/events/user/${user._id}`;
+                console.log(url)
                 const resp = await fetch(url);
                 const myEventsDb = await resp.json();
     
@@ -31,7 +33,7 @@ const MyEvents = () => {
             </div>
 
             <div className={styles.cardGrid}>
-                {myEvents && myEvents.map((event, index) => (
+                {myEvents && myEvents.map((event: EventDataProps, index: number) => (
                     <CardEvent key={index} eventData={event} />
                 ))}
             </div>

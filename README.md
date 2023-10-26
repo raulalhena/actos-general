@@ -8,15 +8,18 @@ We hope this application will assist in hosting successful events and delivering
 
 ## Table of Contents
 
-- [ Key Features ](#🗝️-key-features)
-- [Prototype](#🖼️-prototype)
-- [Methodology and Work Tools](#🛠️-methodology-and-work-tools)
-- [Scalable and Reusable Components](#♻️-scalable-and-reusable-components)
-- [Event Form Properties](#📝-event-form-properties)
-- [ Responsive ](#📱-responsive)
-- [ Future Development - Issues](#🚀-future-development)
-- [ Lessons Learned and Challenges Faced ](#📚-lessons-learned-and-challenges-faced)
-- [ Project Developers ](#💻-full-stack-developers)
+- [📅 Actos Project](#-actos-project)
+  - [Event Registration and Attendance Application](#event-registration-and-attendance-application)
+  - [Table of Contents](#table-of-contents)
+  - [🗝️ Key Features](#️-key-features)
+  - [🖼️ Prototype:](#️-prototype)
+  - [🛠️ Methodology and Work Tools](#️-methodology-and-work-tools)
+  - [♻️ Scalable and Reusable Components](#️-scalable-and-reusable-components)
+  - [📝 Event Form Properties](#-event-form-properties)
+  - [📱 Responsive](#-responsive)
+  - [🚀 Future Development](#-future-development)
+  - [📚 Lessons Learned and Challenges Faced](#-lessons-learned-and-challenges-faced)
+  - [💻 Full-stack Developers:](#-full-stack-developers)
 
 ## 🗝️ Key Features
 As project goals, our objective was to complete a basic cycle of an event application: 
@@ -172,6 +175,6 @@ Did you like our application? We'd love to hear your feedback. Please don't hesi
   <!-- user 651a76a3f0363ee7cbcdec5e
 
   event 651536d2683dc4e351f5f349
-
-  fran@email.com
-  Fran123@ -->
+  
+  fran@email.com 
+  Fran123@ --> 

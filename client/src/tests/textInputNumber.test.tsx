@@ -9,7 +9,7 @@ test('render the component rendered without error', () => {
                 label="Label"
                 placeholder="Placeholder"
                 id="inputId"
-                value="inputValue"
+                value={0}
                 onChange={() => {}}
                 isRequired={true}
             />

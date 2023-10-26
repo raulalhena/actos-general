@@ -5,6 +5,7 @@ import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ModalDisplay from '../../../Modal/ModalDisplay';
+import HOST from '../../../../utils/env';
 
 interface TypeData {
     name: string;
@@ -47,7 +48,7 @@ const TypeForm = () => {
     const handleSave = async () => {
 
         const res = await fetch(
-            `http://localhost:8000/api/types`,
+            `${HOST}api/types`,
             {
                 method: 'POST',
                 headers: {

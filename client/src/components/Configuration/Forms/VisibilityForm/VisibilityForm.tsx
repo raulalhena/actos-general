@@ -5,6 +5,7 @@ import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ModalDisplay from '../../../Modal/ModalDisplay';
+import HOST from '../../../../utils/env';
 
 interface VisibilityData {
     name: string;
@@ -47,7 +48,7 @@ const VisibilityForm = () => {
     const handleSave = async () => {
 
         const res = await fetch(
-            `http://localhost:8000/api/visibilities`,
+            `${HOST}api/visibilities`,
             {
                 method: 'POST',
                 headers: {

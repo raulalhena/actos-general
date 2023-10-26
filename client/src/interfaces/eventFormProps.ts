@@ -20,10 +20,10 @@ export interface EventFormProps  {
     contactEmail?: string;
     isPrivate: boolean;
     language: string[];
-    image?: string;
+    image?: any;
     video?: string;
-    capacity?: string;
-    capacityOnline?: string;
+    capacity: number;
+    capacityOnline: number;
     qrEvent?: string;
     qrAttendees?: string[];
     attendees?: string[];

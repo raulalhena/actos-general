@@ -3,7 +3,9 @@ import { CardEventProps } from '../../interfaces/cardEventProps';
 import { Link } from 'react-router-dom';
 import eventImg from '../../assets/logonc.svg';
 
-const CardEvent = ({ eventData }: CardEventProps) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const CardEvent = ({ key, eventData }: CardEventProps) => {
+    
     function formatDate(originalDate: string) {
         const date = new Date(originalDate);
         const day = date.getDate();

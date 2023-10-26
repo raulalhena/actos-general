@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import { PDFViewer } from '@react-pdf/renderer';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
+import HOST from '../../utils/env';
 
 const EventDashboard = () => {
     const location = useLocation();
@@ -37,8 +38,8 @@ const EventDashboard = () => {
         language: [], //Select con checkbox
         image: '',
         video: '',
-        capacity: '',
-        capacityOnline: '',
+        capacity: 0,
+        capacityOnline: 0,
         submitted: [],
         submittedOnline: [],
         isLimited: false,
@@ -48,7 +49,7 @@ const EventDashboard = () => {
 
     useEffect(() => {
         const fetchEvent = async () => {
-            const resp = await fetch(`http://localhost:8000/api/events/${eventId}`);
+            const resp = await fetch(`${HOST}api/events/${eventId}`);
             const data = await resp.json();
             setEventData(data);
         };
@@ -64,14 +65,14 @@ const EventDashboard = () => {
         setShowPDF(!showPDF);
     };
 
-    const handleCapacityChange = (capacity?: string) => {
+    const handleCapacityChange = (capacity: number) => {
     
         setEventData({
             ...eventData,
             capacity: capacity,
         });
     };
-    const handleCapacityOnlineChange = (onlineCapacity?: string) => {
+    const handleCapacityOnlineChange = (onlineCapacity: number) => {
     
         setEventData({
             ...eventData,

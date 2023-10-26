@@ -22,6 +22,8 @@ import SelectSubcategories from '../SelectSubcategories/SelectSubcategories';
 import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 import TextInputNumber from '../TextInputNumber/TextInputNumber';
 import { ButtonCardRadioProps } from '../../interfaces/buttonCardRadioProps';
+import { SubcategoryProps } from '../../interfaces/subcategoryProps';
+import HOST from '../../utils/env';
 
 // Form
 const EventForm = () => {
@@ -52,8 +54,8 @@ const EventForm = () => {
         language: [], //Select con checkbox
         image: '', 
         video: '', 
-        capacity: '',
-        capacityOnline: '',
+        capacity: 0,
+        capacityOnline: 0,
         isLimited: false,
         isLimitedOnline: false,
         subcategoryLogo: '',
@@ -62,7 +64,7 @@ const EventForm = () => {
 
     // Form fields auto filled state
     const [ categories, setCategories ] = useState<Array<EventDashboardFormProps>>([]);
-    const [ subcategories, setSubcategories ] = useState<Array<string>>([]);
+    const [ subcategories, setSubcategories ] = useState<Array<SubcategoryProps>>([]);
     const [ types, setTypes ] = useState<Array<string>>([]);
     const [ languages, setLanguages ] = useState<Array<string>>([]);
     const [ timeZone, setTimeZone ] = useState<Array<string>>([]);
@@ -72,7 +74,7 @@ const EventForm = () => {
     // Get all data to fill fields
     useEffect(() => {
         const getCategories = async () => {
-            const resp = await fetch('http://localhost:8000/api/categories');
+            const resp = await fetch(`${HOST}api/categories`);
             const categoriesDb = await resp.json();
 
             setCategories(categoriesDb);
@@ -85,7 +87,7 @@ const EventForm = () => {
     useEffect(() => {
         const getTypes = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/types');
+                const response = await fetch(`${HOST}api/types`);
                 const data = await response.json();
                 const typeNames = data.map((type: { name: string; }) => type.name);
                 setTypes(typeNames);
@@ -100,7 +102,7 @@ const EventForm = () => {
     useEffect(() => {
         const getLanguages = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/languages');
+                const response = await fetch(`${HOST}api/languages`);
                 const data = await response.json();
                 const language = data.map((language: { name: string; }) => language.name);
                 setLanguages(language);
@@ -116,7 +118,7 @@ const EventForm = () => {
     useEffect(() => {
         const getTimeZone = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/timezones');
+                const response = await fetch(`${HOST}api/timezones`);
                 const data = await response.json();
                 const timeZone = data.map((timeZone: { name: string; }) => timeZone.name);
                 setTimeZone(timeZone);
@@ -131,7 +133,7 @@ const EventForm = () => {
     useEffect(() => {
         const getTime = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/times');
+                const response = await fetch(`${HOST}api/times`);
                 const data = await response.json();
                 const time = data.map((time: { name: string; }) => time.name);
                 setTime(time);
@@ -146,14 +148,14 @@ const EventForm = () => {
     useEffect(() => {
         const getMode = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/modes');
+                const response = await fetch(`${HOST}api/modes`);
                 const data = await response.json();
                 const modeData = data.map((mode: { name: string; }) => ({
                     name: mode.name,
                     checked: false,
                 }));
                 setMode(modeData);
-            } catch (error) {
+            } catch (error: any) {
                 throw new Error(error.message);
             }
         };
@@ -182,7 +184,7 @@ const EventForm = () => {
 
     // Get Subcategories
     const getSubcategories = async (categoryId: string) => {
-        const resp = await fetch(`http://localhost:8000/api/categories/${categoryId}/subcategories`);
+        const resp = await fetch(`${HOST}api/categories/${categoryId}/subcategories`);
         const categoriesDb = await resp.json();
         setSubcategories(categoriesDb.subcategories);
     };
@@ -263,7 +265,7 @@ const EventForm = () => {
             });
 
         } else  if(id === 'subcategory') {
-            subcategories.forEach(subc => {
+            subcategories.forEach((subc: SubcategoryProps) => {
                 if(subc.name === value){
                     setFormData({
                         ...formData,
@@ -356,7 +358,7 @@ const EventForm = () => {
             return;
         }
     
-        const resp = await fetch('http://localhost:8000/api/events', {
+        const resp = await fetch(`${HOST}api/events`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -389,7 +391,7 @@ const EventForm = () => {
     //  States
     const [ previewURL, setPreviewURL ] = useState<string>('');
     const [ imgVisibility, setImgVisibility ] = useState<string>('none');
-    const [ imageFile, setImageFile ] = useState<Blob>(null);
+    const [ imageFile, setImageFile ] = useState<Blob | null>(null);
 
     useEffect(() => {
         convertToBase64();
@@ -482,8 +484,6 @@ const EventForm = () => {
     
     const [ selectedCapacity, setSelectedCapacity ] = useState<boolean>(false);
     const [ selectedCapacityOnline, setSelectedCapacityOnline ] = useState<boolean>(false);
-
-    console.log('selected mode', selectedMode);
 
     return (
         <div data-testid='event-form-component' className={styles.formEvent}>
@@ -759,7 +759,7 @@ const EventForm = () => {
                                         label="Límite de entradas Presencial"
                                         subtitle="Ingrese solamente caracteres numéricos mayores que 0."
                                         placeholder="ej.: 20"
-                                        value={formData.capacity} 
+                                        value={+formData.capacity} 
                                         onChange={handleInputNumberChange}
                                         isRequired={true}
                                     />
@@ -782,7 +782,7 @@ const EventForm = () => {
                                         label="Límite de entradas en Línea"
                                         subtitle="Ingrese solamente caracteres numéricos mayores que 0."
                                         placeholder="ej.: 20"
-                                        value={formData.capacityOnline} 
+                                        value={+formData?.capacityOnline} 
                                         onChange={handleInputNumberChange}
                                         isRequired={true}
                                     />

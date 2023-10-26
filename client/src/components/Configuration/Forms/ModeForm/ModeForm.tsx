@@ -5,6 +5,7 @@ import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
 import ModalDisplay from '../../../Modal/ModalDisplay';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import HOST from '../../../../utils/env';
 
 interface ModeData {
     name: string;
@@ -47,7 +48,7 @@ const ModeForm = () => {
     const handleSave = async () => {
 
         const res = await fetch(
-            `http://localhost:8000/api/modes`,
+            `${HOST}api/modes`,
             {
                 method: 'POST',
                 headers: {

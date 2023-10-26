@@ -1,4 +1,3 @@
-
 import AccessControlScanner from '../../components/AccessControlScanner/AccessControlScanner';
 import styles from './AccessControl.module.css';
 const AccessControl = () => {

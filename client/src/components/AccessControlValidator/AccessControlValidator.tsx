@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { FcHighPriority } from 'react-icons/fc';
 import { FcCheckmark } from 'react-icons/fc';
 import { useNavigate } from 'react-router-dom';
+import HOST from '../../utils/env';
 
 type Props = {
     paramsURL: string;
@@ -16,12 +17,11 @@ const AccessControlValidator = ({ paramsURL }: Props) => {
 
     useEffect(() => {
         const attendanceRecord = async () => {
-            const resp = await fetch(`http://localhost:8000/api/events/attendance/${paramsURL}`, {
+            const resp = await fetch(`${HOST}api/events/attendance/${paramsURL}`, {
                 method: 'PUT'
             });
             
             const data = await resp.json();
-            console.log('mesg sta', message, resp.status);
             
             if(!resp.ok) {
                 setStatus(false);
@@ -34,7 +34,7 @@ const AccessControlValidator = ({ paramsURL }: Props) => {
         attendanceRecord();
     }, []);
 
-    const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         navigate('/accesscontrol');
     };

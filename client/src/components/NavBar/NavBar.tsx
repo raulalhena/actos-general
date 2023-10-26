@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './Navbar.module.css';
+import styles from './NavBar.module.css';
 import Logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';

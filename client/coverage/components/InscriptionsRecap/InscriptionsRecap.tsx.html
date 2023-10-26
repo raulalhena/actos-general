@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.71% </span>
+                <span class="strong">8.81% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/218</span>
+                <span class='fraction'>20/227</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.71% </span>
+                <span class="strong">8.81% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/218</span>
+                <span class='fraction'>20/227</span>
             </div>
         
             
@@ -281,7 +281,16 @@
 <a name='L216'></a><a href='#L216'>216</a>
 <a name='L217'></a><a href='#L217'>217</a>
 <a name='L218'></a><a href='#L218'>218</a>
-<a name='L219'></a><a href='#L219'>219</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -298,6 +307,15 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -504,31 +522,32 @@ import { useEffect, useState } from 'react';
 import styles from './InscriptionsRecap.module.css';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import { RiFileDownloadFill, RiWhatsappFill } from 'react-icons/ri';
+import { RiFileDownloadFill } from 'react-icons/ri';
 import { FaUserCheck } from 'react-icons/fa';
-import { EventFormProps } from '../../interfaces/eventFormProps';
-import { User } from '../../interfaces/User';
 import Preloader from '../Preloader/Preloader';
+import { SubmittedUser } from '../../interfaces/SubmittedUser';
+import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
+import HOST from '../../utils/env';
 &nbsp;
 interface InscriptionsRecapProps {
-    eventData: EventFormProps;
-    createPDF: () =&gt; void;
+  eventData: EventDashboardFormProps;
+  createPDF: () =&gt; void;
 }
 &nbsp;
 const InscriptionsRecap = <span class="fstat-no" title="function not covered" >({ eventData }: InscriptionsRecapProps) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    const [ isModalOpen, setIsModalOpen ] = useState(false);</span>
 <span class="cstat-no" title="statement not covered" >    const [ isLoading, setIsLoading ] = useState(true);</span>
 <span class="cstat-no" title="statement not covered" >    const [ modalTitle, setModalTitle ] = useState('');</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    // const [ users, setUsers ] = useState&lt;Array&lt;User&gt;&gt;([]);</span>
-<span class="cstat-no" title="statement not covered" >    const [ users, setUsers ] = useState&lt;Array&lt;User&gt;&gt;([</span>
+<span class="cstat-no" title="statement not covered" >    const [ users, setUsers ] = useState&lt;Array&lt;SubmittedUser&gt;&gt;([</span>
 <span class="cstat-no" title="statement not covered" >        {</span>
-<span class="cstat-no" title="statement not covered" >            id: '',</span>
+<span class="cstat-no" title="statement not covered" >            _id: '',</span>
 <span class="cstat-no" title="statement not covered" >            name: '',</span>
 <span class="cstat-no" title="statement not covered" >            surname: '',</span>
 <span class="cstat-no" title="statement not covered" >            email: '',</span>
 <span class="cstat-no" title="statement not covered" >            role: '',</span>
 <span class="cstat-no" title="statement not covered" >            token: '',</span>
+<span class="cstat-no" title="statement not covered" >            qrUser: '',</span>
+<span class="cstat-no" title="statement not covered" >            userId: null,</span>
 <span class="cstat-no" title="statement not covered" >        },</span>
 <span class="cstat-no" title="statement not covered" >    ]);</span>
 <span class="cstat-no" title="statement not covered" ></span>
@@ -539,14 +558,18 @@ const InscriptionsRecap = <span class="fstat-no" title="function not covered" >(
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    let totalSubmitted = 0;</span>
 <span class="cstat-no" title="statement not covered" >    let totalSubmittedOnline = 0;</span>
-<span class="cstat-no" title="statement not covered" >    const modeInfo = {};</span>
+<span class="cstat-no" title="statement not covered" >    const modeInfo = {</span>
+<span class="cstat-no" title="statement not covered" >        totalSubmitted: 0,</span>
+<span class="cstat-no" title="statement not covered" >        capacity: 0,</span>
+<span class="cstat-no" title="statement not covered" >        mode: ''</span>
+<span class="cstat-no" title="statement not covered" >    };</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    if (eventData.mode === 'Presencial') {</span>
-<span class="cstat-no" title="statement not covered" >        modeInfo.totalSubmitted = eventData.submitted.length;</span>
+<span class="cstat-no" title="statement not covered" >        modeInfo.totalSubmitted = eventData?.submitted.length | 0;</span>
 <span class="cstat-no" title="statement not covered" >        modeInfo.capacity = eventData.capacity;</span>
 <span class="cstat-no" title="statement not covered" >        modeInfo.mode = eventData.mode;</span>
 <span class="cstat-no" title="statement not covered" >    } else if (eventData.mode === 'En Línea') {</span>
-<span class="cstat-no" title="statement not covered" >        modeInfo.totalSubmitted = eventData.submittedOnline.length;</span>
+<span class="cstat-no" title="statement not covered" >        modeInfo.totalSubmitted = eventData?.submittedOnline.length | 0;</span>
 <span class="cstat-no" title="statement not covered" >        modeInfo.capacity = eventData.capacityOnline;</span>
 <span class="cstat-no" title="statement not covered" >        modeInfo.mode = eventData.mode;</span>
 <span class="cstat-no" title="statement not covered" >    } else if (eventData.mode === 'Híbrido') {</span>
@@ -567,7 +590,7 @@ const InscriptionsRecap = <span class="fstat-no" title="function not covered" >(
 <span class="cstat-no" title="statement not covered" >    useEffect(() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        const getAllEvents = async () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >            const respo = await fetch(</span>
-<span class="cstat-no" title="statement not covered" >                `http://localhost:8000/api/events/${submittedProps.id}/submitted/?mode=${submittedProps.mode}`</span>
+<span class="cstat-no" title="statement not covered" >                `${HOST}api/events/${submittedProps.id}/submitted/?mode=${submittedProps.mode}`</span>
 <span class="cstat-no" title="statement not covered" >            );</span>
 <span class="cstat-no" title="statement not covered" >            const eventsData = await respo.json();</span>
 <span class="cstat-no" title="statement not covered" ></span>
@@ -594,30 +617,33 @@ const InscriptionsRecap = <span class="fstat-no" title="function not covered" >(
 <span class="cstat-no" title="statement not covered" >                        &lt;&gt;</span>
 <span class="cstat-no" title="statement not covered" >                            &lt;div</span>
 <span class="cstat-no" title="statement not covered" >                                onClick={() =&gt; openModal('Presencial')}</span>
+<span class="cstat-no" title="statement not covered" >                                className={styles.textLink}</span>
 <span class="cstat-no" title="statement not covered" >                            &gt;</span>
 <span class="cstat-no" title="statement not covered" >                                {totalSubmitted}/</span>
-<span class="cstat-no" title="statement not covered" >                                {eventData.capacity || eventData.capacity === '0'</span>
+<span class="cstat-no" title="statement not covered" >                                {eventData.capacity || eventData.capacity === 0</span>
 <span class="cstat-no" title="statement not covered" >                                    ? eventData.capacity + ' '</span>
 <span class="cstat-no" title="statement not covered" >                                    : '- '}</span>
-<span class="cstat-no" title="statement not covered" >                Usuarios Inscritos Presencial</span>
+<span class="cstat-no" title="statement not covered" >                                    Usuarios Inscritos Presencial</span>
 <span class="cstat-no" title="statement not covered" >                            &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                            &lt;div className={styles.divider}&gt;|&lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                            &lt;div</span>
 <span class="cstat-no" title="statement not covered" >                                onClick={() =&gt; openModal('Presencial')}</span>
+<span class="cstat-no" title="statement not covered" >                                className={styles.textLink}</span>
 <span class="cstat-no" title="statement not covered" >                            &gt;</span>
 <span class="cstat-no" title="statement not covered" >                                {totalSubmittedOnline}/</span>
-<span class="cstat-no" title="statement not covered" >                                {eventData.capacityOnline || eventData.capacityOnline === '0'</span>
+<span class="cstat-no" title="statement not covered" >                                {eventData.capacityOnline || eventData.capacityOnline === 0</span>
 <span class="cstat-no" title="statement not covered" >                                    ? eventData.capacityOnline + ' '</span>
 <span class="cstat-no" title="statement not covered" >                                    : '- '}</span>
-<span class="cstat-no" title="statement not covered" >                Usuarios Inscritos En Línea</span>
+<span class="cstat-no" title="statement not covered" >                                        Usuarios Inscritos En Línea</span>
 <span class="cstat-no" title="statement not covered" >                            &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;/&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    ) : (</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;div</span>
 <span class="cstat-no" title="statement not covered" >                            onClick={() =&gt; openModal(modeInfo.mode)}</span>
+<span class="cstat-no" title="statement not covered" >                            className={styles.textLink}</span>
 <span class="cstat-no" title="statement not covered" >                        &gt;</span>
 <span class="cstat-no" title="statement not covered" >                            {modeInfo.totalSubmitted}/</span>
-<span class="cstat-no" title="statement not covered" >                            {modeInfo.capacity || modeInfo.capacity === '0'</span>
+<span class="cstat-no" title="statement not covered" >                            {modeInfo.capacity || modeInfo.capacity === 0</span>
 <span class="cstat-no" title="statement not covered" >                                ? modeInfo.capacity + ' '</span>
 <span class="cstat-no" title="statement not covered" >                                : '- '}</span>
 <span class="cstat-no" title="statement not covered" >              Usuarios Inscritos {modeInfo.mode}</span>
@@ -647,17 +673,18 @@ const InscriptionsRecap = <span class="fstat-no" title="function not covered" >(
 <span class="cstat-no" title="statement not covered" >                    &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >                &lt;div className={styles.containerSection}&gt;</span>
+<span class="cstat-no" title="statement not covered" >                {/* &lt;div className={styles.containerSection}&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;RiWhatsappFill className={styles.inscriptionsIcon} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;a</span>
-<span class="cstat-no" title="statement not covered" >                        href={`http://web.whatsapp.com/send?text=${encodeURI(eventData.qrEvent)}`}</span>
+<span class="cstat-no" title="statement not covered" >                        href={`http://web.whatsapp.com/send?text=Hola, te comparto la información de nuestro evento!`}</span>
 <span class="cstat-no" title="statement not covered" >                        data-action="share/whatsapp/share"</span>
 <span class="cstat-no" title="statement not covered" >                        target="_blank"</span>
 <span class="cstat-no" title="statement not covered" >                    &gt;</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;div className={styles.pdfButton}&gt;</span>
-<span class="cstat-no" title="statement not covered" >            Comparte el QR por Whatsapp&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            Compartir Información en Whatsapp</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/a&gt;</span>
-<span class="cstat-no" title="statement not covered" >                &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;/div&gt; */}</span>
 <span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >            &lt;div className={styles.modalPage}&gt;</span>
@@ -695,7 +722,7 @@ const InscriptionsRecap = <span class="fstat-no" title="function not covered" >(
 <span class="cstat-no" title="statement not covered" >                            &lt;div&gt;{isLoading &amp;&amp; &lt;Preloader /&gt;}&lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >                            &lt;div className={styles.eventList}&gt;</span>
 <span class="cstat-no" title="statement not covered" >                                {users &amp;&amp;</span>
-<span class="cstat-no" title="statement not covered" >                  users.map((user: User, index: number) =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >                  users.map((user: SubmittedUser, index: number) =&gt; (</span>
 <span class="cstat-no" title="statement not covered" >                      &lt;div key={index}&gt;</span>
 <span class="cstat-no" title="statement not covered" >                          &lt;div className={styles.eventItem}&gt;</span>
 <span class="cstat-no" title="statement not covered" >                              &lt;h2 className={styles.pModal} id={user?.userId?._id}&gt;</span>
@@ -724,7 +751,7 @@ export default InscriptionsRecap;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-10-08T13:42:02.074Z
+                at 2023-10-09T07:27:39.992Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

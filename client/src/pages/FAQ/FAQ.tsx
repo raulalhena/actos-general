@@ -27,9 +27,9 @@ const FAQ = () => {
         },
     ];
 
-    const [ expandedIndex, setExpandedIndex ] = useState(null);
+    const [ expandedIndex, setExpandedIndex ] = useState<number | null>(null);
 
-    const handleToggleFAQ = (index) => {
+    const handleToggleFAQ = (index: number) => {
         if (expandedIndex === index) {
             setExpandedIndex(null);
         } else {

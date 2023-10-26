@@ -3,31 +3,32 @@ import { useEffect, useState } from 'react';
 import styles from './InscriptionsRecap.module.css';
 import { QRtoPDFDocument } from '../../components/QRtoPDFDocument/QRtoPDFDocument';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import { RiFileDownloadFill, RiWhatsappFill } from 'react-icons/ri';
+import { RiFileDownloadFill } from 'react-icons/ri';
 import { FaUserCheck } from 'react-icons/fa';
-import { EventFormProps } from '../../interfaces/eventFormProps';
-import { User } from '../../interfaces/User';
 import Preloader from '../Preloader/Preloader';
+import { SubmittedUser } from '../../interfaces/SubmittedUser';
+import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
+import HOST from '../../utils/env';
 
 interface InscriptionsRecapProps {
-    eventData: EventFormProps;
-    createPDF: () => void;
+  eventData: EventDashboardFormProps;
+  createPDF: () => void;
 }
 
 const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
     const [ isModalOpen, setIsModalOpen ] = useState(false);
     const [ isLoading, setIsLoading ] = useState(true);
     const [ modalTitle, setModalTitle ] = useState('');
-
-    // const [ users, setUsers ] = useState<Array<User>>([]);
-    const [ users, setUsers ] = useState<Array<User>>([
+    const [ users, setUsers ] = useState<Array<SubmittedUser>>([
         {
-            id: '',
+            _id: '',
             name: '',
             surname: '',
             email: '',
             role: '',
             token: '',
+            qrUser: '',
+            userId: null,
         },
     ]);
 
@@ -38,14 +39,18 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
 
     let totalSubmitted = 0;
     let totalSubmittedOnline = 0;
-    const modeInfo = {};
+    const modeInfo = {
+        totalSubmitted: 0,
+        capacity: 0,
+        mode: ''
+    };
 
     if (eventData.mode === 'Presencial') {
-        modeInfo.totalSubmitted = eventData.submitted.length;
+        modeInfo.totalSubmitted = eventData?.submitted.length | 0;
         modeInfo.capacity = eventData.capacity;
         modeInfo.mode = eventData.mode;
     } else if (eventData.mode === 'En Línea') {
-        modeInfo.totalSubmitted = eventData.submittedOnline.length;
+        modeInfo.totalSubmitted = eventData?.submittedOnline.length | 0;
         modeInfo.capacity = eventData.capacityOnline;
         modeInfo.mode = eventData.mode;
     } else if (eventData.mode === 'Híbrido') {
@@ -66,7 +71,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
     useEffect(() => {
         const getAllEvents = async () => {
             const respo = await fetch(
-                `http://localhost:8000/api/events/${submittedProps.id}/submitted/?mode=${submittedProps.mode}`
+                `${HOST}api/events/${submittedProps.id}/submitted/?mode=${submittedProps.mode}`
             );
             const eventsData = await respo.json();
 
@@ -96,7 +101,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                                 className={styles.textLink}
                             >
                                 {totalSubmitted}/
-                                {eventData.capacity || eventData.capacity === '0'
+                                {eventData.capacity || eventData.capacity === 0
                                     ? eventData.capacity + ' '
                                     : '- '}
                                     Usuarios Inscritos Presencial
@@ -107,7 +112,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                                 className={styles.textLink}
                             >
                                 {totalSubmittedOnline}/
-                                {eventData.capacityOnline || eventData.capacityOnline === '0'
+                                {eventData.capacityOnline || eventData.capacityOnline === 0
                                     ? eventData.capacityOnline + ' '
                                     : '- '}
                                         Usuarios Inscritos En Línea
@@ -119,7 +124,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                             className={styles.textLink}
                         >
                             {modeInfo.totalSubmitted}/
-                            {modeInfo.capacity || modeInfo.capacity === '0'
+                            {modeInfo.capacity || modeInfo.capacity === 0
                                 ? modeInfo.capacity + ' '
                                 : '- '}
               Usuarios Inscritos {modeInfo.mode}
@@ -149,7 +154,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                     </div>
                 </div>
 
-                <div className={styles.containerSection}>
+                {/* <div className={styles.containerSection}>
                     <RiWhatsappFill className={styles.inscriptionsIcon} />
                     <a
                         href={`http://web.whatsapp.com/send?text=Hola, te comparto la información de nuestro evento!`}
@@ -160,7 +165,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                             Compartir Información en Whatsapp
                         </div>
                     </a>
-                </div>
+                </div> */}
             </div>
 
             <div className={styles.modalPage}>
@@ -198,7 +203,7 @@ const InscriptionsRecap = ({ eventData }: InscriptionsRecapProps) => {
                             <div>{isLoading && <Preloader />}</div>
                             <div className={styles.eventList}>
                                 {users &&
-                  users.map((user: User, index: number) => (
+                  users.map((user: SubmittedUser, index: number) => (
                       <div key={index}>
                           <div className={styles.eventItem}>
                               <h2 className={styles.pModal} id={user?.userId?._id}>

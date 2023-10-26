@@ -1,9 +1,9 @@
 import { Document, Image, Page, View, Text } from '@react-pdf/renderer';
-import { EventFormProps } from '../../interfaces/eventFormProps';
+import { EventDashboardFormProps } from '../../interfaces/eventDashboardFormProps';
 
 type Props = {
-    qrImg: Blob;
-    eventData: EventFormProps;
+    qrImg: string | undefined;
+    eventData: EventDashboardFormProps;
 }
 
 export const QRtoPDFDocument = ({ eventData, qrImg }: Props) => {

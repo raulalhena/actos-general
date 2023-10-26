@@ -5,6 +5,7 @@ import ButtonSubmit from '../../../Button/ButtonSubmit/ButtonSubmit';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ModalDisplay from '../../../Modal/ModalDisplay';
+import HOST from '../../../../utils/env';
 
 interface TimeZoneData {
     name: string;
@@ -47,7 +48,7 @@ const TimeZoneForm = () => {
     const handleSave = async () => {
 
         const res = await fetch(
-            `http://localhost:8000/api/timezones`,
+            `${HOST}api/timezones`,
             {
                 method: 'POST',
                 headers: {

@@ -1,8 +1,8 @@
 export interface User {
-    id: string | null;
+    _id: string | undefined;
     name: string | null;
     email: string | null;
     surname: string | null;
-    role: string | null;
+    role: string;
     token: string | null;
 }

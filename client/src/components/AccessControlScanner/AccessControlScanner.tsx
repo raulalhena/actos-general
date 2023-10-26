@@ -19,7 +19,7 @@ const AccessControlScanner = () => {
         width: 400
     };
 
-    const handleScan = (data) => {
+    const handleScan = (data: string) => {
         if(data !== null){
             setParamsURL(data);
             setQrReader(false);
@@ -27,7 +27,7 @@ const AccessControlScanner = () => {
         
     };
 
-    const handleError = (err) => {
+    const handleError = (err: Error) => {
         console.error(err);
     };
 
